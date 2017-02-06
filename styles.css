@@ -7,4 +7,10 @@ h1, h2, h3, h4, h5, h6, #site-title {
 #Ian-photo {
   max-width: 360px; }
 
+#portfolio {
+  margin-top: 20px;
+  border-top: 1px solid #254E96;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #254E96; }
+
 /*# sourceMappingURL=styles.css.map */
