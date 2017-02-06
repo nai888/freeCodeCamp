@@ -1,0 +1,18 @@
+$Blue: #254E96;
+$LBlue: #5C8DE3;
+$Red: #E88575;
+$Green: #8DB036;
+$BodyFont: 'Source Sans Pro', sans-serif;
+$HeaderFont: 'Cabin', sans-serif;
+
+body {
+	font-family: $BodyFont;
+}
+
+h1, h2, h3, h4, h5, h6, #site-title {
+	font-family: $HeaderFont;
+}
+
+#Ian-photo {
+	max-width: 360px;
+}

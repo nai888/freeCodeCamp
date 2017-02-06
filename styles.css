@@ -1,12 +1,10 @@
-/*
-	Primary Blue: #254E96;
-	Light Blue: #5C8DE3;
-	Red: #E88575;
-	Green: #8DB036;
-*/
 body {
-	font-family: 'Source Sans Pro', sans-serif;
-}
+  font-family: "Source Sans Pro", sans-serif; }
+
 h1, h2, h3, h4, h5, h6, #site-title {
-	font-family: 'Cabin', sans-serif;
-}
+  font-family: "Cabin", sans-serif; }
+
+#Ian-photo {
+  max-width: 360px; }
+
+/*# sourceMappingURL=styles.css.map */
