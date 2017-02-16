@@ -1,9 +1,21 @@
-# freeCodeCamp: Build a Tribute Page
-## Project #1 from the freeCodeCamp front-end development course
-### Objectives:
-1. Build a tribute page that is functionally similar to [this one](https://codepen.io/FreeCodeCamp/full/NNvBQW/).
-2. Fulfill the user stories, using whichever libraries necessary and adding personal style.
-  * **User Story:** I can view a tribute page with an image and text.
-  * **User Story:** I can click on a link that will take me to an external website with further information on the topic.
+# freeCodeCamp
 
-https://nai888.github.io/freeCodeCamp-Build-a-Tribute-Page/
+## Ian A. Cook
+
+This repository represents my school, my sandbox, my playpen. I'll be adding my projects from [freeCodeCamp](https://www.freecodecamp.com) here as I work through them. Some of these projects will be high quality, finished products. Other projects will be incomplete, exploratory, and experimental. All of them represent my learning journey as I gain knowledge and proficiency in coding. I will add each of my projects below with a link to view them.
+
+## 1 Tribute Page
+
+<https://nai888.github.io/freeCodeCamp/01-Tribute-Page/>
+
+## 2 Personal Portfolio Webpage
+
+<https://nai888.github.io/freeCodeCamp/02-Personal-Portfolio-Webpage/>
+
+## 3 Random Quote Machine
+
+<https://nai888.github.io/freeCodeCamp/03-Random-Quote-Machine/>
+
+## 4 Show the Local Weather
+
+<https://nai888.github.io/freeCodeCamp/04-Show-the-Local-Weather/>

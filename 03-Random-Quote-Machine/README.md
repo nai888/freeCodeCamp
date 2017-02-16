@@ -10,4 +10,4 @@
   - **User Story:** I can click a button to show me a new random quote.
   - **User Story:** I can press a button to tweet out a quote.
 
-<https://nai888.github.io/freeCodeCamp-Random-Quote-Machine/>
+<https://nai888.github.io/freeCodeCamp/03-Random-Quote-Machine/>
