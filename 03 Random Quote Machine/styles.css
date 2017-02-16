@@ -1,0 +1,33 @@
+body {
+  background-color: #DDDDDD;
+  font-family: "Amiko", sans-serif;
+}
+
+header {
+  background-color: #DDDDDD;
+  background: -webkit-linear-gradient(270deg, rgba(221, 221, 221, 0.9), rgba(221, 221, 221, 0));
+  background: linear-gradient(180deg, rgba(221, 221, 221, 0.9), rgba(221, 221, 221, 0));
+}
+
+.quote-box {
+  max-width: 98%;
+  max-width: 520px;
+  background-color: white;
+  padding: 30px;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+
+.button {
+  background-color: #DDDDDD;
+  display: block;
+}
+.button#tweet-quote {
+  float: left;
+}
+.button#new-quote {
+  float: right;
+}
+.button:hover {
+  opacity: 0.9;
+}

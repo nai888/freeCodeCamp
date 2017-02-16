@@ -1,0 +1,40 @@
+$FontFamily: 'Amiko', sans-serif;
+$Gray: #DDDDDD;
+$TranslGray: rgba($Gray, 0.9);
+$TranspGray: rgba($Gray, 0);
+
+body {
+    background-color: $Gray;
+    font-family: $FontFamily;
+}
+
+header {
+    background-color: $Gray;
+    background: linear-gradient(180deg, $TranslGray, $TranspGray);
+}
+
+.quote-box {
+    max-width: 98%;
+    max-width: 520px;
+    background-color: white;
+    padding: 30px;
+    margin: 20px auto;
+    border-radius: 10px;
+}
+
+.button {
+    background-color: $Gray;
+    display: block;
+
+    &#tweet-quote {
+        float: left;
+    }
+
+    &#new-quote {
+        float: right;
+    }
+
+    &:hover {
+        opacity: 0.9;
+    }
+}
