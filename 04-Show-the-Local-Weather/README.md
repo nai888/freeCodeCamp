@@ -1,4 +1,4 @@
-# freeCodeCamp: Random Quote Machine
+# freeCodeCamp: Show the Local Weather
 
 ## Project #4 from the freeCodeCamp front-end development course
 
