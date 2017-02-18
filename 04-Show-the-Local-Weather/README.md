@@ -4,7 +4,7 @@
 
 ### Objectives:
 
-1. Build a random quote machine that is functionally similar to [this one](http://codepen.io/FreeCodeCamp/full/bELRjV).
+1. Build local weather app that is functionally similar to [this one](http://codepen.io/FreeCodeCamp/full/bELRjV).
 2. Fulfill the user stories, using whichever libraries necessary and adding personal style.
 
   - **User Story:** I can see the weather in my current location.
