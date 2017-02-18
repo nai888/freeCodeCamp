@@ -1,3 +1,4 @@
+var colors = [];
 var currentLocation = "";
 var currentTemperatureF = 32;
 var currentTemperatureC = 0
