@@ -24,17 +24,20 @@
 <body>
     <div class="container">
         <header>
-            <div class="header">
+            <div class="header text-center">
                 <h1 class="title">Weather App</h1>
-                <h2 class="location">Location</h2>
             </div>
         </header>
         <main>
-            <div class="weather"></div>
+            <div class="weatherbox text-center center-block well">
+                <h2 class="location">Location</h2>
+                <h3 id="temperature"><span id="temp"></span> &deg; <span id="system"></span></h3>
+                <button id="toggle" class="btn btn-default">&deg; C / &deg; F</button>
+            </div>
         </main>
         <footer>
             <div class="footer-content">
-                <p class="text-center">Copyright &copy; 2017 by <a href="https://www.freecodecamp.com/nai888" target="_blank">Ian A. Cook</a>.</p>
+                <p class="text-center">Copyright &copy; 2017 by <a href="https://www.freecodecamp.com/nai888" target="_blank">Ian A. Cook</a>. Weather data from <a href="https://www.apixu.com" target="_blank">Apixu</a>.</p>
             </div>
         </footer>
     </div>
