@@ -1,4 +1,4 @@
-var colors = [];
+var colors = []; // Possible colors: ["#F0F5FF", "#D0FBF2", "#D5FFD1", "#FFECA8", "#FCB0AC"]
 var currentLocation = "";
 var currentTemperatureF = 32;
 var currentTemperatureC = 0
