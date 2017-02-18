@@ -1,47 +1,56 @@
-var colors = []; // Possible colors: ["#F0F5FF", "#D0FBF2", "#D5FFD1", "#FFECA8", "#FCB0AC"]
+var myLocation = {};
 var currentLocation = "";
-var currentTemperatureF = 32;
-var currentTemperatureC = 0
+var myWeather = {};
+var temp = 0;
 var system = "F";
-var temp = currentTemperatureF;
-
-function backgroundColor() {
-    var color = 0;
-    if (currentTemperatureF <= 0) {
-        color = 0;
-    } else if (currentTemperatureF <= 32) {
-        color = 1;
-    } else if (currentTemperatureF <= 64) {
-        color = 2;
-    } else if (currentTemperatureF <= 96) {
-        color = 3;
-    } else {
-        color = 4;
-    }
-    $("body").css("backgroundColor", colors[color]);
-}
+var condition = "";
+var icon = "";
 
 function printDegs() {
     $("#temp").text(temp);
     $("#system").text(system);
 }
 
+function printLoc() {
+    currentLocation = myLocation.name + ", " + myLocation.region;
+    $("#location").text(currentLocation);
+}
+
 function switchSystems() {
-    switch (system) {
-        case "F":
-            temp = currentTemperatureC;
-            system = "C";
-            break;
-        case "C":
-            temp = currentTemperatureF;
-            system = "F";
-            break;
+    if (system === "F") {
+        system = "C";
+        temp = myWeather.cels;
+    } else if (system === "C") {
+        system = "F";
+        temp = myWeather.fahr;
     }
     $("#temperature").fadeOut(200, printDegs).fadeIn(200);
 }
 
 $(document).ready(function() {
-    backgroundColor();
-    printDegs();
-    $("#toggle").click(switchSystems);
+    // Requests access for location data
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            // Assigns latitude and longitude as properties to object myLocation
+            myLocation.lat = position.coords.latitude;
+            myLocation.long = position.coords.longitude;
+            // API call to Apixu using the gathered latitude and longitude data, and assign the response to var data
+            $.getJSON("https://api.apixu.com/v1/current.json?key=6ffa29a58b6d4a32937231310171702&q=" + myLocation.lat + "," + myLocation.long, function(json) {
+                myLocation.name = json.location.name;
+                myLocation.region = json.location.region;
+                myWeather.fahr = json.current.temp_f;
+                myWeather.cels = json.current.temp_c;
+                temp = myWeather.fahr;
+                printLoc();
+                printDegs();
+                icon = json.current.condition.icon;
+                condition = json.current.condition.text;
+                $("#icon").attr("src", "http:" + icon);
+                $("#condition").text(condition);
+                $("#toggle").click(switchSystems);
+            });
+        });
+    } else {
+        $("#location").text("Location data unavailable");
+    }
 });
