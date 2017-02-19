@@ -12,3 +12,5 @@
   - **User Story:** I can push a button to toggle between Fahrenheit and Celsius.
 
 <https://nai888.github.io/freeCodeCamp/04-Show-the-Local-Weather/>
+
+Licensed under the GNU Affero General Public License v3.0
