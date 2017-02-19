@@ -1,0 +1,39 @@
+$color-prim: #236267; // Blue
+$color-prim-lst: #79999C;
+$color-prim-ler: #497B80;
+$color-prim-der: #09494F;
+$color-prim-dst: #002F33;
+$color-sec1: #AA8639; // Yellow
+$color-sec1-lst: #FFECC5;
+$color-sec1-ler: #D2B477;
+$color-sec1-der: #825D0D;
+$color-sec1-dst: #553900;
+$color-sec2: #AA3E39; // Red
+$color-sec2-lst: #FFC8C5;
+$color-sec2-ler: #D27B77;
+$color-sec2-der: #82130D;
+$color-sec2-dst: #550400;
+$color-comp: #AA6E39; // Orange
+$color-comp-lst: #FFE0C5;
+$color-comp-ler: #D2A277;
+$color-comp-der: #82440D;
+$color-comp-dst: #552800;
+$Fontstack: 'Radley', serif;
+
+body {
+    font-family: $Fontstack;
+    background-color: $color-prim-dst;
+    color: $color-prim-lst;
+}
+
+a {
+    &:link,
+    &:visited {
+        color: $color-sec1-ler;
+    }
+
+    &:active,
+    &:hover {
+        color: $color-sec1-lst;
+    }
+}

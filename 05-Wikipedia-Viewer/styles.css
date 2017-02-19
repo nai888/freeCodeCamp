@@ -1,3 +1,12 @@
 body {
-    font-family: sans-serif;
+  font-family: "Radley", serif;
+  background-color: #002F33;
+  color: #79999C;
+}
+
+a:link, a:visited {
+  color: #D2B477;
+}
+a:active, a:hover {
+  color: #FFECC5;
 }
