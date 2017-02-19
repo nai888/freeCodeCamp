@@ -11,3 +11,5 @@
   - **User Story:** I can click a button to see a random Wikipedia entry.
 
 <https://nai888.github.io/freeCodeCamp/05-Wikipedia-Viewer/>
+
+Licensed under the GNU Affero General Public License v3.0
