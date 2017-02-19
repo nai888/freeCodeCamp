@@ -11,3 +11,5 @@
   - **User Story:** I can press a button to tweet out a quote.
 
 <https://nai888.github.io/freeCodeCamp/03-Random-Quote-Machine/>
+
+Licensed under the GNU Affero General Public License v3.0
