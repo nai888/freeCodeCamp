@@ -4,9 +4,21 @@ body {
   color: #79999C;
 }
 
-a:link, a:visited {
+a:active, a:hover, a:link, a:visited {
   color: #D2B477;
 }
-a:active, a:hover {
-  color: #FFECC5;
+
+.btn {
+  border: 3px solid #AA3E39;
+  color: #AA3E39;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.btn:active, .btn:hover, .btn:link, .btn:visited {
+  color: #AA3E39;
+  border-color: #AA3E39;
+}
+.btn#random {
+  background-color: rgba(0, 47, 51, 0);
 }

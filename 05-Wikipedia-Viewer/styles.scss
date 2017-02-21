@@ -27,13 +27,30 @@ body {
 }
 
 a {
+    &:active,
+    &:hover,
     &:link,
     &:visited {
         color: $color-sec1-ler;
     }
+}
+
+.btn {
+    border: 3px solid $color-sec2;
+    color: $color-sec2;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
 
     &:active,
-    &:hover {
-        color: $color-sec1-lst;
+    &:hover,
+    &:link,
+    &:visited {
+        color: $color-sec2;
+        border-color: $color-sec2;
+    }
+
+    &#random {
+        background-color: rgba($color-prim-dst, 0);
     }
 }
