@@ -27,8 +27,14 @@
             <h1 class="text-center">Search Wikipedia</h1>
         </header>
         <main>
-            <div class="text-center">
-                <button id="random" class="btn btn-default">Random Article</button>
+            <div id="action-area" class="text-center">
+                <div>
+                    <form id="query-form">
+                        <input type="search" name="query" id="query" class="text-center">
+                    </form>&nbsp;<button id="close" class="btn btn-no-border" aria-label="Close search"><i class="fa fa-times" aria-hidden="true" title="Close"></i></button>&nbsp;<button name="submit" id="search" class="btn btn-no-border" aria-label="Search"><i class="fa fa-search" aria-hidden="true" title="Search"></i></button></div>
+                <button id="random" class="btn btn-default" title="Random Article"><i class="fa fa-random fa-fw" aria-hidden="true"></i> Random Article</button>
+            </div>
+            <div id="results">
             </div>
         </main>
         <footer>

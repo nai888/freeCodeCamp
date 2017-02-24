@@ -1,23 +1,23 @@
-$color-prim: #236267; // Blue
-$color-prim-lst: #79999C;
-$color-prim-ler: #497B80;
-$color-prim-der: #09494F;
-$color-prim-dst: #002F33;
-$color-sec1: #AA8639; // Yellow
-$color-sec1-lst: #FFECC5;
-$color-sec1-ler: #D2B477;
-$color-sec1-der: #825D0D;
-$color-sec1-dst: #553900;
-$color-sec2: #AA3E39; // Red
-$color-sec2-lst: #FFC8C5;
-$color-sec2-ler: #D27B77;
-$color-sec2-der: #82130D;
-$color-sec2-dst: #550400;
-$color-comp: #AA6E39; // Orange
-$color-comp-lst: #FFE0C5;
-$color-comp-ler: #D2A277;
-$color-comp-der: #82440D;
-$color-comp-dst: #552800;
+$color-prim: #1D878C; // Blue
+$color-prim-lst: #E3E9E9;
+$color-prim-ler: #5FABAE;
+$color-prim-der: #016065;
+$color-prim-dst: #00282A;
+$color-sec1: #E8BB2F; // Yellow
+$color-sec1-lst: #FFFDF8;
+$color-sec1-ler: #FFE28B;
+$color-sec1-der: #A77E00;
+$color-sec1-dst: #453400;
+$color-sec2: #D22A57; // Red
+$color-sec2-lst: #FAF3F5;
+$color-sec2-ler: #EC809D;
+$color-sec2-der: #970029;
+$color-sec2-dst: #3F0011;
+$color-comp: #E8842F; // Orange
+$color-comp-lst: #FFFBF8;
+$color-comp-ler: #FFC08B;
+$color-comp-der: #A74D00;
+$color-comp-dst: #452000;
 $Fontstack: 'Radley', serif;
 
 body {
@@ -31,7 +31,7 @@ a {
     &:hover,
     &:link,
     &:visited {
-        color: $color-sec1-ler;
+        color: $color-sec1;
     }
 }
 
@@ -50,7 +50,38 @@ a {
         border-color: $color-sec2;
     }
 
-    &#random {
-        background-color: rgba($color-prim-dst, 0);
+    &#random,
+    &.btn-no-border {
+        background-color: $color-prim-dst;
+        background-color: transparent;
     }
+
+    &.btn-no-border {
+        border: none;
+        border-radius: 50%;
+    }
+}
+
+#query {
+    background-color: $color-prim-dst;
+    background-color: transparent;
+    border: 3px solid $color-sec2;
+    border-radius: 10px;
+    display: inline;
+}
+
+#close,
+#query {
+    display: none;
+}
+
+a:focus {
+    outline-color: $color-prim-ler;
+}
+
+#query:focus,
+#random:focus,
+.btn.btn-no-border:focus {
+    outline: 0 !important;
+    background-color: $color-prim-ler;
 }

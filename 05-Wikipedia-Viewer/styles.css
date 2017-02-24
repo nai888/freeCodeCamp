@@ -1,24 +1,53 @@
 body {
   font-family: "Radley", serif;
-  background-color: #002F33;
-  color: #79999C;
+  background-color: #00282A;
+  color: #E3E9E9;
 }
 
 a:active, a:hover, a:link, a:visited {
-  color: #D2B477;
+  color: #E8BB2F;
 }
 
 .btn {
-  border: 3px solid #AA3E39;
-  color: #AA3E39;
+  border: 3px solid #D22A57;
+  color: #D22A57;
   font-weight: bold;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 .btn:active, .btn:hover, .btn:link, .btn:visited {
-  color: #AA3E39;
-  border-color: #AA3E39;
+  color: #D22A57;
+  border-color: #D22A57;
 }
-.btn#random {
-  background-color: rgba(0, 47, 51, 0);
+.btn#random, .btn.btn-no-border {
+  background-color: #00282A;
+  background-color: transparent;
+}
+.btn.btn-no-border {
+  border: none;
+  border-radius: 50%;
+}
+
+#query {
+  background-color: #00282A;
+  background-color: transparent;
+  border: 3px solid #D22A57;
+  border-radius: 10px;
+  display: inline;
+}
+
+#close,
+#query {
+  display: none;
+}
+
+a:focus {
+  outline-color: #5FABAE;
+}
+
+#query:focus,
+#random:focus,
+.btn.btn-no-border:focus {
+  outline: 0 !important;
+  background-color: #5FABAE;
 }
