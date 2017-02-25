@@ -11,6 +11,7 @@ This repository represents my school, my sandbox, my playpen. I'll be adding my 
 3. **[Random Quote Machine](https://nai888.github.io/freeCodeCamp/03-Random-Quote-Machine/)**
 4. **[Show the Local Weather](https://nai888.github.io/freeCodeCamp/04-Show-the-Local-Weather/)**
 5. **[Wikipedia Viewer](https://nai888.github.io/freeCodeCamp/05-Wikipedia-Viewer/)**
+6. **[Twitch.tv App](https://nai888.github.io/freeCodeCamp/06-Twitchtv-App/)**
 
 ### License
 
