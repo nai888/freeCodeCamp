@@ -37,7 +37,8 @@ a:active, a:hover, a:link, a:visited {
 }
 
 #close,
-#query {
+#query,
+#results {
   display: none;
 }
 
@@ -50,4 +51,18 @@ a:focus {
 .btn.btn-no-border:focus {
   outline: 0 !important;
   background-color: #5FABAE;
+}
+
+a.article-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.result {
+  padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #E3E9E9;
+  color: #00282A;
+  border-radius: 10px;
 }

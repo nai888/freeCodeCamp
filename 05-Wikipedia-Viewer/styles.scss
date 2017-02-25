@@ -71,7 +71,8 @@ a {
 }
 
 #close,
-#query {
+#query,
+#results {
     display: none;
 }
 
@@ -84,4 +85,18 @@ a:focus {
 .btn.btn-no-border:focus {
     outline: 0 !important;
     background-color: $color-prim-ler;
+}
+
+a.article-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.result {
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: $color-prim-lst;
+    color: $color-prim-dst;
+    border-radius: 10px;
 }

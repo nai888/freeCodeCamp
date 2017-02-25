@@ -59,31 +59,11 @@ function hoverColors() {
     });
 }
 
-var submitReady = false;
-var query = "";
-var data = {};
-
-function callAPI(x) {
-    var urlQuery = x.replace(/\s/g, "%20");
-    $.ajax({
-        url: "https://en.wikipedia.org/w/api.php",
-        dataType: "jsonp",
-        data: {
-            "action": "query",
-            "format": "json",
-            "prop": "revisions",
-            "generator": "search",
-            "rvprop": "content",
-            "gsrsearch": urlQuery,
-            "gsrnamespace": "0",
-            "gsrlimit": "15"
-        },
-        success: function(json) {
-            data = json.query.pages;
-            console.log(data);
-        }
-    });
+function randomArticle() {
+    window.open("https://en.wikipedia.org/wiki/Special:Random", "_blank");
 }
+
+var submitReady = false;
 
 function showSearch() {
     submitReady = true;
@@ -96,19 +76,64 @@ function showSearch() {
     });
 }
 
-function submitSearch() {
-    query = document.getElementById("query").value;
-    callAPI(query);
-}
-
 function hideSearch() {
     submitReady = false;
+    $("#query").val("");
     $("#close").toggle(400);
     $("#query").toggle(400);
 }
 
-function randomArticle() {
-    window.open("https://en.wikipedia.org/wiki/Special:Random", "_blank");
+var submitted = false;
+
+function submitSearch() {
+    var query = document.getElementById("query").value;
+    if (!submitted) {
+        callAPI(query);
+    } else if (submitted) {
+        $("#results").toggle(200).empty();
+        callAPI(query);
+    }
+    submitted = true;
+}
+
+function clearSearch() {
+    $("#results").toggle(400).empty();
+    hideSearch();
+    submitted = false;
+}
+
+var data = {};
+
+function callAPI(x) {
+    var urlQuery = x.replace(/\s/g, "%20");
+    $.ajax({
+        url: "https://en.wikipedia.org/w/api.php",
+        dataType: "jsonp",
+        data: {
+            "action": "query",
+            "format": "json",
+            "prop": "extracts",
+            "generator": "search",
+            "exchars": "500",
+            "exlimit": "15",
+            "exintro": 1,
+            "explaintext": 1,
+            "exsectionformat": "plain",
+            "gsrsearch": urlQuery,
+            "gsrnamespace": "0",
+            "gsrlimit": "15"
+        },
+        success: function(json) {
+            data = json.query.pages;
+            $.each(data, function(k, v) {
+                var pageID = v.pageid;
+                var title = v.title;
+                var extract = v.extract;
+                $("#results").append('<a class="article-link" href="https://en.wikipedia.org/?curid=' + pageID + '" target="blank"><div class="result"><h2 class="article-title">' + title + '</h2><p class="article-extract">' + extract + '</p></div></a>');
+            });
+            $("#results").toggle(400);
+        }
+    });
 }
 
 $(document).ready(function() {
@@ -125,6 +150,12 @@ $(document).ready(function() {
             submitSearch();
         }
     });
-    $("#close").click(hideSearch);
+    $("#close").click(function() {
+        if (!submitted) {
+            hideSearch();
+        } else if (submitted) {
+            clearSearch();
+        }
+    });
     $("#random").click(randomArticle);
 });
