@@ -1,3 +1,27 @@
 body {
-  background-color: #ddd;
+  font-family: "PT Sans", sans-serif;
+  color: #00883F;
+}
+
+header {
+  background-color: #00883F;
+  color: white;
+  border-bottom: 1px solid #005E2B;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+header a,
+header a:active,
+header a:hover,
+header a:link,
+header a:visited {
+  color: #C18300;
+}
+
+footer a,
+footer a:active,
+footer a:hover,
+footer a:link,
+footer a:visited {
+  color: #C18300;
 }
