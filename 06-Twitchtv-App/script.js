@@ -15,30 +15,40 @@ var colors = {
     }
 };
 var users = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas", "brunofin", "comster404"]
-var data = {};
+var data = {
+    streams: {},
+    users: {},
+    channels: {}
+};
 
 function getData() {
     function getURL(type, name) {
         return "https://wind-bow.gomix.me/twitch-api/" + type + "/" + name + "?callback=?";
     }
     $.each(users, function(index, value) {
-        $.getJSON(getURL("streams", value), function(json) {
-            data[value] = json.stream;
-            status = "";
-            if (data[value] !== null) {
-                status = "Online";
-            } else {
-                status = "Offline";
-            }
+        $.getJSON(getURL("streams", value), function(jsonStreams) {
+            data.streams[value] = jsonStreams.stream;
+            $.getJSON(getURL("users", value), function(jsonUsers) {
+                data.users[value] = jsonUsers;
+                $.getJSON(getURL("channels", value), function(jsonChannels) {
+                    data.channels[value] = jsonChannels;
+                    var status = "";
+                    if (data.streams[value] !== null) {
+                        status = "Online";
+                    } else {
+                        status = "Offline";
+                    }
 
-            function printStatus() {
-                if (status === "Online") {
-                    return "<b>" + status + ":</b> " + data[value]["game"];
-                } else {
-                    return status;
-                }
-            }
-            $("#status-box").append('<div class="stream" id="' + value + '"><h4><a href="https://www.twitch.tv/"' + value + '" target="_blank">' + value + '</a></h4><p>' + printStatus() + '</p></div>');
+                    function printStatus() {
+                        if (status === "Online") {
+                            return "<b>" + status + ":</b> " + data.streams[value]["game"];
+                        } else {
+                            return status;
+                        }
+                    }
+                    $("#status-box").append('<div class="stream" id="' + value + '"><h4><a href="https://www.twitch.tv/' + value + '" target="_blank">' + value + '</a></h4><p>' + printStatus() + '</p></div>');
+                });
+            });
         });
     });
     console.log(data);
