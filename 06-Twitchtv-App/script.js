@@ -42,9 +42,11 @@ function getData() {
 
                 function printStatus() {
                     if (status === "Online") {
-                        return "<b>" + status + ":</b> " + data.streams[value]["game"];
-                    } else {
-                        return status;
+                        return '<span class="status online">' + status + ':</span> ' + data.streams[value]["game"];
+                    } else if (status === "Offline") {
+                        return '<span class="status offline">' + status + '</span>';
+                    } else if (status === "User does not exist") {
+                        return '<span class="status nouser">' + status + '</span>';
                     }
                 }
 
