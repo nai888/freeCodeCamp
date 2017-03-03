@@ -15,28 +15,18 @@ body {
     color: $color-prim-main;
 }
 
+a,
+a:active,
+a:hover,
+a:link,
+a:visited {
+    color: $color-comp-main;
+}
+
 header {
     background-color: $color-prim-main;
     color: white;
     border-bottom: 1px solid $color-prim-der;
     padding-bottom: 10px;
     margin-bottom: 10px;
-
-    a,
-    a:active,
-    a:hover,
-    a:link,
-    a:visited {
-        color: $color-comp-main;
-    }
-}
-
-footer {
-    a,
-    a:active,
-    a:hover,
-    a:link,
-    a:visited {
-        color: $color-comp-main;
-    }
 }
