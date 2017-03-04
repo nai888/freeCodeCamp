@@ -31,39 +31,59 @@ function getData() {
                 data.users[value] = jsonUsers;
                 var status = "";
                 if (data.users[value].name === undefined) {
-                    status = "User does not exist"
+                    status = "nouser"
                 } else {
                     if (data.streams[value] !== null) {
-                        status = "Online";
+                        status = "online";
                     } else {
-                        status = "Offline";
+                        status = "offline";
                     }
                 }
 
                 function printStatus() {
-                    if (status === "Online") {
-                        return '<span class="status online">' + status + ':</span> ' + data.streams[value]["game"];
-                    } else if (status === "Offline") {
-                        return '<span class="status offline">' + status + '</span>';
-                    } else if (status === "User does not exist") {
-                        return '<span class="status nouser">' + status + '</span>';
+                    var text = '<span class="status ' + status + '">'
+                    if (status === "online") {
+                        text += status + ':</span> ' + data.streams[value]["game"];
+                    } else if (status === "offline") {
+                        text += status + '</span>';
+                    } else if (status === "nouser") {
+                        text += "user does not exist</span>";
                     }
+                    return text;
                 }
 
-                function h4Link() {
-                    if (status === "User does not exist") {
+                function pLink() {
+                    if (status === "nouser") {
                         return value;
                     } else {
                         return '<a href="https://www.twitch.tv/' + value + '" target="_blank">' + value + '</a>';
                     }
                 }
-                $("#status-box").append('<div class="stream" id="' + value + '"><h4>' + h4Link() + '</h4><p>' + printStatus() + '</p></div>');
+                $("#status-box").append('<div class="row stream ' + status + '" id="' + value + '"><div class="col-xs-5"><p class="username">' + pLink() + '</p></div><div class="col-xs-7"><p>' + printStatus() + '</p></div></div>');
             });
         });
     });
-    console.log(data);
+}
+
+function filterButtons() {
+    $("#filter-online").click(function() {
+        $(".stream.online").show();
+        $(".stream.offline").hide();
+        $(".stream.nouser").hide();
+    });
+    $("#filter-offline").click(function() {
+        $(".stream.online").hide();
+        $(".stream.offline").show();
+        $(".stream.nouser").hide();
+    });
+    $("#filter-all").click(function() {
+        $(".stream.online").show();
+        $(".stream.offline").show();
+        $(".stream.nouser").show();
+    });
 }
 
 $(document).ready(function() {
     getData();
+    filterButtons()
 });

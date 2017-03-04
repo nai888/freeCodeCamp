@@ -15,6 +15,13 @@ body {
     color: $color-prim-main;
 }
 
+.offline .username,
+.online .username,
+h1,
+h2 {
+    font-weight: bold;
+}
+
 a,
 a:active,
 a:hover,
@@ -38,5 +45,83 @@ header {
 
     &.nouser {
         font-style: italic;
+    }
+}
+
+#status-box {
+    border: 1px solid $color-comp-main;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    #status-title {
+        margin: 20px 40px;
+    }
+}
+
+.filter {
+    margin: 19.6px 20px;
+
+    &#filter-online {
+        background-color: $color-prim-lst;
+        color: $color-prim-dst;
+
+        &:hover {
+            background-color: darken($color-prim-lst,5%);
+        }
+    }
+
+    &#filter-offline {
+        background-color: $color-prim-der;
+        color: $color-prim-lst;
+
+        &:hover {
+            background-color: darken($color-prim-der,5%);
+        }
+    }
+
+    &#filter-all {
+        background-color: white;
+        color: $color-prim-main;
+
+        &:hover {
+            background-color: darken(white,5%);
+        }
+    }
+}
+
+.stream {
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 0;
+    margin: 0;
+
+    p {
+        margin: 10px;
+    }
+
+    &.online {
+        background-color: $color-prim-lst;
+        color: $color-prim-dst;
+
+        a,
+        a:active,
+        a:hover,
+        a:link,
+        a:visited {
+            color: $color-prim-dst;
+        }
+    }
+
+    &.offline {
+        background-color: $color-prim-der;
+        color: $color-prim-lst;
+
+        a,
+        a:active,
+        a:hover,
+        a:link,
+        a:visited {
+            color: $color-prim-lst;
+        }
     }
 }
