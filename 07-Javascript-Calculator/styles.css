@@ -1,4 +1,105 @@
 body {
-  font-family: "PT Sans", sans-serif;
-  color: #00883F;
+  font-family: "Fira Mono", monospace;
+  font-size: 16px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+footer,
+header {
+  color: #50808E;
+  font-family: "Dancing Script", cursive;
+  margin: 15px 0;
+}
+
+footer {
+  font-style: italic;
+  font-size: 20px;
+}
+
+.calculator {
+  margin: 40px auto 0;
+  padding: 10px;
+  width: 400px;
+  background-color: #D8D1A2;
+  border-radius: 10px;
+  box-shadow: inset 5px 5px 15px 0 #efecd8, inset -5px -5px 15px 0 #7b7133, 3px 3px 10px 1px #75704E;
+}
+
+.screen {
+  background-color: #FFF8CC;
+  color: #75704E;
+  text-align: right;
+  margin: 10px;
+  padding: 0 10px;
+  border-radius: 5px;
+  border: 1px solid #75704E;
+}
+.screen p {
+  margin: 0;
+}
+.screen .history {
+  font-style: italic;
+}
+
+.entry {
+  font-size: 32px;
+}
+
+.buttons {
+  width: auto;
+  margin: 0 auto;
+  padding: 0 10px 5px;
+}
+.buttons table {
+  width: 100%;
+}
+.buttons td {
+  padding: 5px;
+  width: 25%;
+}
+.buttons table,
+.buttons td,
+.buttons tr {
+  border: none;
+  border-collapse: collapse;
+  text-align: center;
+  vertical-align: middle;
+}
+
+button {
+  background-color: #75704E;
+  color: #FFF8CC;
+  display: block;
+  width: 100%;
+  padding: 12px 5px 8px;
+  font-size: 32px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: inset 3px 3px 5px 0 #847f58, inset -3px -3px 5px 0 #47442f, 1px 1px 5px 0 #75704E;
+}
+button:active {
+  background-color: #56533a;
+  box-shadow: 1px 1px 5px 0 #75704E;
+}
+button.equals {
+  height: 125.2px;
+}
+button.acc {
+  background-color: #50808E;
+  border: none;
+  box-shadow: inset 3px 3px 5px 0 #598f9e, inset -3px -3px 5px 0 #34545d, 1px 1px 5px 0 #75704E;
+}
+button.acc:active {
+  background-color: #3e636d;
+  box-shadow: 1px 1px 5px 0 #75704E;
+}
+
+a,
+a:active,
+a:hover,
+a:link,
+a:visited {
+  color: #679baa;
+  text-decoration: none;
 }

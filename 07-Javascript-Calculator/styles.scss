@@ -1,16 +1,121 @@
-$color-prim-main: #00883F; // Green
-$color-prim-lst: #38D07F;
-$color-prim-ler: #05BE5B;
-$color-prim-der: #005E2B;
-$color-prim-dst: #002210;
-$color-comp-main: #C18300; // Yellow
-$color-comp-lst: #FFC345;
-$color-comp-ler: #FFAF06;
-$color-comp-der: #845A00;
-$color-comp-dst: #302000;
-$font-stack: 'PT Sans', sans-serif;
+$color-acc: #50808E; // Steel Teal
+$color-drk: #75704E; // French Bistre
+$color-med: #D8D1A2; // Dark Vanilla
+$color-lgt: #FFF8CC; // Lemon Chiffon
+$script: 'Dancing Script', cursive;
+$mono: 'Fira Mono', monospace;
 
 body {
-    font-family: $font-stack;
-    color: $color-prim-main;
+    font-family: $mono;
+    font-size: 16px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+footer,
+header {
+    color: $color-acc;
+    font-family: $script;
+    margin: 15px 0;
+}
+
+footer {
+    font-style: italic;
+    font-size: 20px;
+}
+
+.calculator {
+    margin: 40px auto 0;
+    padding: 10px;
+    width: 400px;
+    background-color: $color-med;
+    border-radius: 10px;
+    box-shadow: inset 5px 5px 15px 0 lighten($color-med, 15%), inset -5px -5px 15px 0 darken($color-med, 40%), 3px 3px 10px 1px $color-drk;
+}
+
+.screen {
+    background-color: $color-lgt;
+    color: $color-drk;
+    text-align: right;
+    margin: 10px;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid $color-drk;
+
+    p {
+        margin: 0;
+    }
+
+    .history {
+        font-style: italic;
+    }
+}
+
+.entry {
+    font-size: 32px;
+}
+
+.buttons {
+    width: auto;
+    margin: 0 auto;
+    padding: 0 10px 5px;
+
+    table {
+        width: 100%;
+    }
+
+    td {
+        padding: 5px;
+        width: 25%;
+    }
+
+    table,
+    td,
+    tr {
+        border: none;
+        border-collapse: collapse;
+        text-align: center;
+        vertical-align: middle;
+    }
+}
+
+button {
+    background-color: $color-drk;
+    color: $color-lgt;
+    display: block;
+    width: 100%;
+    padding: 12px 5px 8px;
+    font-size: 32px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: inset 3px 3px 5px 0 lighten($color-drk, 5%), inset -3px -3px 5px 0 darken($color-drk, 15%), 1px 1px 5px 0 $color-drk;
+
+    &:active {
+        background-color: darken($color-drk, 10%);
+        box-shadow: 1px 1px 5px 0 $color-drk;
+    }
+
+    &.equals {
+        height: 125.2px;
+    }
+
+    &.acc {
+        background-color: $color-acc;
+        border: none;
+        box-shadow: inset 3px 3px 5px 0 lighten($color-acc, 5%), inset -3px -3px 5px 0 darken($color-acc, 15%), 1px 1px 5px 0 $color-drk;
+
+        &:active {
+            background-color: darken($color-acc, 10%);
+            box-shadow: 1px 1px 5px 0 $color-drk;
+        }
+    }
+}
+
+a,
+a:active,
+a:hover,
+a:link,
+a:visited {
+    color: lighten($color-acc, 10%);
+    text-decoration: none;
 }

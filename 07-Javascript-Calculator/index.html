@@ -7,35 +7,67 @@
     <meta name="author" content="Ian A. Cook">
     <!-- Import jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <!-- Import jQuery Color -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-color/2.1.2/jquery.color.plus-names.min.js" integrity="sha256-Wp3wC/dKYQ/dCOUD7VUXXp4neLI5t0uUEF1pg0dFnAE=" crossorigin="anonymous"></script>
     <!-- Import script -->
     <script src="script.js"></script>
-    <!-- Import FontAwesome -->
-    <script src="https://use.fontawesome.com/c25eecc8a6.js"></script>
-    <!-- Import Google Font PT Sans -->
-    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&amp;subset=latin-ext" rel="stylesheet">
-    <!-- Import BootStrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Import Google Font Dancing Script and Fira Mono -->
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Fira+Mono" rel="stylesheet">
+    <!-- Import Normalize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.min.css">
     <!-- Import stylesheet -->
     <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <h1 id="title">Javascript Calculator</h1>
-        </div>
-    </header>
-    <main>
-        <div class="container">
-        </div>
-    </main>
-    <footer>
-        <div class="container">
-            <p>Copyright &copy; 2017 by <a href="https://www.freecodecamp.com/nai888" target="_blank">Ian A. Cook</a>.</p>
-        </div>
-    </footer>
+    <div class="calculator">
+        <header>
+            <h1 class="name">JavaScript Calculator</h1>
+        </header>
+        <main>
+            <div class="screen">
+                <div class="entry">
+                    <p class="entry">0</p>
+                </div>
+                <div class="history">
+                    <p class="history">0</p>
+                </div>
+            </div>
+            <div class="buttons">
+                <table>
+                    <tr>
+                        <td><button class="clear ac acc" value="ac">AC</button></td>
+                        <td><button class="clear ce acc" value="ce">CE</button></td>
+                        <td><button class="divide" value="/">&divide;</button></td>
+                        <td><button class="times" value="x">&times;</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="seven" value="7">7</button></td>
+                        <td><button class="eight" value="8">8</button></td>
+                        <td><button class="nine" value="9">9</button></td>
+                        <td><button class="minus" value="-">-</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="four" value="4">4</button></td>
+                        <td><button class="five" value="5">5</button></td>
+                        <td><button class="six" value="6">6</button></td>
+                        <td><button class="plus" value="+">+</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="one" value="1">1</button></td>
+                        <td><button class="two" value="2">2</button></td>
+                        <td><button class="three" value="3">3</button></td>
+                        <td rowspan="2"><button class="equals acc" value="=">=</button></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button class="zero" value="0">0</button></td>
+                        <td><button class="dot" value=".">.</button></td>
+                    </tr>
+                </table>
+            </div>
+        </main>
+        <footer>
+            <p>Built by <a href="https://www.freecodecamp.com/nai888" target="_blank">Ian A. Cook</a>, copyright &copy; 2017</p>
+        </footer>
+    </div>
 </body>
 
 </html>
