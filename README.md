@@ -12,6 +12,7 @@ This repository represents my school, my sandbox, my playpen. I'll be adding my 
 4. **[Show the Local Weather](https://nai888.github.io/freeCodeCamp/04-Show-the-Local-Weather/)**
 5. **[Wikipedia Viewer](https://nai888.github.io/freeCodeCamp/05-Wikipedia-Viewer/)**
 6. **[Twitch.tv App](https://nai888.github.io/freeCodeCamp/06-Twitchtv-App/)**
+7. **[Javascript Calculator](https://nai888.github.io/freeCodeCamp/07-Javascript-Calculator)**
 
 ### License
 

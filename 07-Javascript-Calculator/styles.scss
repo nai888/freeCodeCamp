@@ -1,0 +1,16 @@
+$color-prim-main: #00883F; // Green
+$color-prim-lst: #38D07F;
+$color-prim-ler: #05BE5B;
+$color-prim-der: #005E2B;
+$color-prim-dst: #002210;
+$color-comp-main: #C18300; // Yellow
+$color-comp-lst: #FFC345;
+$color-comp-ler: #FFAF06;
+$color-comp-der: #845A00;
+$color-comp-dst: #302000;
+$font-stack: 'PT Sans', sans-serif;
+
+body {
+    font-family: $font-stack;
+    color: $color-prim-main;
+}
