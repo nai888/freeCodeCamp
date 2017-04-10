@@ -89,10 +89,12 @@ button {
     border-radius: 5px;
     border: none;
     box-shadow: inset 3px 3px 5px 0 lighten($color-drk, 5%), inset -3px -3px 5px 0 darken($color-drk, 15%), 1px 1px 5px 0 $color-drk;
+    outline: none;
 
     &:active {
-        background-color: darken($color-drk, 10%);
-        box-shadow: 1px 1px 5px 0 $color-drk;
+        transform: translate(0, 3px);
+        padding-bottom: 2px;
+        box-shadow: inset 1px 1px 5px 0 darken($color-drk, 15%), 1px 1px 5px 0 $color-drk;
     }
 
     &.equals {
@@ -105,8 +107,7 @@ button {
         box-shadow: inset 3px 3px 5px 0 lighten($color-acc, 5%), inset -3px -3px 5px 0 darken($color-acc, 15%), 1px 1px 5px 0 $color-drk;
 
         &:active {
-            background-color: darken($color-acc, 10%);
-            box-shadow: 1px 1px 5px 0 $color-drk;
+            box-shadow: inset 1px 1px 5px 0 darken($color-acc, 15%), 1px 1px 5px 0 $color-drk;
         }
     }
 }

@@ -77,10 +77,14 @@ button {
   border-radius: 5px;
   border: none;
   box-shadow: inset 3px 3px 5px 0 #847f58, inset -3px -3px 5px 0 #47442f, 1px 1px 5px 0 #75704E;
+  outline: none;
 }
 button:active {
-  background-color: #56533a;
-  box-shadow: 1px 1px 5px 0 #75704E;
+  -webkit-transform: translate(0, 3px);
+      -ms-transform: translate(0, 3px);
+          transform: translate(0, 3px);
+  padding-bottom: 2px;
+  box-shadow: inset 1px 1px 5px 0 #47442f, 1px 1px 5px 0 #75704E;
 }
 button.equals {
   height: 125.2px;
@@ -91,8 +95,7 @@ button.acc {
   box-shadow: inset 3px 3px 5px 0 #598f9e, inset -3px -3px 5px 0 #34545d, 1px 1px 5px 0 #75704E;
 }
 button.acc:active {
-  background-color: #3e636d;
-  box-shadow: 1px 1px 5px 0 #75704E;
+  box-shadow: inset 1px 1px 5px 0 #34545d, 1px 1px 5px 0 #75704E;
 }
 
 a,
