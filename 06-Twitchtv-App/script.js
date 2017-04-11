@@ -85,5 +85,5 @@ function filterButtons() {
 
 $(document).ready(function() {
     getData();
-    filterButtons()
+    filterButtons();
 });

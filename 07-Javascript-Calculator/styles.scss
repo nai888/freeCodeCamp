@@ -10,6 +10,7 @@ body {
     font-size: 16px;
     text-align: center;
     box-sizing: border-box;
+    background-color: lighten(desaturate($color-lgt, 50%), 5%);
 }
 
 footer,
@@ -41,13 +42,10 @@ footer {
     padding: 0 10px;
     border-radius: 5px;
     border: 1px solid $color-drk;
+    overflow: hidden;
 
     p {
         margin: 0;
-    }
-
-    .history {
-        font-style: italic;
     }
 }
 
@@ -80,6 +78,7 @@ footer {
 }
 
 button {
+    font-family: $mono;
     background-color: $color-drk;
     color: $color-lgt;
     display: block;

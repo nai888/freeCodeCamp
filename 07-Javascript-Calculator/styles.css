@@ -3,6 +3,7 @@ body {
   font-size: 16px;
   text-align: center;
   box-sizing: border-box;
+  background-color: #f9f7ec;
 }
 
 footer,
@@ -34,12 +35,10 @@ footer {
   padding: 0 10px;
   border-radius: 5px;
   border: 1px solid #75704E;
+  overflow: hidden;
 }
 .screen p {
   margin: 0;
-}
-.screen .history {
-  font-style: italic;
 }
 
 .entry {
@@ -68,6 +67,7 @@ footer {
 }
 
 button {
+  font-family: "Fira Mono", monospace;
   background-color: #75704E;
   color: #FFF8CC;
   display: block;
