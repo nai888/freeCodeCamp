@@ -31,8 +31,28 @@ function AC() {
     displayEquation();
 }
 
-function decimal() {
-    if (entry = "") {
+function idOperand(oper) {
+    switch (oper) {
+        case "plus":
+            return "+";
+            break;
+        case "minus":
+            return "&minus;";
+            break;
+        case "times":
+            return "&times;";
+            break;
+        case "divide":
+            return "&divide;";
+            break;
+        case "equals":
+            return "=";
+            break;
+    }
+}
+
+function addDecimal() {
+    if (entry === "") {
         entry = "0.";
     } else if (!decimal) {
         entry += ".";
@@ -41,31 +61,41 @@ function decimal() {
 }
 
 function number(num) {
-    if (operand === false) {
-        if (num === "dot") {
-            decimal();
-        } else {
-            entry += num;
+    if (operand) {
+        CE();
+        operand = false;
+    }
+    if (num === "dot") {
+        addDecimal();
+    } else if (num === "0") {
+        if (entry.length > 0) {
+            entry += "0";
         }
     } else {
-        equation.push(entry);
-        if (num === "dot") {
-            decimal();
-        } else {
-            entry += num;
-        }
-        operand = false;
+        entry += num;
     }
     displayEntry();
     displayEquation();
 }
 
-function operand(op) {
+function equals() {
 
 }
 
-function equals() {
-
+function addOperand(oper) {
+    if (!operand) {
+        if (equation.length === 0) {
+            equation.push("0");
+        } else {
+            equation.push(entry);
+        }
+    } else {
+        equation.pop();
+    }
+    equation.push(idOperand(oper));
+    operand = true;
+    displayEntry();
+    displayEquation();
 }
 
 $(document).ready(function() {
@@ -83,7 +113,7 @@ $(document).ready(function() {
     });
     $(".operand").click(function() {
         var oper = $(this).attr("value");
-        operand(oper);
+        addOperand(oper);
     });
     $(".equals").click(function() {
         equals();
@@ -150,6 +180,12 @@ $(document).ready(function() {
                 break;
             case 27: // esc
                 $(".ac").trigger("click");
+                break;
+            case 65: // A and a
+                $(".ac").trigger("click");
+                break;
+            case 67: // C and c
+                $(".ce").trigger("click");
                 break;
             case 88: // X and x
                 $(".times").trigger("click");
