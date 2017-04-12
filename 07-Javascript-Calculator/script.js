@@ -22,16 +22,19 @@ function displayEquation() {
 
 function CE() {
     entry = "";
+    decimal = false;
     displayEntry();
 }
 
 function AC() {
     CE();
+    operand = false;
     equation = [];
+    answer = "";
     displayEquation();
 }
 
-function idOperand(oper) {
+function idAddOperand(oper) {
     switch (oper) {
         case "plus":
             return "+";
@@ -61,6 +64,9 @@ function addDecimal() {
 }
 
 function number(num) {
+    if (answer !== "") {
+        AC();
+    }
     if (operand) {
         CE();
         operand = false;
@@ -79,20 +85,27 @@ function number(num) {
 }
 
 function equals() {
+    if (answer === "") { // Do nothing if an answer is already being displayed
 
+    }
 }
 
 function addOperand(oper) {
+    if (answer !== "") {
+        AC();
+    }
     if (!operand) {
-        if (equation.length === 0) {
-            equation.push("0");
+        if (equation.length === 0 && entry === "") {
+            equation.push(0);
+        } else if (decimal) {
+            equation.push(parseFloat(entry));
         } else {
-            equation.push(entry);
+            equation.push(parseInt(entry, 10));
         }
     } else {
         equation.pop();
     }
-    equation.push(idOperand(oper));
+    equation.push(idAddOperand(oper));
     operand = true;
     displayEntry();
     displayEquation();
