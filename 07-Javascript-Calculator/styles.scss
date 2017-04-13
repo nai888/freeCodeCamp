@@ -57,24 +57,24 @@ footer {
     width: auto;
     margin: 0 auto;
     padding: 0 10px 5px;
+}
 
-    table {
-        width: 100%;
-    }
+table {
+    width: 100%;
+}
 
-    td {
-        padding: 5px;
-        width: 25%;
-    }
+td {
+    padding: 5px;
+    width: 25%;
+}
 
-    table,
-    td,
-    tr {
-        border: none;
-        border-collapse: collapse;
-        text-align: center;
-        vertical-align: middle;
-    }
+table,
+td,
+tr {
+    border: none;
+    border-collapse: collapse;
+    text-align: center;
+    vertical-align: middle;
 }
 
 button {

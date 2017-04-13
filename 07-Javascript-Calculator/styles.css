@@ -50,16 +50,19 @@ footer {
   margin: 0 auto;
   padding: 0 10px 5px;
 }
-.buttons table {
+
+table {
   width: 100%;
 }
-.buttons td {
+
+td {
   padding: 5px;
   width: 25%;
 }
-.buttons table,
-.buttons td,
-.buttons tr {
+
+table,
+td,
+tr {
   border: none;
   border-collapse: collapse;
   text-align: center;

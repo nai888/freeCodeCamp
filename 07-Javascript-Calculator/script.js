@@ -1,18 +1,15 @@
 var entry = "";
 var decimal = false;
-var operand = false;
+var operator = false;
 var equation = [];
-var answer = "";
+var answer = null;
 
-function displayEntry() {
-    if (entry === "") {
+function display() {
+    if (entry.length === 0) {
         $("p.entry").html("0");
     } else {
         $("p.entry").html(entry);
     }
-}
-
-function displayEquation() {
     if (equation.length === 0) {
         $("p.equation").html("0");
     } else {
@@ -23,39 +20,18 @@ function displayEquation() {
 function CE() {
     entry = "";
     decimal = false;
-    displayEntry();
+    display();
 }
 
 function AC() {
-    CE();
-    operand = false;
+    operator = false;
     equation = [];
-    answer = "";
-    displayEquation();
-}
-
-function idAddOperand(oper) {
-    switch (oper) {
-        case "plus":
-            return "+";
-            break;
-        case "minus":
-            return "&minus;";
-            break;
-        case "times":
-            return "&times;";
-            break;
-        case "divide":
-            return "&divide;";
-            break;
-        case "equals":
-            return "=";
-            break;
-    }
+    answer = null;
+    CE();
 }
 
 function addDecimal() {
-    if (entry === "") {
+    if (entry.length === 0) {
         entry = "0.";
     } else if (!decimal) {
         entry += ".";
@@ -64,12 +40,12 @@ function addDecimal() {
 }
 
 function number(num) {
-    if (answer !== "") {
+    if (answer !== null) {
         AC();
     }
-    if (operand) {
+    if (operator) {
         CE();
-        operand = false;
+        operator = false;
     }
     if (num === "dot") {
         addDecimal();
@@ -80,22 +56,45 @@ function number(num) {
     } else {
         entry += num;
     }
-    displayEntry();
-    displayEquation();
+    display();
 }
 
 function equals() {
-    if (answer === "") { // Do nothing if an answer is already being displayed
-
+    if (answer === null) { // Do nothing if an answer is already being displayed
+        var nums = Math.ceil(equation.length/2);
+        answer = equation[0];
+        for (var i=1;i<nums;i++) {
+            var num1 = answer;
+            var op = equation[i*2-1];
+            switch (op) {
+                case "&minus;":
+                    op = "-";
+                    break;
+                case "&times;":
+                    op = "*";
+                    break;
+                case "&divide;":
+                    op = "/";
+                    break;
+            }
+            var num2 = equation[i*2];
+            answer = eval(num1 + op + num2);
+        }
+        entry = answer;
+        equation.push(answer);
+        decimal = false;
+        operator = false;
     }
+    display();
 }
 
-function addOperand(oper) {
-    if (answer !== "") {
-        AC();
-    }
-    if (!operand) {
-        if (equation.length === 0 && entry === "") {
+function addOperator(oper) {
+    if (answer !== null) {
+        equation = [];
+        equation.push(entry);
+        answer = null;
+    } else if (!operator) {
+        if (equation.length === 0 && entry.length === 0) {
             equation.push(0);
         } else if (decimal) {
             equation.push(parseFloat(entry));
@@ -105,15 +104,31 @@ function addOperand(oper) {
     } else {
         equation.pop();
     }
-    equation.push(idAddOperand(oper));
-    operand = true;
-    displayEntry();
-    displayEquation();
+    var op = "";
+    switch (oper) {
+        case "plus":
+            op = "+";
+            break;
+        case "minus":
+            op = "&minus;";
+            break;
+        case "times":
+            op = "&times;";
+            break;
+        case "divide":
+            op = "&divide;";
+            break;
+        case "equals":
+            op = "=";
+            break;
+    }
+    equation.push(op);
+    operator = true;
+    display();
 }
 
 $(document).ready(function() {
-    displayEntry();
-    displayEquation();
+    display();
     $(".ce").click(function() {
         CE();
     });
@@ -124,9 +139,9 @@ $(document).ready(function() {
         var val = $(this).attr("value");
         number(val);
     });
-    $(".operand").click(function() {
+    $(".operator").click(function() {
         var oper = $(this).attr("value");
-        addOperand(oper);
+        addOperator(oper);
     });
     $(".equals").click(function() {
         equals();
@@ -134,7 +149,7 @@ $(document).ready(function() {
     $(document).keypress(function(e) {
         switch (e.which) {
             case 13: // enter
-                $(".equals").trigger("click");
+                $(".operator").trigger("click");
                 break;
             case 42: // *
                 $(".times").trigger("click");
