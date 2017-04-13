@@ -13,4 +13,9 @@
 
 <https://nai888.github.io/freeCodeCamp/07-Javascript-Calculator/>
 
+### Future Work
+
+- Add parentheses
+- Compute using the correct order of operations
+
 Licensed under the GNU Affero General Public License v3.0
