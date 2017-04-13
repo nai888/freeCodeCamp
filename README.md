@@ -13,6 +13,7 @@ This repository represents my school, my sandbox, my playpen. I'll be adding my 
 5. **[Wikipedia Viewer](https://nai888.github.io/freeCodeCamp/05-Wikipedia-Viewer/)**
 6. **[Twitch.tv App](https://nai888.github.io/freeCodeCamp/06-Twitchtv-App/)**
 7. **[Javascript Calculator](https://nai888.github.io/freeCodeCamp/07-Javascript-Calculator)**
+8. **[Pomodoro Clock](https://nai888.github.io/freeCodeCamp/08-Pomodoro-Clock/)**
 
 ### License
 
