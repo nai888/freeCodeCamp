@@ -1,4 +1,29 @@
-$color-acc: #50808E; // Steel Teal
-$color-drk: #75704E; // French Bistre
-$color-med: #D8D1A2; // Dark Vanilla
-$color-lgt: #FFF8CC; // Lemon Chiffon
+$fonts: 'News Cycle', sans-serif;
+$red: #D33434; // Persian Red
+$grn: #347A41; // Fern Green
+$ylw: #FFC532; // Sunglow
+
+body {
+    font-family: $fonts;
+    font-size: 100%;
+    font-size: 16px;
+    font-size: 1em;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.tomato {
+    margin: 3px auto;
+    width: 300px;
+    height: 250px;
+    border-radius: 125px;
+    background-color: $red;
+}
+
+a,
+a:active,
+a:hover,
+a:link,
+a:visited {
+    color: $grn;
+}
