@@ -1,15 +1,17 @@
-$fonts: 'News Cycle', sans-serif;
+$fonts: 'News Cycle',
+sans-serif;
 $red: #D33434; // Persian Red
 $grn: #347A41; // Fern Green
 $ylw: #FFC532; // Sunglow
-
 body {
     font-family: $fonts;
     font-size: 100%;
     font-size: 16px;
-    font-size: 1em;
-    font-size: 1rem;
     text-align: center;
+}
+
+h1 {
+    font-size: 64px;
 }
 
 .tomato {
@@ -18,6 +20,23 @@ body {
     height: 250px;
     border-radius: 125px;
     background-color: $red;
+    background: radial-gradient(60px 45px at 50% 0%, darken($grn, 20%) 0%, $grn 30%, rgba($grn, 0)), // Green top
+    radial-gradient(70px 50px at 30% 30%, lighten($red, 20%) 0%, lighten($red, 20%) 10%, lighten($red, 10%) 40%, rgba($red, 0.1) 85%, rgba($red, 0) 100%), // Spot shine
+    linear-gradient(to right, rgba($red, 0) 0%, lighten($red, 5%) 30%, rgba($red, 0) 60%), // General shine
+    radial-gradient(150px 125px at center, $red 0%, $red 80%, darken($red, 10%) 100%); // Edge darkening
+}
+
+.timer {
+    padding-top: 100px;
+}
+
+.time {
+    font-size: 64px;
+    margin: 0;
+}
+
+.reset {
+    margin-top: 32px;
 }
 
 a,
