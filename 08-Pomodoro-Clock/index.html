@@ -23,11 +23,18 @@
         <h1 class="title">Pomodoro Clock</h1>
     </header>
     <main>
-
-        <div class="tomato">
-            <div class="timer">
-                <p class="time"></p>
+        <div class="times">
+            <div class="break">
+                <h3>Break Length</h3>
+                <p><button class="break minus">&minus;</button> 5:00 <button class="break plus">+</button></p>
             </div>
+            <div class="session">
+                <h3>Session Length</h3>
+                <p><button class="session minus">&minus;</button> 25:00 <button class="session plus">+</button></p>
+            </div>
+        </div>
+        <div class="tomato">
+            <p class="time"></p>
         </div>
         <button class="reset">Reset Time</button>
     </main>

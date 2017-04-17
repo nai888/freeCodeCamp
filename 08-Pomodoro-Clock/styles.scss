@@ -14,8 +14,30 @@ h1 {
     font-size: 64px;
 }
 
+main {
+    margin: 0 auto;
+    padding: 30px 0;
+    width: 500px;
+    border: 3px solid $grn;
+    border-radius: 10%;
+    box-shadow: 0 0 15px $grn;
+}
+
+.times {
+    padding: 0 0 30px;
+}
+
+div.break, div.session {
+    width: 49%;
+    display: inline-block;
+}
+
+button {
+    display: inline-block;
+}
+
 .tomato {
-    margin: 3px auto;
+    margin: 0 auto;
     width: 300px;
     height: 250px;
     border-radius: 125px;
@@ -26,17 +48,14 @@ h1 {
     radial-gradient(150px 125px at center, $red 0%, $red 80%, darken($red, 10%) 100%); // Edge darkening
 }
 
-.timer {
-    padding-top: 100px;
-}
-
 .time {
+    padding-top: 100px;
     font-size: 64px;
     margin: 0;
 }
 
 .reset {
-    margin-top: 32px;
+    margin-top: 30px;
 }
 
 a,
