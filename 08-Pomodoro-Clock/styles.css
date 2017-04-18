@@ -22,7 +22,8 @@ main {
   padding: 0 0 30px;
 }
 
-div.break, div.session {
+div.break,
+div.session {
   width: 49%;
   display: inline-block;
 }
@@ -39,6 +40,17 @@ button {
   background-color: #D33434;
   background: -webkit-radial-gradient(50% 0%, 60px 45px, #16321b 0%, #347A41 30%, rgba(52, 122, 65, 0)), -webkit-radial-gradient(30% 30%, 70px 50px, #e58888 0%, #e58888 10%, #dc5e5e 40%, rgba(211, 52, 52, 0.1) 85%, rgba(211, 52, 52, 0) 100%), -webkit-linear-gradient(left, rgba(211, 52, 52, 0) 0%, #d84949 30%, rgba(211, 52, 52, 0) 60%), -webkit-radial-gradient(center, 150px 125px, #D33434 0%, #D33434 80%, #ae2626 100%);
   background: radial-gradient(60px 45px at 50% 0%, #16321b 0%, #347A41 30%, rgba(52, 122, 65, 0)), radial-gradient(70px 50px at 30% 30%, #e58888 0%, #e58888 10%, #dc5e5e 40%, rgba(211, 52, 52, 0.1) 85%, rgba(211, 52, 52, 0) 100%), linear-gradient(to right, rgba(211, 52, 52, 0) 0%, #d84949 30%, rgba(211, 52, 52, 0) 60%), radial-gradient(150px 125px at center, #D33434 0%, #D33434 80%, #ae2626 100%);
+  box-shadow: 0 0 2px #D33434;
+}
+
+input {
+  width: 20px;
+}
+input.mins {
+  text-align: right;
+}
+input.secs {
+  text-align: left;
 }
 
 .time {

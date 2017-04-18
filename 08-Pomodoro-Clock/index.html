@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="author" content="Ian A. Cook">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Import jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Import Vue.js -->
+    <script src="https://unpkg.com/vue"></script>
     <!-- Import script -->
     <script src="script.js"></script>
     <!-- Import Google Font News Cycle -->
@@ -26,17 +26,17 @@
         <div class="times">
             <div class="break">
                 <h3>Break Length</h3>
-                <p><button class="break minus">&minus;</button> 5:00 <button class="break plus">+</button></p>
+                <p><button id="break-minus" class="break minus" v-on:click="minus(break)">&minus;</button><input type="text" v-model="breakMins" class="mins"></input>:<input type="text" v-model="breakSecs" class="secs"></input><button id="break-plus" class="break plus" v-on:click="plus(break)">+</button></p>
             </div>
             <div class="session">
                 <h3>Session Length</h3>
-                <p><button class="session minus">&minus;</button> 25:00 <button class="session plus">+</button></p>
+                <p><button id="session-minus" class="session minus" v-on:click="minus(session)">&minus;</button><input type="text" v-model="sessMins" class="mins"></input>:<input type="text" v-model="sessSecs" class="secs"></input><button id="session-plus" class="session plus" v-on:click="plus(session)">+</button></p>
             </div>
         </div>
-        <div class="tomato">
-            <p class="time"></p>
+        <div id="tomato" class="tomato">
+            <p class="time">{{ timerTime }}</p>
         </div>
-        <button class="reset">Reset Time</button>
+        <button id="reset" class="reset">Reset Time</button>
     </main>
     <footer>
         <p>Built by <a href="https://www.freecodecamp.com/nai888" target="_blank">Ian A. Cook</a>, copyright &copy; 2017. <a href="https://github.com/nai888/freeCodeCamp/tree/master/08-Pomodoro-Clock" target="_blank">View this project on GitHub.</a></p>

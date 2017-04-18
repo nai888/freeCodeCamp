@@ -27,7 +27,8 @@ main {
     padding: 0 0 30px;
 }
 
-div.break, div.session {
+div.break,
+div.session {
     width: 49%;
     display: inline-block;
 }
@@ -46,6 +47,19 @@ button {
     radial-gradient(70px 50px at 30% 30%, lighten($red, 20%) 0%, lighten($red, 20%) 10%, lighten($red, 10%) 40%, rgba($red, 0.1) 85%, rgba($red, 0) 100%), // Spot shine
     linear-gradient(to right, rgba($red, 0) 0%, lighten($red, 5%) 30%, rgba($red, 0) 60%), // General shine
     radial-gradient(150px 125px at center, $red 0%, $red 80%, darken($red, 10%) 100%); // Edge darkening
+    box-shadow: 0 0 2px $red;
+}
+
+input {
+    width: 20px;
+
+    &.mins {
+        text-align: right;
+    }
+
+    &.secs {
+        text-align: left;
+    }
 }
 
 .time {
