@@ -26,11 +26,11 @@
         <div class="times">
             <div class="break">
                 <h3>Break Length</h3>
-                <p><button id="break-minus" class="break minus" v-on:click="minus(break)">&minus;</button><input type="text" v-model="breakMins" class="mins"></input>:<input type="text" v-model="breakSecs" class="secs"></input><button id="break-plus" class="break plus" v-on:click="plus(break)">+</button></p>
+                <p><button id="break-minus" class="break minus" v-on:click="minus('break')">&minus;</button><input type="text" v-model="breakMins" class="mins"></input>:<input type="text" v-model="breakSecs" class="secs"></input><button id="break-plus" class="break plus" v-on:click="plus('break')">+</button></p>
             </div>
             <div class="session">
                 <h3>Session Length</h3>
-                <p><button id="session-minus" class="session minus" v-on:click="minus(session)">&minus;</button><input type="text" v-model="sessMins" class="mins"></input>:<input type="text" v-model="sessSecs" class="secs"></input><button id="session-plus" class="session plus" v-on:click="plus(session)">+</button></p>
+                <p><button id="session-minus" class="session minus" v-on:click="minus('session')">&minus;</button><input type="text" v-model="sessMins" class="mins"></input>:<input type="text" v-model="sessSecs" class="secs"></input><button id="session-plus" class="session plus" v-on:click="plus('session')">+</button></p>
             </div>
         </div>
         <div id="tomato" class="tomato">
