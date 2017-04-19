@@ -20,7 +20,7 @@ main {
     width: 500px;
     border: 3px solid $grn;
     border-radius: 10%;
-    box-shadow: 0 0 15px $grn;
+    box-shadow: 0 0 15px $grn, inset 0 0 15px $grn;
 }
 
 .times {

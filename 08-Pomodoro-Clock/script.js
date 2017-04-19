@@ -1,78 +1,114 @@
-document.addEventListener("DOMContentLoaded", function (event) {
-    var timer = new Vue({
-        el: "main",
-        data: {
-            breakMins: 5,
-            breakSecs: "00",
-            sessMins: 25,
-            sessSecs: "00",
-            timerMins: 25,
-            timerSecs: "00"
-        },
-        computed: {
-            breakTime: function () {
-                return this.breakMins + ":"/* + ldgZero(this.breakSecs)*/ + this.breakSecs;
-            },
-            sessTime: function () {
-                return this.sessMins + ":"/* + ldgZero(this.sessSecs)*/ + this.sessSecs;
-            },
-            timerTime: function () {
-                return this.timerMins + ":"/* + ldgZero(this.timerSecs)*/ + this.timerSecs;
-            }
-        },
-        methods: {
-            minus: function (type) {
-                if (type === 'break' && this.breakMins > 0) {
-                    this.breakMins--;
-                } else if (type === 'session' && this.sessMins > 0) {
-                    this.sessMins--;
-                    if (!running) {
-                        this.timerMins = this.sessMins;
-                    }
-                }
-            },
-            plus: function (type) {
-                if (type === 'break') {
-                    this.breakMins++;
-                } else if (type === 'session') {
-                    this.sessMins++;
-                    if (!running) {
-                        this.timerMins = this.sessMins;
-                    }
-                }
-            }
-        }
-    });
+const minute = 60 * 1000;
+const second = 1000;
 
-    function ldgZero(secs) {
+function displayTime(time) {
+    var mins = Math.floor(time / minute);
+    var secs = Math.floor((time % minute) / second);
+    var dispSecs = function () {
         if (secs < 10) {
-            return "0";
-        }
-    }
-
-    var running = false;
-
-    function runTimer() {
-        running = true;
-        var startTime = Date.now();
-        var countDown = setInterval(function () {
-            var now = Date.now();
-            var distance = startTime - now;
-
-        }, 1000);
-    }
-
-    document.getElementById("tomato").addEventListener("click", function () {
-        if (running) {
-            running = false;
+            return "0" + secs;
         } else {
-            runTimer();
+            return secs;
+        }
+    }
+    return mins + ":" + dispSecs();
+}
+
+function adjTime(type, adj) {
+    if (type === "break") {
+        if (adj === "minus") {
+            if (breakTime >= minute) {
+                breakTime -= minute;
+            } else {
+                breakTime = 0;
+            }
+        } else if (adj === "plus") {
+            breakTime += minute;
+        }
+    } else if (type === "session") {
+        if (adj === "minus") {
+            if (sessTime >= minute) {
+                sessTime -= minute;
+            } else {
+                sessTime = 0;
+            }
+        } else if (adj === "plus") {
+            sessTime += minute;
+        }
+    }
+}
+
+var countDown;
+var distance = 0;
+
+function runTimer() {
+    var startTime = Date.now();
+    countDown = setInterval(function () {
+        running = true;
+        var now = Date.now();
+        distance = Math.abs(startTime - now);
+        timerTime = sessTime - distance;
+        $(".time").text(displayTime(timerTime));
+        if (distance >= sessTime) {
+            stop();
+        }
+    }, 100);
+}
+
+function stop() {
+    running = false;
+    clearInterval(countDown);
+    $(".time").text(displayTime(timerTime));
+}
+
+function reset() {
+    stop();
+    distance = 0;
+    timerTime = sessTime;
+    $(".time").text(displayTime(timerTime));
+}
+
+var breakTime = 5 * minute;
+var sessTime = 25 * minute;
+var timerTime;
+var running = false;
+
+$(document).ready(function () {
+    timerTime = sessTime;
+    $(".break-time").text(displayTime(breakTime));
+    $(".session-time").text(displayTime(sessTime));
+    $(".time").text(displayTime(timerTime));
+    $(".start-stop").text("Start");
+    $(".break.minus").click(function () {
+        adjTime("break", "minus");
+        $(".break-time").text(displayTime(breakTime));
+    });
+    $(".break.plus").click(function () {
+        adjTime("break", "plus");
+        $(".break-time").text(displayTime(breakTime));
+    });
+    $(".session.minus").click(function () {
+        adjTime("session", "minus");
+        $(".session-time").text(displayTime(sessTime));
+        if (!running) {
+            reset();
         }
     });
-
-    document.getElementById("reset").addEventListener("click", function () {
-        running = false;
-        timerMins = sessMins;
-        timerSecs = sessSecs;
+    $(".session.plus").click(function () {
+        adjTime("session", "plus");
+        $(".session-time").text(displayTime(sessTime));
+        if (!running) {
+            reset();
+        }
     });
+    $(".start-stop").click(function () {
+        if (!running) {
+            runTimer();
+            $(".start-stop").text("Stop");
+        } else if (running) {
+            stop();
+            $(".start-stop").text("Start");
+        }
+    });
+    $(".reset").click(reset());
 });
