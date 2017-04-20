@@ -1,5 +1,4 @@
-$fonts: 'News Cycle',
-sans-serif;
+$fonts: 'News Cycle', sans-serif;
 $red: #D33434; // Persian Red
 $grn: #347A41; // Fern Green
 $ylw: #FFC532; // Sunglow
@@ -12,13 +11,14 @@ body {
 
 h1 {
     font-size: 64px;
+    margin-top: 0;
 }
 
 main {
     margin: 0 auto;
     padding: 30px 0;
     width: 500px;
-    border: 3px solid $grn;
+    border: 3px solid rgba($grn, 0.6);
     border-radius: 10%;
     box-shadow: 0 0 15px $grn, inset 0 0 15px $grn;
 }
@@ -35,6 +35,20 @@ div.session {
 
 button {
     display: inline-block;
+    border: 2px solid rgba($grn, 0.4);
+    border-radius: 15px;
+    background: none;
+    margin: 0 10px;
+    padding: none;
+    height: 40px;
+}
+
+.times button {
+    width: 40px;
+}
+
+.control button {
+    width: 60px;
 }
 
 .tomato {
@@ -47,23 +61,27 @@ button {
     radial-gradient(70px 50px at 30% 30%, lighten($red, 20%) 0%, lighten($red, 20%) 10%, lighten($red, 10%) 40%, rgba($red, 0.1) 85%, rgba($red, 0) 100%), // Spot shine
     linear-gradient(to right, rgba($red, 0) 0%, lighten($red, 5%) 30%, rgba($red, 0) 60%), // General shine
     radial-gradient(150px 125px at center, $red 0%, $red 80%, darken($red, 10%) 100%); // Edge darkening
-    box-shadow: 0 0 2px $red;
+    box-shadow: 0 0 3px darken($red, 10%);
 }
 
 input {
     width: 20px;
-
     &.mins {
         text-align: right;
     }
-
     &.secs {
         text-align: left;
     }
 }
 
+.session-break {
+    padding-top: 40px;
+    font-size: 64px;
+    margin: 0;
+}
+
 .time {
-    padding-top: 100px;
+    padding-top: 15px;
     font-size: 64px;
     margin: 0;
 }

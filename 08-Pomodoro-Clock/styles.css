@@ -7,13 +7,14 @@ body {
 
 h1 {
   font-size: 64px;
+  margin-top: 0;
 }
 
 main {
   margin: 0 auto;
   padding: 30px 0;
   width: 500px;
-  border: 3px solid #347A41;
+  border: 3px solid rgba(52, 122, 65, 0.6);
   border-radius: 10%;
   box-shadow: 0 0 15px #347A41, inset 0 0 15px #347A41;
 }
@@ -30,6 +31,20 @@ div.session {
 
 button {
   display: inline-block;
+  border: 2px solid rgba(52, 122, 65, 0.4);
+  border-radius: 15px;
+  background: none;
+  margin: 0 10px;
+  padding: none;
+  height: 40px;
+}
+
+.times button {
+  width: 40px;
+}
+
+.control button {
+  width: 60px;
 }
 
 .tomato {
@@ -40,7 +55,7 @@ button {
   background-color: #D33434;
   background: -webkit-radial-gradient(50% 0%, 60px 45px, #16321b 0%, #347A41 30%, rgba(52, 122, 65, 0)), -webkit-radial-gradient(30% 30%, 70px 50px, #e58888 0%, #e58888 10%, #dc5e5e 40%, rgba(211, 52, 52, 0.1) 85%, rgba(211, 52, 52, 0) 100%), -webkit-linear-gradient(left, rgba(211, 52, 52, 0) 0%, #d84949 30%, rgba(211, 52, 52, 0) 60%), -webkit-radial-gradient(center, 150px 125px, #D33434 0%, #D33434 80%, #ae2626 100%);
   background: radial-gradient(60px 45px at 50% 0%, #16321b 0%, #347A41 30%, rgba(52, 122, 65, 0)), radial-gradient(70px 50px at 30% 30%, #e58888 0%, #e58888 10%, #dc5e5e 40%, rgba(211, 52, 52, 0.1) 85%, rgba(211, 52, 52, 0) 100%), linear-gradient(to right, rgba(211, 52, 52, 0) 0%, #d84949 30%, rgba(211, 52, 52, 0) 60%), radial-gradient(150px 125px at center, #D33434 0%, #D33434 80%, #ae2626 100%);
-  box-shadow: 0 0 2px #D33434;
+  box-shadow: 0 0 3px #ae2626;
 }
 
 input {
@@ -53,8 +68,14 @@ input.secs {
   text-align: left;
 }
 
+.session-break {
+  padding-top: 40px;
+  font-size: 64px;
+  margin: 0;
+}
+
 .time {
-  padding-top: 100px;
+  padding-top: 15px;
   font-size: 64px;
   margin: 0;
 }
