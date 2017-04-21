@@ -1,0 +1,11 @@
+$monospace: 'Inconsolata', monospace;
+$display-font: 'Overlock', cursive;
+
+body {
+    font-family: $display-font;
+    font-size: 100%;
+}
+
+.gamegrid {
+    font-family: $monospace;
+}
