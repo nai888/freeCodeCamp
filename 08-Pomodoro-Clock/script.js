@@ -28,32 +28,43 @@ function displayBreakSess() {
     }
 }
 
-function adjTime(type, adj) {
-    if (type === "break") {
-        if (adj === "minus") {
-            if (breakTime >= minute) {
-                breakTime -= minute;
-            } else {
-                breakTime = 0;
-            }
-        } else if (adj === "plus") {
-            breakTime += minute;
+function adjTime(whichTimer, adj) {
+    var type;
+    if (whichTimer === "break") {
+        type = breakTime;
+    } else if (whichTimer === "session") {
+        type = sessTime;
+    }
+    if (adj === "minus") {
+        if (type > minute) {
+            type -= minute;
+        } else if (type > 15 * second) {
+            type -= 15 * second;
+        } else if (type > 5 * second) {
+            type -= 5 * second;
+        } else if (type > second) {
+            type -= second;
         }
+    } else if (adj === "plus") {
+        if (type < 5 * second) {
+            type += second;
+        } else if (type < 15 * second) {
+            type += 5 * second;
+        } else if (type < minute) {
+            type += 15 * second;
+        } else {
+            type += minute;
+        }
+    }
+    if (whichTimer === "break") {
+        breakTime = type;
         $(".break-time").text(displayTime(breakTime));
-    } else if (type === "session") {
-        if (adj === "minus") {
-            if (sessTime >= minute) {
-                sessTime -= minute;
-            } else {
-                sessTime = 0;
-            }
-        } else if (adj === "plus") {
-            sessTime += minute;
-        }
+    } else if (whichTimer === "session") {
+        sessTime = type;
         $(".session-time").text(displayTime(sessTime));
-        if (!running) {
-            reset();
-        }
+    }
+    if (!running && !breakSession) {
+        reset();
     }
 }
 
@@ -62,20 +73,28 @@ var distance = 0;
 var prevTime = 0;
 var timeDur;
 
-function runTimer() {
+function run(timer) {
     var startTime = Date.now();
     if (prevTime === 0) {
-        timeDur = sessTime;
+        timeDur = timer;
     }
+    running = true;
     countDown = setInterval(function () {
-        running = true;
         var now = Date.now();
         distance = Math.abs(startTime - now);
         timerTime = timeDur - distance - prevTime;
         $(".time").text(displayTime(timerTime));
         if (distance >= timeDur) {
-            stop();
+            reset();
+            if (breakSession) {
+                breakSession = false;
+                run(sessTime);
+            } else {
+                breakSession = true;
+                run(breakTime);
+            }
         }
+        $(".session-break").text(displayBreakSess());
     }, 100);
 }
 
@@ -87,11 +106,18 @@ function stop() {
 }
 
 function reset() {
+    if (!running) {
+        breakSession = false;
+    }
+    if (!breakSession) {
+        timerTime = sessTime;
+    } else {
+        timerTime = breakTime;
+    }
     stop();
     distance = 0;
     prevTime = 0;
-    timerTime = sessTime;
-    $(".time").text(displayTime(timerTime));
+    $(".session-break").text(displayBreakSess());
 }
 
 $(document).ready(function () {
@@ -115,14 +141,19 @@ $(document).ready(function () {
     });
     $(".start-stop").click(function () {
         if (!running) {
-            runTimer();
+            if (breakSession) {
+                run(breakTime);
+            } else {
+                run(sessTime);
+            }
             $(".start-stop").text("Stop");
-        } else if (running) {
+        } else {
             stop();
             $(".start-stop").text("Start");
         }
     });
     $(".reset").click(function () {
+        stop();
         reset();
     });
 });
