@@ -85,12 +85,13 @@ function run(timer) {
         timerTime = timeDur - distance - prevTime;
         $(".time").text(displayTime(timerTime));
         if (distance >= timeDur) {
-            reset();
             if (breakSession) {
                 breakSession = false;
+                reset();
                 run(sessTime);
             } else {
                 breakSession = true;
+                reset();
                 run(breakTime);
             }
         }
