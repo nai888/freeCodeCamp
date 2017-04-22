@@ -1,12 +1,19 @@
 function ticTacToe() {
-    var playerX = false;
-    var playerO = false;
     var playerToken = "";
     var cpuToken = "";
     var playerScore = 0;
     var cpuScore = 0;
     var turn = 0;
     var isPlayerTurn = false;
+    var one = "";
+    var two = "";
+    var three = "";
+    var four = "";
+    var five = "";
+    var six = "";
+    var seven = "";
+    var eight = "";
+    var nine = "";
 
     $(".choiceX").click(function () {
         console.log('choiceMade("X")');
@@ -24,11 +31,9 @@ function ticTacToe() {
 
     function choiceMade(choice) {
         if (choice === "X") {
-            playerX = true;
             playerToken = "X";
             cpuToken = "O";
         } else if (choice === "O") {
-            playerO = true;
             playerToken = "O";
             cpuToken = "X";
         }
@@ -44,9 +49,21 @@ function ticTacToe() {
         });
     }
 
+    function updateGrid() {
+        $("button.one").text(one);
+        $("button.two").text(two);
+        $("button.three").text(three);
+        $("button.four").text(four);
+        $("button.five").text(five);
+        $("button.six").text(six);
+        $("button.seven").text(seven);
+        $("button.eight").text(eight);
+        $("button.nine").text(nine);
+    }
+
     function nextTurn() {
         console.log('Turn: ' + turn);
-        if ((turn % 2 === 0 && playerX) || (turn % 2 !== 0 && playerO)) {
+        if ((turn % 2 === 0 && playerToken === "X") || (turn % 2 !== 0 && playerToken === "O")) {
             console.log('playerTurn()');
             playerTurn();
         } else {
@@ -62,6 +79,7 @@ function ticTacToe() {
 
         function nextStep() {
             isPlayerTurn = false;
+            updateGrid();
             turn++;
             if (turn >= 5) {
                 console.log('checkForWinner()');
@@ -73,56 +91,56 @@ function ticTacToe() {
         }
 
         $("button.one").click(function () {
-            if ($("button.one").text() === "" && isPlayerTurn) {
-                $("button.one").text(playerToken);
+            if (one === "" && isPlayerTurn) {
+                one = playerToken;
                 nextStep();
             }
         });
         $("button.two").click(function () {
-            if ($("button.two").text() === "" && isPlayerTurn) {
-                $("button.two").text(playerToken);
+            if (two === "" && isPlayerTurn) {
+                two = playerToken;
                 nextStep();
             }
         });
         $("button.three").click(function () {
-            if ($("button.three").text() === "" && isPlayerTurn) {
-                $("button.three").text(playerToken);
+            if (three === "" && isPlayerTurn) {
+                three = playerToken;
                 nextStep();
             }
         });
         $("button.four").click(function () {
-            if ($("button.four").text() === "" && isPlayerTurn) {
-                $("button.four").text(playerToken);
+            if (four === "" && isPlayerTurn) {
+                four = playerToken;
                 nextStep();
             }
         });
         $("button.five").click(function () {
-            if ($("button.five").text() === "" && isPlayerTurn) {
-                $("button.five").text(playerToken);
+            if (five === "" && isPlayerTurn) {
+                five = playerToken;
                 nextStep();
             }
         });
         $("button.six").click(function () {
-            if ($("button.six").text() === "" && isPlayerTurn) {
-                $("button.six").text(playerToken);
+            if (six === "" && isPlayerTurn) {
+                six = playerToken;
                 nextStep();
             }
         });
         $("button.seven").click(function () {
-            if ($("button.seven").text() === "" && isPlayerTurn) {
-                $("button.seven").text(playerToken);
+            if (seven === "" && isPlayerTurn) {
+                seven = playerToken;
                 nextStep();
             }
         });
         $("button.eight").click(function () {
-            if ($("button.eight").text() === "" && isPlayerTurn) {
-                $("button.eight").text(playerToken);
+            if (eight === "" && isPlayerTurn) {
+                eight = playerToken;
                 nextStep();
             }
         });
         $("button.nine").click(function () {
-            if ($("button.nine").text() === "" && isPlayerTurn) {
-                $("button.nine").text(playerToken);
+            if (nine === "" && isPlayerTurn) {
+                nine = playerToken;
                 nextStep();
             }
         });
@@ -132,42 +150,42 @@ function ticTacToe() {
         var tileChoice;
         if (turn === 0) {
             console.log('random tile choice');
-            tileChoice = Math.floor(Math.random() * 9) + 1;
+            tileChoice = [1, 3, 5, 7, 9][Math.floor(Math.random() * 5) + 1];
             console.log(tileChoice);
         } else {
             console.log('strategic tile choice');
         }
         switch (tileChoice) {
             case 1:
-                $("button.one").text(cpuToken);
+                one = cpuToken;
                 break;
             case 2:
-                $("button.two").text(cpuToken);
+                two = cpuToken;
                 break;
             case 3:
-                $("button.three").text(cpuToken);
+                three = cpuToken;
                 break;
             case 4:
-                $("button.four").text(cpuToken);
+                four = cpuToken;
                 break;
             case 5:
-                $("button.five").text(cpuToken);
+                five = cpuToken;
                 break;
             case 6:
-                $("button.six").text(cpuToken);
+                six = cpuToken;
                 break;
             case 7:
-                $("button.seven").text(cpuToken);
+                seven = cpuToken;
                 break;
             case 8:
-                $("button.eight").text(cpuToken);
+                eight = cpuToken;
                 break;
             case 9:
-                $("button.nine").text(cpuToken);
+                nine = cpuToken;
                 break;
         }
+        updateGrid();
         turn++;
-        console.log('Now turn: ' + turn);
         if (turn >= 5) {
             console.log('checkForWinner()');
             checkForWinner();
@@ -181,21 +199,21 @@ function ticTacToe() {
         var tie = false;
 
         function checkSolutions(player) {
-            if ($("button.one").text() === player && $("button.two").text() === player && $("button.three").text() === player) {
+            if (one === player && two === player && three === player) {
                 return true;
-            } else if ($("button.four").text() === player && $("button.five").text() === player && $("button.six").text() === player) {
+            } else if (four === player && five === player && six === player) {
                 return true;
-            } else if ($("button.seven").text() === player && $("button.eight").text() === player && $("button.nine").text() === player) {
+            } else if (seven === player && eight === player && nine === player) {
                 return true;
-            } else if ($("button.one").text() === player && $("button.four").text() === player && $("button.seven").text() === player) {
+            } else if (one === player && four === player && seven === player) {
                 return true;
-            } else if ($("button.two").text() === player && $("button.five").text() === player && $("button.eight").text() === player) {
+            } else if (two === player && five === player && eight === player) {
                 return true;
-            } else if ($("button.three").text() === player && $("button.six").text() === player && $("button.nine").text() === player) {
+            } else if (three === player && six === player && nine === player) {
                 return true;
-            } else if ($("button.one").text() === player && $("button.five").text() === player && $("button.nine").text() === player) {
+            } else if (one === player && five === player && nine === player) {
                 return true;
-            } else if ($("button.three").text() === player && $("button.five").text() === player && $("button.seven").text() === player) {
+            } else if (three === player && five === player && seven === player) {
                 return true;
             } else {
                 return false;
@@ -244,11 +262,18 @@ function ticTacToe() {
     }
 
     function reset() {
-        playerX = false;
-        playerO = false;
         turn = 0;
+        one = "";
+        two = "";
+        three = "";
+        four = "";
+        five = "";
+        six = "";
+        seven = "";
+        eight = "";
+        nine = "";
         $(".game, .score").fadeOut(500, function () {
-            $("button").text("");
+            updateGrid();
             $(".winner").text("");
             $(".choice").fadeIn(500);
         });
