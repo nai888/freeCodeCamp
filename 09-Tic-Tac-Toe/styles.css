@@ -1,8 +1,98 @@
+@media all and (max-device-width: 510px) {
+  header,
+  main,
+  footer {
+    width: 300px;
+  }
+
+  main,
+  .choice,
+  .gamegrid {
+    height: 300px;
+  }
+
+  h2 {
+    font-size: 25.2px;
+  }
+
+  .choices,
+  .gamegrid {
+    font-size: 79.2px;
+  }
+}
 body {
   font-family: "Overlock", cursive;
   font-size: 100%;
+  text-align: center;
+}
+
+header,
+main,
+footer {
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1 {
+  font-size: 78px;
+}
+
+h2 {
+  font-size: 42px;
+}
+
+.choice {
+  height: 500px;
+}
+
+.choices {
+  font-size: 132px;
+}
+.choices span {
+  cursor: pointer;
+  color: #8AB0AB;
 }
 
 .gamegrid {
-  font-family: "Inconsolata", monospace;
+  width: 500px;
+  height: 500px;
+  border-collapse: collapse;
+  vertical-align: middle;
+  font-size: 132px;
+}
+
+tr {
+  height: 33%;
+}
+
+td {
+  width: 33%;
+}
+td.two, td.five, td.eight {
+  border-left: 3px solid black;
+  border-right: 3px solid black;
+}
+td.four, td.five, td.six {
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
+}
+
+.gamegrid,
+tr,
+td {
+  padding: 0;
+  margin: 0;
+}
+
+a,
+a:link,
+a:hover,
+a:active,
+a:visited {
+  color: #8AB0AB;
+}
+
+.no-show {
+  display: none;
 }

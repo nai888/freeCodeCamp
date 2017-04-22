@@ -1,11 +1,108 @@
-$monospace: 'Inconsolata', monospace;
-$display-font: 'Overlock', cursive;
+$font-stack: 'Overlock', cursive;
+$grid-lines: 3px solid black;
+$pewter: #8AB0AB;
+$full-size: 500px;
+$h1-size: 78px;
+$h2-size: 42px;
+$tile-size: 132px;
+
+@media all and (max-device-width: $full-size + 10px) {
+    header,
+    main,
+    footer {
+        width: (3/5) * $full-size;
+    }
+    main,
+    .choice,
+    .gamegrid {
+        height: (3/5) * $full-size;
+    }
+    h2 {
+        font-size: (3/5) * $h2-size;
+    }
+    .choices,
+    .gamegrid {
+        font-size: (3/5) * $tile-size;
+    }
+}
 
 body {
-    font-family: $display-font;
+    font-family: $font-stack;
     font-size: 100%;
+    text-align: center;
+}
+
+header,
+main,
+footer {
+    width: $full-size;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    font-size: $h1-size;
+}
+
+h2 {
+    font-size: $h2-size;
+}
+
+.choice {
+    height: $full-size;
+}
+
+.choices {
+    font-size: $tile-size;
+    span {
+        cursor: pointer;
+        color: $pewter;
+    }
 }
 
 .gamegrid {
-    font-family: $monospace;
+    width: $full-size;
+    height: $full-size;
+    border-collapse: collapse;
+    vertical-align: middle;
+    font-size: $tile-size;
+}
+
+tr {
+    height: 33%;
+}
+
+td {
+    width: 33%;
+    &.two,
+    &.five,
+    &.eight {
+        border-left: $grid-lines;
+        border-right: $grid-lines;
+    }
+    &.four,
+    &.five,
+    &.six {
+        border-top: $grid-lines;
+        border-bottom: $grid-lines;
+    }
+}
+
+.gamegrid,
+tr,
+td {
+    padding: 0;
+    margin: 0;
+}
+
+a,
+a:link,
+a:hover,
+a:active,
+a:visited {
+    color: $pewter;
+}
+
+.no-show {
+    display: none;
 }
