@@ -20,7 +20,12 @@ footer {
     margin-right: auto;
 }
 
+footer {
+    margin-top: 12px;
+}
+
 h1 {
+    margin-top: 0;
     font-size: $h1-size;
 }
 
@@ -36,12 +41,20 @@ p {
     height: $full-size;
 }
 
-.choices {
+.choices,
+.chosen {
     font-size: $tile-size;
-    span {
-        cursor: pointer;
-        color: $pewter;
-    }
+}
+
+.reset,
+.choices span {
+    cursor: pointer;
+    color: $pewter;
+}
+
+.chosen,
+.game {
+    display: none;
 }
 
 .gamegrid {
@@ -85,10 +98,6 @@ a:hover,
 a:active,
 a:visited {
     color: $pewter;
-}
-
-.no-show {
-    display: none;
 }
 
 @media all and (max-width: $full-size + 10px) {
