@@ -1,25 +1,3 @@
-@media all and (max-device-width: 510px) {
-  header,
-  main,
-  footer {
-    width: 300px;
-  }
-
-  main,
-  .choice,
-  .gamegrid {
-    height: 300px;
-  }
-
-  h2 {
-    font-size: 25.2px;
-  }
-
-  .choices,
-  .gamegrid {
-    font-size: 79.2px;
-  }
-}
 body {
   font-family: "Overlock", cursive;
   font-size: 100%;
@@ -40,6 +18,10 @@ h1 {
 
 h2 {
   font-size: 42px;
+}
+
+p {
+  margin: 0;
 }
 
 .choice {
@@ -95,4 +77,32 @@ a:visited {
 
 .no-show {
   display: none;
+}
+
+@media all and (max-width: 510px) {
+  header,
+  main,
+  footer,
+  .gamegrid {
+    width: 300px;
+  }
+
+  main,
+  .choice,
+  .gamegrid {
+    height: 300px;
+  }
+
+  h1 {
+    font-size: 46.8px;
+  }
+
+  h2 {
+    font-size: 25.2px;
+  }
+
+  .choices,
+  .gamegrid {
+    font-size: 79.2px;
+  }
 }

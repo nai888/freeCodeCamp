@@ -6,26 +6,6 @@ $h1-size: 78px;
 $h2-size: 42px;
 $tile-size: 132px;
 
-@media all and (max-device-width: $full-size + 10px) {
-    header,
-    main,
-    footer {
-        width: (3/5) * $full-size;
-    }
-    main,
-    .choice,
-    .gamegrid {
-        height: (3/5) * $full-size;
-    }
-    h2 {
-        font-size: (3/5) * $h2-size;
-    }
-    .choices,
-    .gamegrid {
-        font-size: (3/5) * $tile-size;
-    }
-}
-
 body {
     font-family: $font-stack;
     font-size: 100%;
@@ -46,6 +26,10 @@ h1 {
 
 h2 {
     font-size: $h2-size;
+}
+
+p {
+    margin: 0;
 }
 
 .choice {
@@ -105,4 +89,28 @@ a:visited {
 
 .no-show {
     display: none;
+}
+
+@media all and (max-width: $full-size + 10px) {
+    header,
+    main,
+    footer,
+    .gamegrid {
+        width: (3/5) * $full-size;
+    }
+    main,
+    .choice,
+    .gamegrid {
+        height: (3/5) * $full-size;
+    }
+    h1 {
+        font-size: (3/5) * $h1-size;
+    }
+    h2 {
+        font-size: (3/5) * $h2-size;
+    }
+    .choices,
+    .gamegrid {
+        font-size: (3/5) * $tile-size;
+    }
 }
