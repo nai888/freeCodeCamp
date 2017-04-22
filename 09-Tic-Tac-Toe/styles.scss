@@ -2,8 +2,6 @@ $font-stack: 'Overlock', cursive;
 $grid-lines: 3px solid black;
 $pewter: #8AB0AB;
 $full-size: 500px;
-$h1-size: 78px;
-$h2-size: 42px;
 $tile-size: 132px;
 
 body {
@@ -24,11 +22,14 @@ footer {
     margin-top: 12px;
 }
 
+$h1-size: 78px;
 h1 {
     margin-top: 0;
+    margin-bottom: 20px;
     font-size: $h1-size;
 }
 
+$h2-size: 42px;
 h2 {
     font-size: $h2-size;
 }
@@ -52,8 +53,15 @@ p {
     color: $pewter;
 }
 
+$score-size: 24px;
+.score {
+    font-size: $score-size;
+    margin-bottom: 12px;
+}
+
 .chosen,
-.game {
+.game,
+.winner {
     display: none;
 }
 
@@ -107,7 +115,6 @@ a:visited {
     .gamegrid {
         width: (3/5) * $full-size;
     }
-    main,
     .choice,
     .gamegrid {
         height: (3/5) * $full-size;
@@ -119,7 +126,11 @@ a:visited {
         font-size: (3/5) * $h2-size;
     }
     .choices,
+    .chosen,
     .gamegrid {
         font-size: (3/5) * $tile-size;
+    }
+    .score {
+        font-size: (3/5) * $score-size;
     }
 }

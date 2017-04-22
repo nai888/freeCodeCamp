@@ -25,18 +25,17 @@
     <main>
         <div class="choice">
             <h2 class="question">Would you like to play as Player X or Player O?</h2>
-            <p class="choices"><span class="X">X</span> | <span class="O">O</span></p>
+            <p class="choices"><span class="choiceX">X</span> | <span class="choiceO">O</span></p>
             <p class="chosen"></p>
         </div>
         <div class="game">
-            <div class="score">
-                <p class="reset">Reset Score</p>
-            </div>
+            <p class="score">Player X: <span class="scoreX">0</span> | Player O: <span class="scoreO">0</span> | <span class="reset">Reset Score</span></p>
             <table class="gamegrid">
                 <tr><td class="one"></td><td class="two"></td><td class="three"></td></tr>
                 <tr><td class="four"></td><td class="five"></td><td class="six"></td></tr>
                 <tr><td class="seven"></td><td class="eight"></td><td class="nine"></td></tr>
             </table>
+            <p class="winner">Player <span class="player"></span> wins!</p>
         </div>
     </main>
     <footer>

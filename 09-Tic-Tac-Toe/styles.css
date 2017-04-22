@@ -18,6 +18,7 @@ footer {
 
 h1 {
   margin-top: 0;
+  margin-bottom: 20px;
   font-size: 78px;
 }
 
@@ -44,8 +45,14 @@ p {
   color: #8AB0AB;
 }
 
+.score {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
 .chosen,
-.game {
+.game,
+.winner {
   display: none;
 }
 
@@ -64,11 +71,17 @@ tr {
 td {
   width: 33%;
 }
-td.two, td.five, td.eight {
+
+td.two,
+td.five,
+td.eight {
   border-left: 3px solid black;
   border-right: 3px solid black;
 }
-td.four, td.five, td.six {
+
+td.four,
+td.five,
+td.six {
   border-top: 3px solid black;
   border-bottom: 3px solid black;
 }
@@ -95,23 +108,22 @@ a:visited {
   .gamegrid {
     width: 300px;
   }
-
-  main,
   .choice,
   .gamegrid {
     height: 300px;
   }
-
   h1 {
     font-size: 46.8px;
   }
-
   h2 {
     font-size: 25.2px;
   }
-
   .choices,
+  .chosen,
   .gamegrid {
     font-size: 79.2px;
+  }
+  .score {
+    font-size: 14.4px;
   }
 }
