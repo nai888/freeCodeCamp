@@ -41,7 +41,6 @@ function ticTacToe() {
         playerO = false;
         $(".game").fadeOut(500, function () {
             $("td").text("");
-            $(".winner").text("");
             $(".choice").fadeIn(500);
         });
     }
@@ -58,7 +57,6 @@ function ticTacToe() {
     }
 
     function checkForWinner() {
-        var tie = false;
         function checkSolutions(player) {
             if ($(".one").text() === player && $(".two").text() === player && $(".three").text() === player) {
                 return true;
@@ -86,20 +84,13 @@ function ticTacToe() {
         } else if (checkSolutions("O")) {
             scoreO += 1;
             showWinner("O");
-        } else if (turn = 9) {
-            tie = true;
-            showWinner("tie");
         }
         updateScore();
     }
 
     function showWinner(winner) {
         $(".gamegrid").fadeOut(500, function () {
-            if (winner === "tie") {
-                $(".winner").text("It was a tie.");
-            } else {
-                $(".winner").text("Player " + winner + "wins!");
-            }
+            $(".player").text(winner);
             $(".winner").fadeIn(500).delay(1000).fadeOut(500, function () {
                 reset();
             });
