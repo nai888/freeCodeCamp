@@ -50,6 +50,7 @@ p {
   margin-bottom: 12px;
 }
 
+.score,
 .chosen,
 .game,
 .winner {
@@ -71,11 +72,17 @@ tr {
 td {
   width: 33%;
 }
-td.two, td.five, td.eight {
+
+td.two,
+td.five,
+td.eight {
   border-left: 3px solid black;
   border-right: 3px solid black;
 }
-td.four, td.five, td.six {
+
+td.four,
+td.five,
+td.six {
   border-top: 3px solid black;
   border-bottom: 3px solid black;
 }
@@ -112,30 +119,24 @@ a:visited {
   .gamegrid {
     width: 300px;
   }
-
   .choice,
   .gamegrid {
     height: 300px;
   }
-
   h1 {
     font-size: 46.8px;
   }
-
   h2 {
     font-size: 25.2px;
   }
-
   .choices,
   .chosen,
   .gamegrid {
     font-size: 79.2px;
   }
-
   .score {
     font-size: 14.4px;
   }
-
   button {
     font-size: 79.2px;
   }

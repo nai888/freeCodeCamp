@@ -23,17 +23,19 @@
         <h1 class="title">Tic Tac Toe</h1>
     </header>
     <main>
+        <div class="score">
+            <p>Player: <span class="player-score">0</span> | Computer: <span class="cpu-score">0</span> | <span class="reset">Reset Score</span></p>
+        </div>
         <div class="choice">
             <h2 class="question">Would you like to play as Player X or Player O?</h2>
             <p class="choices"><span class="choiceX">X</span> | <span class="choiceO">O</span></p>
             <p class="chosen"></p>
         </div>
         <div class="game">
-            <p class="score">Player: <span class="player-score">0</span> | Computer: <span class="cpu-score">0</span> | <span class="reset">Reset Score</span></p>
             <table class="gamegrid">
-                <tr><td class="one"><button class="one"></button></td><td class="two"><button class="two"></button></td><td class="three"><button class="three"></button></td></tr>
-                <tr><td class="four"><button class="four"></button></td><td class="five"><button class="five"></button></td><td class="six"><button class="six"></button></td></tr>
-                <tr><td class="seven"><button class="seven"></button></td><td class="eight"><button class="eight"></button></td><td class="nine"><button class="nine"></button></td></tr>
+                <tr><td class="one"><button value="1" class="one"></button></td><td class="two"><button value="2" class="two"></button></td><td class="three"><button value="3" class="three"></button></td></tr>
+                <tr><td class="four"><button value="4" class="four"></button></td><td class="five"><button value="5" class="five"></button></td><td class="six"><button value="6" class="six"></button></td></tr>
+                <tr><td class="seven"><button value="7" class="seven"></button></td><td class="eight"><button value="8" class="eight"></button></td><td class="nine"><button value="9" class="nine"></button></td></tr>
             </table>
             <p class="winner"></p>
         </div>
