@@ -2,20 +2,38 @@ function ticTacToe() {
 
     // Game Initialization
 
-    var gameObject = function () {
-        this.grid = {
-            one: "",
-            two: "",
-            three: "",
-            four: "",
-            five: "",
-            six: "",
-            seven: "",
-            eight: "",
-            nine: ""
-        };
+    var State = function (oldState, move) {
+        var self = this;
+        if (typeof oldState === "undefined") {
+            self.grid = {
+                one: "",
+                two: "",
+                three: "",
+                four: "",
+                five: "",
+                six: "",
+                seven: "",
+                eight: "",
+                nine: ""
+            };
+            self.playerToken = "";
+            self.cpuToken = "";
+            self.playerScore = 0;
+            self.cpuScore = 0;
+        } else {
+            self.grid = oldState.grid;
+            self.playerToken = oldState.playerToken;
+            self.cpuToken = oldState.cpuToken;
+            self.playerScore = oldState.playerScore;
+            self.cpuScore = oldState.cpuScore;
+            if (oldState.isPlayerTurn()) {
+                self.grid[move] = self.playerToken;
+            } else {
+                self.grid[move] = self.cpuToken;
+            }
+        }
         this.cleanGrid = function () {
-            this.grid = {
+            self.grid = {
                 one: "",
                 two: "",
                 three: "",
@@ -27,13 +45,13 @@ function ticTacToe() {
                 nine: ""
             }
         };
-        this.playerToken = "";
-        this.cpuToken = "";
-        this.playerScore = 0;
-        this.cpuScore = 0;
-        this.turn = 0;
-        this.isPlayerTurn = false;
-        var self = this;
+        this.isPlayerTurn = function() {
+            if ((self.getAvailableMoves().length % 2 !== 0 && self.playerToken === "X") || (self.getAvailableMoves().length % 2 === 0 && self.playerToken === "O")) {
+                return true;
+            } else {
+                return false;
+            }
+        };
         this.getAvailableMoves = function () {
             var possibleMoves = [];
             var keys = Object.keys(self.grid);
@@ -44,15 +62,54 @@ function ticTacToe() {
             }
             return possibleMoves;
         };
-        this.getNewState = function (move, token) {
-            var newState = this;
-            newState.grid[move] = token;
-            return newState;
+        this.checkSolutions = function (player) {
+            if (self.grid.one === player && self.grid.two === player && self.grid.three === player) {
+                return true;
+            } else if (self.grid.four === player && self.grid.five === player && self.grid.six === player) {
+                return true;
+            } else if (self.grid.seven === player && self.grid.eight === player && self.grid.nine === player) {
+                return true;
+            } else if (self.grid.one === player && self.grid.four === player && self.grid.seven === player) {
+                return true;
+            } else if (self.grid.two === player && self.grid.five === player && self.grid.eight === player) {
+                return true;
+            } else if (self.grid.three === player && self.grid.six === player && self.grid.nine === player) {
+                return true;
+            } else if (self.grid.one === player && self.grid.five === player && self.grid.nine === player) {
+                return true;
+            } else if (self.grid.three === player && self.grid.five === player && self.grid.seven === player) {
+                return true;
+            } else {
+                return false;
+            }
         };
+        this.gameIsOver = function () {
+            if (self.checkSolutions(self.cpuToken) || self.checkSolutions(self.playerToken) || self.getAvailableMoves().length < 1) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+        this.recordWinner = function () {
+            if (self.checkSolutions(self.playerToken)) {
+                console.log('player win');
+                self.playerScore += 1;
+                console.log('showWinner(game.playerToken)');
+                showWinner(self.playerToken);
+            } else if (self.checkSolutions(self.cpuToken)) {
+                console.log('cpu win');
+                self.cpuScore += 1;
+                console.log('showWinner(game.cpuToken)');
+                showWinner(self.cpuToken);
+            } else if (self.getAvailableMoves().length < 1) {
+                console.log('showWinner("tie")');
+                showWinner("tie");
+            }
+        }
     }
-    var game = new gameObject;
+    var game = new State();
 
-    // View Logic
+    // View components
 
     function choiceMadeView() {
         $(".question, .choices").fadeOut(500, function () {
@@ -75,11 +132,9 @@ function ticTacToe() {
                 $(".winner").text("Player " + winner + " wins!");
             }
             $(".winner").fadeIn(500).delay(1000).fadeOut(500, function () {
-                console.log('reset()');
                 reset();
             });
         });
-        console.log('updateScore()');
         updateScore();
     }
 
@@ -100,7 +155,7 @@ function ticTacToe() {
         $(".cpu-score").text(game.cpuScore);
     }
 
-    // Operational Logic
+    // Operational components
 
     function choiceMade(choice) {
         if (choice === "X") {
@@ -110,21 +165,16 @@ function ticTacToe() {
             game.playerToken = "O";
             game.cpuToken = "X";
         }
-        console.log("choiceMadeView()");
         choiceMadeView();
     }
 
     $(".choiceX").click(function () {
-        console.log('choiceMade("X")');
         choiceMade("X");
-        console.log('playerTurn()')
         playerTurn();
     });
 
     $(".choiceO").click(function () {
-        console.log('choiceMade("O")');
         choiceMade("O");
-        console.log('cpuTurn()')
         setTimeout(cpuTurn, 4000);
     });
 
@@ -132,9 +182,7 @@ function ticTacToe() {
         game.cleanGrid();
         game.playerToken = "";
         game.cpuToken = "";
-        game.turn = 0;
-        game.isPlayerTurn = false;
-        $(".game, .score").fadeOut(500, function () {
+        $(".game").fadeOut(500, function () {
             updateGrid();
             $(".winner").text("");
             $(".choice").fadeIn(500);
@@ -144,95 +192,62 @@ function ticTacToe() {
     function resetScore() {
         game.playerScore = 0;
         game.cpuScore = 0;
-        console.log('updateScore()');
         updateScore();
-        console.log('reset()');
         reset();
     }
 
     $(".reset").click(function () {
-        console.log('resetScore()');
         resetScore();
     });
 
-    // Game Logic
+    // Game logic components
 
-    function chooseTile(tileChoice, player) {
-        switch (tileChoice) {
+    function translate(num) {
+        switch (num) {
             case 1:
-                if (game.grid.one === "") {
-                    game.grid.one = player;
-                    console.log("nextStep()");
-                    nextStep();
-                }
+                return "one";
                 break;
             case 2:
-                if (game.grid.two === "") {
-                    game.grid.two = player;
-                    console.log("nextStep()");
-                    nextStep();
-                }
+                return "two";
                 break;
             case 3:
-                if (game.grid.three === "") {
-                    game.grid.three = player;
-                    console.log("nextStep()");
-                    nextStep();
-                }
+                return "three";
                 break;
             case 4:
-                if (game.grid.four === "") {
-                    game.grid.four = player;
-                    console.log("nextStep()");
-                    nextStep();
-                }
+                return "four";
                 break;
             case 5:
-                if (game.grid.five === "") {
-                    game.grid.five = player;
-                    console.log("nextStep()");
-                    nextStep();
-                }
+                return "five";
                 break;
             case 6:
-                if (game.grid.six === "") {
-                    game.grid.six = player;
-                    console.log("nextStep()");
-                    nextStep();
-                }
+                return "six";
                 break;
             case 7:
-                if (game.grid.seven === "") {
-                    game.grid.seven = player;
-                    console.log("nextStep()");
-                    nextStep();
-                }
+                return "seven";
                 break;
             case 8:
-                if (game.grid.eight === "") {
-                    game.grid.eight = player;
-                    console.log("nextStep()");
-                    nextStep();
-                }
-                break;
+                return "eight";
+                break
             case 9:
-                if (game.grid.nine === "") {
-                    game.grid.nine = player;
-                    console.log("nextStep()");
-                    nextStep();
-                }
+                return "nine";
                 break;
         }
     }
 
+    function chooseTile(tileChoice) {
+        if (game.grid[tileChoice] === "") {
+            console.log("game = new State(game, tileChoice)");
+            game = new State(game, tileChoice);
+            console.log("nextStep()");
+            nextStep();
+        }
+    }
+
     function nextStep() {
-        game.isPlayerTurn = false;
-        console.log("updateGrid()");
         updateGrid();
-        game.turn++;
-        if (game.turn >= 5) {
-            console.log('checkForWinner()');
-            checkForWinner();
+        if (game.gameIsOver()) {
+            console.log('game.recordWinner()');
+            game.recordWinner();
         } else {
             console.log('nextTurn()');
             nextTurn();
@@ -240,8 +255,8 @@ function ticTacToe() {
     }
 
     function nextTurn() {
-        console.log('Turn: ' + game.turn);
-        if ((game.turn % 2 === 0 && game.playerToken === "X") || (game.turn % 2 !== 0 && game.playerToken === "O")) {
+        console.log('Remaining: ' + game.getAvailableMoves().length);
+        if (game.isPlayerTurn()) {
             console.log('playerTurn()');
             playerTurn();
         } else {
@@ -252,65 +267,14 @@ function ticTacToe() {
         }
     }
 
-    function checkForWinner() {
-        if (checkSolutions(game, game.playerToken)) {
-            console.log('player win');
-            game.playerScore += 1;
-            console.log('showWinner(game.playerToken)');
-            showWinner(game.playerToken);
-        } else if (checkSolutions(game, game.cpuToken)) {
-            console.log('cpu win');
-            game.cpuScore += 1;
-            console.log('showWinner(game.cpuToken)');
-            showWinner(game.cpuToken);
-        } else if (game.turn === 9) {
-            console.log('showWinner("tie")');
-            showWinner("tie");
-        } else {
-            console.log('nextTurn()');
-            nextTurn();
-        }
-    }
-
-    function checkSolutions(thisGame, player) {
-        if (thisGame.grid.one === player && thisGame.grid.two === player && thisGame.grid.three === player) {
-            return true;
-        } else if (thisGame.grid.four === player && thisGame.grid.five === player && thisGame.grid.six === player) {
-            return true;
-        } else if (thisGame.grid.seven === player && thisGame.grid.eight === player && thisGame.grid.nine === player) {
-            return true;
-        } else if (thisGame.grid.one === player && thisGame.grid.four === player && thisGame.grid.seven === player) {
-            return true;
-        } else if (thisGame.grid.two === player && thisGame.grid.five === player && thisGame.grid.eight === player) {
-            return true;
-        } else if (thisGame.grid.three === player && thisGame.grid.six === player && thisGame.grid.nine === player) {
-            return true;
-        } else if (thisGame.grid.one === player && thisGame.grid.five === player && thisGame.grid.nine === player) {
-            return true;
-        } else if (thisGame.grid.three === player && thisGame.grid.five === player && thisGame.grid.seven === player) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function gameIsOver(thisGame) {
-        if (checkSolutions(thisGame, thisGame.cpuToken) || checkSolutions(thisGame, thisGame.playerToken) || thisGame.turn >= 9) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    // Player Logic
+    // Player components
 
     function playerTurn() {
-        game.isPlayerTurn = true;
         $("button").click(function () {
             var val = parseInt($(this).val(), 10);
-            if (game.isPlayerTurn) {
-                console.log("chooseTile(val, game.playerToken)");
-                chooseTile(val, game.playerToken);
+            if (game.isPlayerTurn()) {
+                console.log("chooseTile(translate(val))");
+                chooseTile(translate(val));
             }
         });
     }
@@ -318,12 +282,12 @@ function ticTacToe() {
     function cpuTurn() {
         var chosenTile;
         var depth = 0;
-        var thisTurn = game.turn;
+        var choice;
 
         function minimaxScore(thisGame, depth) {
-            if (checkSolutions(thisGame, thisGame.cpuToken)) {
+            if (thisGame.checkSolutions(thisGame.cpuToken)) {
                 return 10 - depth;
-            } else if (checkSolutions(thisGame, thisGame.playerToken)) {
+            } else if (thisGame.checkSolutions(thisGame.playerToken)) {
                 return depth - 10;
             } else {
                 return 0;
@@ -331,38 +295,47 @@ function ticTacToe() {
         }
 
         function minimax(thisGame, depth) {
-            if (gameIsOver(thisGame)) {
-                return score(thisGame, depth);
+            if (thisGame.gameIsOver()) {
+                return minimaxScore(thisGame);
             } else {
-                depth += 1;
+                depth++;
                 var scores = [];
                 var moves = [];
-                for (var move in thisGame.getAvailableMoves) {
-                    var possibleGame = game.getNewState(move);
+                for (var move in thisGame.getAvailableMoves()) { // need to translate available moves from digits to words
+                    var possibleGame = new State(move);
+                    console.log(possibleGame);
                     scores.push(minimax(possibleGame, depth));
                     moves.push(move);
                 }
-                if (!game.isPlayerTurn) {
+                console.log(scores);
+                console.log(moves);
+                if (!thisGame.isPlayerTurn()) {
                     var maxScoreIndex = scores.indexOf(Math.max(scores));
-
+                    var choice = moves[maxScoreIndex];
+                    return scores[maxScoreIndex];
+                } else {
+                    var minScoreIndex = scores.indexOf(Math.min(scores));
+                    var choice = moves[minScoreIndex];
+                    return scores[minScoreIndex];
                 }
             }
         }
-        if (game.turn === 0) {
+        if (game.getAvailableMoves().length === 9) {
             console.log('random tile choice');
             var startOptions = [1, 3, 5, 7, 9];
             chosenTile = startOptions[Math.floor(Math.random() * startOptions.length)];
             console.log(chosenTile);
         } else {
-            console.log('minimax(game, depth, cpuToken)');
+            // Until minimax() is ready, randomize the available tiles
             var possibleMoves = game.getAvailableMoves();
             console.log(possibleMoves);
             chosenTile = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+            console.log('minimax(game, depth)');
+            //chosenTile = minimax(game, depth);
             console.log(chosenTile);
-            // minimax(game, depth, game.cpuToken);
         }
-        console.log("chooseTile(chosenTile, game.cpuToken)");
-        chooseTile(chosenTile, game.cpuToken);
+        console.log("chooseTile(translate(chosenTile))");
+        chooseTile(translate(chosenTile));
     }
 }
 
