@@ -1,18 +1,14 @@
-var human = function () {
-	var game = {}
-	this.plays = function (_game) {
-		game = _game;
-	};
-	$("button").click(function () {
-		var val = parseInt($(this).val(), 10) - 1;
-		if (game.currentState.turn === game.currentState.human && game.currentState.board[val] === "") {
+function human() {
+	$(".view").on("click", "td", function () {
+		var val = parseInt($(this).data("val"), 10);
+		if (control.game.currentState.result === "still running" && control.game.currentState.turn === control.game.currentState.human && control.game.currentState.board[val] === "") {
 			var chosenAction = new Action(val);
-			var next = chosenAction.applyTo(game.currentState);
-			ui.insertAt(chosenAction.movePosition, game.currentState.human);
-			game.advanceTo(next);
+			var next = chosenAction.applyTo(control.game.currentState);
+			ui.insertAt(chosenAction.movePosition, control.game.currentState.human);
+			control.game.advanceTo(next);
 		}
 	});
-};
+}
 
 var AI = function (level) {
 	var intelligence = level;
@@ -20,7 +16,7 @@ var AI = function (level) {
 
 	function minimaxValue(state) {
 		if (state.isTerminal()) {
-			return Game.score(state);
+			return game.score(state);
 		} else {
 			var stateScore;
 			if (state.turn === state.human) {
@@ -68,9 +64,11 @@ var AI = function (level) {
 		var chosenAction;
 		switch (intelligence) {
 			case "blind":
+				console.log("blind move");
 				chosenAction = availableNextStates[Math.floor(Math.random() * availableMoves.length)];
 				break;
 			case "novice":
+				console.log("novice move");
 				if (Math.random() * 100 >= 60 || availableNextStates.length < 2) {
 					chosenAction = availableNextStates[0];
 				} else if (Math.random() * 100 >= 20 || availableNextStates.length < 3) {
@@ -80,6 +78,7 @@ var AI = function (level) {
 				}
 				break;
 			case "challenging":
+				console.log("challenging move");
 				if (Math.random() * 100 >= 35 || availableNextStates.length < 2) {
 					chosenAction = availableNextStates[0];
 				} else {
@@ -87,6 +86,7 @@ var AI = function (level) {
 				}
 				break;
 			case "master":
+				console.log("master move");
 				chosenAction = availableNextStates[0];
 				break;
 		}
@@ -95,13 +95,13 @@ var AI = function (level) {
 		game.advanceTo(next);
 	};
 };
-
 var Action = function (pos) {
+	var self = this;
 	this.movePosition = pos;
 	this.minimaxVal = 0;
 	this.applyTo = function (state) {
 		var next = new State(state);
-		next.board[this.movePosition] = state.turn;
+		next.board[self.movePosition] = state.turn;
 		next.moves++;
 		next.advanceTurn();
 		return next;

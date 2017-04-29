@@ -1,56 +1,125 @@
 var ui = {};
+var difficultyView = `	<div class="difficulty">
+							<h2 class="question">How challenging should the AI player be?</h2>
+							<p class="choices"><span class="choice-blind">Blind</span><br />
+								<span class="choice-novice">Novice</span><br />
+								<span class="choice-challenging">Challenging</span><br />
+								<span class="choice-master">Master</span></p>
+						</div>`;
+var tokenView = `	<div class="token">
+						<h2 class="question">Would you like to play as Player X or Player O?</h2>
+						<p class="choices"><span class="choice-X">X</span> | <span class="choice-O">O</span></p>
+					</div>`;
+var gameView = `<div class="game">
+					<table class="gamegrid">
+						<tr>
+							<td class="c-left r-top" data-val="0"></td>
+							<td class="c-center r-top" data-val="1"></td>
+							<td class="c-right r-top" data-val="2"></td>
+						</tr>
+						<tr>
+							<td class="c-left r-center" data-val="3"></td>
+							<td class="c-center r-center" data-val="4"></td>
+							<td class="c-right r-center" data-val="5"></td>
+						</tr>
+						<tr>
+							<td class="c-left r-bottom" data-val="6"></td>
+							<td class="c-center r-bottom" data-val="7"></td>
+							<td class="c-right r-bottom" data-val="8"></td>
+						</tr>
+					</table>
+				</div>`;
+var notifHuman = "It is your turn.";
+var notifCPU = "It is the computer&rsquo;s turn.";
+var notifHumanWon = "You won this round!";
+var notifCpuWon = "The computer won this round.";
+var notifTie = "This round was a tie.";
 ui.switchViewTo = function (view) {
 	switch (view) {
-		case "start":
-			break;
 		case "difficulty":
+			$(".view").fadeOut(500, function () {
+				$(".view").html(difficultyView).fadeIn(500);
+				difficultyControls();
+			});
 			break;
+		case "token":
+			$(".view").fadeOut(500, function () {
+				$(".view").html(tokenView).fadeIn(500);
+				tokenControls();
+			});
+			break;
+		case "game":
+			$(".view").fadeOut(500, function () {
+				$(".view").html(gameView).fadeIn(500);
+			});
 		case "human":
+			$(".notification").fadeOut(250, function () {
+				$(".notification").html(notifHuman).fadeIn(250);
+			});
+			human();
 			break;
 		case "cpu":
+			$(".notification").fadeOut(250, function () {
+				$(".notification").html(notifCPU).fadeIn(250);
+			});
 			break;
 		case "human won":
-			$(".player-score").text(AI.game.currentState.humanScore);
+			$(".player-score").text(control.game.currentState.humanScore);
+			$(".notification").fadeOut(250, function () {
+				$(".notification").html(notifHumanWon).fadeIn(250).delay(1000).fadeOut(250, function () {
+					$(".notification").text("");
+				});
+			});
 			break;
 		case "cpu won":
-			$(".cpu-score").text(AI.game.currentState.cpuScore);
+			$(".cpu-score").text(control.game.currentState.cpuScore);
+			$(".notification").fadeOut(250, function () {
+				$(".notification").html(notifCpuWon).fadeIn(250).delay(1000).fadeOut(250, function () {
+					$(".notification").text("");
+				});
+			});
 			break;
 		case "tie":
+			$(".notification").fadeOut(250, function () {
+				$(".notification").html(notifTie).fadeIn(250).delay(1000).fadeOut(250, function () {
+					$(".notification").text("");
+				});
+			});
 			break;
 	}
 };
 ui.insertAt = function (position, player) {
+	var val
 	switch (position) {
 		case 0:
-			$("button.one").text(player);
+			$("[data-val='0']").text(player);
 			break;
 		case 1:
-			$("button.two").text(player);
+			$("[data-val='1']").text(player);
 			break;
 		case 2:
-			$("button.three").text(player);
+			$("[data-val='2']").text(player);
 			break;
 		case 3:
-			$("button.four").text(player);
+			$("[data-val='3']").text(player);
 			break;
 		case 4:
-			$("button.five").text(player);
+			$("[data-val='4']").text(player);
 			break;
 		case 5:
-			$("button.six").text(player);
+			$("[data-val='5']").text(player);
 			break;
 		case 6:
-			$("button.seven").text(player);
+			$("[data-val='6']").text(player);
 			break;
 		case 7:
-			$("button.eight").text(player);
+			$("[data-val='7']").text(player);
 			break;
 		case 8:
-			$("button.nine").text(player);
+			$("[data-val='8']").text(player);
 			break;
 	}
 };
-
 $(document).ready(function () {
-	ui.switchViewTo("start");
+	ui.switchViewTo("difficulty");
 });

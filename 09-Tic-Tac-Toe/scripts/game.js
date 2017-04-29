@@ -1,4 +1,5 @@
 var State = function (old) {
+	var self = this;
 	this.human = ""; // human token
 	this.cpu = ""; // cpu token
 	this.turn = ""; // whose turn is it in this state?
@@ -8,32 +9,32 @@ var State = function (old) {
 	this.result = "still running"; // what is the state of the state?
 	this.board = ["", "", "", "", "", "", "", "", ""]; // the board
 	if (typeof old !== "undefined") { // inherit information from the old state
-		this.board = new Array(old.board.length);
+		self.board = new Array(old.board.length);
 		for (let i = 0; i < old.board.length; i++) {
-			this.board[i] = old.board[i];
+			self.board[i] = old.board[i];
 		}
-		this.human = old.human;
-		this.cpu = old.cpu;
-		this.turn = old.turn;
-		this.humanScore = old.humanScore;
-		this.cpuScore = old.cpuScore;
-		this.moves = old.moves;
-		this.result = old.result;
+		self.human = old.human;
+		self.cpu = old.cpu;
+		self.turn = old.turn;
+		self.humanScore = old.humanScore;
+		self.cpuScore = old.cpuScore;
+		self.moves = old.moves;
+		self.result = old.result;
 	}
 	this.advanceTurn = function () { // advance to the next token's turn
-		this.turn = this.turn === "X" ? "O" : "X";
+		self.turn = self.turn === "X" ? "O" : "X";
 	};
 	this.openCells = function () { // which cells are available?
 		var cells = [];
 		for (let i = 0; i < 9; i++) {
-			if (this.board[i] === "") {
+			if (self.board[i] === "") {
 				cells.push(i);
 			}
 		}
 		return cells;
 	};
 	this.isTerminal = function () { // is the game over in this state?
-		var b = this.board;
+		var b = self.board;
 		var winner = undefined;
 		for (let i = 0; i <= 6; i += 3) { // check rows
 			if (b[i] !== "" && b[i] === b[i + 1] && b[i] === b[i + 2]) {
@@ -50,18 +51,18 @@ var State = function (old) {
 				winner = b[i];
 			}
 		}
-		if (winner === this.human) {
-			this.result = "human won";
-			this.humanScore++;
+		if (winner === self.human) {
+			self.result = "human won";
+			self.humanScore++;
 			return true;
-		} else if (winner === this.cpu) {
-			this.result = "cpu won";
-			this.cpuScore++;
+		} else if (winner === self.cpu) {
+			self.result = "cpu won";
+			self.cpuScore++;
 			return true;
 		} else {
-			var open = this.openCells();
+			var open = self.openCells();
 			if (open.length === 0) {
-				this.result = "tie";
+				self.result = "tie";
 				return true;
 			} else { // game is not over in this state
 				return false;
@@ -71,36 +72,37 @@ var State = function (old) {
 };
 
 var Game = function (aiPlayer) {
+	var self = this;
 	this.ai = aiPlayer; // AI object
 	this.currentState = new State();
 	this.currentState.turn = "X"; // X always starts
 	this.status = "start";
 	this.advanceTo = function (_state) {
-		this.currentState = _state;
+		self.currentState = _state;
 		if (_state.isTerminal()) {
-			this.status = "end";
+			self.status = "end";
 			ui.switchViewTo(_state.result); // show end-game view
+			setTimeout(control.reset, 500);
 		} else {
-			if (this.currentState.turn === this.currentState.human) {
+			if (self.currentState.turn === self.currentState.human) {
 				ui.switchViewTo("human"); // enable human player to take turn
 			} else {
 				ui.switchViewTo("cpu");
-				setTimeout(function () {
-					this.ai.makeMove();
-				}, 1000);
+				setTimeout(self.ai.makeMove, 1000);
 			}
 		}
 	};
 	this.startGame = function (choice) {
-		if (this.status = "start") {
-			this.advanceTo(this.currentState);
-			this.status = "running";
-			this.currentState.human = choice;
+		if (self.status = "start") {
+			self.status = "running";
+			self.currentState.human = choice;
 			if (choice === "X") {
-				this.currentState.cpu = "O";
+				self.currentState.cpu = "O";
 			} else {
-				this.currentState.cpu = "X";
+				self.currentState.cpu = "X";
 			}
+
+			self.advanceTo(self.currentState);
 		}
 	};
 	this.score = function (_state) {
@@ -114,8 +116,6 @@ var Game = function (aiPlayer) {
 			case "tie":
 				return 0;
 				break;
-			default:
-				continue;
 		}
 	};
 };

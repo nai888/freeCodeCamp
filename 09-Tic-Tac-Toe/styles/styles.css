@@ -11,7 +11,7 @@ footer {
   margin-right: auto; }
 
 main {
-  height: 550px; }
+  height: 560px; }
 
 footer {
   margin-top: 12px; }
@@ -27,11 +27,13 @@ h2 {
 p {
   margin: 0; }
 
-.choice {
+.difficulty,
+.token,
+.game,
+.gamegrid {
   height: 500px; }
 
-.choices,
-.chosen {
+.choices {
   font-size: 132px; }
 
 .difficulty .choices {
@@ -46,42 +48,45 @@ p {
   font-size: 24px;
   margin-bottom: 12px; }
 
-.difficulty,
-.choice,
-.chosen,
-.game,
-.winner {
+.view {
   display: none; }
 
+table,
 .gamegrid {
   width: 500px;
-  height: 500px;
   border-collapse: collapse;
-  vertical-align: middle;
+  vertical-align: middle; }
+
+.player-name,
+.cpu-name {
+  width: auto;
+  text-align: right;
+  padding-right: 12px; }
+
+.player-score,
+.cpu-score {
+  text-align: left; }
+
+.reset {
+  text-align: center; }
+
+.gamegrid {
   font-size: 132px; }
 
-tr {
+.gamegrid tr {
   height: 33%; }
 
-td {
-  width: 33%; }
-  td.c-center {
+.gamegrid td {
+  width: 33%;
+  cursor: pointer; }
+  .gamegrid td.c-center {
     border-left: 3px solid black;
     border-right: 3px solid black; }
-  td.r-center {
+  .gamegrid td.r-center {
     border-top: 3px solid black;
     border-bottom: 3px solid black; }
 
-button {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  border: none;
-  background: none;
-  font-size: 132px;
-  font-family: "Overlock", sans-serif; }
-
-.gamegrid,
+table,
 tr,
 td {
   padding: 0;
@@ -98,13 +103,15 @@ a:visited {
   header,
   main,
   footer,
+  table,
   .gamegrid {
     width: 300px; }
 
   main {
-    height: 330px; }
+    height: 340px; }
 
-  .choice,
+  .difficulty,
+  .token,
   .gamegrid {
     height: 300px; }
 
@@ -115,7 +122,6 @@ a:visited {
     font-size: 25.2px; }
 
   .choices,
-  .chosen,
   .gamegrid {
     font-size: 79.2px; }
 
@@ -123,9 +129,6 @@ a:visited {
     font-size: 25.2px; }
 
   .score {
-    font-size: 14.4px; }
-
-  button {
-    font-size: 79.2px; } }
+    font-size: 14.4px; } }
 
 /*# sourceMappingURL=styles.css.map */
