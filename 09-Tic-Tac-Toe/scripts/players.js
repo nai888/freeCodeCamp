@@ -65,11 +65,19 @@ var AI = function (level) {
 			});
 			if (game.currentState.turn === game.currentState.cpu) {
 				availableNextStates.sort(function (first, second) {
-					return first.minimaxVal - second.minimaxVal;
+					var result = first.minimaxVal - second.minimaxVal;
+					if (result === 0) {
+						result = Math.floor(Math.random()) * 2 - 1;
+					}
+					return result;
 				});
 			} else {
 				availableNextStates.sort(function (first, second) {
-					return second.minimaxVal - first.minimaxVal;
+					var result = second.minimaxVal - first.minimaxVal;
+					if (result === 0) {
+						result = Math.floor(Math.random()) * 2 - 1;
+					}
+					return result;
 				});
 			}
 			availableNextStates.forEach(function (action) {});
