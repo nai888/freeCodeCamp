@@ -2,13 +2,11 @@ body {
   font-family: "News Cycle", sans-serif;
   font-size: 100%;
   font-size: 16px;
-  text-align: center;
-}
+  text-align: center; }
 
 h1 {
   font-size: 64px;
-  margin-top: 0;
-}
+  margin-top: 0; }
 
 main {
   margin: 0 auto;
@@ -16,18 +14,15 @@ main {
   width: 500px;
   border: 3px solid rgba(52, 122, 65, 0.6);
   border-radius: 10%;
-  box-shadow: 0 0 15px #347A41, inset 0 0 15px #347A41;
-}
+  box-shadow: 0 0 15px #347A41, inset 0 0 15px #347A41; }
 
 .times {
-  padding: 0 0 30px;
-}
+  padding: 0 0 30px; }
 
 div.break,
 div.session {
   width: 49%;
-  display: inline-block;
-}
+  display: inline-block; }
 
 button {
   display: inline-block;
@@ -36,16 +31,13 @@ button {
   background: none;
   margin: 0 10px;
   padding: none;
-  height: 40px;
-}
+  height: 40px; }
 
 .times button {
-  width: 40px;
-}
+  width: 40px; }
 
 .control button {
-  width: 60px;
-}
+  width: 60px; }
 
 .tomato {
   margin: 0 auto;
@@ -55,39 +47,33 @@ button {
   background-color: #D33434;
   background: -webkit-radial-gradient(50% 0%, 60px 45px, #16321b 0%, #347A41 30%, rgba(52, 122, 65, 0)), -webkit-radial-gradient(30% 30%, 70px 50px, #e58888 0%, #e58888 10%, #dc5e5e 40%, rgba(211, 52, 52, 0.1) 85%, rgba(211, 52, 52, 0) 100%), -webkit-linear-gradient(left, rgba(211, 52, 52, 0) 0%, #d84949 30%, rgba(211, 52, 52, 0) 60%), -webkit-radial-gradient(center, 150px 125px, #D33434 0%, #D33434 80%, #ae2626 100%);
   background: radial-gradient(60px 45px at 50% 0%, #16321b 0%, #347A41 30%, rgba(52, 122, 65, 0)), radial-gradient(70px 50px at 30% 30%, #e58888 0%, #e58888 10%, #dc5e5e 40%, rgba(211, 52, 52, 0.1) 85%, rgba(211, 52, 52, 0) 100%), linear-gradient(to right, rgba(211, 52, 52, 0) 0%, #d84949 30%, rgba(211, 52, 52, 0) 60%), radial-gradient(150px 125px at center, #D33434 0%, #D33434 80%, #ae2626 100%);
-  box-shadow: 0 0 3px #ae2626;
-}
+  box-shadow: 0 0 3px #ae2626; }
 
 input {
-  width: 20px;
-}
-input.mins {
-  text-align: right;
-}
-input.secs {
-  text-align: left;
-}
+  width: 20px; }
+  input.mins {
+    text-align: right; }
+  input.secs {
+    text-align: left; }
 
 .session-break {
   padding-top: 40px;
   font-size: 64px;
-  margin: 0;
-}
+  margin: 0; }
 
 .time {
   padding-top: 15px;
   font-size: 64px;
-  margin: 0;
-}
+  margin: 0; }
 
 .reset {
-  margin-top: 30px;
-}
+  margin-top: 30px; }
 
 a,
 a:active,
 a:hover,
 a:link,
 a:visited {
-  color: #347A41;
-}
+  color: #347A41; }
+
+/*# sourceMappingURL=styles.css.map */

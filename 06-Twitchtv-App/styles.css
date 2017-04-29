@@ -1,100 +1,81 @@
 body {
   font-family: "PT Sans", sans-serif;
-  color: #00883F;
-}
+  color: #00883F; }
 
 .offline .username,
 .online .username,
 h1,
 h2 {
-  font-weight: bold;
-}
+  font-weight: bold; }
 
 a,
 a:active,
 a:hover,
 a:link,
 a:visited {
-  color: #C18300;
-}
+  color: #C18300; }
 
 header {
   background-color: #00883F;
   color: white;
   border-bottom: 1px solid #005E2B;
   padding-bottom: 10px;
-  margin-bottom: 10px;
-}
+  margin-bottom: 10px; }
 
 .status.online {
-  font-weight: bold;
-}
+  font-weight: bold; }
 .status.nouser {
-  font-style: italic;
-}
+  font-style: italic; }
 
 #status-box {
   border: 1px solid #C18300;
   margin-top: 20px;
-  margin-bottom: 20px;
-}
-#status-box #status-title {
-  margin: 20px 40px;
-}
+  margin-bottom: 20px; }
+  #status-box #status-title {
+    margin: 20px 40px; }
 
 .filter {
-  margin: 19.6px 20px;
-}
-.filter#filter-online {
-  background-color: #38D07F;
-  color: #002210;
-}
-.filter#filter-online:hover {
-  background-color: #2ec172;
-}
-.filter#filter-offline {
-  background-color: #005E2B;
-  color: #38D07F;
-}
-.filter#filter-offline:hover {
-  background-color: #00451f;
-}
-.filter#filter-all {
-  background-color: white;
-  color: #00883F;
-}
-.filter#filter-all:hover {
-  background-color: #f2f2f2;
-}
+  margin: 19.6px 20px; }
+  .filter#filter-online {
+    background-color: #38D07F;
+    color: #002210; }
+    .filter#filter-online:hover {
+      background-color: #2ec172; }
+  .filter#filter-offline {
+    background-color: #005E2B;
+    color: #38D07F; }
+    .filter#filter-offline:hover {
+      background-color: #00451f; }
+  .filter#filter-all {
+    background-color: white;
+    color: #00883F; }
+    .filter#filter-all:hover {
+      background-color: #f2f2f2; }
 
 .stream {
   border-top: 1px solid white;
   border-bottom: 1px solid white;
   padding: 0;
-  margin: 0;
-}
-.stream p {
-  margin: 10px;
-}
-.stream.online {
-  background-color: #38D07F;
-  color: #002210;
-}
-.stream.online a,
-.stream.online a:active,
-.stream.online a:hover,
-.stream.online a:link,
-.stream.online a:visited {
-  color: #002210;
-}
-.stream.offline {
-  background-color: #005E2B;
-  color: #38D07F;
-}
-.stream.offline a,
-.stream.offline a:active,
-.stream.offline a:hover,
-.stream.offline a:link,
-.stream.offline a:visited {
-  color: #38D07F;
-}
+  margin: 0; }
+  .stream p {
+    margin: 10px; }
+  .stream.online {
+    background-color: #38D07F;
+    color: #002210; }
+    .stream.online a,
+    .stream.online a:active,
+    .stream.online a:hover,
+    .stream.online a:link,
+    .stream.online a:visited {
+      color: #002210; }
+  .stream.offline {
+    background-color: #005E2B;
+    color: #38D07F; }
+    .stream.offline a,
+    .stream.offline a:active,
+    .stream.offline a:hover,
+    .stream.offline a:link,
+    .stream.offline a:visited {
+      color: #38D07F; }
+
+/*# sourceMappingURL=styles.css.map */
