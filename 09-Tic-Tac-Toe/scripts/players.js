@@ -78,16 +78,16 @@ var AI = function (level) {
 					chosenAction = availableNextStates[Math.floor(Math.random() * availableMoves.length)];
 					break;
 				case "novice":
-					if (Math.random() * 100 >= 60 || availableNextStates.length <= 2) {
+					if (Math.random() * 100 >= 60 || availableNextStates.length <= 3) {
 						chosenAction = availableNextStates[0];
-					} else if (Math.random() * 100 >= 20 || availableNextStates.length <= 4) {
+					} else if (Math.random() * 100 >= 20 || availableNextStates.length <= 5) {
 						chosenAction = availableNextStates[1];
 					} else {
 						chosenAction = availableNextStates[2];
 					}
 					break;
 				case "challenging":
-					if (Math.random() * 100 >= 40 || availableNextStates.length <= 3) {
+					if (Math.random() * 100 >= 40 || availableNextStates.length <= 4) {
 						chosenAction = availableNextStates[0];
 					} else {
 						chosenAction = availableNextStates[1];
