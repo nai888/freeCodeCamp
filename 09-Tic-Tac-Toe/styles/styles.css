@@ -22,7 +22,8 @@ h1 {
   font-size: 78px; }
 
 h2 {
-  font-size: 42px; }
+  font-size: 42px;
+  margin-top: 0; }
 
 p {
   margin: 0; }
@@ -112,6 +113,7 @@ a:visited {
 
   .difficulty,
   .token,
+  .game,
   .gamegrid {
     height: 300px; }
 

@@ -67,7 +67,7 @@ ui.switchViewTo = function (view) {
 			$(".player-score").text(control.game.currentState.humanScore);
 			$(".notification").fadeOut(250, function () {
 				$(".notification").html(notifHumanWon).fadeIn(250).delay(1000).fadeOut(250, function () {
-					$(".notification").text("");
+					$(".notification").html("");
 				});
 			});
 			break;
@@ -75,14 +75,14 @@ ui.switchViewTo = function (view) {
 			$(".cpu-score").text(control.game.currentState.cpuScore);
 			$(".notification").fadeOut(250, function () {
 				$(".notification").html(notifCpuWon).fadeIn(250).delay(1000).fadeOut(250, function () {
-					$(".notification").text("");
+					$(".notification").html("");
 				});
 			});
 			break;
 		case "tie":
 			$(".notification").fadeOut(250, function () {
 				$(".notification").html(notifTie).fadeIn(250).delay(1000).fadeOut(250, function () {
-					$(".notification").text("");
+					$(".notification").html("");
 				});
 			});
 			break;

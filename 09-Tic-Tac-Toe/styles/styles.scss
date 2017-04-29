@@ -36,6 +36,7 @@ h1 {
 $h2-size: 42px;
 h2 {
 	font-size: $h2-size;
+	margin-top: 0;
 }
 
 p {
@@ -145,6 +146,7 @@ a:visited {
 	}
 	.difficulty,
 	.token,
+	.game,
 	.gamegrid {
 		height: (3/5) * $full-size;
 	}
