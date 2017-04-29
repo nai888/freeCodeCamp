@@ -10,6 +10,9 @@ footer {
   margin-left: auto;
   margin-right: auto; }
 
+main {
+  height: 550px; }
+
 footer {
   margin-top: 12px; }
 
@@ -43,6 +46,8 @@ p {
   font-size: 24px;
   margin-bottom: 12px; }
 
+.difficulty,
+.choice,
 .chosen,
 .game,
 .winner {
@@ -96,6 +101,9 @@ a:visited {
   .gamegrid {
     width: 300px; }
 
+  main {
+    height: 330px; }
+
   .choice,
   .gamegrid {
     height: 300px; }
@@ -110,6 +118,9 @@ a:visited {
   .chosen,
   .gamegrid {
     font-size: 79.2px; }
+
+  .difficulty .choices {
+    font-size: 25.2px; }
 
   .score {
     font-size: 14.4px; }

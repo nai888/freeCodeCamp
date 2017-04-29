@@ -2,47 +2,71 @@
 <html>
 
 <head>
-    <title>Tic Tac Toe</title>
-    <meta charset="UTF-8">
-    <meta name="author" content="Ian A. Cook">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Import jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <!-- Import script -->
-    <script src="script.js"></script>
-    <!-- Import Google Fonts Overlock and Inconsolata -->
-    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Overlock" rel="stylesheet">
-    <!-- Import Normalize -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.min.css">
-    <!-- Import stylesheet -->
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+	<title>Tic Tac Toe</title>
+	<meta charset="UTF-8">
+	<meta name="author" content="Ian A. Cook">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Import jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<!-- Import scripts -->
+	<script src="scripts/ui.js"></script>
+	<script src="scripts/control.js"></script>
+	<script src="scripts/game.js"></script>
+	<script src="scripts/players.js"></script>
+	<!-- Import Google Font Overlock -->
+	<link href="https://fonts.googleapis.com/css?family=Overlock" rel="stylesheet">
+	<!-- Import Normalize -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.min.css">
+	<!-- Import stylesheet -->
+	<link rel="stylesheet" type="text/css" href="styles/styles.css" />
 </head>
 
 <body>
-    <header>
-        <h1 class="title">Tic Tac Toe</h1>
-    </header>
-    <main>
-        <div class="score">
-            <p>Player: <span class="player-score">0</span> | Computer: <span class="cpu-score">0</span> | <span class="reset">Reset Score</span></p>
-        </div>
-        <div class="choice">
-            <h2 class="question">Would you like to play as Player X or Player O?</h2>
-            <p class="choices"><span class="choiceX">X</span> | <span class="choiceO">O</span></p>
-            <p class="chosen"></p>
-        </div>
-        <div class="game">
-            <table class="gamegrid">
-                <tr><td class="one"><button value="1" class="one"></button></td><td class="two"><button value="2" class="two"></button></td><td class="three"><button value="3" class="three"></button></td></tr>
-                <tr><td class="four"><button value="4" class="four"></button></td><td class="five"><button value="5" class="five"></button></td><td class="six"><button value="6" class="six"></button></td></tr>
-                <tr><td class="seven"><button value="7" class="seven"></button></td><td class="eight"><button value="8" class="eight"></button></td><td class="nine"><button value="9" class="nine"></button></td></tr>
-            </table>
-            <p class="winner"></p>
-        </div>
-    </main>
-    <footer>
-        <p>Built by <a href="https://www.freecodecamp.com/nai888" target="_blank" rel="noopener">Ian A. Cook</a>, copyright &copy; 2017. <a href="https://github.com/nai888/freeCodeCamp/tree/master/09-Tic-Tac-Toe" target="_blank" rel="noopener">View this project on GitHub.</a></p>
-    </footer>
+	<header>
+		<h1 class="title">Tic Tac Toe</h1>
+	</header>
+	<main>
+		<div class="score">
+			<p>Player: <span class="player-score">0</span> | Computer: <span class="cpu-score">0</span> | <span class="reset">Reset Score</span></p>
+		</div>
+		<div class="difficulty">
+			<h2 class="question">How challenging should the AI player be?</h2>
+			<p class="choices"><span class="choice-blind">Blind</span><br />
+				<span class="choice-novice">Novice</span><br />
+				<span class="choice-challenging">Challenging</span><br />
+				<span class="choice-master">Master</span></p>
+			<p class="chosen"></p>
+		</div>
+		<div class="choice">
+			<h2 class="question">Would you like to play as Player X or Player O?</h2>
+			<p class="choices"><span class="choiceX">X</span> | <span class="choiceO">O</span></p>
+			<p class="chosen"></p>
+		</div>
+		<div class="game">
+			<table class="gamegrid">
+				<tr>
+					<td class="c-left r-top"><button value="1" class="one"></button></td>
+					<td class="c-center r-top"><button value="2" class="two"></button></td>
+					<td class="c-right r-top"><button value="3" class="three"></button></td>
+				</tr>
+				<tr>
+					<td class="c-left r-center"><button value="4" class="four"></button></td>
+					<td class="c-center r-center"><button value="5" class="five"></button></td>
+					<td class="c-right r-center"><button value="6" class="six"></button></td>
+				</tr>
+				<tr>
+					<td class="c-left r-bottom"><button value="7" class="seven"></button></td>
+					<td class="c-center r-bottom"><button value="8" class="eight"></button></td>
+					<td class="c-right r-bottom"><button value="9" class="nine"></button></td>
+				</tr>
+			</table>
+			<p class="winner"></p>
+		</div>
+	</main>
+	<footer>
+		<p>Built by <a href="https://www.freecodecamp.com/nai888" target="_blank" rel="noopener">Ian A. Cook</a>, copyright &copy;
+			2017. <a href="https://github.com/nai888/freeCodeCamp/tree/master/09-Tic-Tac-Toe" target="_blank" rel="noopener">View this project on GitHub.</a></p>
+	</footer>
 </body>
 
 </html>

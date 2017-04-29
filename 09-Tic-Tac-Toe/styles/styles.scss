@@ -18,6 +18,10 @@ footer {
 	margin-right: auto;
 }
 
+main {
+	height: $full-size + 50px;
+}
+
 footer {
 	margin-top: 12px;
 }
@@ -63,6 +67,8 @@ $score-size: 24px;
 	margin-bottom: 12px;
 }
 
+.difficulty,
+.choice,
 .chosen,
 .game,
 .winner {
@@ -125,6 +131,9 @@ a:visited {
 	.gamegrid {
 		width: (3/5) * $full-size;
 	}
+	main {
+		height: (3/5) * ($full-size + 50px);
+	}
 	.choice,
 	.gamegrid {
 		height: (3/5) * $full-size;
@@ -139,6 +148,9 @@ a:visited {
 	.chosen,
 	.gamegrid {
 		font-size: (3/5) * $tile-size;
+	}
+	.difficulty .choices {
+		font-size: (3/5) * $h2-size;
 	}
 	.score {
 		font-size: (3/5) * $score-size;
