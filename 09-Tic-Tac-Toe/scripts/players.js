@@ -49,46 +49,54 @@ var AI = function (level) {
 		game = _game;
 	};
 	this.makeMove = function () {
-		var availableMoves = game.currentState.openCells();
-		var availableNextStates = availableMoves.map(function (pos) {
-			var action = new Action(pos);
-			var nextState = action.applyTo(game.currentState);
-			action.minimaxVal = minimaxValue(nextState);
-			return action;
-		});
-		if (game.currentState.turn === game.currentState.human) {
-			availableNextStates.sort(Action.descending); // maximizing, highest first
-		} else {
-			availableNextStates.sort(Action.ascending); // minimizing, lowest first
-		}
 		var chosenAction;
-		switch (intelligence) {
-			case "blind":
-				console.log("blind move");
-				chosenAction = availableNextStates[Math.floor(Math.random() * availableMoves.length)];
-				break;
-			case "novice":
-				console.log("novice move");
-				if (Math.random() * 100 >= 60 || availableNextStates.length < 2) {
+		if (game.currentState.moves === 0) {
+			var startingMoves = [0, 2, 4, 6, 8];
+			chosenAction = new Action(startingMoves[Math.floor(Math.random() * startingMoves.length)]);
+		} else {
+			var availableMoves = game.currentState.openCells();
+			var x = 0;
+			var availableNextStates = availableMoves.map(function (pos) {
+				var action = new Action(pos);
+				var nextState = action.applyTo(game.currentState);
+				action.minimaxVal = minimaxValue(nextState);
+				x++;
+				return action;
+			});
+			if (game.currentState.turn === game.currentState.cpu) {
+				availableNextStates.sort(function (first, second) {
+					return first.minimaxVal - second.minimaxVal;
+				});
+			} else {
+				availableNextStates.sort(function (first, second) {
+					return second.minimaxVal - first.minimaxVal;
+				});
+			}
+			availableNextStates.forEach(function (action) {});
+			switch (intelligence) {
+				case "blind":
+					chosenAction = availableNextStates[Math.floor(Math.random() * availableMoves.length)];
+					break;
+				case "novice":
+					if (Math.random() * 100 >= 60 || availableNextStates.length <= 2) {
+						chosenAction = availableNextStates[0];
+					} else if (Math.random() * 100 >= 20 || availableNextStates.length <= 4) {
+						chosenAction = availableNextStates[1];
+					} else {
+						chosenAction = availableNextStates[2];
+					}
+					break;
+				case "challenging":
+					if (Math.random() * 100 >= 40 || availableNextStates.length <= 3) {
+						chosenAction = availableNextStates[0];
+					} else {
+						chosenAction = availableNextStates[1];
+					}
+					break;
+				case "master":
 					chosenAction = availableNextStates[0];
-				} else if (Math.random() * 100 >= 20 || availableNextStates.length < 3) {
-					chosenAction = availableNextStates[1];
-				} else {
-					chosenAction = availableNextStates[2];
-				}
-				break;
-			case "challenging":
-				console.log("challenging move");
-				if (Math.random() * 100 >= 35 || availableNextStates.length < 2) {
-					chosenAction = availableNextStates[0];
-				} else {
-					chosenAction = availableNextStates[1];
-				}
-				break;
-			case "master":
-				console.log("master move");
-				chosenAction = availableNextStates[0];
-				break;
+					break;
+			}
 		}
 		var next = chosenAction.applyTo(game.currentState);
 		ui.insertAt(chosenAction.movePosition, game.currentState.cpu);
@@ -105,23 +113,5 @@ var Action = function (pos) {
 		next.moves++;
 		next.advanceTurn();
 		return next;
-	};
-	this.ascending = function (firstAction, secondAction) { // sorts low to high
-		if (firstAction.minimaxVal < secondAction.minimaxVal) {
-			return -1;
-		} else if (firstAction.minimaxVal > secondAction.minimaxVal) {
-			return 1;
-		} else {
-			return 0;
-		}
-	};
-	this.descending = function (firstAction, secondAction) { // sorts high to low
-		if (firstAction.minimaxVal < secondAction.minimaxVal) {
-			return 1;
-		} else if (firstAction.minimaxVal > secondAction.minimaxVal) {
-			return -1;
-		} else {
-			return 0;
-		}
 	};
 };
