@@ -15,6 +15,7 @@ This repository represents my school, my sandbox, my playpen. I'll be adding my 
 7. **[Javascript Calculator](https://nai888.github.io/freeCodeCamp/07-Javascript-Calculator)**
 8. **[Pomodoro Clock](https://nai888.github.io/freeCodeCamp/08-Pomodoro-Clock/)**
 9. **[Tic Tac Toe Game](https://nai888.github.io/freeCodeCamp/09-Tic-Tac-Toe/)**
+10. **[Tic Tac Toe Game](https://nai888.github.io/freeCodeCamp/10-Simon-Game/)**
 
 ### License
 
