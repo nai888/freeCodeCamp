@@ -1,0 +1,167 @@
+$sans: 'Montserrat',
+sans-serif;
+$monospace: 'VT323',
+monospace;
+$grn: #23C433;
+$red: #F23726;
+$ylw: #EDE212;
+$blu: #1C90DD;
+$svr: #D3C9B6;
+$blk: #272522;
+$size: 500px;
+body {
+	font-size: 100%;
+	font-size: 16px;
+	font-size: 1em;
+	font-size: 1rem;
+	font-family: $sans;
+	text-align: center;
+	color: $blk;
+	background-color: lighten($svr, 12%);
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='%238d7659' fill-opacity='0.11'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E"); // Background pattern from http://www.heropatterns.com/
+}
+
+a,
+a:link,
+a:hover,
+a:active,
+a:visited {
+	color: $blu;
+}
+
+main {
+	width: $size;
+	height: $size;
+	margin: 50px auto;
+	padding: 0;
+	border-radius: 50%;
+	box-shadow: 3px 3px 0 0 lighten($blk, 15%), 5px 5px 15px 0 rgba($blk, 0.8);
+}
+
+.upper,
+.lower {
+	display: flex;
+	width: 100%;
+	height: 50%;
+	margin: 0;
+	padding: 0;
+}
+
+.btn {
+	width: 50%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	box-shadow: 0 0 15px 10px rgba($blk, 0.25) inset;
+}
+
+.ul,
+.ur {
+	border-top: 10px solid $blk;
+	border-bottom: 5px solid $blk;
+}
+
+.ul,
+.ll {
+	border-left: 10px solid $blk;
+	border-right: 5px solid $blk;
+}
+
+.ur,
+.lr {
+	border-left: 5px solid $blk;
+	border-right: 10px solid $blk;
+}
+
+.ll,
+.lr {
+	border-top: 5px solid $blk;
+	border-bottom: 10px solid $blk;
+}
+
+.ul {
+	background-color: $grn;
+	border-top-left-radius: 100%;
+}
+
+.ur {
+	background-color: $red;
+	border-top-right-radius: 100%;
+}
+
+.ll {
+	background-color: $ylw;
+	border-bottom-left-radius: 100%;
+}
+
+.lr {
+	background-color: $blu;
+	border-bottom-right-radius: 100%;
+}
+
+.center {
+	position: relative;
+	top: -75%;
+	width: $size / 2;
+	height: $size / 2;
+	margin: 0 auto;
+	padding: 0;
+	background-color: $svr;
+	border: 10px solid $blk;
+	border-radius: 50%;
+	box-shadow: 0 0 15px 10px rgba($blk, 0.25);
+}
+
+.screen {
+	width: 36px;
+	margin: 10% auto;
+	padding: 0;
+	background-color: $blk;
+	font-family: $monospace;
+	color: rgba($red, 0.3);
+	font-size: 32px;
+	&.on {
+		color: rgba($red, 0.8);
+	}
+}
+
+.digits {
+	margin: 0;
+	padding: 0;
+}
+
+.branding {
+	font-size: 50px;
+	margin-top: 10px;
+	padding: 0;
+}
+
+button {
+	border: 1px solid $blk;
+	border-radius: 50%;
+	box-shadow: 2px 2px 5px 0 rgba($blk, 0.8);
+	margin: 0 10px;
+	padding: 0;
+	font-size: 24px;
+	text-align: center;
+}
+
+.power {
+	background-color: rgba(darken($red, 20%), 0.8);
+}
+
+.start {
+	background-color: rgba(darken($grn, 20%), 0.8);
+}
+
+.strict {
+	background-color: rgba(darken($ylw, 20%), 0.8);
+}
+
+@media all and (max-width: $size+10px) {
+	main {
+		width: (3/5) * $size;
+		height: (3/5) * $size;
+	}
+}

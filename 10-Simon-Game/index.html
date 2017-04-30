@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>Simon<sup>&reg;</sup> Game</title>
+	<title>Simon Game</title>
 	<meta charset="UTF-8">
 	<meta name="author" content="Ian A. Cook">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +10,10 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<!-- Import script -->
 	<script src="script.js"></script>
-	<!-- Import Google Font News Cycle -->
-	<link href="https://fonts.googleapis.com/css?family=News+Cycle" rel="stylesheet">
+	<!-- Import Google Fonts Montserrat and VT323 -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|VT323" rel="stylesheet">
+	<!-- Import Font Awesome -->
+	<script src="https://use.fontawesome.com/d6a0aaf807.js"></script>
 	<!-- Import Normalize -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.min.css">
 	<!-- Import stylesheet -->
@@ -19,10 +21,24 @@
 </head>
 
 <body>
-	<header>
-
-	</header>
-	<main>
+	<main class="toy">
+		<div class="upper">
+			<div class="btn ul"></div>
+			<div class="btn ur"></div>
+		</div>
+		<div class="lower">
+			<div class="btn ll"></div>
+			<div class="btn lr"></div>
+		</div>
+		<div class="center">
+			<div class="screen">
+				<p class="digits">00</p>
+			</div>
+			<h1 class="branding">Simon</h1>
+			<button class="power"><i class="fa fa-fw fa-power-off" aria-hidden="true" title="Power"></i></button>
+			<button class="start"><i class="fa fa-fw fa-play-circle" aria-hidden="true" title="Start/Stop"></i></button>
+			<button class="strict"><i class="fa fa-fw fa-exclamation-circle" aria-hidden="true" title="Strict Mode"></i></button>
+		</div>
 	</main>
 	<footer>
 		<p>Built by <a href="https://www.freecodecamp.com/nai888" target="_blank" rel="noopener">Ian A. Cook</a>, copyright &copy;
