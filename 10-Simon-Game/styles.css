@@ -43,39 +43,35 @@ main {
   box-sizing: border-box;
   box-shadow: 0 0 15px 10px rgba(39, 37, 34, 0.25) inset; }
 
-.ul,
-.ur {
-  border-top: 10px solid #272522;
-  border-bottom: 5px solid #272522; }
-
-.ul,
-.ll {
-  border-left: 10px solid #272522;
-  border-right: 5px solid #272522; }
-
-.ur,
-.lr {
-  border-left: 5px solid #272522;
-  border-right: 10px solid #272522; }
-
-.ll,
-.lr {
-  border-top: 5px solid #272522;
-  border-bottom: 10px solid #272522; }
-
 .ul {
+  border-top: 10px solid #272522;
+  border-bottom: 5px solid #272522;
+  border-left: 10px solid #272522;
+  border-right: 5px solid #272522;
   background-color: #23C433;
   border-top-left-radius: 100%; }
 
 .ur {
+  border-top: 10px solid #272522;
+  border-bottom: 5px solid #272522;
+  border-left: 5px solid #272522;
+  border-right: 10px solid #272522;
   background-color: #F23726;
   border-top-right-radius: 100%; }
 
 .ll {
+  border-top: 5px solid #272522;
+  border-bottom: 10px solid #272522;
+  border-left: 10px solid #272522;
+  border-right: 5px solid #272522;
   background-color: #EDE212;
   border-bottom-left-radius: 100%; }
 
 .lr {
+  border-top: 5px solid #272522;
+  border-bottom: 10px solid #272522;
+  border-left: 5px solid #272522;
+  border-right: 10px solid #272522;
   background-color: #1C90DD;
   border-bottom-right-radius: 100%; }
 
@@ -131,7 +127,59 @@ button {
 
 @media all and (max-width: 510px) {
   main {
-    width: 300px;
-    height: 300px; } }
+    width: 250px;
+    height: 250px; }
+
+  .ul {
+    border-top: 5px solid #272522;
+    border-bottom: 2.5px solid #272522;
+    border-left: 5px solid #272522;
+    border-right: 2.5px solid #272522;
+    background-color: #23C433;
+    border-top-left-radius: 100%; }
+
+  .ur {
+    border-top: 5px solid #272522;
+    border-bottom: 2.5px solid #272522;
+    border-left: 2.5px solid #272522;
+    border-right: 5px solid #272522;
+    background-color: #F23726;
+    border-top-right-radius: 100%; }
+
+  .ll {
+    border-top: 2.5px solid #272522;
+    border-bottom: 5px solid #272522;
+    border-left: 5px solid #272522;
+    border-right: 2.5px solid #272522;
+    background-color: #EDE212;
+    border-bottom-left-radius: 100%; }
+
+  .lr {
+    border-top: 2.5px solid #272522;
+    border-bottom: 5px solid #272522;
+    border-left: 2.5px solid #272522;
+    border-right: 5px solid #272522;
+    background-color: #1C90DD;
+    border-bottom-right-radius: 100%; }
+
+  .center {
+    width: 125px;
+    height: 125px;
+    border: 5px solid #272522; }
+
+  .screen {
+    width: 24px;
+    margin: 5% auto;
+    font-size: 24px; }
+
+  .branding {
+    font-size: 28px;
+    margin-top: 5px;
+    margin-bottom: 5px; }
+
+  button {
+    margin: 0 5px;
+    font-size: 16px;
+    text-align: center; } }
 
 /*# sourceMappingURL=styles.css.map */
