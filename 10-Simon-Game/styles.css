@@ -123,9 +123,8 @@ main {
   margin: 0 auto;
   padding: 0;
   background-color: #D3C9B6;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f0ece6' fill-opacity='0.4'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f0ece6' fill-opacity='0.4'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E"), -webkit-linear-gradient(325deg, #f0ece6 0%, #c9bda6 100%);
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f0ece6' fill-opacity='0.4'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E"), linear-gradient(125deg, #f0ece6 0%, #c9bda6 100%);
+  background: -webkit-linear-gradient(325deg, #e6e1d6 0%, #c9bda6 100%);
+  background: linear-gradient(125deg, #e6e1d6 0%, #c9bda6 100%);
   border: 10px solid #272522;
   border-radius: 50%;
   box-shadow: 0 0 15px 10px rgba(39, 37, 34, 0.25); }
