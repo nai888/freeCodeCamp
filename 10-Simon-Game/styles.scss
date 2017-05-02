@@ -17,8 +17,8 @@ body {
 	font-family: $sans;
 	text-align: center;
 	color: $blk;
-	background-color: lighten($svr, 12%);
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='%238d7659' fill-opacity='0.11'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E"); // Background pattern from http://www.heropatterns.com/
+	background-color: white;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='%23272522' fill-opacity='0.05'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E"); // Background pattern: Bamboo from http://www.heropatterns.com/
 }
 
 a,
@@ -54,6 +54,15 @@ main {
 	padding: 0;
 	box-sizing: border-box;
 	box-shadow: 0 0 15px 10px rgba($blk, 0.25) inset;
+	&::after {
+		content: '';
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		display: none;
+	}
 }
 
 .ul {
@@ -62,7 +71,15 @@ main {
 	border-left: 10px solid $blk;
 	border-right: 5px solid $blk;
 	background-color: $grn;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%2346de55' fill-opacity='0.75' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E"); // Background pattern: Texture from http://www.heropatterns.com/
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%2346de55' fill-opacity='0.75' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E"), linear-gradient(135deg, lighten($grn, 25%) 0%, darken($grn, 10%) 100%);
 	border-top-left-radius: 100%;
+	&.on::after {
+		display: block;
+		background-color: rgba(lighten($grn, 40%), 0.3);
+		border-top-left-radius: 100%;
+		box-shadow: 0 0 50px 5px rgba(lighten($grn, 40%), 0.1);
+	}
 }
 
 .ur {
@@ -71,7 +88,15 @@ main {
 	border-left: 5px solid $blk;
 	border-right: 10px solid $blk;
 	background-color: $red;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23f56c60' fill-opacity='0.75' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E"); // Background pattern: Texture from http://www.heropatterns.com/
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23f56c60' fill-opacity='0.75' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E"), linear-gradient(125deg, lighten($red, 10%) 0%, darken($red, 15%) 100%);
 	border-top-right-radius: 100%;
+	&.on::after {
+		display: block;
+		background-color: rgba(lighten($red, 40%), 0.3);
+		border-top-right-radius: 100%;
+		box-shadow: 0 0 50px 5px rgba(lighten($red, 40%), 0.1);
+	}
 }
 
 .ll {
@@ -80,7 +105,15 @@ main {
 	border-left: 10px solid $blk;
 	border-right: 5px solid $blk;
 	background-color: $ylw;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23f1e94b' fill-opacity='0.75' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E"); // Background pattern: Texture from http://www.heropatterns.com/
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23f1e94b' fill-opacity='0.75' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E"), linear-gradient(125deg, lighten($ylw, 10%) 0%, darken($ylw, 15%) 100%);
 	border-bottom-left-radius: 100%;
+	&.on::after {
+		display: block;
+		background-color: rgba(lighten($ylw, 40%), 0.3);
+		border-bottom-left-radius: 100%;
+		box-shadow: 0 0 50px 5px rgba(lighten($ylw, 40%), 0.1);
+	}
 }
 
 .lr {
@@ -89,7 +122,15 @@ main {
 	border-left: 5px solid $blk;
 	border-right: 10px solid $blk;
 	background-color: $blu;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%234eabe9' fill-opacity='0.75' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E"); // Background pattern: Texture from http://www.heropatterns.com/
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%234eabe9' fill-opacity='0.75' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E"), linear-gradient(125deg, lighten($blu, 5%) 0%, darken($blu, 20%) 100%);
 	border-bottom-right-radius: 100%;
+	&.on::after {
+		display: block;
+		background-color: rgba(lighten($blu, 40%), 0.3);
+		border-bottom-right-radius: 100%;
+		box-shadow: 0 0 50px 5px rgba(lighten($blu, 40%), 0.1);
+	}
 }
 
 .center {
@@ -100,6 +141,8 @@ main {
 	margin: 0 auto;
 	padding: 0;
 	background-color: $svr;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f0ece6' fill-opacity='0.4'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E"); // Background pattern: Tiny Checkers from http://www.heropatterns.com/
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f0ece6' fill-opacity='0.4'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E"), linear-gradient(125deg, lighten($svr, 15%) 0%, darken($svr, 5%) 100%);
 	border: 10px solid $blk;
 	border-radius: 50%;
 	box-shadow: 0 0 15px 10px rgba($blk, 0.25);
@@ -141,14 +184,23 @@ button {
 
 .power {
 	background-color: rgba(darken($red, 20%), 0.8);
+	&.on {
+		background-color: rgba($red, 0.8);
+	}
 }
 
 .start {
 	background-color: rgba(darken($grn, 20%), 0.8);
+	&.on {
+		background-color: rgba($grn, 0.8);
+	}
 }
 
 .strict {
 	background-color: rgba(darken($ylw, 20%), 0.8);
+	&.on {
+		background-color: rgba($ylw, 0.8);
+	}
 }
 
 @media all and (max-width: $size+10px) {
