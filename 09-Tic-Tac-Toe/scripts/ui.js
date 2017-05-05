@@ -89,36 +89,7 @@ ui.switchViewTo = function (view) {
 	}
 };
 ui.insertAt = function (position, player) {
-	var val
-	switch (position) {
-		case 0:
-			$("[data-val='0']").text(player);
-			break;
-		case 1:
-			$("[data-val='1']").text(player);
-			break;
-		case 2:
-			$("[data-val='2']").text(player);
-			break;
-		case 3:
-			$("[data-val='3']").text(player);
-			break;
-		case 4:
-			$("[data-val='4']").text(player);
-			break;
-		case 5:
-			$("[data-val='5']").text(player);
-			break;
-		case 6:
-			$("[data-val='6']").text(player);
-			break;
-		case 7:
-			$("[data-val='7']").text(player);
-			break;
-		case 8:
-			$("[data-val='8']").text(player);
-			break;
-	}
+	$("[data-val='" + position + "']").text(player);
 };
 $(document).ready(function () {
 	ui.switchViewTo("difficulty");
