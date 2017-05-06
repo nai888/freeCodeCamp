@@ -23,21 +23,21 @@
 <body>
 	<main class="toy">
 		<div class="upper">
-			<div class="btn ul"></div>
-			<div class="btn ur"></div>
+			<div class="btn ul unclickable" data-val="0"></div>
+			<div class="btn ur unclickable" data-val="1"></div>
 		</div>
 		<div class="lower">
-			<div class="btn ll"></div>
-			<div class="btn lr"></div>
+			<div class="btn ll unclickable" data-val="2"></div>
+			<div class="btn lr unclickable" data-val="3"></div>
 		</div>
 		<div class="center">
 			<div class="screen">
 				<p class="digits">--</p>
 			</div>
 			<h1 class="branding">Simon</h1>
-			<button class="power"><i class="fa fa-fw fa-power-off" aria-hidden="true" title="Power"></i></button>
-			<button class="start"><i class="fa fa-fw fa-play-circle" aria-hidden="true" title="Start/Stop"></i></button>
-			<button class="strict"><i class="fa fa-fw fa-exclamation-circle" aria-hidden="true" title="Strict Mode"></i></button>
+			<button class="power clickable"><i class="fa fa-fw fa-power-off" aria-hidden="true" title="Power"></i></button>
+			<button class="start clickable"><i class="fa fa-fw fa-play-circle" aria-hidden="true" title="Start/Stop"></i></button>
+			<button class="strict clickable"><i class="fa fa-fw fa-exclamation-circle" aria-hidden="true" title="Strict Mode"></i></button>
 		</div>
 	</main>
 	<footer>

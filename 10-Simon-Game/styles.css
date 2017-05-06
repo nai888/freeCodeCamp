@@ -173,6 +173,14 @@ button {
   .strict.on {
     background-color: rgba(237, 226, 18, 0.8); }
 
+.clickable {
+  cursor: pointer;
+  pointer-events: auto; }
+
+.unclickable {
+  cursor: auto;
+  pointer-events: none; }
+
 @media all and (max-width: 510px) {
   main {
     width: 250px;
