@@ -29,7 +29,7 @@ function translateToBtns(btn) {
 }
 
 function play() {
-	$(".ul, .ur, .ll, .lr").removeClass("clickable").addClass("unclickable");
+	unclickable();
 	if (power && playing) {
 		pattern.push(Math.floor(Math.random() * 4));
 		if (pattern.length < 10) {
@@ -162,6 +162,7 @@ $(document).ready(function () {
 			rePattern = [];
 			unclickable();
 			$(".power, .start, .strict, .screen").removeClass("on");
+			$(".digits").text("--");
 		} else {
 			power = true;
 			$(".power, .screen").addClass("on");
@@ -177,6 +178,7 @@ $(document).ready(function () {
 				rePattern = [];
 				unclickable();
 				$(".start").removeClass("on");
+				$(".digits").text("--");
 			} else {
 				playing = true;
 				$(".start").addClass("on");
