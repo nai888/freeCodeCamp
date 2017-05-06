@@ -24,6 +24,7 @@ function translateToBtns(btn) {
 }
 
 function play() {
+	$(".ul, .ur, .ll, .lr").removeClass("clickable").addClass("unclickable");
 	if (power && playing) {
 		pattern.push(Math.floor(Math.random() * 4));
 		if (pattern.length < 10) {
@@ -32,21 +33,24 @@ function play() {
 			digits = pattern.length;
 		}
 		$(".digits").text(digits);
+		console.log("pattern:");
 		console.log(pattern);
-		if (pattern.length < 5) { // Slowest
-			lightPattern(2000);
-		} else if (pattern.length < 9) { // Medium-slow
-			lightPattern(1800);
-		} else if (pattern.length < 13) { // Medium-fast
-			lightPattern(1600);
-		} else { // Fast
-			lightPattern(1400);
-		}
+		lightPattern();
 	}
 }
 
-function lightPattern(speed) {
+function lightPattern() {
 	if (power && playing) {
+		var speed;
+		if (pattern.length < 5) {
+			speed = 1800;
+		} else if (pattern.length < 9) {
+			speed = 1500;
+		} else if (pattern.length < 13) {
+			speed = 1200;
+		} else {
+			speed = 900;
+		}
 		var t = 0;
 		lightsInterval = setInterval(function () {
 			var btn = translateToBtns(pattern[t]);
@@ -57,28 +61,38 @@ function lightPattern(speed) {
 			t++;
 			if (t >= pattern.length) {
 				clearInterval(lightsInterval);
+				clickable();
 			}
 		}, speed);
-		playerTurn();
 	}
 }
 
-function playerTurn() {
-	if (power && playing) {
-		var l = rePattern.length;
-		$(".btn").click(function () {
-			// Identify which button was clicked to add the correct num to pattern array
-		});
-		if (strict) {
-			// End the game and return to beginning
-		} else {
-			if (rePattern.length >= pattern.length) {
-				play();
-			} else {
-				playerTurn();
-			}
-		}
-	}
+function wrong() {
+	unclickable();
+	$(".digits").text("!-");
+	console.log("screen: !-");
+	setTimeout(function () {
+		$(".digits").text(digits);
+		console.log("screen: " + digits + ", lightPattern()");
+		lightPattern();
+	}, 1000);
+}
+
+function strictWrong() {
+	unclickable();
+	pattern = [];
+	$(".digits").text("!!");
+	setTimeout(function () {
+		play();
+	}, 1000);
+}
+
+function clickable() {
+	$(".ul, .ur, .ll, .lr").removeClass("unclickable").addClass("clickable");
+}
+
+function unclickable() {
+	$(".ul, .ur, .ll, .lr").removeClass("clickable").addClass("unclickable");
 }
 
 $(document).ready(function () {
@@ -122,6 +136,33 @@ $(document).ready(function () {
 				strict = true;
 				$(".strict").addClass("on");
 			}
+		}
+	});
+	$(".btn").click(function () {
+		rePattern.push(parseInt($(this).attr("data-val"), 10));
+		console.log("rePattern:");
+		console.log(rePattern);
+		if (rePattern.length >= pattern.length) {
+			var equal = true;
+			for (let l = 0; l < rePattern.length; l++) {
+				if (rePattern[l] !== pattern[l]) {
+					equal = false;
+				}
+			}
+			console.log(equal);
+			if (equal) {
+				console.log("ready to move on: play()");
+				play();
+			} else {
+				if (strict) {
+					console.log("wrong: strictWrong()");
+					strictWrong();
+				} else {
+					console.log("wrong: wrong()");
+					wrong();
+				}
+			}
+			rePattern.length = 0;
 		}
 	});
 });
