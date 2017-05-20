@@ -19,7 +19,7 @@ This repository represents my school, my sandbox, my playpen. I'll be adding my 
 
 ### Data-Visualization Projects
 
-11. **[Build a Markdown Previewer](https://nai888.github.io/freeCodeCamp/11-Markdown-Previewer/build/)**
+11. **[Build a Markdown Previewer](https://nai888.github.io/freeCodeCamp/11-Markdown-Previewer/build/)** (May 20, 2017)
 12. **[Build a Camper Leaderboard](https://nai888.github.io/freeCodeCamp/12-Camper-Leaderboard/build/)**
 
 ### License
