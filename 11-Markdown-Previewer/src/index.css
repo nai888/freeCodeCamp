@@ -1,0 +1,20 @@
+body {
+  font: 100% "Source Sans Pro", sans-serif; }
+
+main {
+  width: 100%; }
+
+.header, .title, footer {
+  text-align: center; }
+
+.header {
+  margin-bottom: 0;
+  color: #4e6c75; }
+
+a, a:link, a:visited {
+  color: #7094A0; }
+
+a:hover, a:active {
+  color: #9eb6bf; }
+
+/*# sourceMappingURL=index.css.map */

@@ -2,10 +2,7 @@ $font: "Source Sans Pro", sans-serif
 $mono: "Source Code Pro", monospace
 $blue: #7094A0
 
-body
-	font: 100% $font
-
-main
+.App
 	width: 100%
 	display: flex
 	flex-wrap: wrap
@@ -22,28 +19,15 @@ textarea, .renderer
 	&:focus
 		outline-color: $blue
 
-textarea
-	font-family: $mono
-
-.renderer
-	border: 1px solid rgba(gray, 0.25)
-
-.header, .title, footer
-	text-align: center
-
-.header
-	margin-bottom: 0
-	color: darken($blue, 15%)
-
 .title
 	margin-top: 0
 	color: lighten($blue, 25%)
 
-a, a:link, a:visited
-	color: $blue
+textarea, code
+	font-family: $mono
 
-a:hover, a:active
-	color: lighten($blue, 15%)
+.renderer
+	border: 1px solid rgba(gray, 0.25)
 
 @media (max-width: 750px)
 	.col
