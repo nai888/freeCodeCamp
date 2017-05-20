@@ -1,6 +1,4 @@
-$font: "Source Sans Pro", sans-serif
-$mono: "Source Code Pro", monospace
-$blue: #7094A0
+@import variables
 
 .App
 	width: 100%
@@ -25,6 +23,10 @@ textarea, .renderer
 
 textarea, code
 	font-family: $mono
+
+textarea
+	resize: none
+	box-sizing: border-box
 
 .renderer
 	border: 1px solid rgba(gray, 0.25)
