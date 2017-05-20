@@ -19,7 +19,7 @@ textarea, .renderer {
   margin-top: 0;
   color: #bdcdd3; }
 
-textarea, code {
+textarea, code, pre {
   font-family: "Source Code Pro", monospace; }
 
 textarea {
@@ -28,6 +28,10 @@ textarea {
 
 .renderer {
   border: 1px solid rgba(128, 128, 128, 0.25); }
+
+code {
+  color: #c7254e;
+  background-color: #f9f2f4; }
 
 @media (max-width: 750px) {
   .col {
