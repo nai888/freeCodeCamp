@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Title from './Title';
+import Entry from './Entry';
+import Renderer from './Renderer';
 import './App.css';
 
 class App extends Component {
@@ -6,12 +9,12 @@ class App extends Component {
 		return (
 			<div className="App">
 				<div className="col col-1">
-					<h2 className="title">Markdown Entry</h2>
-					<textarea autoFocus="true"></textarea>
+					<Title areaName="Entry" />
+					<Entry />
 				</div>
 				<div className="col col-2">
-					<h2 className="title">Markdown Renderer</h2>
-					<div className="renderer"></div>
+					<Title areaName="Renderer" />
+					<Renderer />
 				</div>
 			</div>
 		);
