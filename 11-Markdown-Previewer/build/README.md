@@ -10,6 +10,6 @@
 - **User Story:** I can type GitHub-flavored Markdown into a text area.
 - **User Story:** I can see a preview of the output of my markdown that is updated as I type.
 
-<https://nai888.github.io/freeCodeCamp/11-Markdown-Previewer/>
+<https://nai888.github.io/freeCodeCamp/11-Markdown-Previewer/build/>
 
 Licensed under the GNU Affero General Public License v3.0
