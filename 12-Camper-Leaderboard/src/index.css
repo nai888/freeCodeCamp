@@ -1,7 +1,31 @@
 body {
-  margin: 0;
-  padding: 0;
   font-family: "Karla", sans-serif;
+  margin: 0;
+}
+
+body, header, main, footer {
+  padding: 0;
+}
+
+header, main, footer {
+  width: 100%;
+  margin: 24px 0;
+}
+
+header, footer {
+  text-align: center;
+}
+
+header {
+  color: #006600;
+}
+
+a, a:link, a:visited {
+  color: #006600;
+}
+
+a:hover, a:active {
+  color: #003300;
 }
 
 /*# sourceMappingURL=index.css.map */
