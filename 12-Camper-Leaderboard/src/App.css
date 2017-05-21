@@ -1,3 +1,17 @@
+@charset "UTF-8";
+table {
+  margin: 0 auto;
+}
 
+th {
+  padding: 1px 8px;
+}
+th.inactive {
+  color: #006600;
+  cursor: pointer;
+}
+th.active::after {
+  content: "▼";
+}
 
 /*# sourceMappingURL=App.css.map */

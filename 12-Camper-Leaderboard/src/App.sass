@@ -1,2 +1,12 @@
 @import variables
 
+table
+  margin: 0 auto
+
+th
+  padding: 1px 8px
+  &.inactive
+    color: $green
+    cursor: pointer
+  &.active::after
+    content: "▼"
