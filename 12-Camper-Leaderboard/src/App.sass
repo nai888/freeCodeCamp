@@ -2,6 +2,8 @@
 
 table
   margin: 0 auto
+  border-collapse: collapse
+  border: 1px solid rgba($green, 0.4)
 
 th
   padding: 1px 8px
@@ -10,3 +12,18 @@ th
     cursor: pointer
   &.active::after
     content: "▼"
+
+tr:nth-child(even)
+  background-color: rgba($green, 0.08)
+
+td
+  border-top: 1px solid rgba($green, 0.1)
+  border-bottom: 1px solid rgba($green, 0.1)
+  padding: 4px
+  vertical-align: middle
+  text-align: center
+  &:nth-child(3)
+    text-align: left
+
+img
+  max-height: 30px
