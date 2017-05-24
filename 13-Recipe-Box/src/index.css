@@ -1,4 +1,13 @@
 body {
-  font-family: "Architects Daughter", cursive; }
+  font-family: "Architects Daughter", cursive;
+}
+
+header, footer {
+  text-align: center;
+}
+
+main {
+  display: flex;
+}
 
 /*# sourceMappingURL=index.css.map */
