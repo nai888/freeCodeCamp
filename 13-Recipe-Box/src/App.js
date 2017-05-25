@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import RecipeList from './RecipeList';
+import RecipePanel from './RecipePanel';
 
 class App extends Component {
   constructor(props) {
@@ -15,7 +17,8 @@ class App extends Component {
 
   handleClick(whichData) {
     if (typeof (Storage) !== "undefined") {
-      localStorage.setItem("recipeData", whichData);
+      // Re-enable this when ready to work with localStorage
+      // localStorage.setItem("recipeData", whichData);
     }
     this.setState({ whichData });
   }
@@ -23,6 +26,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <RecipeList data={this.state.data} onClick={this.handleClick} />
+        <RecipePanel data={this.state.data} onClick={this.handleClick} />
       </div>
     );
   }
