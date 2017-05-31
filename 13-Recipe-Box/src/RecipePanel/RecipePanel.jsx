@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Button from './Button';
+import Button from '../Button/Button';
+import './RecipePanel.css';
 
 function Ingredient(props) {
   return <li className="ingredient">{props.name}</li>;
@@ -30,8 +31,16 @@ class RecipePanel extends Component {
         <ul className="ingredients-list">
           {ingredients}
         </ul>
-        <Button className="edit-recipe change" name="Edit Recipe" onClick={this.props.handleEdit} />
-        <Button className="delete-recipe delete" name="Delete Recipe" onClick={this.props.handleDelete} />
+        <Button
+          className="edit-recipe change"
+          name="Edit Recipe"
+          onClick={this.props.handleEdit}
+        />
+        <Button
+          className="delete-recipe delete"
+          name="Delete Recipe"
+          onClick={this.props.handleDelete}
+        />
       </div>
     );
   }

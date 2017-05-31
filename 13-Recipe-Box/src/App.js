@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import RecipeList from './RecipeList';
-import RecipePanel from './RecipePanel';
+import RecipeList from './RecipeList/RecipeList';
+import RecipePanel from './RecipePanel/RecipePanel';
 
 class App extends Component {
   constructor(props) {
@@ -45,8 +45,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <RecipeList data={this.state.data} onAdd={this.handleAdd} onOpen={this.handleOpenClose} />
-        <RecipePanel data={this.state.data[1]} onClose={this.handleClose} onDelete={this.handleDelete} />
+        <RecipeList
+          data={this.state.data}
+          handleAdd={this.handleAdd}
+          handleOpenClose={this.handleOpenClose}
+        />
+        <RecipePanel
+          data={this.state.data[1]}
+          handleEdit={this.handleEdit}
+          handleDelete={this.handleDelete}
+        />
       </div>
     );
   }

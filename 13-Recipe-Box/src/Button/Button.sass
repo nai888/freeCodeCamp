@@ -1,0 +1,20 @@
+@import ../variables
+
+button
+  border-width: 1px
+  border-style: solid
+  border-radius: 5px
+  font-family: $font
+  margin: 5px
+  &.change
+    background-color: lighten($blue-neutral, 15%)
+    border-color: $blue-neutral
+    &:active
+      background-color: $blue-neutral
+      border-color: darken($blue-neutral, 15%)
+  &.delete
+    background-color: lighten($red-neutral, 15%)
+    border-color: $red-neutral
+    &:active
+      background-color: $red-neutral
+      border-color: darken($red-neutral, 15%)

@@ -1,0 +1,19 @@
+.recipe-panel {
+  margin: 0 16px;
+  flex-grow: 1;
+  min-height: 120px;
+}
+
+.recipe-title {
+  color: #4c85b3;
+}
+
+.ingredients-list {
+  padding: 0;
+}
+
+.ingredient {
+  list-style: none;
+  margin: 5px;
+  padding: 10px;
+}
