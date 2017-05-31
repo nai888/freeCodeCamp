@@ -6,4 +6,8 @@ header, footer {
   text-align: center;
 }
 
+a, a:link, a:hover, a:active, a:visited {
+  color: #4c85b3;
+}
+
 /*# sourceMappingURL=index.css.map */

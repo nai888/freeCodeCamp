@@ -26,12 +26,12 @@ class RecipePanel extends Component {
     );
     return (
       <div className="recipe-panel">
-        <h2>{this.props.data.name}</h2>
+        <h2 className="recipe-title">{this.props.data.name}</h2>
         <ul className="ingredients-list">
           {ingredients}
         </ul>
-        <Button className="edit-recipe" name="Edit Recipe" onClick={this.props.handleEdit} />
-        <Button className="delete-recipe" name="Delete Recipe" onClick={this.props.handleDelete} />
+        <Button className="edit-recipe change" name="Edit Recipe" onClick={this.props.handleEdit} />
+        <Button className="delete-recipe delete" name="Delete Recipe" onClick={this.props.handleDelete} />
       </div>
     );
   }

@@ -29,7 +29,7 @@ class RecipeList extends Component {
         <ul className="recipe-list">
           {recipeNames}
         </ul>
-        <Button className="add-recipe" name="Add Recipe" onClick={this.props.handleAdd} />
+        <Button className="add-recipe change" name="Add Recipe" onClick={this.props.handleAdd} />
       </div>
     );
   }

@@ -1,1 +1,55 @@
+// ****************************************************** //
+// Colors based on https://tallys.github.io/color-theory/ //
+
+@function is-cool-color($color)
+	@return hue($color) < 300 and hue($color) > 120
+
+@function is-high-key-value($color)
+	@return hue($color) > 30 and hue($color) < 140
+
+@function is-high-key-value($color)
+	@return hue($color) > 50 and hue($color) < 105
+
+@function harmonious-mix($mix, $base)
+	@if is-cool-color($mix)
+		@if is-high-key-value($base)
+			@return mix($mix, $base, 11%)
+		@else
+			@return mix($mix, $base, 16%)
+	@else
+		@if is-high-key-value($base)
+			@return mix($mix, $base, 13%)
+		@else
+			@return mix($mix, $base, 23%)
+
+@function mix-neutral($color)
+	@if is-highest-key-value($color)
+		@if is-high-key-value(complement($color))
+			@return mix(complement($color), $color, 19%)
+		@else
+			@return mix(complement($color), $color, 13%)
+	@else if is-high-key-value($color)
+		@if is-high-key-value(complement($color))
+			@return mix(complement($color), $color, 31%)
+		@else
+			@return mix(complement($color), $color, 23%)
+	@else
+		@if is-highest-key-value(complement($color))
+			@return mix(complement($color), $color, 31%)
+		@if is-high-key-value(complement($color))
+			@return mix(complement($color), $color, 26%)
+		@else
+			@return mix(complement($color), $color, 23%)
+
+$blue-primary: hsla(200, 75%, 50%, 1) // Don't use this; use the mixed version instead
+$red-primary: hsla(5, 75%, 50%, 1) // Don't use this; use the mixed version instead
+
+$blue: harmonious-mix($red-primary, $blue-primary)
+$red: harmonious-mix($blue-primary, $red-primary)
+$blue-neutral: mix-neutral($blue)
+$red-neutral: mix-neutral($red)
+
+// ********************** //
+// Font from Google Fonts //
+
 $font: 'Architects Daughter', cursive
