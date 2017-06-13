@@ -1,47 +1,51 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import './RecipeList.css';
 
 function RecipeName(props) {
+  propTypes = {
+    recipeName: PropTypes.string.isRequired
+  }
+
   return <li className="recipe-name">{props.recipeName}</li>;
 }
 
-class RecipeList extends Component {
-  constructor(props) {
-    super(props);
-    this.handleAdd = this.handleAdd.bind(this);
-    this.handleOpenClose = this.handleOpenClose.bind(this);
+function RecipeList(props) {
+  propTypes = {
+    handleAdd: PropTypes.func.isRequired,
+    handleOpenClose: PropTypes.func.isRequired,
+    data: PropTypes.array.isRequired
   }
 
-  handleAdd(event) {
-    this.props.handleAdd(event);
+  const handleAdd = function (event) {
+    props.handleAdd(event);
   }
 
-  handleOpenClose(recipe) {
-    this.props.handleOpenClose(recipe);
+  const handleOpenClose = function (event) {
+    props.handleOpenClose(event);
   }
 
-  render() {
-    const recipeNames = this.props.data.map((recipe) => (
-      <RecipeName
-        recipeName={recipe.name}
-        key={recipe.name}
-        onClick={this.props.handleOpenClose}
-      />)
-    );
-    return (
-      <div className="list">
-        <ul className="recipe-list">
-          {recipeNames}
-        </ul>
-        <Button
-          className="add-recipe change"
-          name="Add Recipe"
-          handleAdd={this.props.handleAdd}
-        />
-      </div>
-    );
-  }
+  const recipeNames = props.data.map((recipe) => (
+    <RecipeName
+      recipeName={recipe.name}
+      key={recipe.name}
+      onClick={handleOpenClose}
+    />)
+  );
+
+  return (
+    <div className="list">
+      <ul className="recipe-list">
+        {recipeNames}
+      </ul>
+      <Button
+        className="add-recipe change"
+        name="Add Recipe"
+        handleAdd={handleAdd}
+      />
+    </div>
+  );
 }
 
 export default RecipeList;

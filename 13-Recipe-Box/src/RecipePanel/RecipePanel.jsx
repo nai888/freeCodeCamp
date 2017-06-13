@@ -1,49 +1,53 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import './RecipePanel.css';
 
 function Ingredient(props) {
+  propTypes = {
+    name: PropTypes.string.isRequired
+  }
+
   return <li className="ingredient">{props.name}</li>;
 }
 
-class RecipePanel extends Component {
-  constructor(props) {
-    super(props);
-    this.handleEdit = this.handleEdit.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+function RecipePanel(props) {
+  propTypes = {
+    handleEdit: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired,
+    data: PropTypes.array.isRequired
   }
 
-  handleEdit(event) { // This needs to be updated
-    // this.props.onClick(event.currentTarget.getAttribute("data-which"));
+  const handleEdit = function(event) {
+    props.handleEdit(event);
   }
 
-  handleDelete(event) { // This needs to be updated
-    // this.props.onClick(event.currentTarget.getAttribute("data-which"));
+  const handleDelete = function(event) {
+    props.handleDelete(event);
   }
 
-  render() {
-    const ingredients = this.props.data.ingredients.map((ingredient) =>
-      <Ingredient name={ingredient} key={ingredient} />
-    );
-    return (
-      <div className="recipe-panel">
-        <h2 className="recipe-title">{this.props.data.name}</h2>
-        <ul className="ingredients-list">
-          {ingredients}
-        </ul>
-        <Button
-          className="edit-recipe change"
-          name="Edit Recipe"
-          onClick={this.props.handleEdit}
-        />
-        <Button
-          className="delete-recipe delete"
-          name="Delete Recipe"
-          onClick={this.props.handleDelete}
-        />
-      </div>
-    );
-  }
+  const ingredients = props.data.ingredients.map((ingredient) =>
+    <Ingredient name={ingredient} key={ingredient} />
+  );
+
+  return (
+    <div className="recipe-panel">
+      <h2 className="recipe-title">{props.data.name}</h2>
+      <ul className="ingredients-list">
+        {ingredients}
+      </ul>
+      <Button
+        className="edit-recipe change"
+        name="Edit Recipe"
+        onClick={handleEdit}
+      />
+      <Button
+        className="delete-recipe delete"
+        name="Delete Recipe"
+        onClick={handleDelete}
+      />
+    </div>
+  );
 }
 
 export default RecipePanel;
