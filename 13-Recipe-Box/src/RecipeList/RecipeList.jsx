@@ -4,33 +4,19 @@ import Button from '../Button/Button';
 import './RecipeList.css';
 
 function RecipeName(props) {
-  propTypes = {
-    recipeName: PropTypes.string.isRequired
-  }
+  return (<li className="recipe-name">{props.recipeName}</li>);
+}
 
-  return <li className="recipe-name">{props.recipeName}</li>;
+RecipeName.propTypes = {
+  recipeName: PropTypes.string.isRequired
 }
 
 function RecipeList(props) {
-  propTypes = {
-    handleAdd: PropTypes.func.isRequired,
-    handleOpenClose: PropTypes.func.isRequired,
-    data: PropTypes.array.isRequired
-  }
-
-  const handleAdd = function (event) {
-    props.handleAdd(event);
-  }
-
-  const handleOpenClose = function (event) {
-    props.handleOpenClose(event);
-  }
-
   const recipeNames = props.data.map((recipe) => (
     <RecipeName
       recipeName={recipe.name}
       key={recipe.name}
-      onClick={handleOpenClose}
+      onClick={props.handleOpenClose}
     />)
   );
 
@@ -42,10 +28,16 @@ function RecipeList(props) {
       <Button
         className="add-recipe change"
         name="Add Recipe"
-        handleAdd={handleAdd}
+        onClick={props.handleModal}
       />
     </div>
   );
+}
+
+RecipeList.propTypes = {
+  handleAdd: PropTypes.func.isRequired,
+  handleOpenClose: PropTypes.func.isRequired,
+  data: PropTypes.array.isRequired
 }
 
 export default RecipeList;

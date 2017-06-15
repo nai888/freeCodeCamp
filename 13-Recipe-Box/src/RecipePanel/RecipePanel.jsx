@@ -4,28 +4,14 @@ import Button from '../Button/Button';
 import './RecipePanel.css';
 
 function Ingredient(props) {
-  propTypes = {
-    name: PropTypes.string.isRequired
-  }
+  return (<li className="ingredient">{props.name}</li>);
+}
 
-  return <li className="ingredient">{props.name}</li>;
+Ingredient.propTypes = {
+  name: PropTypes.string.isRequired
 }
 
 function RecipePanel(props) {
-  propTypes = {
-    handleEdit: PropTypes.func.isRequired,
-    handleDelete: PropTypes.func.isRequired,
-    data: PropTypes.array.isRequired
-  }
-
-  const handleEdit = function(event) {
-    props.handleEdit(event);
-  }
-
-  const handleDelete = function(event) {
-    props.handleDelete(event);
-  }
-
   const ingredients = props.data.ingredients.map((ingredient) =>
     <Ingredient name={ingredient} key={ingredient} />
   );
@@ -39,15 +25,21 @@ function RecipePanel(props) {
       <Button
         className="edit-recipe change"
         name="Edit Recipe"
-        onClick={handleEdit}
+        onClick={props.handleModal}
       />
       <Button
         className="delete-recipe delete"
         name="Delete Recipe"
-        onClick={handleDelete}
+        onClick={props.handleDelete}
       />
     </div>
   );
+}
+
+RecipePanel.propTypes = {
+  handleEdit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired
 }
 
 export default RecipePanel;
