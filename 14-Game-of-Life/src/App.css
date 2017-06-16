@@ -3,6 +3,10 @@
   text-align: center;
 }
 
+h1 {
+  color: #204900;
+}
+
 .subtitle {
   font-style: italic;
 }
