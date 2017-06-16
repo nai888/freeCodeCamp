@@ -1,0 +1,19 @@
+.App {
+  font-family: "Spectral", "Palatino", "Times New Roman", "Times", serif;
+  text-align: center;
+}
+
+.subtitle {
+  font-style: italic;
+}
+.subtitle a {
+  text-decoration: none;
+}
+
+a, a:link, a:visited {
+  color: #1064ad;
+}
+
+a:hover, a:active {
+  color: #0c497e;
+}
