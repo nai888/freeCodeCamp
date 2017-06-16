@@ -4,7 +4,7 @@
   display: flex
   flex-wrap: wrap
   justify-content: space-between
-  align-items: baseline
+  align-items: flex-start
 
 .modal
   position: absolute
@@ -23,8 +23,14 @@
 input, textarea
   font-family: $font
   padding: 5px
-  width: 300px
 
 label, input, textarea
   display: block
-  margin: 5px
+  margin: 5px 0
+  width: 100%
+
+label
+  font-weight: bold
+
+textarea
+  height: 100px
