@@ -4,7 +4,7 @@ import Button from '../Button/Button';
 import './RecipeList.css';
 
 function RecipeName(props) {
-  return (<li className="recipe-name">{props.recipeName}</li>);
+  return (<li className="recipe-name" data-num={props.num} onClick={props.handleOpenClose}>{props.recipeName}</li>);
 }
 
 RecipeName.propTypes = {
@@ -12,11 +12,16 @@ RecipeName.propTypes = {
 }
 
 function RecipeList(props) {
-  const recipeNames = props.data.map((recipe) => (
+  function handleOpenClose(e) {
+    props.handleOpenClose(e.target.dataset.num);
+  }
+
+  const recipeNames = props.data.map((recipe, i) => (
     <RecipeName
       recipeName={recipe.name}
       key={recipe.name}
-      onClick={props.handleOpenClose}
+      num={i}
+      handleOpenClose={handleOpenClose}
     />)
   );
 
@@ -28,7 +33,7 @@ function RecipeList(props) {
       <Button
         className="add-recipe change"
         name="Add Recipe"
-        onClick={props.handleModal}
+        onClick={props.handleAdd}
       />
     </div>
   );

@@ -12,11 +12,11 @@ Ingredient.propTypes = {
 }
 
 function RecipePanel(props) {
-  const ingredients = props.data.ingredients.map((ingredient) =>
+  const ingredients = props.data !== undefined ? props.data.ingredients.map((ingredient) =>
     <Ingredient name={ingredient} key={ingredient} />
-  );
+  ) : null;
 
-  return (
+  return props.data === undefined ? <div className="recipe-panel" /> : (
     <div className="recipe-panel">
       <h2 className="recipe-title">{props.data.name}</h2>
       <ul className="ingredients-list">
@@ -25,7 +25,7 @@ function RecipePanel(props) {
       <Button
         className="edit-recipe change"
         name="Edit Recipe"
-        onClick={props.handleModal}
+        onClick={props.handleEdit}
       />
       <Button
         className="delete-recipe delete"
@@ -39,7 +39,7 @@ function RecipePanel(props) {
 RecipePanel.propTypes = {
   handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired
+  data: PropTypes.object
 }
 
 export default RecipePanel;
