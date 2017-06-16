@@ -18,11 +18,15 @@ class App extends Component {
     const defaultData = [{ name: "Pumpkin Pie", ingredients: ["Sweetened condensed milk", "Eggs", "Pumpkin pie spice", "Pie crust"] }, { name: "Spaghetti", ingredients: ["Pasta", "Sauce", "Vegetables"] }];
     var startData = [];
 
-    if (typeof (Storage) !== "undefined" && localStorage.recipeData === undefined) {
-      // Re-enable this when ready to work with localStorage
-      // localStorage.setItem("recipeData", defaultData);
-      startData = defaultData; // change this to read from localStorage instead
+    if (typeof (Storage) !== "undefined") {
+      if (localStorage.recipeData === undefined) {
+        localStorage.setItem("recipeData", JSON.stringify(defaultData));
+        startData = defaultData;
+      } else {
+        startData = JSON.parse(localStorage.getItem("recipeData"));
+      }
     } else {
+      // No web storage support
       startData = defaultData;
     }
 
@@ -61,15 +65,14 @@ class App extends Component {
       } else if (this.state.addEdit === "edit") {
         bufferData[this.state.show] = { name: nameInput, ingredients: ingredientsInput.split(",") };
       }
-      if (typeof (Storage) !== "undefined") {
-        // Re-enable this when ready to work with localStorage
-        // localStorage.setItem("recipeData", whichData);
-      }
       this.setState({ data: bufferData },
         function () {
           this.handleModal();
           if (this.state.addEdit === "add") {
             this.setState({ show: this.state.data.length - 1 });
+          }
+          if (typeof (Storage) !== "undefined") {
+            localStorage.setItem("recipeData", JSON.stringify(this.state.data));
           }
         }
       );
@@ -79,11 +82,13 @@ class App extends Component {
   handleDelete() {
     var bufferData = this.state.data.slice();
     bufferData.splice(this.state.show, 1);
-    this.setState({ data: bufferData, show: null });
-    if (typeof (Storage) !== "undefined") {
-      // Re-enable this when ready to work with localStorage
-      // localStorage.setItem("recipeData", whichData);
-    }
+    this.setState({ data: bufferData, show: null },
+      function () {
+        if (typeof (Storage) !== "undefined") {
+          localStorage.setItem("recipeData", JSON.stringify(this.state.data));
+        }
+      }
+    );
   }
 
   render() {
