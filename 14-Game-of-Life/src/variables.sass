@@ -2,7 +2,6 @@ $font: 'Spectral', 'Palatino', 'Times New Roman', 'Times', serif
 
 $grn-primary: hsla(102, 100%, 50%, 1) // Don't use this, use the mixed version instead
 $blu-primary: hsla(223, 100%, 50%, 1) // Don't use this, use the mixed version instead
-$org-primary: hsla(7, 100%, 50%, 1) // Don't use this, use the mixed version instead
 
 // Colors based on https://tallys.github.io/color-theory/ //
 
@@ -46,7 +45,6 @@ $org-primary: hsla(7, 100%, 50%, 1) // Don't use this, use the mixed version ins
 		@else
 			@return mix(complement($color), $color, 23%)
 
-$grn: darken(harmonious-mix($org-primary, $grn-primary), 20%)
-$org: darken(harmonious-mix($grn-primary, $org-primary), 5%)
+$grn: darken(harmonious-mix($blu-primary, $grn-primary), 25%)
 $blu: darken(harmonious-mix($grn-primary, $blu-primary), 5%)
 $grn-ntl: mix-neutral($grn)
