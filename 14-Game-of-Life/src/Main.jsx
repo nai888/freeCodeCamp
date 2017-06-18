@@ -15,7 +15,7 @@ class Main extends Component {
 
   componentDidMount() {
     var newBoard = [];
-    for (var i = 0; i < 3200; i++) {
+    for (var i = 0; i < (this.width * this.height); i++) {
       newBoard.push("dead");
     }
     this.setState({ board: newBoard });
@@ -30,7 +30,7 @@ class Main extends Component {
   }
 
   randomize() {
-    if (this.state.playing === true) {
+    if (this.state.playing) {
       this.handleStartStop();
     }
     var newBoard = this.state.board;
