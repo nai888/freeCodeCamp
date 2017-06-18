@@ -5,7 +5,7 @@ import './Components.css';
 export function Button(props) {
   var text = "";
   if (props.class === "start-stop") {
-    text = props.playing ? "Stop" : "Start";
+    text = props.playing ? "Pause" : "Start";
   } else if (props.class === "randomize") {
     text = "Randomize";
   } else if (props.class === "clear") {
