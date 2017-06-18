@@ -12,25 +12,6 @@ main {
   align-content: center;
 }
 
-.cell {
-  width: 10px;
-  height: 10px;
-  flex: 0 1 auto;
-  margin: 0;
-  padding: 0;
-  background-color: transparent;
-  border: 1px solid #0b1c07;
-}
-.cell.dead {
-  background-color: rgba(14, 36, 8, 0.9);
-}
-.cell.live {
-  background-color: #217d0b;
-}
-.cell.birth {
-  background-color: #a5f591;
-}
-
 .controls {
   width: 100%;
   margin: 0;
@@ -54,18 +35,6 @@ main {
   flex-flow: row nowrap;
   justify-content: space-around;
   align-items: baseline;
-}
-
-button {
-  font-family: "Spectral", "Palatino", "Times New Roman", "Times", serif;
-  margin: 0;
-  padding: 5px;
-  flex: 0 1 auto;
-  color: #0b1c07;
-  background-color: #f3fcf1;
-}
-button:active {
-  background-color: #e2f7dd;
 }
 
 .generations h2 {

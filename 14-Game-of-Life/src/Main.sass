@@ -1,4 +1,4 @@
-@import ../variables
+@import variables
 
 main
   margin: 0 auto
@@ -11,21 +11,6 @@ main
   justify-content: space-around
   align-items: center
   align-content: center
-
-.cell
-  width: 10px
-  height: 10px
-  flex: 0 1 auto
-  margin: 0
-  padding: 0
-  background-color: rgba(0, 0, 0, 0)
-  border: 1px solid darken($grn-ntl, 20%)
-  &.dead
-    background-color: darken(rgba($grn-ntl, 0.9), 18%)
-  &.live
-    background-color: $grn
-  &.birth
-    background-color: lighten($grn, 50%)
 
 .controls
   width: 100%
@@ -48,16 +33,6 @@ main
   flex-flow: row nowrap
   justify-content: space-around
   align-items: baseline
-
-button
-  font-family: $font
-  margin: 0
-  padding: 5px
-  flex: 0 1 auto
-  color: darken($grn-ntl, 20%)
-  background-color: lighten($grn-ntl, 70%)
-  &:active
-    background-color: lighten($grn-ntl, 65%)
 
 .generations h2
   margin: 0

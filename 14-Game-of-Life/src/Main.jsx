@@ -1,46 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Button, Cell } from './Components'
 import './Main.css';
-
-function Button(props) {
-  var text = "";
-  if (props.class === "start-stop") {
-    text = props.playing ? "Stop" : "Start";
-  } else if (props.class === "randomize") {
-    text = "Randomize";
-  } else if (props.class === "clear") {
-    text = "Clear";
-  }
-
-  return (
-    <button
-      className={props.class}
-      onClick={props.onClick}
-    >{text}</button>
-  );
-}
-
-Button.propTypes = {
-  playing: PropTypes.bool,
-  class: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
-}
-
-function Cell(props) {
-  return (
-    <div
-      className={"cell " + props.status}
-      data-index={props.index}
-      onClick={props.onClick}
-    />
-  );
-}
-
-Cell.propTypes = {
-  status: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired
-}
 
 class Main extends Component {
   constructor(props) {
@@ -113,32 +73,98 @@ class Main extends Component {
         }
       }
       // Check north cell
-      if (!isNorth(i) && (this.state.board[i - width] === "live" || this.state.board[i - width] === "birth")) {
-        count++
+      if (isNorth(i)) { // Northern edge
+        if (this.state.board[i + cells - width] === "live" || this.state.board[i + cells - width] === "birth") {
+          count++;
+        }
+      } else { // Remainder of the board handled normally
+        if (this.state.board[i - width] === "live" || this.state.board[i - width] === "birth") {
+          count++;
+        }
       }
       // Check northeast cell
-      if ((!isNorth(i) && !isEast(i)) && (this.state.board[i - width + 1] === "live" || this.state.board[i - width + 1] === "birth")) {
-        count++
+      if (isNorth(i) && !isEast(i)) { // Northern edge, not the northeast corner
+        if (this.state.board[i + cells - width + 1] === "live" || this.state.board[i + cells - width + 1] === "birth") {
+          count++;
+        }
+      } else if (isEast(i) && !isNorth(i)) { // Eastern edge, not the northeast corner
+        if (this.state.board[i - (2 * width) + 1] === "live" || this.state.board[i - (2 * width) + 1] === "birth") {
+          count++;
+        }
+      } else if (isNorth(i) && isEast(i)) { // Northeast corner
+        if (this.state.board[i + cells - (2 * width) + 1] === "live" || this.state.board[i + cells - (2 * width) + 1] === "birth") {
+          count++;
+        }
+      } else { // Remainder of board handled normally
+        if (this.state.board[i - width + 1] === "live" || this.state.board[i - width + 1] === "birth") {
+          count++
+        }
       }
       // Check west cell
-      if (!isWest(i) && (this.state.board[i - 1] === "live" || this.state.board[i - 1] === "birth")) {
-        count++
+      if (isWest(i)) { // Western edge
+        if (this.state.board[i + width - 1] === "live" || this.state.board[i + width - 1] === "birth") {
+          count++;
+        }
+      } else { // Remainder of the board handled normally
+        if (this.state.board[i - 1] === "live" || this.state.board[i - 1] === "birth") {
+          count++;
+        }
       }
       // Check east cell
-      if (!isEast(i) && (this.state.board[i + 1] === "live" || this.state.board[i + 1] === "birth")) {
-        count++
+      if (isEast(i)) { // Eastern edge
+        if (this.state.board[i - width + 1] === "live" || this.state.board[i - width + 1] === "birth") {
+          count++
+        }
+      } else { // Remainder of the board handled normally
+        if (this.state.board[i + 1] === "live" || this.state.board[i + 1] === "birth") {
+          count++
+        }
       }
       // Check southwest cell
-      if ((!isSouth(i) && !isWest(i)) && (this.state.board[i + width - 1] === "live" || this.state.board[i + width - 1] === "birth")) {
-        count++
+      if (isSouth(i) && !isWest(i)) { // Southern edge, not the southwest corner
+        if (this.state.board[i - cells + width - 1] === "live" || this.state.board[i - cells + width - 1] === "birth") {
+          count++;
+        }
+      } else if (isWest(i) && !isSouth(i)) { // Western edge, not the southwest corner
+        if (this.state.board[i + (2 * width) - 1] === "live" || this.state.board[i + (2 * width) - 1] === "birth") {
+          count++;
+        }
+      } else if (isSouth(i) && isWest(i)) { // Southwest corner
+        if (this.state.board[i - cells + (2 * width) - 1] === "live" || this.state.board[i - cells + (2 * width) - 1] === "birth") {
+          count++;
+        }
+      } else { // Remainder of the board handled normally
+        if (this.state.board[i + width - 1] === "live" || this.state.board[i + width - 1] === "birth") {
+          count++
+        }
       }
       // Check south cell
-      if (!isSouth(i) && (this.state.board[i + width] === "live" || this.state.board[i + width] === "birth")) {
-        count++
+      if (isSouth(i)) { // Southern edge
+        if (this.state.board[i - cells + width] === "live" || this.state.board[i - cells + width] === "birth") {
+          count++
+        }
+      } else { // Remainder of the board handled normally
+        if (this.state.board[i + width] === "live" || this.state.board[i + width] === "birth") {
+          count++
+        }
       }
       // Check southeast cell
-      if ((!isSouth(i) && !isEast(i)) && (this.state.board[i + width + 1] === "live" || this.state.board[i + width + 1] === "birth")) {
-        count++
+      if (isSouth(i) && !isEast(i)) { // Southern edge, not the southeast corner
+        if (this.state.board[i - cells + width + 1] === "live" || this.state.board[i - cells + width + 1] === "birth") {
+          count++;
+        }
+      } else if (isEast(i) && !isSouth(i)) { // Eastern edge, not the southeast corner
+        if (this.state.board[i + 1] === "live" || this.state.board[i + 1] === "birth") {
+          count++;
+        }
+      } else if (isSouth(i) && isEast(i)) { // Southeast corner
+        if (this.state.board[i - cells + 1] === "live" || this.state.board[i - cells + 1] === "birth") {
+          count++;
+        }
+      } else { // Remainder of the board handled normally
+        if (this.state.board[i + width + 1] === "live" || this.state.board[i + width + 1] === "birth") {
+          count++
+        }
       }
 
       // Rules of the game
