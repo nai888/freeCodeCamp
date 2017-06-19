@@ -22,7 +22,7 @@ This repository represents my school, my sandbox, my playpen. I'll be adding my 
 11. **[Build a Markdown Previewer](https://nai888.github.io/freeCodeCamp/11-Markdown-Previewer/build/)** (May 20, 2017)
 12. **[Build a Camper Leaderboard](https://nai888.github.io/freeCodeCamp/12-Camper-Leaderboard/build/)** (May 21, 2017)
 13. **[Build a Recipe Box](https://nai888.github.io/freeCodeCamp/13-Recipe-Box/build/)** (June 15, 2017)
-14. **[Build the Game of Life](https://nai888.github.io/freeCodeCamp/14-Game-of-Life/build/)**
+14. **[Build the Game of Life](https://nai888.github.io/freeCodeCamp/14-Game-of-Life/build/)** (June 18, 2017)
 
 ### License
 
