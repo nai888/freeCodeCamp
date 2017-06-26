@@ -1,14 +1,18 @@
 import * as React from 'react';
-import * as Header from './components/Header';
-import * as Main from './components/Main';
-import * as Footer from './components/Footer';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import Header from './components/Header';
+import Main from './components/Main';
+import Footer from './components/Footer';
 import './App.css';
 
 function App(props: object) {
   return (
     <div className="App">
       <Header />
-      <Main />
+      <Provider store={store}>
+        <Main />
+      </Provider>
       <Footer />
     </div>
   );

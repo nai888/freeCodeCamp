@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import * as rootReducer from './reducers';
+import rootReducer from './reducers';
 
 const defaultState: object = {
   player: {

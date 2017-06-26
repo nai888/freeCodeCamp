@@ -1,3 +1,9 @@
 import * as React from 'react';
-import { Provider } from 'react-redux';
 
+function Main(props: any) {
+  return (
+    <div className="map"></div>
+  );
+}
+
+export default Main;

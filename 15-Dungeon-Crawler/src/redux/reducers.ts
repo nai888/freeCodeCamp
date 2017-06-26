@@ -1,19 +1,26 @@
 import { combineReducers } from 'redux';
 import { HEAL, TAKEDAMAGE, DEALDAMAGE, WEAPON } from './actionTypes';
-import { heal, takeDamage, dealDamage, upgradeWeapon } from './actions';
+// import { heal, takeDamage, dealDamage, upgradeWeapon } from './actions';
 
-function health(state: number, action: object) {
+function heal(state: number = 20, action: { type: string }) {
   switch (action.type) {
     case HEAL:
       return state + 10;
-    case TAKEDAMAGE:
-      return state - action.amount;
     default:
       return state;
   }
 }
 
-function damage(state: number, action: object) {
+function takeDamage(state: number = 20, action: { type: string, amount: number }) {
+  switch (action.type) {
+    case TAKEDAMAGE:
+      return state - action.amount;
+    default:
+      return state;  
+  }
+}
+
+function dealDamage(state: number = 10, action: { type: string, amount: number }) {
   switch (action.type) {
     case DEALDAMAGE:
       return state - action.amount;
@@ -22,7 +29,7 @@ function damage(state: number, action: object) {
   }
 }
 
-function upgrade(state: number, action: object) {
+function upgrade(state: number = 1, action: { type: string }) {
   switch (action.type) {
     case WEAPON:
       return state + 1;
@@ -32,8 +39,9 @@ function upgrade(state: number, action: object) {
 }
 
 const rootReducer = combineReducers({
-  health,
-  damage,
+  heal,
+  takeDamage,
+  dealDamage,
   upgrade
 });
 
