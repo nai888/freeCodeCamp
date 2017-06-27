@@ -53,30 +53,85 @@ function player(state: Player = defaultPlayerState, action: PlayerAction) {
         damage: 10 + (state.level * state.weapon)
       });
     case AT.MOVE:
-      if (action.direction) {
-        return Object.assign({}, state, { location: state.location }); // Update this conditionally based on the direction
-      } else {
-        return state;
+      switch (action.direction) {
+        case "north":
+          return Object.assign({}, state, { location: [state.location[0], state.location[1] + 1] });
+        case "south":
+          return Object.assign({}, state, { location: [state.location[0], state.location[1] - 1] });
+        case "west":
+          return Object.assign({}, state, { location: [state.location[0] - 1, state.location[1]] });
+        case "east":
+          return Object.assign({}, state, { location: [state.location[0] + 1, state.location[1]] });
+        default:
+          return state;  
       }
     default:
       return state;
   }
 }
 
+interface Enemy {
+  id: number;
+  health: number;
+  damage: number;
+  xpWorth: number;
+  isBoss: boolean;
+}
 
+interface EnemyAction {
+  type: string;
+  id: number;
+  damage?: number;
+}
 
-function dealDamage(state: number = 10, action: { type: string, amount: number }) {
+function enemy(state: Enemy[], action: EnemyAction) {
   switch (action.type) {
     case AT.DEAL_DAMAGE:
-      return state - action.amount;
+      let newState = [...state];
+      for (let i = 0; i < newState.length; i++) {
+        if (newState[i].id === action.id) {
+          if (action.damage) {
+            Object.assign({}, newState[i], { health: newState[i].health - action.damage });
+          }
+        }
+      }
+      return newState;
+    case AT.ENEMY_DIE:
+      for (let i = 0; i < state.length; i++) {
+        if (state[i].id === action.id) {
+          return state.splice(i, 1);
+        }
+      }
     default:
       return state;
   }
 }
 
+interface GameState {
+  playing: boolean;
+  result: string;
+}
+
+const defaultGameState: GameState = {
+  playing: true,
+  result: "playing"
+}
+
+function gameState(state: GameState = defaultGameState, action: { type: string }) {
+  switch (action.type) {
+    case AT.PLAYER_DIE:
+      return Object.assign({}, state, { playing: false, result: "lose" });
+    case AT.BOSS_DIE:
+      return Object.assign({}, state, { playing: false, result: "win" });
+    default:
+      return state;  
+  }
+}
+
 const rootReducer = combineReducers({
   player,
-  dealDamage
+  enemy,
+  gameState
 });
 
 export default rootReducer;
