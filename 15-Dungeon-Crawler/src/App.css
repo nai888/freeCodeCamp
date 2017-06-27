@@ -1,5 +1,9 @@
 .App {
   font-family: "Josefin Sans", sans-serif;
   text-align: center;
-  color: #de3e00;
+  color: #922900;
+}
+
+a, a:link, a:hover, a:active, a:visited {
+  color: #295a89;
 }
