@@ -1,27 +1,73 @@
-import { HEAL, TAKEDAMAGE, DEALDAMAGE, WEAPON } from './actionTypes';
+import * as AT from './actionTypes';
 
-export function heal() {
+export const heal = () => {
   return {
-    type: HEAL
+    type: AT.HEAL
   };
 }
 
-export function takeDamage(amount: number) {
+export const takeDamage = (amount: number) => {
   return {
-    type: TAKEDAMAGE,
+    type: AT.TAKE_DAMAGE,
     amount
   };
 }
 
-export function dealDamage(amount: number) {
+export const dealDamage = (id: number, amount: number) => {
   return {
-    type: DEALDAMAGE,
+    type: AT.DEAL_DAMAGE,
+    id,
     amount
   };
 }
 
-export function upgradeWeapon() {
+export const upgradeWeapon = () => {
   return {
-    type: WEAPON
+    type: AT.WEAPON
+  };
+}
+
+export const playerDie = () => {
+  return {
+    type: AT.PLAYER_DIE
+  };
+}
+
+export const enemyDie = (xpWorth: number) => {
+  return {
+    type: AT.ENEMY_DIE,
+    xpWorth
+  };
+}
+
+export const levelUp = () => {
+  return {
+    type: AT.LEVEL_UP
+  };
+}
+
+export const bossDie = () => {
+  return {
+    type: AT.BOSS_DIE
+  };
+}
+
+export const setupMap = (floor: number) => {
+  return {
+    type: AT.SETUP_MAP,
+    floor
+  };
+}
+
+export const genEnemies = () => {
+  return {
+    type: AT.GEN_ENEMIES
+  };
+}
+
+export const move = (direction: string) => {
+  return {
+    type: AT.GEN_ENEMIES,
+    direction
   };
 }

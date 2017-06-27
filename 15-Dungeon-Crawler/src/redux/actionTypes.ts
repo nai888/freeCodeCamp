@@ -1,4 +1,11 @@
 export const HEAL: string = 'HEAL';
-export const TAKEDAMAGE: string = 'TAKEDAMAGE';
-export const DEALDAMAGE: string = 'DEALDAMAGE';
+export const TAKE_DAMAGE: string = 'TAKE_DAMAGE';
+export const DEAL_DAMAGE: string = 'DEAL_DAMAGE';
 export const WEAPON: string = 'WEAPON';
+export const PLAYER_DIE: string = 'PLAYER_DIE';
+export const ENEMY_DIE: string = 'ENEMY_DIE';
+export const LEVEL_UP: string = 'LEVEL_UP';
+export const BOSS_DIE: string = 'BOSS_DIE';
+export const SETUP_MAP: string = 'SETUP_MAP';
+export const GEN_ENEMIES: string = 'GEN_ENEMIES';
+export const MOVE: string = 'MOVE';

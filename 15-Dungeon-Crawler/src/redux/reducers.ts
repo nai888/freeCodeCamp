@@ -1,48 +1,82 @@
 import { combineReducers } from 'redux';
-import { HEAL, TAKEDAMAGE, DEALDAMAGE, WEAPON } from './actionTypes';
-// import { heal, takeDamage, dealDamage, upgradeWeapon } from './actions';
+import * as AT from './actionTypes';
 
-function heal(state: number = 20, action: { type: string }) {
+interface Player {
+  health: number;
+  xp: number;
+  level: number;
+  weapon: number;
+  damage: number;
+  location: number[];
+}
+
+const defaultPlayerState: Player = {
+  health: 20,
+  xp: 0,
+  level: 1,
+  weapon: 1,
+  damage: 11, // 10 + (level * weapon)
+  location: [0, 0] // [x, y]
+};
+
+interface PlayerAction {
+  type: string;
+  amount?: number;
+  xpWorth?: number;
+  direction?: string;
+}
+
+function player(state: Player = defaultPlayerState, action: PlayerAction) {
   switch (action.type) {
-    case HEAL:
-      return state + 10;
+    case AT.HEAL:
+      return Object.assign({}, state, { health: state.health + 10 });
+    case AT.TAKE_DAMAGE:
+      if (action.amount) {
+        return Object.assign({}, state, { health: state.health - action.amount });
+      } else {
+        return Object.assign({}, state, { health: state.health - 1 });
+      }
+    case AT.WEAPON:
+      return Object.assign({}, state, {
+        weapon: state.weapon + 1,
+        damage: 10 + (state.level * state.weapon)
+      });
+    case AT.ENEMY_DIE:
+      if (action.xpWorth) {
+        return Object.assign({}, state, { xp: state.xp + action.xpWorth });
+      } else {
+        return Object.assign({}, state, { xp: state.xp + 1 });
+      }
+    case AT.LEVEL_UP:
+      return Object.assign({}, state, {
+        level: state.level + 1,
+        damage: 10 + (state.level * state.weapon)
+      });
+    case AT.MOVE:
+      if (action.direction) {
+        return Object.assign({}, state, { location: state.location }); // Update this conditionally based on the direction
+      } else {
+        return state;
+      }
     default:
       return state;
   }
 }
 
-function takeDamage(state: number = 20, action: { type: string, amount: number }) {
-  switch (action.type) {
-    case TAKEDAMAGE:
-      return state - action.amount;
-    default:
-      return state;  
-  }
-}
+
 
 function dealDamage(state: number = 10, action: { type: string, amount: number }) {
   switch (action.type) {
-    case DEALDAMAGE:
+    case AT.DEAL_DAMAGE:
       return state - action.amount;
-    default:
-      return state;
-  }
-}
-
-function upgrade(state: number = 1, action: { type: string }) {
-  switch (action.type) {
-    case WEAPON:
-      return state + 1;
     default:
       return state;
   }
 }
 
 const rootReducer = combineReducers({
-  heal,
-  takeDamage,
-  dealDamage,
-  upgrade
+  player,
+  dealDamage
 });
 
 export default rootReducer;
