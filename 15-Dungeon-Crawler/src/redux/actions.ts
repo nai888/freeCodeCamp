@@ -71,3 +71,9 @@ export const move = (direction: string) => {
     direction
   };
 }
+
+export const newGame = () => {
+  return {
+    type: AT.NEW_GAME
+  };
+}

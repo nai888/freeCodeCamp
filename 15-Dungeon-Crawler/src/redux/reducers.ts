@@ -65,6 +65,8 @@ function player(state: Player = defaultPlayerState, action: PlayerAction) {
         default:
           return state;  
       }
+    case AT.NEW_GAME:
+      return defaultPlayerState;  
     default:
       return state;
   }
@@ -84,7 +86,7 @@ interface EnemyAction {
   damage?: number;
 }
 
-function enemy(state: Enemy[], action: EnemyAction) {
+function enemy(state: Enemy[] = [], action: EnemyAction) {
   switch (action.type) {
     case AT.DEAL_DAMAGE:
       let newState = [...state];
@@ -102,6 +104,9 @@ function enemy(state: Enemy[], action: EnemyAction) {
           return state.splice(i, 1);
         }
       }
+    case AT.NEW_GAME:
+      let blankState: Enemy[] = [];
+      return blankState;
     default:
       return state;
   }
@@ -123,6 +128,8 @@ function gameState(state: GameState = defaultGameState, action: { type: string }
       return Object.assign({}, state, { playing: false, result: "lose" });
     case AT.BOSS_DIE:
       return Object.assign({}, state, { playing: false, result: "win" });
+    case AT.NEW_GAME:
+      return defaultGameState;  
     default:
       return state;  
   }
