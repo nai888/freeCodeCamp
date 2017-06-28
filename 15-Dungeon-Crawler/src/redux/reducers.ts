@@ -7,7 +7,10 @@ interface Player {
   level: number;
   weapon: number;
   damage: number;
-  location: number[];
+  location: {
+    x: number;
+    y: number;
+  };
 }
 
 const defaultPlayerState: Player = {
@@ -16,7 +19,10 @@ const defaultPlayerState: Player = {
   level: 1,
   weapon: 1,
   damage: 11, // 10 + (level * weapon)
-  location: [0, 0] // [x, y]
+  location: {
+    x: 0,
+    y: 0
+  }
 };
 
 interface PlayerAction {
@@ -53,15 +59,17 @@ function player(state: Player = defaultPlayerState, action: PlayerAction) {
         damage: 10 + (state.level * state.weapon)
       });
     case AT.MOVE:
+      let locX = state.location.x;
+      let locY = state.location.y;
       switch (action.direction) {
-        case "north":
-          return Object.assign({}, state, { location: [state.location[0], state.location[1] + 1] });
-        case "south":
-          return Object.assign({}, state, { location: [state.location[0], state.location[1] - 1] });
-        case "west":
-          return Object.assign({}, state, { location: [state.location[0] - 1, state.location[1]] });
-        case "east":
-          return Object.assign({}, state, { location: [state.location[0] + 1, state.location[1]] });
+        case 'north':
+          return Object.assign({}, state, { location: { x: locX, y: locY + 1 } });
+        case 'south':
+          return Object.assign({}, state, { location: { x: locX, y: locY - 1 } });
+        case 'west':
+          return Object.assign({}, state, { location: { x: locX - 1, y: locY } });
+        case 'east':
+          return Object.assign({}, state, { location: { x: locX + 1, y: locY } });
         default:
           return state;  
       }
@@ -80,13 +88,15 @@ interface Enemy {
   isBoss: boolean;
 }
 
+const defaultEnemyArray: Enemy[] = [];
+
 interface EnemyAction {
   type: string;
   id: number;
   damage?: number;
 }
 
-function enemy(state: Enemy[] = [], action: EnemyAction) {
+function enemy(state: Enemy[] = defaultEnemyArray, action: EnemyAction) {
   switch (action.type) {
     case AT.DEAL_DAMAGE:
       let newState = [...state];
@@ -104,9 +114,9 @@ function enemy(state: Enemy[] = [], action: EnemyAction) {
           return state.splice(i, 1);
         }
       }
+      return state;
     case AT.NEW_GAME:
-      let blankState: Enemy[] = [];
-      return blankState;
+      return defaultEnemyArray;
     default:
       return state;
   }
@@ -119,15 +129,19 @@ interface GameState {
 
 const defaultGameState: GameState = {
   playing: true,
-  result: "playing"
+  result: 'playing'
+};
+
+interface GameStateAction {
+  type: string;
 }
 
-function gameState(state: GameState = defaultGameState, action: { type: string }) {
+function gameState(state: GameState = defaultGameState, action: GameStateAction) {
   switch (action.type) {
     case AT.PLAYER_DIE:
-      return Object.assign({}, state, { playing: false, result: "lose" });
+      return Object.assign({}, state, { playing: false, result: 'lose' });
     case AT.BOSS_DIE:
-      return Object.assign({}, state, { playing: false, result: "win" });
+      return Object.assign({}, state, { playing: false, result: 'win' });
     case AT.NEW_GAME:
       return defaultGameState;  
     default:

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-function Main(props: any) {
+function Main(props: {}) {
   return (
     <div className="map">
       <p>Here's the map.</p>
