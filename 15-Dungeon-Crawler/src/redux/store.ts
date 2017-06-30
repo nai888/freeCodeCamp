@@ -1,12 +1,7 @@
 import { createStore } from 'redux';
-import rootReducer, { Player, Enemy, GameState } from './reducers';
+import rootReducer from './reducers';
+import { StateType } from './props';
 
-interface StoreType {
-  player: Player;
-  enemy: Enemy[];
-  gameState: GameState;
-}
-
-const store = createStore<StoreType>(rootReducer);
+const store = createStore<StateType>(rootReducer);
 
 export default store;

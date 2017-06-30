@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import * as AT from './actionTypes';
-import { State } from './props';
+import { StateType } from './props';
 
 export interface Player {
   health: number;
@@ -163,7 +163,7 @@ function gameState(state: GameState = defaultGameState, action: GameStateAction)
   }
 }
 
-const rootReducer = combineReducers<State>({
+const rootReducer = combineReducers<StateType>({
   player,
   enemy,
   gameState
