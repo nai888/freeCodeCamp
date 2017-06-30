@@ -21,9 +21,9 @@ export const dealDamage = (id: number, amount: number) => {
   };
 }
 
-export const upgradeWeapon = () => {
+export const skillsUp = () => {
   return {
-    type: AT.WEAPON
+    type: AT.SKILLS_UP
   };
 }
 

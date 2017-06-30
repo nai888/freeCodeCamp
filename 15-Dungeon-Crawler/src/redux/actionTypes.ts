@@ -1,7 +1,7 @@
 export const HEAL: string = 'HEAL';
 export const TAKE_DAMAGE: string = 'TAKE_DAMAGE';
 export const DEAL_DAMAGE: string = 'DEAL_DAMAGE';
-export const WEAPON: string = 'WEAPON';
+export const SKILLS_UP: string = 'SKILLS_UP';
 export const PLAYER_DIE: string = 'PLAYER_DIE';
 export const ENEMY_DIE: string = 'ENEMY_DIE';
 export const LEVEL_UP: string = 'LEVEL_UP';

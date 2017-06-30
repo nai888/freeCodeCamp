@@ -5,7 +5,7 @@ interface Player {
   health: number;
   xp: number;
   level: number;
-  weapon: number;
+  skill: number;
   damage: number;
   location: {
     x: number;
@@ -17,8 +17,8 @@ const defaultPlayerState: Player = {
   health: 20,
   xp: 0,
   level: 1,
-  weapon: 1,
-  damage: 11, // 10 + (level * weapon)
+  skill: 1,
+  damage: 11, // 10 + (level * skill)
   location: {
     x: 0,
     y: 0
@@ -42,10 +42,10 @@ function player(state: Player = defaultPlayerState, action: PlayerAction) {
       } else {
         return Object.assign({}, state, { health: state.health - 1 });
       }
-    case AT.WEAPON:
+    case AT.SKILLS_UP:
       return Object.assign({}, state, {
-        weapon: state.weapon + 1,
-        damage: 10 + (state.level * state.weapon)
+        skill: state.skill + 1,
+        damage: 10 + (state.level * state.skill)
       });
     case AT.ENEMY_DIE:
       if (action.xpWorth) {
@@ -56,7 +56,7 @@ function player(state: Player = defaultPlayerState, action: PlayerAction) {
     case AT.LEVEL_UP:
       return Object.assign({}, state, {
         level: state.level + 1,
-        damage: 10 + (state.level * state.weapon)
+        damage: 10 + (state.level * state.skill)
       });
     case AT.MOVE:
       let locX = state.location.x;
