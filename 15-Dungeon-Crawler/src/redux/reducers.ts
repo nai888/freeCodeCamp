@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import * as AT from './actionTypes';
+import { State } from './props';
 
-interface Player {
+export interface Player {
   health: number;
   xp: number;
   level: number;
@@ -13,7 +14,7 @@ interface Player {
   };
 }
 
-const defaultPlayerState: Player = {
+export const defaultPlayerState: Player = {
   health: 20,
   xp: 0,
   level: 1,
@@ -25,14 +26,14 @@ const defaultPlayerState: Player = {
   }
 };
 
-interface PlayerAction {
+export interface PlayerAction {
   type: string;
   amount?: number;
   xpWorth?: number;
   direction?: string;
 }
 
-function player(state: Player = defaultPlayerState, action: PlayerAction) {
+function player(state: Player = defaultPlayerState, action: PlayerAction): Player {
   switch (action.type) {
     case AT.HEAL:
       return Object.assign({}, state, { health: state.health + 10 });
@@ -80,7 +81,7 @@ function player(state: Player = defaultPlayerState, action: PlayerAction) {
   }
 }
 
-interface Enemy {
+export interface Enemy {
   id: number;
   health: number;
   damage: number;
@@ -88,15 +89,15 @@ interface Enemy {
   isBoss: boolean;
 }
 
-const defaultEnemyArray: Enemy[] = [];
+export const defaultEnemyArray: Enemy[] = [];
 
-interface EnemyAction {
+export interface EnemyAction {
   type: string;
   id: number;
   damage?: number;
 }
 
-function enemy(state: Enemy[] = defaultEnemyArray, action: EnemyAction) {
+function enemy(state: Enemy[] = defaultEnemyArray, action: EnemyAction): Enemy[] {
   switch (action.type) {
     case AT.DEAL_DAMAGE:
       let newState = [...state];
@@ -122,21 +123,32 @@ function enemy(state: Enemy[] = defaultEnemyArray, action: EnemyAction) {
   }
 }
 
-interface GameState {
+interface Tile {
+  tileType: string;
+  token?: {
+    tokenType: string;
+    id?: number;
+  };
+}
+
+export interface GameState {
   playing: boolean;
   result: string;
+  map: Tile[];
 }
 
-const defaultGameState: GameState = {
+export const defaultGameState: GameState = {
   playing: true,
-  result: 'playing'
+  result: 'playing',
+  map: []
 };
 
-interface GameStateAction {
+export interface GameStateAction {
   type: string;
+  id?: number;
 }
 
-function gameState(state: GameState = defaultGameState, action: GameStateAction) {
+function gameState(state: GameState = defaultGameState, action: GameStateAction): GameState {
   switch (action.type) {
     case AT.PLAYER_DIE:
       return Object.assign({}, state, { playing: false, result: 'lose' });
@@ -144,12 +156,14 @@ function gameState(state: GameState = defaultGameState, action: GameStateAction)
       return Object.assign({}, state, { playing: false, result: 'win' });
     case AT.NEW_GAME:
       return defaultGameState;  
+    case AT.SETUP_MAP:
+      return state; // Need to update this for generating a map; also call GEN_ENEMIES
     default:
-      return state;  
+      return state;
   }
 }
 
-const rootReducer = combineReducers({
+const rootReducer = combineReducers<State>({
   player,
   enemy,
   gameState

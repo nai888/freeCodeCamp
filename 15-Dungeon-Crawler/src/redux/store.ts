@@ -1,4 +1,12 @@
 import { createStore } from 'redux';
-import rootReducer from './reducers';
+import rootReducer, { Player, Enemy, GameState } from './reducers';
 
-export const store = createStore(rootReducer);
+interface StoreType {
+  player: Player;
+  enemy: Enemy[];
+  gameState: GameState;
+}
+
+const store = createStore<StoreType>(rootReducer);
+
+export default store;
