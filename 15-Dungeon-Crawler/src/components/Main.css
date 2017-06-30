@@ -1,0 +1,62 @@
+main {
+  width: 1200px;
+  margin: 24px auto;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.status-bar, .log, .map {
+  height: 580px;
+  color: white;
+}
+
+.status-bar, .log {
+  width: 20%;
+  padding: 8px 16px;
+}
+.status-bar p, .log p {
+  text-align: left;
+}
+
+.status-bar, .map {
+  overflow: hidden;
+}
+
+.status-bar {
+  background-color: #5f1a00;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+.status-bar h2 {
+  align-self: center;
+}
+
+.map {
+  width: 60%;
+  background-color: black;
+  font-size: 10px;
+}
+
+.log {
+  background-color: #192c00;
+  overflow: auto;
+}
+.log::-webkit-scrollbar {
+  width: 10px;
+}
+.log::-webkit-scrollbar-thumb {
+  background-color: #35530c;
+  border-radius: 5px;
+}
+.log::-webkit-scrollbar-track {
+  background-color: #192c00;
+}
+.log::-webkit-scrollbar-button {
+  display: none;
+}

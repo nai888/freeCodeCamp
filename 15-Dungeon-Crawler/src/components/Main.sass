@@ -1,0 +1,51 @@
+@import ../variables
+
+main
+  width: 1200px
+  margin: 24px auto
+  display: flex
+  flex-flow: row nowrap
+  justify-content: space-between
+  align-items: flex-start
+  align-content: flex-start
+
+.status-bar, .log, .map
+  height: 580px
+  color: white
+
+.status-bar, .log
+  width: 20%
+  padding: 8px 16px
+  p
+    text-align: left
+
+.status-bar, .map
+  overflow: hidden
+
+.status-bar
+  background-color: darken($red, 10%)
+  display: flex
+  flex-flow: column nowrap
+  justify-content: space-around
+  align-items: flex-start
+  align-content: flex-start
+  h2
+    align-self: center
+
+.map
+  width: 60%
+  background-color: black
+  font-size: 10px
+
+.log
+  background-color: darken($grn, 20%)
+  overflow: auto
+  &::-webkit-scrollbar
+    width: 10px
+  &::-webkit-scrollbar-thumb
+    background-color: darken($grn-ntl, 10%)
+    border-radius: 5px
+  &::-webkit-scrollbar-track
+    background-color: darken($grn, 20%)
+  &::-webkit-scrollbar-button
+    display: none
