@@ -7,7 +7,7 @@ interface Props {
   gameState: GameState;
 }
 
-function StatusBar(props: Props) {
+export default function StatusBar(props: Props) {
   return (
     <div className="status-bar">
       <h2>
@@ -45,5 +45,3 @@ function StatusBar(props: Props) {
     </div>
   );
 }
-
-export default StatusBar;
