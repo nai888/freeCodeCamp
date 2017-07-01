@@ -1,0 +1,29 @@
+@import ../variables
+
+.map
+  width: 60%
+  background-color: darken($blu, 25%)
+  font-size: 10px
+  display: flex
+  flex-flow: column nowrap
+  justify-content: flex-start
+  align-items: flex-start
+  align-content: flex-start
+  overflow: hidden
+
+.row
+  height: 10px
+  display: flex
+  flex-flow: row nowrap
+  justify-content: flex-start
+  align-items: flex-start
+  align-content: flex-start
+  overflow: hidden
+
+.tile
+  width: 10px
+  height: 10px
+  &.wall
+    background-color: darken($blu, 15%)
+  &.floor
+    background-color: lighten($blu-ntl, 30%)
