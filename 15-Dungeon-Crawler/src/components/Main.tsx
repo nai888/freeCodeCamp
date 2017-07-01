@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import mapStateToProps from '../redux/props';
+import mapStateToProps, { StateType } from '../redux/props';
 import mapDispatchToProps from '../redux/dispatcher';
 import * as red from '../redux/reducers';
 import StatusBar from './StatusBar';
@@ -10,11 +10,7 @@ import './Main.css';
 
 connect(mapStateToProps, mapDispatchToProps)(Main);
 
-export interface MainProps {
-  player: red.Player;
-  enemies: red.Enemy[];
-  gameState: red.GameState;
-  log: string[];
+interface Props extends StateType {
   onHeal?: () => void;
   onTakeDamage?: () => void;
   onDealDamage?: () => void;
@@ -46,7 +42,7 @@ function Main({
   onGenEnemies,
   onMove,
   onNewGame
-}: MainProps) {
+}: Props) {
   return (
     <main>
       <StatusBar
@@ -54,7 +50,7 @@ function Main({
         enemies={enemies}
         gameState={gameState}
       />
-      <Map />
+      <Map map={gameState.map} />
       <Log log={log} />
     </main>
   );

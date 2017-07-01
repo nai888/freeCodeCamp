@@ -99,30 +99,47 @@ function enemy(state: Enemy[] = defaultEnemyArray, action: EnemyAction): Enemy[]
   }
 }
 
-type tyleType = 'wall' | 'floor' | 'empty';
-type tokenType = 'player' | 'enemy' | 'boss';
+type TileType = 'wall' | 'floor' | 'empty';
+type TokenType = 'player' | 'enemy' | 'boss';
 
-interface Tile {
-  tileType: tyleType;
+export interface Tile {
+  tileType: TileType;
   token?: {
-    tokenType: tokenType;
+    tokenType: TokenType;
     id?: number;
   };
 }
+
+export type MapRow = Tile[];
 
 type resultType = 'playing' | 'win' | 'lose';
 
 export interface GameState {
   playing: boolean;
   result: resultType;
-  map: Tile[];
+  map: MapRow[];
   floor: number;
 }
+
+const genBlankMap = () => {
+  let map: MapRow[] = [];
+  let row: Tile[] = [];
+  let blankTile: Tile = { tileType: 'empty' };
+  for (let i = 0; i < 100; i++) {
+    map[i] = row;
+    for (let j = 0; j < 100; j++) {
+      map[i][j] = blankTile;
+    }
+  }
+  return map;
+};
+
+const blankMap = genBlankMap();
 
 export const defaultGameState: GameState = {
   playing: true,
   result: 'playing',
-  map: [],
+  map: blankMap,
   floor: 1
 };
 

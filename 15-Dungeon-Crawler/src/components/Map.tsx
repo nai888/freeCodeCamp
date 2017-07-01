@@ -1,13 +1,26 @@
 import * as React from 'react';
+import { MapRow } from '../redux/reducers';
+import Row from './Row';
+import './Map.css';
 
-interface MapProps {
-
+interface Props {
+  map: MapRow[];
 }
 
-function Map(props: MapProps) {
+export default function Map(props: Props) {
+  const rows = props.map.map((row, i) => {
+    return (
+      <Row
+        key={i}
+        row={row}
+        rowNum={i}
+      />
+    );
+  });
+
   return (
-    <div className="map" />
+    <div className="map">
+      {rows}
+    </div>
   );
 }
-
-export default Map;
