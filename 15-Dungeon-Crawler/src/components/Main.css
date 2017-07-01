@@ -40,14 +40,8 @@ main {
   align-self: center;
 }
 
-.map {
-  width: 60%;
-  background-color: black;
-  font-size: 10px;
-}
-
 .log {
-  background-color: #192c00;
+  background-color: #1c3100;
   overflow: auto;
 }
 .log::-webkit-scrollbar {
