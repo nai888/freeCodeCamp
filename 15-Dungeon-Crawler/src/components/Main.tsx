@@ -25,7 +25,7 @@ interface Props extends StateType {
   onNewGame?: () => void;
 }
 
-function Main({
+export default function Main({
   player = red.defaultPlayerState,
   enemies = red.defaultEnemyArray,
   gameState = red.defaultGameState,
@@ -51,9 +51,11 @@ function Main({
         gameState={gameState}
       />
       <Map map={gameState.map} />
-      <Log log={log} />
+      <Log
+        log={log}
+        gameState={gameState}
+        onNewGame={onNewGame}
+      />
     </main>
   );
 }
-
-export default Main;
