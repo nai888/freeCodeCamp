@@ -35,7 +35,7 @@ function StatusBar(props: Props) {
         {props.gameState.floor} of 4
       </p>
       <p>
-        <i className="fa fa-bug fa-fw" aria-hidden="true" /> <strong>Enemies:</strong> {props.enemies.length}
+        <i className="fa fa-bug fa-fw" aria-hidden="true" /> <strong>Enemies:</strong> {props.enemies.length} remaining
       </p>
       <p>
         <i className="fa fa-user-secret fa-fw" aria-hidden="true" /> <strong>Boss:</strong>
