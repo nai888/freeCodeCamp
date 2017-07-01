@@ -1,18 +1,24 @@
 import * as React from 'react';
 
-interface LogProps {
-
+interface Props {
+  log: string[];
 }
 
-function Log(props: LogProps) {
+function Log(props: Props) {
+  const logMessages = props.log.map((message: string, i: number) => {
+    return (
+      <p key={props.log.length - i}>
+        {message}
+      </p>
+    );
+  });
+
   return (
     <div className="log">
       <h2>
         <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true" alt="Log" />
       </h2>
-      <p>
-        Welcome to the dungeon, rogue! See if you can make it all the way down to the fourth floor and beat the boss!
-      </p>
+      {logMessages}
     </div>
   );
 }

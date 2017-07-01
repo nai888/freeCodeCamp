@@ -14,6 +14,7 @@ export interface MainProps {
   player: red.Player;
   enemy: red.Enemy[];
   gameState: red.GameState;
+  log: string[];
   onHeal?: () => void;
   onTakeDamage?: () => void;
   onDealDamage?: () => void;
@@ -32,6 +33,7 @@ function Main({
   player = red.defaultPlayerState,
   enemy = red.defaultEnemyArray,
   gameState = red.defaultGameState,
+  log = red.openingLogMessage,
   onHeal,
   onTakeDamage,
   onDealDamage,
@@ -49,7 +51,7 @@ function Main({
     <main>
       <StatusBar />
       <Map />
-      <Log />
+      <Log log={log} />
     </main>
   );
 }

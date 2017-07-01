@@ -16,6 +16,7 @@ function App() {
           player={red.defaultPlayerState}
           enemy={red.defaultEnemyArray}
           gameState={red.defaultGameState}
+          log={red.openingLogMessage}
         />
       </Provider>
       <Footer />

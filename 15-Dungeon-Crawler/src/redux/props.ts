@@ -4,13 +4,15 @@ export interface StateType {
   player: Player;
   enemy: Enemy[];
   gameState: GameState;
+  log: string[];
 }
 
 const mapStateToProps = (state: StateType) => {
   return {
     player: state.player,
     enemy: state.enemy,
-    gameState: state.gameState
+    gameState: state.gameState,
+    log: state.log
   };
 };
 

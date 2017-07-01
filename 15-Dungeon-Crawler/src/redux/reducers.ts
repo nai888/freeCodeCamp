@@ -7,30 +7,19 @@ export interface Player {
   xp: number;
   level: number;
   skill: number;
-  damage: number;
-  location: {
-    x: number;
-    y: number;
-  };
 }
 
 export const defaultPlayerState: Player = {
   health: 20,
   xp: 0,
   level: 1,
-  skill: 1,
-  damage: 11, // 10 + (level * skill)
-  location: {
-    x: 0,
-    y: 0
-  }
+  skill: 1
 };
 
 export interface PlayerAction {
   type: string;
   amount?: number;
   xpWorth?: number;
-  direction?: string;
 }
 
 function player(state: Player = defaultPlayerState, action: PlayerAction): Player {
@@ -59,21 +48,6 @@ function player(state: Player = defaultPlayerState, action: PlayerAction): Playe
         level: state.level + 1,
         damage: 10 + (state.level * state.skill)
       });
-    case AT.MOVE:
-      let locX = state.location.x;
-      let locY = state.location.y;
-      switch (action.direction) {
-        case 'north':
-          return Object.assign({}, state, { location: { x: locX, y: locY + 1 } });
-        case 'south':
-          return Object.assign({}, state, { location: { x: locX, y: locY - 1 } });
-        case 'west':
-          return Object.assign({}, state, { location: { x: locX - 1, y: locY } });
-        case 'east':
-          return Object.assign({}, state, { location: { x: locX + 1, y: locY } });
-        default:
-          return state;  
-      }
     case AT.NEW_GAME:
       return defaultPlayerState;  
     default:
@@ -123,17 +97,22 @@ function enemy(state: Enemy[] = defaultEnemyArray, action: EnemyAction): Enemy[]
   }
 }
 
+type tyleType = 'wall' | 'floor' | 'empty';
+type tokenType = 'player' | 'enemy' | 'boss';
+
 interface Tile {
-  tileType: string;
+  tileType: tyleType;
   token?: {
-    tokenType: string;
+    tokenType: tokenType;
     id?: number;
   };
 }
 
+type resultType = 'playing' | 'win' | 'lose';
+
 export interface GameState {
   playing: boolean;
-  result: string;
+  result: resultType;
   map: Tile[];
 }
 
@@ -143,9 +122,12 @@ export const defaultGameState: GameState = {
   map: []
 };
 
+type directionType = 'north' | 'south' | 'east' | 'west';
+
 export interface GameStateAction {
   type: string;
   id?: number;
+  direction?: directionType;
 }
 
 function gameState(state: GameState = defaultGameState, action: GameStateAction): GameState {
@@ -158,15 +140,75 @@ function gameState(state: GameState = defaultGameState, action: GameStateAction)
       return defaultGameState;  
     case AT.SETUP_MAP:
       return state; // Need to update this for generating a map; also call GEN_ENEMIES
+    case AT.MOVE:
+      // let locX = state.location.x;
+      // let locY = state.location.y;
+      switch (action.direction) {
+        /* case 'north':
+          return Object.assign({}, state, { location: { x: locX, y: locY + 1 } });
+        case 'south':
+          return Object.assign({}, state, { location: { x: locX, y: locY - 1 } });
+        case 'west':
+          return Object.assign({}, state, { location: { x: locX - 1, y: locY } });
+        case 'east':
+          return Object.assign({}, state, { location: { x: locX + 1, y: locY } }); */
+        default:
+          return state;
+      }
     default:
       return state;
+  }
+}
+
+export interface LogAction {
+  type: string;
+  amount?: number;
+  damage?: number;
+  xpWorth?: number;
+  isBoss?: boolean;
+}
+
+export const openingLogMessage = ['Welcome to the dungeon, you rascally rogue! ' +
+  'See if you can make it all the way to the fourth floor and beat the boss!'];
+
+function log(state: string[] = openingLogMessage, action: LogAction) {
+  switch (action.type) {
+    case AT.DEAL_DAMAGE:
+      let dealDamageMessage = `You dealt ${action.amount} damage.`;
+      return [dealDamageMessage, ...state];
+    case AT.TAKE_DAMAGE:
+      let takeDamageMessage = `Enemy dealt you ${action.amount} damage.`;
+      return [takeDamageMessage, ...state];
+    case AT.ENEMY_DIE:
+      let enemyDieMessage = `You have vanquished your foe and gained ${action.xpWorth} experience points!`;
+      return [enemyDieMessage, ...state];
+    case AT.PLAYER_DIE:
+      let playerDieMessage = 'You have died and your name shall dwindle into anonymity.';
+      return [playerDieMessage, ...state];
+    case AT.HEAL:
+      let healMessage = 'You have healed 20 health points!';
+      return [healMessage, ...state];
+    case AT.SKILLS_UP:
+      let skillsUpMessage = 'You spent a moment practicing, and your skills have increased!';
+      return [skillsUpMessage, ...state];
+    case AT.LEVEL_UP:
+      let levelUpMessage = 'Your experience has taught you well; you are getting stronger!';
+      return [levelUpMessage, ...state];
+    case AT.BOSS_DIE:
+      let bossDieMessage = 'You have vanquished the boss and conquered the dungeon. The bards shall sing your name!';
+      return [bossDieMessage, ...state];
+    case AT.NEW_GAME:
+      return openingLogMessage;
+    default:
+      return [...state];
   }
 }
 
 const rootReducer = combineReducers<StateType>({
   player,
   enemy,
-  gameState
+  gameState,
+  log
 });
 
 export default rootReducer;
