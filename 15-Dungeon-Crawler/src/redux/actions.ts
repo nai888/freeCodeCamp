@@ -77,3 +77,9 @@ export const newGame = () => {
     type: AT.NEW_GAME
   };
 };
+
+export const newFloor = () => {
+  return {
+    type: AT.NEW_FLOOR
+  };
+};

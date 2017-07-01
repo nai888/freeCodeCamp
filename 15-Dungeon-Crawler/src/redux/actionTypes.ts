@@ -10,3 +10,4 @@ export const SETUP_MAP: string = 'SETUP_MAP';
 export const GEN_ENEMIES: string = 'GEN_ENEMIES';
 export const MOVE: string = 'MOVE';
 export const NEW_GAME: string = 'NEW_GAME';
+export const NEW_FLOOR: string = 'NEW_FLOOR';

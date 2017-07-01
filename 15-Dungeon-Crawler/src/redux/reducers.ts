@@ -5,13 +5,15 @@ import { StateType } from './props';
 export interface Player {
   health: number;
   xp: number;
+  nextXP: number;
   level: number;
   skill: number;
 }
 
 export const defaultPlayerState: Player = {
-  health: 20,
+  health: 100,
   xp: 0,
+  nextXP: 100,
   level: 1,
   skill: 1
 };
@@ -114,12 +116,14 @@ export interface GameState {
   playing: boolean;
   result: resultType;
   map: Tile[];
+  floor: number;
 }
 
 export const defaultGameState: GameState = {
   playing: true,
   result: 'playing',
-  map: []
+  map: [],
+  floor: 1
 };
 
 type directionType = 'north' | 'south' | 'east' | 'west';
@@ -155,6 +159,8 @@ function gameState(state: GameState = defaultGameState, action: GameStateAction)
         default:
           return state;
       }
+    case AT.NEW_FLOOR:
+      return Object.assign({}, state, { floor: state.floor + 1 }); // Also need to call SETUP_MAP and GEN_ENEMIES
     default:
       return state;
   }

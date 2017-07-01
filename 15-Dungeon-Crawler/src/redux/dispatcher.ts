@@ -17,7 +17,8 @@ function mapDispatchToProps(dispatch: Dispatch<DispatchType>) {
     onSetupMap: () => dispatch(actions.setupMap()),
     onGenEnemies: (boss: boolean) => dispatch(actions.genEnemies(boss)),
     onMove: (dir: string) => dispatch(actions.move(dir)),
-    onNewGame: () => dispatch(actions.newGame())
+    onNewGame: () => dispatch(actions.newGame()),
+    onNewFloor: () => dispatch(actions.newFloor())
   };
 }
 

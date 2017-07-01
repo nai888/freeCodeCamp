@@ -14,7 +14,7 @@ function App() {
       <Provider store={store}>
         <Main
           player={red.defaultPlayerState}
-          enemy={red.defaultEnemyArray}
+          enemies={red.defaultEnemyArray}
           gameState={red.defaultGameState}
           log={red.openingLogMessage}
         />

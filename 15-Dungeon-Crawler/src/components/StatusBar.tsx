@@ -1,35 +1,46 @@
 import * as React from 'react';
+import { Player, Enemy, GameState } from '../redux/reducers';
 
-interface StatusProps {
-
+interface Props {
+  player: Player;
+  enemies: Enemy[];
+  gameState: GameState;
 }
 
-function StatusBar(props: StatusProps) {
+function StatusBar(props: Props) {
   return (
     <div className="status-bar">
       <h2>
         <i className="fa fa-user fa-fw" aria-hidden="true" alt="Status" />
       </h2>
       <p>
-        <i className="fa fa-medkit fa-fw" aria-hidden="true" /> <strong>Health:</strong> 20
+        <i className="fa fa-medkit fa-fw" aria-hidden="true" /> <strong>Health:</strong> {props.player.health}
       </p>
       <p>
-        <i className="fa fa-level-up fa-fw" aria-hidden="true" /> <strong>Level:</strong> 1
+        <i className="fa fa-level-up fa-fw" aria-hidden="true" /> <strong>Level:</strong> {props.player.level}
+        {' '}
+        ({props.player.xp}/{props.player.nextXP} xp)
       </p>
       <p>
-        <i className="fa fa-chevron-up fa-fw" aria-hidden="true" /> <strong>Skill:</strong> 1
+        <i className="fa fa-chevron-up fa-fw" aria-hidden="true" /> <strong>Skill:</strong> {props.player.skill}
       </p>
       <p>
-        <i className="fa fa-bullseye fa-fw" aria-hidden="true" /> <strong>Damage:</strong> d6 + 1
+        <i className="fa fa-bullseye fa-fw" aria-hidden="true" /> <strong>Damage:</strong>
+        {' '}
+        d{5 + props.player.level} + {props.player.skill}
       </p>
       <p>
-        <i className="fa fa-angle-double-down fa-fw" aria-hidden="true" /> <strong>Floor:</strong> 1 of 4
+        <i className="fa fa-angle-double-down fa-fw" aria-hidden="true" /> <strong>Floor:</strong>
+        {' '}
+        {props.gameState.floor} of 4
       </p>
       <p>
-        <i className="fa fa-bug fa-fw" aria-hidden="true" /> <strong>Enemies:</strong> 10
+        <i className="fa fa-bug fa-fw" aria-hidden="true" /> <strong>Enemies:</strong> {props.enemies.length}
       </p>
       <p>
-        <i className="fa fa-user-secret fa-fw" aria-hidden="true" /> <strong>Boss:</strong> not on this floor
+        <i className="fa fa-user-secret fa-fw" aria-hidden="true" /> <strong>Boss:</strong>
+        {' '}
+        {props.gameState.floor === 4 ? 'on this floor' : 'not on this floor'}
       </p>
     </div>
   );

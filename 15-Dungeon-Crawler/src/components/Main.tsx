@@ -12,7 +12,7 @@ connect(mapStateToProps, mapDispatchToProps)(Main);
 
 export interface MainProps {
   player: red.Player;
-  enemy: red.Enemy[];
+  enemies: red.Enemy[];
   gameState: red.GameState;
   log: string[];
   onHeal?: () => void;
@@ -31,7 +31,7 @@ export interface MainProps {
 
 function Main({
   player = red.defaultPlayerState,
-  enemy = red.defaultEnemyArray,
+  enemies = red.defaultEnemyArray,
   gameState = red.defaultGameState,
   log = red.openingLogMessage,
   onHeal,
@@ -49,7 +49,11 @@ function Main({
 }: MainProps) {
   return (
     <main>
-      <StatusBar />
+      <StatusBar
+        player={player}
+        enemies={enemies}
+        gameState={gameState}
+      />
       <Map />
       <Log log={log} />
     </main>
