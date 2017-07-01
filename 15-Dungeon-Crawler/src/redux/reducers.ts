@@ -125,9 +125,9 @@ const genBlankMap = () => {
   let map: MapRow[] = [];
   let row: Tile[] = [];
   let blankTile: Tile = { tileType: 'empty' };
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 58; i++) {
     map[i] = row;
-    for (let j = 0; j < 100; j++) {
+    for (let j = 0; j < 72; j++) {
       map[i][j] = blankTile;
     }
   }
