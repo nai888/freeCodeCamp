@@ -33,6 +33,9 @@ main {
   align-items: flex-start;
   align-content: flex-start;
 }
+.status-bar h2, .status-bar p {
+  margin: 0;
+}
 .status-bar h2 {
   align-self: center;
 }
