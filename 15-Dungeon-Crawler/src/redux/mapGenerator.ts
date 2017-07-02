@@ -149,7 +149,7 @@ class Leaf extends Rectangle {
           roomWidth -= 1;
         }
         return _x;
-      }
+      };
       const randY: () => number = () => {
         let _y: number = this.y + Math.floor(Math.random() * (this.height - roomHeight));
         if (_y === 0) {
@@ -160,7 +160,7 @@ class Leaf extends Rectangle {
           roomHeight -= 1;
         }
         return _y;
-      }
+      };
       let roomPos: coordinate = {
         x: randX(),
         y: randY()
