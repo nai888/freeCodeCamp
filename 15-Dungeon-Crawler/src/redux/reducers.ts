@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import * as AT from './actionTypes';
 import { StateType } from './props';
+import mapGenerator from './mapGenerator';
 
 export interface Player {
   health: number;
@@ -121,34 +122,21 @@ export interface GameState {
   floor: number;
 }
 
-const genBlankMap = () => {
-  let map: MapRow[] = [];
-  let row: Tile[] = [];
-  let blankTile: Tile = { tileType: 'empty' };
-  for (let i = 0; i < 58; i++) {
-    map[i] = row;
-    for (let j = 0; j < 72; j++) {
-      map[i][j] = blankTile;
-    }
-  }
-  return map;
-};
-
-const blankMap = genBlankMap();
+const randMap = mapGenerator();
 
 export const defaultGameState: GameState = {
   playing: true,
   result: 'playing',
-  map: blankMap,
+  map: randMap,
   floor: 1
 };
 
-type directionType = 'north' | 'south' | 'east' | 'west';
+type direction = 'north' | 'south' | 'east' | 'west';
 
 export interface GameStateAction {
   type: string;
   id?: number;
-  direction?: directionType;
+  direction?: direction;
 }
 
 function gameState(state: GameState = defaultGameState, action: GameStateAction): GameState {
@@ -158,9 +146,9 @@ function gameState(state: GameState = defaultGameState, action: GameStateAction)
     case AT.BOSS_DIE:
       return Object.assign({}, state, { playing: false, result: 'win' });
     case AT.NEW_GAME:
-      return defaultGameState;  
+      return Object.assign({}, defaultGameState, { map: randMap });
     case AT.SETUP_MAP:
-      return state; // Need to update this for generating a map; also call GEN_ENEMIES
+      return Object.assign({}, state, { map: randMap }); // Also need to call GEN_ENEMIES
     case AT.MOVE:
       // let locX = state.location.x;
       // let locY = state.location.y;
