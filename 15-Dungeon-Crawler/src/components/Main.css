@@ -10,12 +10,12 @@ main {
 
 .status-bar, .log, .map {
   height: 580px;
-  color: white;
 }
 
 .status-bar, .log {
   width: 20%;
   padding: 8px 16px;
+  color: white;
 }
 .status-bar p, .log p {
   text-align: left;
