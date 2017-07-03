@@ -16,12 +16,21 @@ export default function Log(props: Props) {
     );
   });
 
+  const newGameButton = !props.gameState.playing ? (
+    <button
+      className="new-game"
+      onClick={props.onNewGame}
+    >
+      New Game
+    </button>
+  ) : null;
+
   return (
     <div className="log">
       <h2>
         <i className="fa fa-pencil-square-o fa-fw" aria-hidden="true" alt="Log" />
       </h2>
-      <button className="new-game" onClick={props.onNewGame}>New Game</button>
+      {newGameButton}
       {logMessages}
     </div>
   );
