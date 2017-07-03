@@ -62,7 +62,7 @@ class Leaf extends Rectangle {
   public rChild: Leaf;
   public room: Room;
   public halls: Hall[];
-  private minLeafSize: number = 12;
+  private minLeafSize: number = 10;
 
   public constructor(location: coordinate, width: number, height: number) {
     super(location, width, height);
@@ -139,31 +139,9 @@ class Leaf extends Rectangle {
       let roomWidth: number = Math.floor(Math.random() * (this.width - (this.width - 4))) + (this.width - 4);
       let roomHeight: number = Math.floor(Math.random() * (this.height - (this.height - 4))) + (this.height - 4);
       // Place the Room
-      const randX: () => number = () => {
-        let _x: number = this.x + Math.floor(Math.random() * (this.width - roomWidth));
-        if (_x === 0) {
-          _x += 1;
-          roomWidth -= 1;
-        }
-        if (_x + roomWidth === mapWidth) {
-          roomWidth -= 1;
-        }
-        return _x;
-      };
-      const randY: () => number = () => {
-        let _y: number = this.y + Math.floor(Math.random() * (this.height - roomHeight));
-        if (_y === 0) {
-          _y += 1;
-          roomHeight -= 1;
-        }
-        if (_y + roomHeight === mapHeight) {
-          roomHeight -= 1;
-        }
-        return _y;
-      };
       let roomPos: coordinate = {
-        x: randX(),
-        y: randY()
+        x: this.x + Math.floor(Math.random() * (this.width - roomWidth)),
+        y: this.y + Math.floor(Math.random() * (this.height - roomHeight))
       };
       this.room = new Room(roomPos, roomWidth, roomHeight);
     }
@@ -207,48 +185,48 @@ class Leaf extends Rectangle {
     if (w < 0) {
       if (h < 0) {
         if (Math.random() > 0.5) {
-          this.halls.push(new Hall({ x: point2.x, y: point1.y }, Math.abs(w) + 1, Math.random() > 0.5 ? 2 : 1));
-          this.halls.push(new Hall({ x: point2.x, y: point2.y }, Math.random() > 0.5 ? 2 : 1, Math.abs(h) + 1));
+          this.halls.push(new Hall({ x: point2.x, y: point1.y }, Math.abs(w) + 1, Math.floor(Math.random() * 4) + 2));
+          this.halls.push(new Hall({ x: point2.x, y: point2.y }, Math.floor(Math.random() * 4) + 2, Math.abs(h) + 1));
         } else {
-          this.halls.push(new Hall({ x: point2.x, y: point2.y }, Math.abs(w) + 1, Math.random() > 0.5 ? 2 : 1));
-          this.halls.push(new Hall({ x: point1.x, y: point2.y }, Math.random() > 0.5 ? 2 : 1, Math.abs(h) + 1));
+          this.halls.push(new Hall({ x: point2.x, y: point2.y }, Math.abs(w) + 1, Math.floor(Math.random() * 4) + 2));
+          this.halls.push(new Hall({ x: point1.x, y: point2.y }, Math.floor(Math.random() * 4) + 2, Math.abs(h) + 1));
         }
       } else if (h > 0) {
         if (Math.random() > 0.5) {
-          this.halls.push(new Hall({ x: point2.x, y: point1.y }, Math.abs(w) + 1, Math.random() > 0.5 ? 2 : 1));
-          this.halls.push(new Hall({ x: point2.x, y: point1.y }, Math.random() > 0.5 ? 2 : 1, Math.abs(h) + 1));
+          this.halls.push(new Hall({ x: point2.x, y: point1.y }, Math.abs(w) + 1, Math.floor(Math.random() * 4) + 2));
+          this.halls.push(new Hall({ x: point2.x, y: point1.y }, Math.floor(Math.random() * 4) + 2, Math.abs(h) + 1));
         } else {
-          this.halls.push(new Hall({ x: point2.x, y: point2.y }, Math.abs(w) + 1, Math.random() > 0.5 ? 2 : 1));
-          this.halls.push(new Hall({ x: point1.x, y: point1.y }, Math.random() > 0.5 ? 2 : 1, Math.abs(h) + 1));
+          this.halls.push(new Hall({ x: point2.x, y: point2.y }, Math.abs(w) + 1, Math.floor(Math.random() * 4) + 2));
+          this.halls.push(new Hall({ x: point1.x, y: point1.y }, Math.floor(Math.random() * 4) + 2, Math.abs(h) + 1));
         }
       } else /* if (h === 0) */ {
-        this.halls.push(new Hall({ x: point2.x, y: point2.y }, Math.abs(w) + 1, Math.random() > 0.5 ? 2 : 1));
+        this.halls.push(new Hall({ x: point2.x, y: point2.y }, Math.abs(w) + 1, Math.floor(Math.random() * 4) + 2));
       }
     } else if (w > 0) {
       if (h < 0) {
         if (Math.random() > 0.5) {
-          this.halls.push(new Hall({ x: point1.x, y: point2.y }, Math.abs(w) + 1, Math.random() > 0.5 ? 2 : 1));
-          this.halls.push(new Hall({ x: point1.x, y: point2.y }, Math.random() > 0.5 ? 2 : 1, Math.abs(h) + 1));
+          this.halls.push(new Hall({ x: point1.x, y: point2.y }, Math.abs(w) + 1, Math.floor(Math.random() * 4) + 2));
+          this.halls.push(new Hall({ x: point1.x, y: point2.y }, Math.floor(Math.random() * 4) + 2, Math.abs(h) + 1));
         } else {
-          this.halls.push(new Hall({ x: point1.x, y: point1.y }, Math.abs(w) + 1, Math.random() > 0.5 ? 2 : 1));
-          this.halls.push(new Hall({ x: point2.x, y: point2.y }, Math.random() > 0.5 ? 2 : 1, Math.abs(h) + 1));
+          this.halls.push(new Hall({ x: point1.x, y: point1.y }, Math.abs(w) + 1, Math.floor(Math.random() * 4) + 2));
+          this.halls.push(new Hall({ x: point2.x, y: point2.y }, Math.floor(Math.random() * 4) + 2, Math.abs(h) + 1));
         }
       } else if (h > 0) {
         if (Math.random() > 0.5) {
-          this.halls.push(new Hall({ x: point1.x, y: point1.y }, Math.abs(w) + 1, Math.random() > 0.5 ? 2 : 1));
-          this.halls.push(new Hall({ x: point2.x, y: point1.y }, Math.random() > 0.5 ? 2 : 1, Math.abs(h) + 1));
+          this.halls.push(new Hall({ x: point1.x, y: point1.y }, Math.abs(w) + 1, Math.floor(Math.random() * 4) + 2));
+          this.halls.push(new Hall({ x: point2.x, y: point1.y }, Math.floor(Math.random() * 4) + 2, Math.abs(h) + 1));
         } else {
-          this.halls.push(new Hall({ x: point1.x, y: point2.y }, Math.abs(w) + 1, Math.random() > 0.5 ? 2 : 1));
-          this.halls.push(new Hall({ x: point1.x, y: point1.y }, Math.random() > 0.5 ? 2 : 1, Math.abs(h) + 1));
+          this.halls.push(new Hall({ x: point1.x, y: point2.y }, Math.abs(w) + 1, Math.floor(Math.random() * 4) + 2));
+          this.halls.push(new Hall({ x: point1.x, y: point1.y }, Math.floor(Math.random() * 4) + 2, Math.abs(h) + 1));
         }
       } else /* if (h === 0) */ {
-        this.halls.push(new Hall({ x: point1.x, y: point1.y }, Math.abs(w) + 1, Math.random() > 0.5 ? 2 : 1));
+        this.halls.push(new Hall({ x: point1.x, y: point1.y }, Math.abs(w) + 1, Math.floor(Math.random() * 4) + 2));
       }
     } else /* if (w === 0) */ {
       if (h < 0) {
-        this.halls.push(new Hall({ x: point2.x, y: point2.y }, Math.random() > 0.5 ? 2 : 1, Math.abs(h) + 1));
+        this.halls.push(new Hall({ x: point2.x, y: point2.y }, Math.floor(Math.random() * 4) + 2, Math.abs(h) + 1));
       } else if (h > 0) {
-        this.halls.push(new Hall({ x: point1.x, y: point1.y }, Math.random() > 0.5 ? 2 : 1, Math.abs(h) + 1));
+        this.halls.push(new Hall({ x: point1.x, y: point1.y }, Math.floor(Math.random() * 4) + 2, Math.abs(h) + 1));
       }
     }
   }
@@ -328,6 +306,9 @@ export default function mapGenerator() {
             }
           }
         }
+      }
+      if (i === 0 || i === mapHeight - 1 || j === 0 || j === mapWidth - 1) { // If coordinate is on the edge of the map
+        isFloor = false;
       }
       let tile: Tile = isFloor ? floorTile : wallTile;
       row.push(tile);
