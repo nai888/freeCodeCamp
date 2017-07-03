@@ -330,5 +330,35 @@ export default function mapGenerator() {
     }
     map.push(row);
   }
+
+  let randomTile: coordinate;
+  const getRandUsableTile: () => coordinate = () => {
+    let unusable = true;
+    while (unusable) {
+      unusable = false;
+      randomTile = {
+        x: Math.floor(Math.random() * mapWidth - 2) + 1,
+        y: Math.floor(Math.random() * mapHeight - 2) + 1
+      }
+      if (map[randomTile.y][randomTile.x].tileType !== 'floor') {
+        unusable = true;
+      }
+    }
+    return randomTile;
+  }
+  // Add user
+  randomTile = getRandUsableTile();
+  const playerTile: Tile = { tileType: 'floor', token: { tokenType: 'player' } };
+  map[randomTile.y].splice(randomTile.x, 1, playerTile);
+  // Add stairs
+  randomTile = getRandUsableTile();
+  const stairsTile: Tile = { tileType: 'floor', token: { tokenType: 'stairs' } };
+  map[randomTile.y].splice(randomTile.x, 1, stairsTile);
+  // If 4th floor, add the boss
+  /* if (store.getState().gameState.floor === 4) {
+    randomTile = getRandUsableTile();
+    const bossTile: Tile = { tileType: 'floor', token: { tokenType: 'boss', id: enemies } };
+    map[randomTile.y].splice(randomTile.x, 1, bossTile)
+  } */
   return map;
 }
