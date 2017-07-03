@@ -32,3 +32,25 @@
   background-color: #d4e0ed;
   color: black;
 }
+.tile[data-token="player"] {
+  color: #527f13;
+}
+.tile[data-token="enemy"] {
+  color: #922900;
+}
+.tile[data-token="boss"] {
+  color: #922900;
+  text-shadow: 0 0 10px #d85320;
+}
+.tile[data-token="health"] {
+  color: #559200;
+  text-shadow: 0 0 10px #8bd820;
+}
+.tile[data-token="skill"] {
+  color: #a3ab00;
+  text-shadow: 0 0 10px #d8e130;
+}
+.tile[data-token="stairs"] {
+  color: #295a89;
+  text-shadow: 0 0 10px #5d8dbb;
+}

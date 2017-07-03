@@ -20,6 +20,15 @@ export default function Tile(props: Props) {
       case 'boss':
         icon = 'user-secret';
         break;
+      case 'health':
+        icon = 'medkit';
+        break;
+      case 'skill':
+        icon = 'chevron-up';
+        break;
+      case 'stairs':
+        icon = 'angle-double-down';
+        break;
       default:
         icon = null;
     }

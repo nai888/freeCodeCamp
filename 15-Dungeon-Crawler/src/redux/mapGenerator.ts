@@ -279,6 +279,7 @@ export default function mapGenerator() {
   const wallTile: Tile = { tileType: 'wall' };
   const floorTile: Tile = { tileType: 'floor' };
   let map: MapRow[] = [];
+  let enemies = 0;
   for (let i = 0; i < mapHeight; i++) { // Map's rows
     let row: Tile[] = [];
     for (let j = 0; j < mapWidth; j++) { // Row's tiles
@@ -292,6 +293,7 @@ export default function mapGenerator() {
                 isFloor = true;
               }
             }
+
           }
         }
         if (leafs[k].halls !== undefined) {
@@ -311,6 +313,19 @@ export default function mapGenerator() {
         isFloor = false;
       }
       let tile: Tile = isFloor ? floorTile : wallTile;
+      // Place around 16-22 enemies
+      if (isFloor && tile.token === undefined && (Math.random() < (25 / (mapWidth * mapHeight)))) {
+        tile = { tileType: tile.tileType, token: { tokenType: 'enemy', id: enemies } };
+        enemies++;
+      }
+      // Place around 10-15 health
+      if (isFloor && tile.token === undefined && (Math.random() < (18 / (mapWidth * mapHeight)))) {
+        tile = { tileType: tile.tileType, token: { tokenType: 'health' } };
+      }
+      // Place around 5-7 skill powerups
+      if (isFloor && tile.token === undefined && (Math.random() < (10 / (mapWidth * mapHeight)))) {
+        tile = { tileType: tile.tileType, token: { tokenType: 'skill' } };
+      }
       row.push(tile);
     }
     map.push(row);

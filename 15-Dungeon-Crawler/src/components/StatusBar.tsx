@@ -27,7 +27,7 @@ export default function StatusBar(props: Props) {
       <p>
         <i className="fa fa-bullseye fa-fw" aria-hidden="true" /> <strong>Damage:</strong>
         {' '}
-        d{5 + props.player.level} + {props.player.skill}
+        d{4 + (2 * props.player.level)} + {props.player.skill}
       </p>
       <p>
         <i className="fa fa-angle-double-down fa-fw" aria-hidden="true" /> <strong>Floor:</strong>
