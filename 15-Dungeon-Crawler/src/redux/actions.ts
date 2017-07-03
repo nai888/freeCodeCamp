@@ -1,4 +1,5 @@
 import * as AT from './actionTypes';
+import { direction } from './reducers';
 
 export const heal = () => {
   return {
@@ -33,9 +34,10 @@ export const playerDie = () => {
   };
 };
 
-export const enemyDie = (xpWorth: number) => {
+export const enemyDie = (id: number, xpWorth: number) => {
   return {
     type: AT.ENEMY_DIE,
+    id,
     xpWorth
   };
 };
@@ -58,16 +60,9 @@ export const setupMap = () => {
   };
 };
 
-export const genEnemies = (boss: boolean) => {
+export const move = (direction: direction) => {
   return {
-    type: AT.GEN_ENEMIES,
-    boss
-  };
-};
-
-export const move = (direction: string) => {
-  return {
-    type: AT.GEN_ENEMIES,
+    type: AT.MOVE,
     direction
   };
 };

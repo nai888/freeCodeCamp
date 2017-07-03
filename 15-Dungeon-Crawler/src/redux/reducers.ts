@@ -22,6 +22,7 @@ export const defaultPlayerState: Player = {
 export interface PlayerAction {
   type: string;
   amount?: number;
+  id?: number;
   xpWorth?: number;
 }
 
@@ -101,7 +102,7 @@ function enemy(state: Enemy[] = defaultEnemyArray, action: EnemyAction): Enemy[]
 }
 
 type TileType = 'wall' | 'floor' | 'empty';
-type TokenType = 'player' | 'enemy' | 'boss';
+type TokenType = 'player' | 'enemy' | 'boss' | 'health' | 'skill' | 'stairs';
 
 export interface Tile {
   tileType: TileType;
@@ -122,16 +123,14 @@ export interface GameState {
   floor: number;
 }
 
-const randMap = mapGenerator();
-
 export const defaultGameState: GameState = {
   playing: true,
   result: 'playing',
-  map: randMap,
+  map: mapGenerator(),
   floor: 1
 };
 
-type direction = 'north' | 'south' | 'east' | 'west';
+export type direction = 'north' | 'south' | 'east' | 'west';
 
 export interface GameStateAction {
   type: string;
@@ -146,9 +145,9 @@ function gameState(state: GameState = defaultGameState, action: GameStateAction)
     case AT.BOSS_DIE:
       return Object.assign({}, state, { playing: false, result: 'win' });
     case AT.NEW_GAME:
-      return Object.assign({}, defaultGameState, { map: randMap });
+      return Object.assign({}, defaultGameState, { map: mapGenerator() });
     case AT.SETUP_MAP:
-      return Object.assign({}, state, { map: randMap }); // Also need to call GEN_ENEMIES
+      return Object.assign({}, state, { map: mapGenerator() });
     case AT.MOVE:
       // let locX = state.location.x;
       // let locY = state.location.y;
@@ -165,7 +164,7 @@ function gameState(state: GameState = defaultGameState, action: GameStateAction)
           return state;
       }
     case AT.NEW_FLOOR:
-      return Object.assign({}, state, { floor: state.floor + 1 }); // Also need to call SETUP_MAP and GEN_ENEMIES
+      return Object.assign({}, state, { map: mapGenerator(), floor: state.floor + 1 });
     default:
       return state;
   }

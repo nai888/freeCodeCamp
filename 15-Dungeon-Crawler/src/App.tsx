@@ -1,23 +1,21 @@
 import * as React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import store from './redux/store';
-import * as red from './redux/reducers';
+import mapStateToProps from './redux/props';
+import mapDispatchToProps from './redux/dispatcher';
 import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
 import './App.css';
+
+const Container = connect(mapStateToProps, mapDispatchToProps)(Main);
 
 function App() {
   return (
     <div className="App">
       <Header />
       <Provider store={store}>
-        <Main
-          player={red.defaultPlayerState}
-          enemies={red.defaultEnemyArray}
-          gameState={red.defaultGameState}
-          log={red.openingLogMessage}
-        />
+        <Container />
       </Provider>
       <Footer />
     </div>

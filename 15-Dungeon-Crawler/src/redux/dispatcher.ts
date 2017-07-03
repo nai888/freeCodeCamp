@@ -1,6 +1,6 @@
 import { Dispatch } from 'react-redux';
 import * as actions from './actions';
-import { PlayerAction, EnemyAction, GameStateAction } from './reducers';
+import { PlayerAction, EnemyAction, GameStateAction, direction } from './reducers';
 
 type DispatchType = PlayerAction | EnemyAction | GameStateAction;
 
@@ -11,12 +11,11 @@ function mapDispatchToProps(dispatch: Dispatch<DispatchType>) {
     onDealDamage: (id: number, dmg: number) => dispatch(actions.dealDamage(0, 10)),
     onSkillsUp: () => dispatch(actions.skillsUp()),
     onPlayerDie: () => dispatch(actions.playerDie()),
-    onEnemyDie: (xp: number) => dispatch(actions.enemyDie(xp)),
+    onEnemyDie: (id: number, xp: number) => dispatch(actions.enemyDie(id, xp)),
     onLevelUp: () => dispatch(actions.levelUp()),
     onBossDie: () => dispatch(actions.bossDie()),
     onSetupMap: () => dispatch(actions.setupMap()),
-    onGenEnemies: (boss: boolean) => dispatch(actions.genEnemies(boss)),
-    onMove: (dir: string) => dispatch(actions.move(dir)),
+    onMove: (dir: direction) => dispatch(actions.move(dir)),
     onNewGame: () => dispatch(actions.newGame()),
     onNewFloor: () => dispatch(actions.newFloor())
   };
