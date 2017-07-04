@@ -54,12 +54,6 @@ export const bossDie = () => {
   };
 };
 
-export const setupMap = () => {
-  return {
-    type: AT.SETUP_MAP
-  };
-};
-
 export const move = (direction: direction) => {
   return {
     type: AT.MOVE,

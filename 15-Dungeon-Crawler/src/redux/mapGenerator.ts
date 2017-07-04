@@ -274,10 +274,8 @@ function createLeafs(): Leaf[] {
   return _leafs;
 }
 
-export default function mapGenerator() {
+export default function mapGenerator(boss: boolean) {
   const leafs: Leaf[] = createLeafs();
-  const wallTile: Tile = { tileType: 'wall' };
-  const floorTile: Tile = { tileType: 'floor' };
   let map: MapRow[] = [];
   let enemies = 0;
   for (let i = 0; i < mapHeight; i++) { // Map's rows
@@ -312,53 +310,67 @@ export default function mapGenerator() {
       if (i === 0 || i === mapHeight - 1 || j === 0 || j === mapWidth - 1) { // If coordinate is on the edge of the map
         isFloor = false;
       }
+      const wallTile: Tile = { tileType: 'wall' };
+      const floorTile: Tile = { tileType: 'floor' };
       let tile: Tile = isFloor ? floorTile : wallTile;
-      // Place around 16-22 enemies
-      if (isFloor && tile.token === undefined && (Math.random() < (25 / (mapWidth * mapHeight)))) {
-        tile = { tileType: tile.tileType, token: { tokenType: 'enemy', id: enemies } };
-        enemies++;
-      }
-      // Place around 10-15 health
-      if (isFloor && tile.token === undefined && (Math.random() < (18 / (mapWidth * mapHeight)))) {
-        tile = { tileType: tile.tileType, token: { tokenType: 'health' } };
-      }
-      // Place around 5-7 skill powerups
-      if (isFloor && tile.token === undefined && (Math.random() < (10 / (mapWidth * mapHeight)))) {
-        tile = { tileType: tile.tileType, token: { tokenType: 'skill' } };
-      }
       row.push(tile);
     }
     map.push(row);
   }
 
-  let randomTile: coordinate;
   const getRandUsableTile: () => coordinate = () => {
-    let unusable = true;
+    let unusable: boolean = true;
+    const randomizeCoordinates: () => coordinate = () => {
+      return {
+        x: Math.floor(Math.random() * (mapWidth - 2)) + 1,
+        y: Math.floor(Math.random() * (mapHeight - 2)) + 1
+      };
+    };
+    let _randomTile: coordinate = randomizeCoordinates();
     while (unusable) {
       unusable = false;
-      randomTile = {
-        x: Math.floor(Math.random() * mapWidth - 2) + 1,
-        y: Math.floor(Math.random() * mapHeight - 2) + 1
-      }
-      if (map[randomTile.y][randomTile.x].tileType !== 'floor') {
+      _randomTile = randomizeCoordinates();
+      let loc: Tile = map[_randomTile.y][_randomTile.x];
+      if (loc.tileType !== 'floor' || loc.token !== undefined) {
         unusable = true;
       }
     }
-    return randomTile;
-  }
+    return _randomTile;
+  };
+  let randomTile: coordinate;
   // Add user
   randomTile = getRandUsableTile();
   const playerTile: Tile = { tileType: 'floor', token: { tokenType: 'player' } };
   map[randomTile.y].splice(randomTile.x, 1, playerTile);
-  // Add stairs
-  randomTile = getRandUsableTile();
-  const stairsTile: Tile = { tileType: 'floor', token: { tokenType: 'stairs' } };
-  map[randomTile.y].splice(randomTile.x, 1, stairsTile);
+  // If not 4th floor, add stairs
+  if (!boss) {
+    randomTile = getRandUsableTile();
+    const stairsTile: Tile = { tileType: 'floor', token: { tokenType: 'stairs' } };
+    map[randomTile.y].splice(randomTile.x, 1, stairsTile);
+  }
   // If 4th floor, add the boss
-  /* if (store.getState().gameState.floor === 4) {
+  if (boss) {
     randomTile = getRandUsableTile();
     const bossTile: Tile = { tileType: 'floor', token: { tokenType: 'boss', id: enemies } };
-    map[randomTile.y].splice(randomTile.x, 1, bossTile)
-  } */
+    map[randomTile.y].splice(randomTile.x, 1, bossTile);
+  }
+  // Add 18 enemies
+  const enemyTile: Tile = { tileType: 'floor', token: { tokenType: 'enemy' } };
+  for (let i = 0; i < 18; i++) {
+    randomTile = getRandUsableTile();
+    map[randomTile.y].splice(randomTile.x, 1, enemyTile);
+  }
+  // Add 18 health
+  const healthTile: Tile = { tileType: 'floor', token: { tokenType: 'health' } };
+  for (let i = 0; i < 18; i++) {
+    randomTile = getRandUsableTile();
+    map[randomTile.y].splice(randomTile.x, 1, healthTile);
+  }
+  // Add 6 skill powerups
+  const skillTile: Tile = { tileType: 'floor', token: { tokenType: 'skill' } };
+  for (let i = 0; i < 6; i++) {
+    randomTile = getRandUsableTile();
+    map[randomTile.y].splice(randomTile.x, 1, skillTile);
+  }
   return map;
 }

@@ -15,7 +15,6 @@ interface Props extends StateType {
   onEnemyDie: (id: number, xp: number) => red.EnemyAction;
   onLevelUp: () => red.PlayerAction;
   onBossDie: () => red.GameStateAction;
-  onSetupMap: () => red.GameStateAction;
   onMove: (dir: red.direction) => red.GameStateAction;
   onNewGame: () => red.GameStateAction;
 }
@@ -33,7 +32,6 @@ export default function Main({
   onEnemyDie,
   onLevelUp,
   onBossDie,
-  onSetupMap,
   onMove,
   onNewGame,
 }: Props) {

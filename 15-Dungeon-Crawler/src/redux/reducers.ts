@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import * as AT from './actionTypes';
 import { StateType } from './props';
+import store from './store';
 import mapGenerator from './mapGenerator';
 
 export interface Player {
@@ -101,7 +102,7 @@ function enemy(state: Enemy[] = defaultEnemyArray, action: EnemyAction): Enemy[]
   }
 }
 
-type TileType = 'wall' | 'floor' | 'empty';
+type TileType = 'wall' | 'floor';
 type TokenType = 'player' | 'enemy' | 'boss' | 'health' | 'skill' | 'stairs';
 
 export interface Tile {
@@ -126,7 +127,7 @@ export interface GameState {
 export const defaultGameState: GameState = {
   playing: true,
   result: 'playing',
-  map: mapGenerator(),
+  map: mapGenerator(false),
   floor: 1
 };
 
@@ -145,9 +146,7 @@ function gameState(state: GameState = defaultGameState, action: GameStateAction)
     case AT.BOSS_DIE:
       return Object.assign({}, state, { playing: false, result: 'win' });
     case AT.NEW_GAME:
-      return Object.assign({}, defaultGameState, { map: mapGenerator() });
-    case AT.SETUP_MAP:
-      return Object.assign({}, state, { map: mapGenerator() });
+      return Object.assign({}, defaultGameState, { map: mapGenerator(false) });
     case AT.MOVE:
       // let locX = state.location.x;
       // let locY = state.location.y;
@@ -164,7 +163,8 @@ function gameState(state: GameState = defaultGameState, action: GameStateAction)
           return state;
       }
     case AT.NEW_FLOOR:
-      return Object.assign({}, state, { map: mapGenerator(), floor: state.floor + 1 });
+      let boss: boolean = store.getState().gameState.floor === 4 ? true : false;
+      return Object.assign({}, state, { map: mapGenerator(boss), floor: state.floor + 1 });
     default:
       return state;
   }

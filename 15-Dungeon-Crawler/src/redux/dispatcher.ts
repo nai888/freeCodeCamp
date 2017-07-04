@@ -14,7 +14,6 @@ function mapDispatchToProps(dispatch: Dispatch<DispatchType>) {
     onEnemyDie: (id: number, xp: number) => dispatch(actions.enemyDie(id, xp)),
     onLevelUp: () => dispatch(actions.levelUp()),
     onBossDie: () => dispatch(actions.bossDie()),
-    onSetupMap: () => dispatch(actions.setupMap()),
     onMove: (dir: direction) => dispatch(actions.move(dir)),
     onNewGame: () => dispatch(actions.newGame()),
     onNewFloor: () => dispatch(actions.newFloor())

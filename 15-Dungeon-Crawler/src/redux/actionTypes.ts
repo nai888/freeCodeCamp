@@ -6,7 +6,6 @@ export const PLAYER_DIE: string = 'PLAYER_DIE';
 export const ENEMY_DIE: string = 'ENEMY_DIE';
 export const LEVEL_UP: string = 'LEVEL_UP';
 export const BOSS_DIE: string = 'BOSS_DIE';
-export const SETUP_MAP: string = 'SETUP_MAP';
 export const MOVE: string = 'MOVE';
 export const NEW_GAME: string = 'NEW_GAME';
 export const NEW_FLOOR: string = 'NEW_FLOOR';
