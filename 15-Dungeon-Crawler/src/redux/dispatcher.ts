@@ -18,6 +18,6 @@ const mapDispatchToProps = (dispatch: Dispatch<DispatchType>) => {
     onNewGame: () => dispatch(actions.newGame()),
     onNewFloor: () => dispatch(actions.newFloor())
   };
-}
+};
 
 export default mapDispatchToProps;

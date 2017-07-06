@@ -103,7 +103,7 @@ export interface stateType {
   log: string[];
 };
 
-export interface functionProps {
+export interface dispatchProps {
   onHeal: () => playerAction;
   onTakeDamage: (dmg: number) => playerAction;
   onDealDamage: (id: number, dmg: number) => enemyAction;

@@ -4,12 +4,20 @@ import { connect } from 'react-redux';
 import mapStateToProps from '../redux/props';
 import mapDispatchToProps from '../redux/dispatcher';
 import * as t from '../types';
+import * as red from '../redux/reducers';
 import StatusBar from './StatusBar';
 import Map from './Map';
 import Log from './Log';
 import './Main.css';
 
-class Main extends React.Component<t.functionProps, t.stateType> {
+class Main extends React.Component<t.stateType & t.dispatchProps, t.stateType> {
+  static defaultProps: Partial<t.stateType & t.dispatchProps> = {
+    player: red.defaultPlayerState,
+    enemies: red.defaultEnemyArray,
+    gameState: red.defaultGameState,
+    log: red.openingLogMessage
+  };
+
   componentDidMount() {
     document.addEventListener('keydown', this, false);
   }
@@ -23,7 +31,6 @@ class Main extends React.Component<t.functionProps, t.stateType> {
   }
 
   handleKeyDown = (e: KeyboardEvent) => {
-    console.log('key pressed');
     e.preventDefault();
     let dir: t.direction | undefined;
     switch (e.which) {
@@ -68,8 +75,8 @@ class Main extends React.Component<t.functionProps, t.stateType> {
     }
     if (dir !== undefined) {
       let newLoc: t.coordinate | undefined;
-      const map: t.mapRow[] = this.state.gameState.map;
-      const playerLoc: t.coordinate = this.state.gameState.playerLocation;
+      const map: t.mapRow[] = this.props.gameState.map;
+      const playerLoc: t.coordinate = this.props.gameState.playerLocation;
       switch (dir) {
         case 'west':
           newLoc = { x: playerLoc.x - 1, y: playerLoc.y };
@@ -129,19 +136,18 @@ class Main extends React.Component<t.functionProps, t.stateType> {
 
   render() {
     const { ...props } = this.props;
-    const { ...state } = this.state;
 
     return (
       <main onKeyPress={(e) => this.handleKeyDown} >
         <StatusBar
-          player={state.player}
-          enemies={state.enemies}
-          gameState={state.gameState}
+          player={props.player}
+          enemies={props.enemies}
+          gameState={props.gameState}
         />
-        <Map map={state.gameState.map} />
+        <Map map={props.gameState.map} />
         <Log
-          log={state.log}
-          gameState={state.gameState}
+          log={props.log}
+          gameState={props.gameState}
           onNewGame={props.onNewGame}
         />
       </main>
@@ -149,6 +155,6 @@ class Main extends React.Component<t.functionProps, t.stateType> {
   }
 }
 
-const ConnectedMain = connect(mapStateToProps, mapDispatchToProps)(Main) as React.ComponentClass;
+const ConnectedMain = connect(mapStateToProps, mapDispatchToProps)(Main as any) as React.ComponentClass;
 
 export default ConnectedMain;
