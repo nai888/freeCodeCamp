@@ -1,6 +1,6 @@
 import * as t from '../types';
 
-const mapStateToProps = (state: t.stateType, props: t.functionProps) => {
+const mapStateToProps = (state: t.stateType) => {
   return {
     player: state.player,
     enemies: state.enemies,

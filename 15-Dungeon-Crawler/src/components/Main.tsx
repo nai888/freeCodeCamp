@@ -68,8 +68,8 @@ class Main extends React.Component<t.functionProps, t.stateType> {
     }
     if (dir !== undefined) {
       let newLoc: t.coordinate | undefined;
-      const map: t.mapRow[] = this.props.gameState.map;
-      const playerLoc: t.coordinate = this.props.gameState.playerLocation;
+      const map: t.mapRow[] = this.state.gameState.map;
+      const playerLoc: t.coordinate = this.state.gameState.playerLocation;
       switch (dir) {
         case 'west':
           newLoc = { x: playerLoc.x - 1, y: playerLoc.y };
@@ -126,25 +126,29 @@ class Main extends React.Component<t.functionProps, t.stateType> {
       }
     }
   }
+
   render() {
+    const { ...props } = this.props;
+    const { ...state } = this.state;
+
     return (
       <main onKeyPress={(e) => this.handleKeyDown} >
         <StatusBar
-          player={this.props.player}
-          enemies={this.props.enemies}
-          gameState={this.props.gameState}
+          player={state.player}
+          enemies={state.enemies}
+          gameState={state.gameState}
         />
-        <Map map={this.props.gameState.map} />
+        <Map map={state.gameState.map} />
         <Log
-          log={this.props.log}
-          gameState={this.props.gameState}
-          onNewGame={this.props.onNewGame}
+          log={state.log}
+          gameState={state.gameState}
+          onNewGame={props.onNewGame}
         />
       </main>
     );
   }
 }
 
-const ConnectedMain = connect(mapStateToProps, mapDispatchToProps)(Main) as React.ComponentClass<t.functionProps>;
+const ConnectedMain = connect(mapStateToProps, mapDispatchToProps)(Main) as React.ComponentClass;
 
 export default ConnectedMain;
