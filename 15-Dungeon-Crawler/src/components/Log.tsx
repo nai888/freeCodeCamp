@@ -1,13 +1,7 @@
 import * as React from 'react';
-import { GameState, GameStateAction } from '../redux/reducers';
+import * as t from '../types';
 
-interface Props {
-  log: string[];
-  gameState: GameState;
-  onNewGame: () => GameStateAction;
-}
-
-export default function Log(props: Props) {
+export default function Log(props: t.logProps) {
   const logMessages = props.log.map((message: string, i: number) => {
     return (
       <p key={props.log.length - i}>

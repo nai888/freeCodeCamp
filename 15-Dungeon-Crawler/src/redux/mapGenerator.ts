@@ -1,22 +1,18 @@
-import { Tile, MapRow } from './reducers';
+import * as t from '../types';
 
 /*
  * This random map generator was based on the tutorial at
  * https://gamedevelopment.tutsplus.com/tutorials/how-to-use-bsp-trees-to-generate-game-maps--gamedev-12268
  */
 
-type coordinate = {
-  x: number, y: number
-};
-
 class Rectangle {
-  public location: coordinate;
+  public location: t.coordinate;
   public width: number;
   public height: number;
   public x: number;
   public y: number;
 
-  protected constructor(location: coordinate, width: number, height: number) {
+  protected constructor(location: t.coordinate, width: number, height: number) {
     this.location = location;
     this.width = width;
     this.height = height;
@@ -26,15 +22,15 @@ class Rectangle {
 }
 
 class Space extends Rectangle {
-  public grid: coordinate[][];
+  public grid: t.coordinate[][];
 
-  protected constructor(location: coordinate, width: number, height: number) {
+  protected constructor(location: t.coordinate, width: number, height: number) {
     super(location, width, height);
     this.grid = [];
     for (let i = location.y; i < location.y + height; i++) {
-      let row: coordinate[] = [];
+      let row: t.coordinate[] = [];
       for (let j = location.x; j < location.x + width; j++) {
-        let coordinate: coordinate = {
+        let coordinate: t.coordinate = {
           x: j,
           y: i
         };
@@ -46,13 +42,13 @@ class Space extends Rectangle {
 }
 
 class Room extends Space {
-  public constructor(location: coordinate, width: number, height: number) {
+  public constructor(location: t.coordinate, width: number, height: number) {
     super(location, width, height);
   }
 }
 
 class Hall extends Space {
-  public constructor(location: coordinate, width: number, height: number) {
+  public constructor(location: t.coordinate, width: number, height: number) {
     super(location, width, height);
   }
 }
@@ -64,7 +60,7 @@ class Leaf extends Rectangle {
   public halls: Hall[];
   private minLeafSize: number = 10;
 
-  public constructor(location: coordinate, width: number, height: number) {
+  public constructor(location: t.coordinate, width: number, height: number) {
     super(location, width, height);
   }
 
@@ -139,7 +135,7 @@ class Leaf extends Rectangle {
       let roomWidth: number = Math.floor(Math.random() * (this.width - (this.width - 4))) + (this.width - 4);
       let roomHeight: number = Math.floor(Math.random() * (this.height - (this.height - 4))) + (this.height - 4);
       // Place the Room
-      let roomPos: coordinate = {
+      let roomPos: t.coordinate = {
         x: this.x + Math.floor(Math.random() * (this.width - roomWidth)),
         y: this.y + Math.floor(Math.random() * (this.height - roomHeight))
       };
@@ -170,11 +166,11 @@ class Leaf extends Rectangle {
     // Connect each room with hallways
     this.halls = [];
 
-    let point1: coordinate = {
+    let point1: t.coordinate = {
       x: Math.floor(Math.random() * (l.x + l.width - 2 - l.x + 1)) + (l.x + 1),
       y: Math.floor(Math.random() * (l.y + l.height - 2 - l.y + 1)) + (l.y + 1)
     };
-    let point2: coordinate = {
+    let point2: t.coordinate = {
       x: Math.floor(Math.random() * (r.x + r.width - 2 - r.x + 1)) + (r.x + 1),
       y: Math.floor(Math.random() * (r.y + r.height - 2 - r.y + 1)) + (r.y + 1)
     };
@@ -276,17 +272,17 @@ function createLeafs(): Leaf[] {
 
 export default function mapGenerator(boss: boolean) {
   const leafs: Leaf[] = createLeafs();
-  let map: MapRow[] = [];
+  let map: t.mapRow[] = [];
   let enemies = 0;
   for (let i = 0; i < mapHeight; i++) { // Map's rows
-    let row: Tile[] = [];
+    let row: t.tile[] = [];
     for (let j = 0; j < mapWidth; j++) { // Row's tiles
       let isFloor: boolean = false;
       for (let k = 0; k < leafs.length; k++) { // Leafs
         if (leafs[k].room !== undefined) {
           for (let l = 0; l < leafs[k].room.grid.length; l++) { // Room's rows
             for (let m = 0; m < leafs[k].room.grid[l].length; m++) { // Room's tiles
-              let roomTile: coordinate = leafs[k].room.grid[l][m];
+              let roomTile: t.coordinate = leafs[k].room.grid[l][m];
               if (roomTile.y === i && roomTile.x === j) { // If coordinates of room match current coordinates of map
                 isFloor = true;
               }
@@ -298,7 +294,7 @@ export default function mapGenerator(boss: boolean) {
           for (let l = 0; l < leafs[k].halls.length; l++) { // Halls
             for (let m = 0; m < leafs[k].halls[l].grid.length; m++) { // Hall's rows
               for (let n = 0; n < leafs[k].halls[l].grid[m].length; n++) { // Hall's tiles
-                let hallTile: coordinate = leafs[k].halls[l].grid[m][n];
+                let hallTile: t.coordinate = leafs[k].halls[l].grid[m][n];
                 if (hallTile.y === i && hallTile.x === j) { // If coordinates of room match current coordinates of map
                   isFloor = true;
                 }
@@ -310,67 +306,68 @@ export default function mapGenerator(boss: boolean) {
       if (i === 0 || i === mapHeight - 1 || j === 0 || j === mapWidth - 1) { // If coordinate is on the edge of the map
         isFloor = false;
       }
-      const wallTile: Tile = { tileType: 'wall' };
-      const floorTile: Tile = { tileType: 'floor' };
-      let tile: Tile = isFloor ? floorTile : wallTile;
+      const wallTile: t.tile = { tileType: 'wall' };
+      const floorTile: t.tile = { tileType: 'floor' };
+      let tile: t.tile = isFloor ? floorTile : wallTile;
       row.push(tile);
     }
     map.push(row);
   }
 
-  const getRandUsableTile: () => coordinate = () => {
+  const getRandUsableTile: () => t.coordinate = () => {
     let unusable: boolean = true;
-    const randomizeCoordinates: () => coordinate = () => {
+    const randomizeCoordinates: () => t.coordinate = () => {
       return {
         x: Math.floor(Math.random() * (mapWidth - 2)) + 1,
         y: Math.floor(Math.random() * (mapHeight - 2)) + 1
       };
     };
-    let _randomTile: coordinate = randomizeCoordinates();
+    let _randomTile: t.coordinate = randomizeCoordinates();
     while (unusable) {
       unusable = false;
       _randomTile = randomizeCoordinates();
-      let loc: Tile = map[_randomTile.y][_randomTile.x];
+      let loc: t.tile = map[_randomTile.y][_randomTile.x];
       if (loc.tileType !== 'floor' || loc.token !== undefined) {
         unusable = true;
       }
     }
     return _randomTile;
   };
-  let randomTile: coordinate;
-  // Add user
-  randomTile = getRandUsableTile();
-  const playerTile: Tile = { tileType: 'floor', token: { tokenType: 'player' } };
-  map[randomTile.y].splice(randomTile.x, 1, playerTile);
+  let randomTile: t.coordinate;
   // If not 4th floor, add stairs
   if (!boss) {
     randomTile = getRandUsableTile();
-    const stairsTile: Tile = { tileType: 'floor', token: { tokenType: 'stairs' } };
+    const stairsTile: t.tile = { tileType: 'floor', token: { tokenType: 'stairs' } };
     map[randomTile.y].splice(randomTile.x, 1, stairsTile);
   }
   // If 4th floor, add the boss
   if (boss) {
     randomTile = getRandUsableTile();
-    const bossTile: Tile = { tileType: 'floor', token: { tokenType: 'boss', id: enemies } };
+    const bossTile: t.tile = { tileType: 'floor', token: { tokenType: 'boss', id: enemies } };
     map[randomTile.y].splice(randomTile.x, 1, bossTile);
   }
   // Add 18 enemies
-  const enemyTile: Tile = { tileType: 'floor', token: { tokenType: 'enemy' } };
+  const enemyTile: t.tile = { tileType: 'floor', token: { tokenType: 'enemy' } };
   for (let i = 0; i < 18; i++) {
     randomTile = getRandUsableTile();
     map[randomTile.y].splice(randomTile.x, 1, enemyTile);
   }
   // Add 18 health
-  const healthTile: Tile = { tileType: 'floor', token: { tokenType: 'health' } };
+  const healthTile: t.tile = { tileType: 'floor', token: { tokenType: 'health' } };
   for (let i = 0; i < 18; i++) {
     randomTile = getRandUsableTile();
     map[randomTile.y].splice(randomTile.x, 1, healthTile);
   }
   // Add 6 skill powerups
-  const skillTile: Tile = { tileType: 'floor', token: { tokenType: 'skill' } };
+  const skillTile: t.tile = { tileType: 'floor', token: { tokenType: 'skill' } };
   for (let i = 0; i < 6; i++) {
     randomTile = getRandUsableTile();
     map[randomTile.y].splice(randomTile.x, 1, skillTile);
   }
-  return map;
+  // Add user
+  randomTile = getRandUsableTile();
+  const playerLoc: t.coordinate = randomTile;
+  const playerTile: t.tile = { tileType: 'floor', token: { tokenType: 'player' } };
+  map[playerLoc.y].splice(playerLoc.x, 1, playerTile);
+  return { map: map, playerLocation: playerLoc };
 }

@@ -1,12 +1,7 @@
 import * as React from 'react';
-import { Tile } from '../redux/reducers';
+import * as t from '../types';
 
-interface Props extends Tile {
-  row: number;
-  col: number;
-}
-
-export default function Tile(props: Props) {
+export default function Tile(props: t.tileProps) {
   let icon: string | null = null;
 
   if (props.token) {
@@ -41,7 +36,7 @@ export default function Tile(props: Props) {
       className={'tile ' + props.tileType}
       data-token={props.token ? props.token.tokenType : null}
       data-id={props.token ? props.token.id : null}
-      data-coords={props.row + ',' + props.col}
+      data-coords={props.col + ',' + props.row}
     >
       {iconCode}
     </div>

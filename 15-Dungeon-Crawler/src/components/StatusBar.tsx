@@ -1,13 +1,7 @@
 import * as React from 'react';
-import { Player, Enemy, GameState } from '../redux/reducers';
+import * as t from '../types';
 
-interface Props {
-  player: Player;
-  enemies: Enemy[];
-  gameState: GameState;
-}
-
-export default function StatusBar(props: Props) {
+export default function StatusBar(props: t.statusBarProps) {
   return (
     <div className="status-bar">
       <h2>

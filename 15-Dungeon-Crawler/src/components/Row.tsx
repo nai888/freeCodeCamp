@@ -1,13 +1,8 @@
 import * as React from 'react';
-import { MapRow } from '../redux/reducers';
+import * as t from '../types';
 import Tile from './Tile';
 
-interface Props {
-  row: MapRow;
-  rowNum: number;
-}
-
-export default function Row(props: Props) {
+export default function Row(props: t.rowProps) {
   const tiles = props.row.map((tile, i) => {
     return (
       <Tile

@@ -1,13 +1,6 @@
-import { Player, Enemy, GameState } from './reducers';
+import * as t from '../types';
 
-export interface StateType {
-  player: Player;
-  enemies: Enemy[];
-  gameState: GameState;
-  log: string[];
-}
-
-const mapStateToProps = (state: StateType) => {
+const mapStateToProps = (state: t.stateType, props: t.functionProps) => {
   return {
     player: state.player,
     enemies: state.enemies,

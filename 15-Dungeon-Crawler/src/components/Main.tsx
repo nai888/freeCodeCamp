@@ -1,53 +1,150 @@
 import * as React from 'react';
-import { StateType } from '../redux/props';
-import * as red from '../redux/reducers';
+import { connect } from 'react-redux';
+// import { returntypeof } from 'react-redux-typescript';
+import mapStateToProps from '../redux/props';
+import mapDispatchToProps from '../redux/dispatcher';
+import * as t from '../types';
 import StatusBar from './StatusBar';
 import Map from './Map';
 import Log from './Log';
 import './Main.css';
 
-interface Props extends StateType {
-  onHeal: () => red.PlayerAction;
-  onTakeDamage: (dmg: number) => red.PlayerAction;
-  onDealDamage: (id: number, dmg: number) => red.EnemyAction;
-  onSkillsUp: () => red.PlayerAction;
-  onPlayerDie: () => red.GameStateAction;
-  onEnemyDie: (id: number, xp: number) => red.EnemyAction;
-  onLevelUp: () => red.PlayerAction;
-  onBossDie: () => red.GameStateAction;
-  onMove: (dir: red.direction) => red.GameStateAction;
-  onNewGame: () => red.GameStateAction;
+class Main extends React.Component<t.functionProps, t.stateType> {
+  componentDidMount() {
+    document.addEventListener('keydown', this, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this, false);
+  }
+
+  handleEvent = (e: KeyboardEvent) => {
+    this.handleKeyDown(e);
+  }
+
+  handleKeyDown = (e: KeyboardEvent) => {
+    console.log('key pressed');
+    e.preventDefault();
+    let dir: t.direction | undefined;
+    switch (e.which) {
+      case 37: // left arrow
+        dir = 'west';
+        break;
+      case 65: // a
+        dir = 'west';
+        break;
+      case 100: // numpad 4
+        dir = 'west';
+        break;
+      case 38: // up arrow
+        dir = 'north';
+        break;
+      case 87: // w
+        dir = 'north';
+        break;
+      case 104: // numpad 8
+        dir = 'north';
+        break;
+      case 39: // right arrow
+        dir = 'east';
+        break;
+      case 68: // d
+        dir = 'east';
+        break;
+      case 102: // numpad 6
+        dir = 'east';
+        break;
+      case 40: // down arrow
+        dir = 'south';
+        break;
+      case 83: // s
+        dir = 'south';
+        break;
+      case 98: // numpad 2
+        dir = 'south';
+        break;
+      default:
+        dir = undefined;
+    }
+    if (dir !== undefined) {
+      let newLoc: t.coordinate | undefined;
+      const map: t.mapRow[] = this.props.gameState.map;
+      const playerLoc: t.coordinate = this.props.gameState.playerLocation;
+      switch (dir) {
+        case 'west':
+          newLoc = { x: playerLoc.x - 1, y: playerLoc.y };
+          break;
+        case 'north':
+          newLoc = { x: playerLoc.x, y: playerLoc.y - 1 };
+          break;
+        case 'east':
+          newLoc = { x: playerLoc.x + 1, y: playerLoc.y };
+          break;
+        case 'south':
+          newLoc = { x: playerLoc.x, y: playerLoc.y + 1 };
+          break;
+        default:
+          newLoc = undefined;
+      }
+      if (newLoc !== undefined) {
+        let newLocTile: t.tile = map[newLoc.y][newLoc.x];
+        if (newLocTile.tileType === 'floor') {
+          if (newLocTile.token !== undefined) {
+            switch (newLocTile.token.tokenType) {
+              case 'enemy':
+                // Deal damage
+                // Take damage
+                // Check if player died, if so lose
+                // Check if enemy died, if so add XP
+                // If added XP enough to level up, if so do so
+                break;
+              case 'boss':
+                // Deal damage
+                // Take damage
+                // Check if player died, if so lose
+                // Check if boss died, if so win
+                break;
+              case 'health':
+                this.props.onMove(dir);
+                this.props.onHeal();
+                break;
+              case 'skill':
+                this.props.onMove(dir);
+                this.props.onSkillsUp();
+                break;
+              case 'stairs':
+                this.props.onMove(dir);
+                this.props.onNewFloor();
+                break;
+              default:
+                break;
+            }
+          } else {
+            this.props.onMove(dir);
+          }
+        }
+      }
+    }
+  }
+  render() {
+    return (
+      <main onKeyPress={(e) => this.handleKeyDown} >
+        <StatusBar
+          player={this.props.player}
+          enemies={this.props.enemies}
+          gameState={this.props.gameState}
+        />
+        <Map map={this.props.gameState.map} />
+        <Log
+          log={this.props.log}
+          gameState={this.props.gameState}
+          onNewGame={this.props.onNewGame}
+        />
+      </main>
+    );
+  }
 }
 
-export default function Main({
-  player = red.defaultPlayerState,
-  enemies = red.defaultEnemyArray,
-  gameState = red.defaultGameState,
-  log = red.openingLogMessage,
-  onHeal,
-  onTakeDamage,
-  onDealDamage,
-  onSkillsUp,
-  onPlayerDie,
-  onEnemyDie,
-  onLevelUp,
-  onBossDie,
-  onMove,
-  onNewGame,
-}: Props) {
-  return (
-    <main>
-      <StatusBar
-        player={player}
-        enemies={enemies}
-        gameState={gameState}
-      />
-      <Map map={gameState.map} />
-      <Log
-        log={log}
-        gameState={gameState}
-        onNewGame={onNewGame}
-      />
-    </main>
-  );
-}
+const ConnectedMain = connect(mapStateToProps, mapDispatchToProps)(Main) as React.ComponentClass<t.functionProps>;
+
+export default ConnectedMain;

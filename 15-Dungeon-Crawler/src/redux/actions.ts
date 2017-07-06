@@ -1,5 +1,5 @@
 import * as AT from './actionTypes';
-import { direction } from './reducers';
+import * as t from '../types';
 
 export const heal = () => {
   return {
@@ -54,7 +54,7 @@ export const bossDie = () => {
   };
 };
 
-export const move = (direction: direction) => {
+export const move = (direction: t.direction) => {
   return {
     type: AT.MOVE,
     direction

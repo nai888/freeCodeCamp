@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
 import rootReducer from './reducers';
-import { StateType } from './props';
+import * as t from '../types';
 
-const store = createStore<StateType>(rootReducer);
+const store = createStore<t.stateType>(rootReducer);
 
 export default store;
