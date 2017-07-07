@@ -13,19 +13,7 @@ export interface playerAction {
   xpWorth?: number;
 };
 
-export interface enemy {
-  id: number;
-  health: number;
-  damage: number;
-  xpWorth: number;
-  isBoss: boolean;
-};
-
-export interface enemyAction {
-  type: string;
-  id: number;
-  damage?: number;
-};
+export interface enemy extends tile {};
 
 export type tileType = 'wall' | 'floor';
 
@@ -36,6 +24,9 @@ export interface tile {
   token?: {
     tokenType: tokenType;
     id?: number;
+    health?: number;
+    damage?: number;
+    xpWorth?: number;
   };
 };
 
@@ -61,6 +52,7 @@ export type direction = 'north' | 'south' | 'east' | 'west';
 export interface gameStateAction {
   type: string;
   id?: number;
+  damage?: number;
   direction?: direction;
 };
 
@@ -77,7 +69,6 @@ export interface tileProps extends tile {
 
 export interface statusBarProps {
   player: player;
-  enemies: enemy[];
   gameState: gameState;
 };
 
@@ -98,7 +89,6 @@ export interface logProps {
 
 export interface stateType {
   player: player;
-  enemies: enemy[];
   gameState: gameState;
   log: string[];
 };
@@ -106,10 +96,10 @@ export interface stateType {
 export interface dispatchProps {
   onHeal: () => playerAction;
   onTakeDamage: (dmg: number) => playerAction;
-  onDealDamage: (id: number, dmg: number) => enemyAction;
+  onDealDamage: (id: number, dmg: number) => gameStateAction;
   onSkillsUp: () => playerAction;
   onPlayerDie: () => gameStateAction;
-  onEnemyDie: (id: number, xp: number) => enemyAction;
+  onEnemyDie: (id: number, xp: number) => gameStateAction;
   onLevelUp: () => playerAction;
   onBossDie: () => gameStateAction;
   onMove: (dir: direction) => gameStateAction;

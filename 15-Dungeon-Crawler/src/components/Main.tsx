@@ -13,25 +13,26 @@ import './Main.css';
 class Main extends React.Component<t.stateType & t.dispatchProps, t.stateType> {
   static defaultProps: Partial<t.stateType & t.dispatchProps> = {
     player: red.defaultPlayerState,
-    enemies: red.defaultEnemyArray,
     gameState: red.defaultGameState,
     log: red.openingLogMessage
   };
 
-  componentDidMount() {
+  componentDidMount(): void {
     document.addEventListener('keydown', this, false);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     document.removeEventListener('keydown', this, false);
   }
 
-  handleEvent = (e: KeyboardEvent) => {
-    this.handleKeyDown(e);
+  handleEvent: (e: KeyboardEvent) => void = (e) => {
+    e.preventDefault();
+    if (this.props.gameState.playing) {
+      this.handleKeyDown(e);
+    }
   }
 
-  handleKeyDown = (e: KeyboardEvent) => {
-    e.preventDefault();
+  handleKeyDown: (e: KeyboardEvent) => void = (e) => {
     let dir: t.direction | undefined;
     switch (e.which) {
       case 37: // left arrow
@@ -74,74 +75,108 @@ class Main extends React.Component<t.stateType & t.dispatchProps, t.stateType> {
         dir = undefined;
     }
     if (dir !== undefined) {
-      let newLoc: t.coordinate | undefined;
-      const map: t.mapRow[] = this.props.gameState.map;
-      const playerLoc: t.coordinate = this.props.gameState.playerLocation;
-      switch (dir) {
-        case 'west':
-          newLoc = { x: playerLoc.x - 1, y: playerLoc.y };
-          break;
-        case 'north':
-          newLoc = { x: playerLoc.x, y: playerLoc.y - 1 };
-          break;
-        case 'east':
-          newLoc = { x: playerLoc.x + 1, y: playerLoc.y };
-          break;
-        case 'south':
-          newLoc = { x: playerLoc.x, y: playerLoc.y + 1 };
-          break;
-        default:
-          newLoc = undefined;
-      }
-      if (newLoc !== undefined) {
-        let newLocTile: t.tile = map[newLoc.y][newLoc.x];
-        if (newLocTile.tileType === 'floor') {
-          if (newLocTile.token !== undefined) {
-            switch (newLocTile.token.tokenType) {
-              case 'enemy':
-                // Deal damage
-                // Take damage
-                // Check if player died, if so lose
-                // Check if enemy died, if so add XP
-                // If added XP enough to level up, if so do so
-                break;
-              case 'boss':
-                // Deal damage
-                // Take damage
-                // Check if player died, if so lose
-                // Check if boss died, if so win
-                break;
-              case 'health':
-                this.props.onMove(dir);
-                this.props.onHeal();
-                break;
-              case 'skill':
-                this.props.onMove(dir);
-                this.props.onSkillsUp();
-                break;
-              case 'stairs':
-                this.props.onMove(dir);
-                this.props.onNewFloor();
-                break;
-              default:
-                break;
+      this.handleDirection(dir);
+    }
+  }
+
+  // Eventually, we could add a function to handle swipes for mobile
+
+  handleDirection: (dir: t.direction) => void = (dir) => {
+    let newLoc: t.coordinate | undefined;
+    const map: t.mapRow[] = this.props.gameState.map;
+    const playerLoc: t.coordinate = this.props.gameState.playerLocation;
+    switch (dir) {
+      case 'west':
+        newLoc = { x: playerLoc.x - 1, y: playerLoc.y };
+        break;
+      case 'north':
+        newLoc = { x: playerLoc.x, y: playerLoc.y - 1 };
+        break;
+      case 'east':
+        newLoc = { x: playerLoc.x + 1, y: playerLoc.y };
+        break;
+      case 'south':
+        newLoc = { x: playerLoc.x, y: playerLoc.y + 1 };
+        break;
+      default:
+        newLoc = undefined;
+    }
+    if (newLoc !== undefined) {
+      const newLocTile: t.tile = map[newLoc.y][newLoc.x];
+      if (newLocTile.tileType === 'floor') {
+        if (newLocTile.token !== undefined) {
+          const rollDamage: (i?: t.enemy) => number = (i) => {
+            const lvl: number = this.props.player.level;
+            const skl: number = this.props.player.skill;
+            let dmg: number = 0;
+            if (i !== undefined && i.token !== undefined && i.token.damage !== undefined) {
+              dmg = i.token.damage;
             }
-          } else {
-            this.props.onMove(dir);
+            if (i !== undefined) {
+              return Math.floor(Math.random() * (4 + lvl) + dmg + 1);
+            } else {
+              return Math.floor(Math.random() * (4 + lvl)) + skl + 1;
+            }
+          };
+          switch (newLocTile.token.tokenType) {
+            case 'enemy' || 'boss':
+              const token = newLocTile.token;
+              if (token.id !== undefined) {
+                // Player attacks enemy
+                this.props.onDealDamage(token.id, rollDamage());
+                // Enemy attacks player
+                this.props.onTakeDamage(rollDamage(newLocTile));
+                // If player died, lose
+                if (this.props.player.health <= 0) {
+                  this.props.onPlayerDie();
+                }
+                // Check if enemy died
+                if (token.health !== undefined && token.health <= 0) {
+                  // If boss died, win
+                  if (token.tokenType === 'boss') {
+                    this.props.onBossDie();
+                  } else {
+                    // If non-boss enemy died, add XP
+                    if (token.xpWorth !== undefined) {
+                      this.props.onEnemyDie(token.id, token.xpWorth);
+                    }
+                    // If added XP enough to level up, if so do so
+                    if (this.props.player.xp >= this.props.player.nextXP) {
+                      this.props.onLevelUp();
+                    }
+                  }
+                }
+              }
+              break;
+            case 'health':
+              this.props.onMove(dir);
+              this.props.onHeal();
+              break;
+            case 'skill':
+              this.props.onMove(dir);
+              this.props.onSkillsUp();
+              break;
+            case 'stairs':
+              this.props.onMove(dir);
+              this.props.onNewFloor();
+              break;
+            default:
+              break;
           }
+        } else {
+          this.props.onMove(dir);
         }
       }
     }
   }
 
-  render() {
+  render(): JSX.Element {
     const { ...props } = this.props;
 
     return (
       <main onKeyPress={(e) => this.handleKeyDown} >
         <StatusBar
           player={props.player}
-          enemies={props.enemies}
           gameState={props.gameState}
         />
         <Map map={props.gameState.map} />

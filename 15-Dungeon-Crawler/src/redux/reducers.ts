@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import * as AT from './actionTypes';
 import * as t from '../types';
-import store from './store';
 import mapGenerator from './mapGenerator';
 
 export const defaultPlayerState: t.player = {
@@ -9,8 +8,22 @@ export const defaultPlayerState: t.player = {
   xp: 0,
   nextXP: 100,
   level: 1,
-  skill: 1
+  skill: 0
 };
+
+const defaultMap = mapGenerator(1);
+
+export const defaultGameState: t.gameState = {
+  playing: true,
+  result: 'playing',
+  map: defaultMap.map,
+  playerLocation: defaultMap.playerLocation,
+  floor: 1
+};
+
+export const openingLogMessage = ['Welcome to the dungeon, you rascally rogue!  The exits are locked! Each set of ' +
+  'stairs will bring you deeper into the dungeon, but they will also lock behind you. Only the boss has the key. ' +
+  'If you want to leave, you’ll need to get to the fourth floor and defeat the boss to get his key. Good luck!'];
 
 function player(state: t.player = defaultPlayerState, action: t.playerAction): t.player {
   switch (action.type) {
@@ -24,8 +37,7 @@ function player(state: t.player = defaultPlayerState, action: t.playerAction): t
       }
     case AT.SKILLS_UP:
       return Object.assign({}, state, {
-        skill: state.skill + 1,
-        damage: 10 + (state.level * state.skill)
+        skill: state.skill + 1
       });
     case AT.ENEMY_DIE:
       if (action.xpWorth) {
@@ -34,9 +46,11 @@ function player(state: t.player = defaultPlayerState, action: t.playerAction): t
         return Object.assign({}, state, { xp: state.xp + 1 });
       }
     case AT.LEVEL_UP:
+      let next = state.nextXP + 100;
+      next += Math.floor(next / 100) * 10;
       return Object.assign({}, state, {
         level: state.level + 1,
-        damage: 10 + (state.level * state.skill)
+        nextXP: next
       });
     case AT.NEW_GAME:
       return defaultPlayerState;  
@@ -45,57 +59,49 @@ function player(state: t.player = defaultPlayerState, action: t.playerAction): t
   }
 }
 
-export const defaultEnemyArray: t.enemy[] = [];
-
-function enemy(state: t.enemy[] = defaultEnemyArray, action: t.enemyAction): t.enemy[] {
+function gameState(state: t.gameState = defaultGameState, action: t.gameStateAction): t.gameState {
+  const floorTile: t.tile = { tileType: 'floor' };
   switch (action.type) {
     case AT.DEAL_DAMAGE:
-      let newState = [...state];
-      for (let i = 0; i < newState.length; i++) {
-        if (newState[i].id === action.id) {
-          if (action.damage) {
-            Object.assign({}, newState[i], { health: newState[i].health - action.damage });
+      for (let i = 0; i < state.map.length; i++) {
+        for (let j = 0; j < state.map[i].length; j++) {
+          const newMap: t.mapRow[] = state.map;
+          const tile = newMap[i][j];
+          if (tile !== undefined && tile.token !== undefined) {
+            if (action.id === tile.token.id) {
+              if (tile.token.health !== undefined && action.damage !== undefined) {
+                tile.token.health -= action.damage;
+                return Object.assign({}, state, { map: newMap });
+              }
+            }
           }
         }
       }
-      return newState;
+      return state;
     case AT.ENEMY_DIE:
-      for (let i = 0; i < state.length; i++) {
-        if (state[i].id === action.id) {
-          return state.splice(i, 1);
+      for (let i = 0; i < state.map.length; i++) {
+        for (let j = 0; j < state.map[i].length; j++) {
+          const newMap: t.mapRow[] = state.map;
+          const tile = newMap[i][j];
+          if (tile !== undefined && tile.token !== undefined) {
+            if (action.id === tile.token.id) {
+              newMap[i].splice(j, 1, floorTile);
+              return Object.assign({}, state, { map: newMap });
+            }
+          }
         }
       }
       return state;
-    case AT.NEW_GAME:
-      return defaultEnemyArray;
-    default:
-      return state;
-  }
-}
-
-const defaultMap = mapGenerator(false);
-
-export const defaultGameState: t.gameState = {
-  playing: true,
-  result: 'playing',
-  map: defaultMap.map,
-  playerLocation: defaultMap.playerLocation,
-  floor: 1
-};
-
-function gameState(state: t.gameState = defaultGameState, action: t.gameStateAction): t.gameState {
-  switch (action.type) {
     case AT.PLAYER_DIE:
       return Object.assign({}, state, { playing: false, result: 'lose' });
     case AT.BOSS_DIE:
       return Object.assign({}, state, { playing: false, result: 'win' });
     case AT.NEW_GAME:
-      return Object.assign({}, defaultGameState, { map: mapGenerator(false) });
+      return Object.assign({}, defaultGameState, { map: mapGenerator(1).map });
     case AT.MOVE:
       const playerLoc: t.coordinate = state.playerLocation;
       let newLoc: t.coordinate | undefined;
       let newMap: t.mapRow[] = state.map;
-      const floorTile: t.tile = { tileType: 'floor' };
       const playerTile: t.tile = { tileType: 'floor', token: { tokenType: 'player' } };
       switch (action.direction) {
         case 'west':
@@ -121,16 +127,17 @@ function gameState(state: t.gameState = defaultGameState, action: t.gameStateAct
         return state;
       }
     case AT.NEW_FLOOR:
-      let boss: boolean = store.getState().gameState.floor === 4 ? true : false;
-      return Object.assign({}, state, { map: mapGenerator(boss), floor: state.floor + 1 });
+      let newFloor = state.floor + 1;
+      const newFloorMap = mapGenerator(newFloor);
+      return Object.assign({}, state, {
+        map: newFloorMap.map,
+        playerLocation: newFloorMap.playerLocation,
+        floor: newFloor
+      });
     default:
       return state;
   }
 }
-
-export const openingLogMessage = ['Welcome to the dungeon, you rascally rogue!  The exits are locked! Each set of ' +
-  'stairs will bring you deeper into the dungeon, but they will also lock behind you. Only the boss has the key. ' +
-  'If you want to leave, you’ll need to get to the fourth floor and defeat the boss to get his key. Good luck!'];
 
 function log(state: string[] = openingLogMessage, action: t.logAction) {
   switch (action.type) {
@@ -147,7 +154,7 @@ function log(state: string[] = openingLogMessage, action: t.logAction) {
       let playerDieMessage = 'You have died and your name shall dwindle into anonymity.';
       return [playerDieMessage, ...state];
     case AT.HEAL:
-      let healMessage = 'You have healed 20 health points!';
+      let healMessage = 'You have healed 10 health points!';
       return [healMessage, ...state];
     case AT.SKILLS_UP:
       let skillsUpMessage = 'You spent a moment practicing, and your skills have increased!';
@@ -168,7 +175,6 @@ function log(state: string[] = openingLogMessage, action: t.logAction) {
 
 const rootReducer = combineReducers<t.stateType>({
   player,
-  enemy,
   gameState,
   log
 });

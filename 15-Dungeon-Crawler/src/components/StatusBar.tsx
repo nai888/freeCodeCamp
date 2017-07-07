@@ -2,6 +2,19 @@ import * as React from 'react';
 import * as t from '../types';
 
 export default function StatusBar(props: t.statusBarProps) {
+  const enemyCount: () => number = () => {
+    let count: number = 0;
+    for (let i = 0; i < props.gameState.map.length; i++) {
+      for (let j = 0; j < props.gameState.map[i].length; j++) {
+        const tile: t.tile = props.gameState.map[i][j];
+        if (tile.token && tile.token.tokenType === 'enemy') {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+
   return (
     <div className="status-bar">
       <h2>
@@ -29,7 +42,7 @@ export default function StatusBar(props: t.statusBarProps) {
         {props.gameState.floor} of 4
       </p>
       <p>
-        <i className="fa fa-bug fa-fw" aria-hidden="true" /> <strong>Enemies:</strong> {props.enemies.length} remaining
+        <i className="fa fa-bug fa-fw" aria-hidden="true" /> <strong>Enemies:</strong> {enemyCount()} remaining
       </p>
       <p>
         <i className="fa fa-user-secret fa-fw" aria-hidden="true" /> <strong>Boss:</strong>

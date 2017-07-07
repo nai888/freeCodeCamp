@@ -270,7 +270,20 @@ function createLeafs(): Leaf[] {
   return _leafs;
 }
 
-export default function mapGenerator(boss: boolean) {
+const randomEnemy: (id: number, floor: number) => t.enemy = (id, floor) => {
+  return {
+    tileType: 'floor',
+    token: {
+      tokenType: 'enemy',
+      id: id,
+      health: floor === 4 ? 100 : 10 + (floor * 5),
+      damage: floor === 4 ? 20 : Math.floor(Math.random() * (floor + 1)),
+      xpWorth: 30 * (floor * 2)
+    }
+  };
+};
+
+export default function mapGenerator(floor: number) {
   const leafs: Leaf[] = createLeafs();
   let map: t.mapRow[] = [];
   let enemies = 0;
@@ -335,32 +348,31 @@ export default function mapGenerator(boss: boolean) {
   };
   let randomTile: t.coordinate;
   // If not 4th floor, add stairs
-  if (!boss) {
+  if (floor !== 4) {
     randomTile = getRandUsableTile();
     const stairsTile: t.tile = { tileType: 'floor', token: { tokenType: 'stairs' } };
     map[randomTile.y].splice(randomTile.x, 1, stairsTile);
   }
   // If 4th floor, add the boss
-  if (boss) {
+  if (floor = 4) {
     randomTile = getRandUsableTile();
     const bossTile: t.tile = { tileType: 'floor', token: { tokenType: 'boss', id: enemies } };
     map[randomTile.y].splice(randomTile.x, 1, bossTile);
   }
   // Add 18 enemies
-  const enemyTile: t.tile = { tileType: 'floor', token: { tokenType: 'enemy' } };
   for (let i = 0; i < 18; i++) {
     randomTile = getRandUsableTile();
-    map[randomTile.y].splice(randomTile.x, 1, enemyTile);
+    map[randomTile.y].splice(randomTile.x, 1, randomEnemy(i, floor));
   }
-  // Add 18 health
+  // Add 17 health
   const healthTile: t.tile = { tileType: 'floor', token: { tokenType: 'health' } };
-  for (let i = 0; i < 18; i++) {
+  for (let i = 0; i < 17; i++) {
     randomTile = getRandUsableTile();
     map[randomTile.y].splice(randomTile.x, 1, healthTile);
   }
-  // Add 6 skill powerups
+  // Add 5 skill powerups
   const skillTile: t.tile = { tileType: 'floor', token: { tokenType: 'skill' } };
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 5; i++) {
     randomTile = getRandUsableTile();
     map[randomTile.y].splice(randomTile.x, 1, skillTile);
   }

@@ -2,7 +2,7 @@ import { Dispatch } from 'react-redux';
 import * as actions from './actions';
 import * as t from '../types';
 
-type DispatchType = t.playerAction | t.enemyAction | t.gameStateAction;
+type DispatchType = t.playerAction | t.gameStateAction;
 
 const mapDispatchToProps = (dispatch: Dispatch<DispatchType>) => {
   return {
