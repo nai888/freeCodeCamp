@@ -70,7 +70,17 @@ function gameState(state: t.gameState = defaultGameState, action: t.gameStateAct
           if (tile !== undefined && tile.token !== undefined) {
             if (action.id === tile.token.id) {
               if (tile.token.health !== undefined && action.damage !== undefined) {
-                tile.token.health -= action.damage;
+                const hurtEnemy: t.tile = {
+                  tileType: 'floor',
+                  token: {
+                    tokenType: 'enemy',
+                    id: tile.token.id,
+                    health: tile.token.health - action.damage,
+                    damage: tile.token.damage,
+                    xpWorth: tile.token.xpWorth
+                  }
+                };
+                newMap[i].splice(j, 1, hurtEnemy);
                 return Object.assign({}, state, { map: newMap });
               }
             }
@@ -97,7 +107,8 @@ function gameState(state: t.gameState = defaultGameState, action: t.gameStateAct
     case AT.BOSS_DIE:
       return Object.assign({}, state, { playing: false, result: 'win' });
     case AT.NEW_GAME:
-      return Object.assign({}, defaultGameState, { map: mapGenerator(1).map });
+      const newGameMap = mapGenerator(1);
+      return Object.assign({}, defaultGameState, { map: newGameMap.map, playerLocation: newGameMap.playerLocation });
     case AT.MOVE:
       const playerLoc: t.coordinate = state.playerLocation;
       let newLoc: t.coordinate | undefined;
@@ -142,28 +153,31 @@ function gameState(state: t.gameState = defaultGameState, action: t.gameStateAct
 function log(state: string[] = openingLogMessage, action: t.logAction) {
   switch (action.type) {
     case AT.DEAL_DAMAGE:
-      let dealDamageMessage = `You dealt your foe ${action.amount} damage.`;
+      const dealDamageMessage = `You dealt your foe ${action.amount} damage.`;
       return [dealDamageMessage, ...state];
     case AT.TAKE_DAMAGE:
-      let takeDamageMessage = `Your foe dealt you ${action.amount} damage.`;
+      const takeDamageMessage = `Your foe dealt you ${action.amount} damage.`;
       return [takeDamageMessage, ...state];
     case AT.ENEMY_DIE:
-      let enemyDieMessage = `You have vanquished your foe and gained ${action.xpWorth} experience points!`;
+      const enemyDieMessage = `You have vanquished your foe and gained ${action.xpWorth} experience points!`;
       return [enemyDieMessage, ...state];
     case AT.PLAYER_DIE:
-      let playerDieMessage = 'You have died and your name shall dwindle into anonymity.';
+      const playerDieMessage = 'You have died and your name shall dwindle into anonymity.';
       return [playerDieMessage, ...state];
     case AT.HEAL:
-      let healMessage = 'You have healed 10 health points!';
+      const healMessage = 'You have healed 10 health points!';
       return [healMessage, ...state];
     case AT.SKILLS_UP:
-      let skillsUpMessage = 'You spent a moment practicing, and your skills have increased!';
+      const skillsUpMessage = 'You spent a moment practicing, and your skills have increased!';
       return [skillsUpMessage, ...state];
     case AT.LEVEL_UP:
-      let levelUpMessage = 'Your experience has taught you well; you have grown stronger!';
+      const levelUpMessage = 'Your experience has taught you well; you have grown stronger!';
       return [levelUpMessage, ...state];
+    case AT.NEW_FLOOR:
+      const newFloorMessage = 'You have delved deeper into the dungeon. The door locked behind you.';
+      return [newFloorMessage, ...state];
     case AT.BOSS_DIE:
-      let bossDieMessage = 'You have vanquished the boss and conquered the dungeon. ' +
+      const bossDieMessage = 'You have vanquished the boss and conquered the dungeon. ' +
         'The bards shall sing of your glory!';
       return [bossDieMessage, ...state];
     case AT.NEW_GAME:

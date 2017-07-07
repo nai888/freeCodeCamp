@@ -26,7 +26,6 @@ class Main extends React.Component<t.stateType & t.dispatchProps, t.stateType> {
   }
 
   handleEvent: (e: KeyboardEvent) => void = (e) => {
-    e.preventDefault();
     if (this.props.gameState.playing) {
       this.handleKeyDown(e);
     }
@@ -75,6 +74,7 @@ class Main extends React.Component<t.stateType & t.dispatchProps, t.stateType> {
         dir = undefined;
     }
     if (dir !== undefined) {
+      e.preventDefault();
       this.handleDirection(dir);
     }
   }
@@ -105,17 +105,17 @@ class Main extends React.Component<t.stateType & t.dispatchProps, t.stateType> {
       const newLocTile: t.tile = map[newLoc.y][newLoc.x];
       if (newLocTile.tileType === 'floor') {
         if (newLocTile.token !== undefined) {
-          const rollDamage: (i?: t.enemy) => number = (i) => {
+          const rollDamage: (toEnemy: boolean, i?: t.enemy) => number = (toEnemy, i) => {
             const lvl: number = this.props.player.level;
             const skl: number = this.props.player.skill;
             let dmg: number = 0;
             if (i !== undefined && i.token !== undefined && i.token.damage !== undefined) {
               dmg = i.token.damage;
             }
-            if (i !== undefined) {
-              return Math.floor(Math.random() * (4 + lvl) + dmg + 1);
-            } else {
+            if (toEnemy) {
               return Math.floor(Math.random() * (4 + lvl)) + skl + 1;
+            } else {
+              return Math.floor(Math.random() * (4 + lvl)) + dmg + 1;
             }
           };
           switch (newLocTile.token.tokenType) {
@@ -123,9 +123,9 @@ class Main extends React.Component<t.stateType & t.dispatchProps, t.stateType> {
               const token = newLocTile.token;
               if (token.id !== undefined) {
                 // Player attacks enemy
-                this.props.onDealDamage(token.id, rollDamage());
+                this.props.onDealDamage(token.id, rollDamage(true));
                 // Enemy attacks player
-                this.props.onTakeDamage(rollDamage(newLocTile));
+                this.props.onTakeDamage(rollDamage(false, newLocTile));
                 // If player died, lose
                 if (this.props.player.health <= 0) {
                   this.props.onPlayerDie();

@@ -13,7 +13,7 @@ export default function StatusBar(props: t.statusBarProps) {
       }
     }
     return count;
-  }
+  };
 
   return (
     <div className="status-bar">

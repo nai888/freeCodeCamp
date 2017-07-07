@@ -8,7 +8,7 @@ const mapDispatchToProps = (dispatch: Dispatch<DispatchType>) => {
   return {
     onHeal: () => dispatch(actions.heal()),
     onTakeDamage: (dmg: number) => dispatch(actions.takeDamage(dmg)),
-    onDealDamage: (id: number, dmg: number) => dispatch(actions.dealDamage(0, 10)),
+    onDealDamage: (id: number, dmg: number) => dispatch(actions.dealDamage(id, dmg)),
     onSkillsUp: () => dispatch(actions.skillsUp()),
     onPlayerDie: () => dispatch(actions.playerDie()),
     onEnemyDie: (id: number, xp: number) => dispatch(actions.enemyDie(id, xp)),

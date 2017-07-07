@@ -275,9 +275,9 @@ const randomEnemy: (id: number, floor: number) => t.enemy = (id, floor) => {
     tileType: 'floor',
     token: {
       tokenType: 'enemy',
-      id: id,
-      health: floor === 4 ? 100 : 10 + (floor * 5),
-      damage: floor === 4 ? 20 : Math.floor(Math.random() * (floor + 1)),
+      id: id + 1,
+      health: 10 + (floor * 5),
+      damage: Math.floor(Math.random() * (floor + 1)),
       xpWorth: 30 * (floor * 2)
     }
   };
@@ -286,7 +286,6 @@ const randomEnemy: (id: number, floor: number) => t.enemy = (id, floor) => {
 export default function mapGenerator(floor: number) {
   const leafs: Leaf[] = createLeafs();
   let map: t.mapRow[] = [];
-  let enemies = 0;
   for (let i = 0; i < mapHeight; i++) { // Map's rows
     let row: t.tile[] = [];
     for (let j = 0; j < mapWidth; j++) { // Row's tiles
@@ -356,7 +355,15 @@ export default function mapGenerator(floor: number) {
   // If 4th floor, add the boss
   if (floor = 4) {
     randomTile = getRandUsableTile();
-    const bossTile: t.tile = { tileType: 'floor', token: { tokenType: 'boss', id: enemies } };
+    const bossTile: t.enemy = {
+      tileType: 'floor',
+      token: {
+        tokenType: 'boss',
+        id: 0,
+        health: 100,
+        damage: 15
+      }
+    };
     map[randomTile.y].splice(randomTile.x, 1, bossTile);
   }
   // Add 18 enemies
