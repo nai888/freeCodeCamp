@@ -353,7 +353,7 @@ export default function mapGenerator(floor: number) {
     map[randomTile.y].splice(randomTile.x, 1, stairsTile);
   }
   // If 4th floor, add the boss
-  if (floor = 4) {
+  if (floor === 4) {
     randomTile = getRandUsableTile();
     const bossTile: t.enemy = {
       tileType: 'floor',
