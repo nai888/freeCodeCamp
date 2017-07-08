@@ -52,7 +52,7 @@ export type direction = 'north' | 'south' | 'east' | 'west';
 export interface gameStateAction {
   type: string;
   id?: number;
-  damage?: number;
+  amount?: number;
   direction?: direction;
 };
 

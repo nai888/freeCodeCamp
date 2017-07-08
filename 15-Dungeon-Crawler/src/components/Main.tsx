@@ -118,20 +118,23 @@ class Main extends React.Component<t.stateType & t.dispatchProps, t.stateType> {
               return Math.floor(Math.random() * (4 + lvl)) + dmg + 1;
             }
           };
+          const token = newLocTile.token;
           switch (newLocTile.token.tokenType) {
-            case 'enemy' || 'boss':
-              const token = newLocTile.token;
+            case 'enemy':
+            case 'boss':
               if (token.id !== undefined) {
                 // Player attacks enemy
-                this.props.onDealDamage(token.id, rollDamage(true));
+                let dealDamage = rollDamage(true);
+                this.props.onDealDamage(token.id, dealDamage);
                 // Enemy attacks player
-                this.props.onTakeDamage(rollDamage(false, newLocTile));
+                let takeDamage = rollDamage(false, newLocTile);
+                this.props.onTakeDamage(takeDamage);
                 // If player died, lose
                 if (this.props.player.health <= 0) {
                   this.props.onPlayerDie();
                 }
                 // Check if enemy died
-                if (token.health !== undefined && token.health <= 0) {
+                if (token.health !== undefined && token.health - dealDamage <= 0) {
                   // If boss died, win
                   if (token.tokenType === 'boss') {
                     this.props.onBossDie();

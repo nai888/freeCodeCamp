@@ -276,9 +276,9 @@ const randomEnemy: (id: number, floor: number) => t.enemy = (id, floor) => {
     token: {
       tokenType: 'enemy',
       id: id + 1,
-      health: 10 + (floor * 5),
+      health: 5 + (floor * 5),
       damage: Math.floor(Math.random() * (floor + 1)),
-      xpWorth: 30 * (floor * 2)
+      xpWorth: 30 * (floor)
     }
   };
 };

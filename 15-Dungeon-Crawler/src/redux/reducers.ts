@@ -63,39 +63,59 @@ function gameState(state: t.gameState = defaultGameState, action: t.gameStateAct
   const floorTile: t.tile = { tileType: 'floor' };
   switch (action.type) {
     case AT.DEAL_DAMAGE:
-      for (let i = 0; i < state.map.length; i++) {
-        for (let j = 0; j < state.map[i].length; j++) {
-          const newMap: t.mapRow[] = state.map;
-          const tile = newMap[i][j];
-          if (tile !== undefined && tile.token !== undefined) {
-            if (action.id === tile.token.id) {
-              if (tile.token.health !== undefined && action.damage !== undefined) {
-                const hurtEnemy: t.tile = {
-                  tileType: 'floor',
-                  token: {
-                    tokenType: 'enemy',
-                    id: tile.token.id,
-                    health: tile.token.health - action.damage,
-                    damage: tile.token.damage,
-                    xpWorth: tile.token.xpWorth
-                  }
-                };
-                newMap[i].splice(j, 1, hurtEnemy);
-                return Object.assign({}, state, { map: newMap });
-              }
+      const i = state.map.findIndex(function (row: t.mapRow) {
+        let found: boolean = false;
+        for (let j = 0; j < row.length; j++) {
+          let tile = row[j];
+          if (tile.token !== undefined) {
+            if (tile.token.id === action.id) {
+              found = true;
+            }
+          }
+        }
+        return found;
+      });
+      let j: number = -1;
+      if (i !== undefined) {
+        j = state.map[i].findIndex(function (tile: t.tile) {
+          let found: boolean = false;
+          if (tile.token !== undefined && tile.token.id === action.id) {
+            found = true;
+          }
+          return found;
+        });
+      }
+      const newEnemiesMap = state.map;
+      if (j > -1) {
+        const tile = newEnemiesMap[i][j];
+        if (tile.token !== undefined) {
+          if (tile.token.id === action.id) {
+            const enemyType = tile.token.id === 0 ? 'boss' : 'enemy';
+            if (tile.token.health !== undefined && action.amount !== undefined) {
+              let hurtEnemy: t.tile = {
+                tileType: 'floor',
+                token: {
+                  tokenType: enemyType,
+                  id: tile.token.id,
+                  health: tile.token.health - action.amount,
+                  damage: tile.token.damage,
+                  xpWorth: tile.token.xpWorth
+                }
+              };
+              newEnemiesMap[i].splice(j, 1, hurtEnemy);
             }
           }
         }
       }
-      return state;
+      return Object.assign({}, state, { map: newEnemiesMap });
     case AT.ENEMY_DIE:
-      for (let i = 0; i < state.map.length; i++) {
-        for (let j = 0; j < state.map[i].length; j++) {
+      for (let k = 0; k < state.map.length; k++) {
+        for (let l = 0; l < state.map[k].length; l++) {
           const newMap: t.mapRow[] = state.map;
-          const tile = newMap[i][j];
+          const tile = newMap[k][l];
           if (tile !== undefined && tile.token !== undefined) {
             if (action.id === tile.token.id) {
-              newMap[i].splice(j, 1, floorTile);
+              newMap[k].splice(l, 1, floorTile);
               return Object.assign({}, state, { map: newMap });
             }
           }
