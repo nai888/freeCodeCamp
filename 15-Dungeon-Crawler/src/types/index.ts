@@ -72,7 +72,7 @@ export interface tileProps extends tile {
 export interface statusBarProps {
   player: player;
   gameState: gameState;
-  toggleFog: () => gameStateAction;
+  onFog: () => gameStateAction;
 };
 
 export interface rowProps {
