@@ -33,10 +33,10 @@ main {
   align-items: flex-start;
   align-content: flex-start;
 }
-.status-bar h2, .status-bar p {
+.status-bar h2, .status-bar p, .status-bar button {
   margin: 0;
 }
-.status-bar h2 {
+.status-bar h2, .status-bar button {
   align-self: center;
 }
 
@@ -48,15 +48,16 @@ main {
   width: 10px;
 }
 .log::-webkit-scrollbar-thumb {
-  background-color: #35530c;
+  background-color: #3b5c0e;
   border-radius: 5px;
 }
 .log::-webkit-scrollbar-track {
-  background-color: #192c00;
+  background-color: #142100;
 }
 .log::-webkit-scrollbar-button {
   display: none;
 }
-.log button {
+
+button {
   font-family: "Josefin Sans", sans-serif;
 }

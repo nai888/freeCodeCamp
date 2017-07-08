@@ -72,3 +72,9 @@ export const newFloor = () => {
     type: AT.NEW_FLOOR
   };
 };
+
+export const fog = () => {
+  return {
+    type: AT.FOG
+  };
+};

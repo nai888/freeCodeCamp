@@ -21,6 +21,7 @@ export type tokenType = 'player' | 'enemy' | 'boss' | 'health' | 'skill' | 'stai
 
 export interface tile {
   tileType: tileType;
+  foggy: boolean;
   token?: {
     tokenType: tokenType;
     id?: number;
@@ -45,6 +46,7 @@ export interface gameState {
   map: mapRow[];
   playerLocation: coordinate;
   floor: number;
+  fog: boolean;
 };
 
 export type direction = 'north' | 'south' | 'east' | 'west';
@@ -70,6 +72,7 @@ export interface tileProps extends tile {
 export interface statusBarProps {
   player: player;
   gameState: gameState;
+  toggleFog: () => gameStateAction;
 };
 
 export interface rowProps {
@@ -105,4 +108,5 @@ export interface dispatchProps {
   onMove: (dir: direction) => gameStateAction;
   onNewGame: () => gameStateAction;
   onNewFloor: () => gameStateAction;
+  onFog: () => gameStateAction;
 };

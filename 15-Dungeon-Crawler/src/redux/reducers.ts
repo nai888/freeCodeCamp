@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import * as AT from './actionTypes';
 import * as t from '../types';
-import mapGenerator from './mapGenerator';
+import mapGenerator, { fogOfWar } from './mapGenerator';
 
 export const defaultPlayerState: t.player = {
   health: 100,
@@ -18,7 +18,8 @@ export const defaultGameState: t.gameState = {
   result: 'playing',
   map: defaultMap.map,
   playerLocation: defaultMap.playerLocation,
-  floor: 1
+  floor: 1,
+  fog: true
 };
 
 export const openingLogMessage = ['Welcome to the dungeon, you rascally rogue!  The exits are locked! Each set of ' +
@@ -60,7 +61,7 @@ function player(state: t.player = defaultPlayerState, action: t.playerAction): t
 }
 
 function gameState(state: t.gameState = defaultGameState, action: t.gameStateAction): t.gameState {
-  const floorTile: t.tile = { tileType: 'floor' };
+  const floorTile: t.tile = { tileType: 'floor', foggy: false };
   switch (action.type) {
     case AT.DEAL_DAMAGE:
       const i = state.map.findIndex(function (row: t.mapRow) {
@@ -94,6 +95,7 @@ function gameState(state: t.gameState = defaultGameState, action: t.gameStateAct
             if (tile.token.health !== undefined && action.amount !== undefined) {
               let hurtEnemy: t.tile = {
                 tileType: 'floor',
+                foggy: false,
                 token: {
                   tokenType: enemyType,
                   id: tile.token.id,
@@ -133,7 +135,7 @@ function gameState(state: t.gameState = defaultGameState, action: t.gameStateAct
       const playerLoc: t.coordinate = state.playerLocation;
       let newLoc: t.coordinate | undefined;
       let newMap: t.mapRow[] = state.map;
-      const playerTile: t.tile = { tileType: 'floor', token: { tokenType: 'player' } };
+      const playerTile: t.tile = { tileType: 'floor', foggy: false, token: { tokenType: 'player' } };
       switch (action.direction) {
         case 'west':
           newLoc = { x: playerLoc.x - 1, y: playerLoc.y };
@@ -153,7 +155,7 @@ function gameState(state: t.gameState = defaultGameState, action: t.gameStateAct
       if (newLoc !== undefined) {
         newMap[playerLoc.y].splice(playerLoc.x, 1, floorTile);
         newMap[newLoc.y].splice(newLoc.x, 1, playerTile);
-        return Object.assign({}, state, { map: newMap, playerLocation: newLoc });
+        return Object.assign({}, state, { map: fogOfWar(newMap, newLoc), playerLocation: newLoc });
       } else {
         return state;
       }

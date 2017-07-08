@@ -54,3 +54,6 @@
   color: #295a89;
   text-shadow: 0 0 10px #5d8dbb;
 }
+.tile.foggy {
+  opacity: 0;
+}

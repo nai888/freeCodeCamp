@@ -16,7 +16,8 @@ const mapDispatchToProps = (dispatch: Dispatch<DispatchType>) => {
     onBossDie: () => dispatch(actions.bossDie()),
     onMove: (dir: t.direction) => dispatch(actions.move(dir)),
     onNewGame: () => dispatch(actions.newGame()),
-    onNewFloor: () => dispatch(actions.newFloor())
+    onNewFloor: () => dispatch(actions.newFloor()),
+    onFog: () => dispatch(actions.fog())
   };
 };
 

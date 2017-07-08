@@ -31,9 +31,11 @@ export default function Tile(props: t.tileProps) {
 
   const iconCode = icon !== null ? <i className={'fa fa-' + icon + ' fa-fw'} aria-hidden="true" /> : null;
 
+  const foggy = props.foggy ? 'foggy' : null;
+
   return (
     <div
-      className={'tile ' + props.tileType}
+      className={'tile ' + props.tileType + ' ' + foggy}
       data-token={props.token ? props.token.tokenType : null}
       data-id={props.token ? props.token.id : null}
       data-coords={props.col + ',' + props.row}

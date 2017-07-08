@@ -29,9 +29,9 @@ main
   justify-content: space-around
   align-items: flex-start
   align-content: flex-start
-  h2, p
+  h2, p, button
     margin: 0
-  h2
+  h2, button
     align-self: center
 
 .log
@@ -40,11 +40,12 @@ main
   &::-webkit-scrollbar
     width: 10px
   &::-webkit-scrollbar-thumb
-    background-color: darken($grn-ntl, 10%)
+    background-color: darken($grn-ntl, 8%)
     border-radius: 5px
   &::-webkit-scrollbar-track
-    background-color: darken($grn, 20%)
+    background-color: darken($grn, 22%)
   &::-webkit-scrollbar-button
     display: none
-  button
-    font-family: $font
+
+button
+  font-family: $font

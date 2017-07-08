@@ -273,6 +273,7 @@ function createLeafs(): Leaf[] {
 const randomEnemy: (id: number, floor: number) => t.enemy = (id, floor) => {
   return {
     tileType: 'floor',
+    foggy: true,
     token: {
       tokenType: 'enemy',
       id: id + 1,
@@ -281,6 +282,60 @@ const randomEnemy: (id: number, floor: number) => t.enemy = (id, floor) => {
       xpWorth: 30 * (floor)
     }
   };
+};
+
+export const fogOfWar: (map: t.mapRow[], playerLoc: t.coordinate) => t.mapRow[] = (map, playerLoc) => {
+  let foggyMap: t.mapRow[] = map;
+  // Foggify the map
+  for (let i = 0; i < map.length; i++) {
+    for (let j = 0; j < map.length; j++) {
+      const foggyTile: t.tile = Object.assign({}, foggyMap[i][j], { foggy: true });
+      const unfoggyTile: t.tile = Object.assign({}, foggyMap[i][j], { foggy: false });
+      // Reveal the map near the user
+      switch (Math.abs(i - playerLoc.y)) {
+        case 6:
+          if (j >= playerLoc.x - 2 && j <= playerLoc.x + 2) {
+            foggyMap[i].splice(j, 1, unfoggyTile);
+          } else {
+            foggyMap[i].splice(j, 1, foggyTile);
+          }
+          break;
+        case 5:
+          if (j >= playerLoc.x - 3 && j <= playerLoc.x + 3) {
+            foggyMap[i].splice(j, 1, unfoggyTile);
+          } else {
+            foggyMap[i].splice(j, 1, foggyTile);
+          }
+          break;
+        case 4:
+          if (j >= playerLoc.x - 4 && j <= playerLoc.x + 4) {
+            foggyMap[i].splice(j, 1, unfoggyTile);
+          } else {
+            foggyMap[i].splice(j, 1, foggyTile);
+          }
+          break;
+        case 3:
+          if (j >= playerLoc.x - 5 && j <= playerLoc.x + 5) {
+            foggyMap[i].splice(j, 1, unfoggyTile);
+          } else {
+            foggyMap[i].splice(j, 1, foggyTile);
+          }
+          break;
+        case 0:
+        case 1:
+        case 2:
+          if (j >= playerLoc.x - 6 && j <= playerLoc.x + 6) {
+            foggyMap[i].splice(j, 1, unfoggyTile);
+          } else {
+            foggyMap[i].splice(j, 1, foggyTile);
+          }
+          break;
+        default:
+          foggyMap[i].splice(j, 1, foggyTile);
+      }
+    }
+  }
+  return foggyMap;
 };
 
 export default function mapGenerator(floor: number) {
@@ -318,8 +373,8 @@ export default function mapGenerator(floor: number) {
       if (i === 0 || i === mapHeight - 1 || j === 0 || j === mapWidth - 1) { // If coordinate is on the edge of the map
         isFloor = false;
       }
-      const wallTile: t.tile = { tileType: 'wall' };
-      const floorTile: t.tile = { tileType: 'floor' };
+      const wallTile: t.tile = { tileType: 'wall', foggy: true };
+      const floorTile: t.tile = { tileType: 'floor', foggy: true };
       let tile: t.tile = isFloor ? floorTile : wallTile;
       row.push(tile);
     }
@@ -349,7 +404,7 @@ export default function mapGenerator(floor: number) {
   // If not 4th floor, add stairs
   if (floor !== 4) {
     randomTile = getRandUsableTile();
-    const stairsTile: t.tile = { tileType: 'floor', token: { tokenType: 'stairs' } };
+    const stairsTile: t.tile = { tileType: 'floor', foggy: true, token: { tokenType: 'stairs' } };
     map[randomTile.y].splice(randomTile.x, 1, stairsTile);
   }
   // If 4th floor, add the boss
@@ -357,6 +412,7 @@ export default function mapGenerator(floor: number) {
     randomTile = getRandUsableTile();
     const bossTile: t.enemy = {
       tileType: 'floor',
+      foggy: true,
       token: {
         tokenType: 'boss',
         id: 0,
@@ -372,13 +428,13 @@ export default function mapGenerator(floor: number) {
     map[randomTile.y].splice(randomTile.x, 1, randomEnemy(i, floor));
   }
   // Add 17 health
-  const healthTile: t.tile = { tileType: 'floor', token: { tokenType: 'health' } };
+  const healthTile: t.tile = { tileType: 'floor', foggy: true, token: { tokenType: 'health' } };
   for (let i = 0; i < 17; i++) {
     randomTile = getRandUsableTile();
     map[randomTile.y].splice(randomTile.x, 1, healthTile);
   }
   // Add 5 skill powerups
-  const skillTile: t.tile = { tileType: 'floor', token: { tokenType: 'skill' } };
+  const skillTile: t.tile = { tileType: 'floor', foggy: true, token: { tokenType: 'skill' } };
   for (let i = 0; i < 5; i++) {
     randomTile = getRandUsableTile();
     map[randomTile.y].splice(randomTile.x, 1, skillTile);
@@ -386,7 +442,7 @@ export default function mapGenerator(floor: number) {
   // Add user
   randomTile = getRandUsableTile();
   const playerLoc: t.coordinate = randomTile;
-  const playerTile: t.tile = { tileType: 'floor', token: { tokenType: 'player' } };
+  const playerTile: t.tile = { tileType: 'floor', foggy: false, token: { tokenType: 'player' } };
   map[playerLoc.y].splice(playerLoc.x, 1, playerTile);
-  return { map: map, playerLocation: playerLoc };
+  return { map: fogOfWar(map, playerLoc), playerLocation: playerLoc };
 }

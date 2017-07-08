@@ -9,3 +9,4 @@ export const BOSS_DIE: string = 'BOSS_DIE';
 export const MOVE: string = 'MOVE';
 export const NEW_GAME: string = 'NEW_GAME';
 export const NEW_FLOOR: string = 'NEW_FLOOR';
+export const FOG: string = 'FOG';

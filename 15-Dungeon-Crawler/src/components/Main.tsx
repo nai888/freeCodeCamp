@@ -181,6 +181,7 @@ class Main extends React.Component<t.stateType & t.dispatchProps, t.stateType> {
         <StatusBar
           player={props.player}
           gameState={props.gameState}
+          toggleFog={props.onFog}
         />
         <Map map={props.gameState.map} />
         <Log
