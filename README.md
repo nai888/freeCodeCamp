@@ -24,7 +24,8 @@ This repository represents my school, my sandbox, my playpen. I'll be adding my 
 13. **[Build a Recipe Box](https://nai888.github.io/freeCodeCamp/13-Recipe-Box/build/)** (June 15, 2017)
 14. **[Build the Game of Life](https://nai888.github.io/freeCodeCamp/14-Game-of-Life/build/)** (June 18, 2017)
 15. **[Build a Roguelike Dungeon Crawler Game](https://nai888.github.io/freeCodeCamp/15-Dungeon-Crawler/build/)** (July 8, 2017)
-16. **[Visualize Data with a Bar Chart](https://nai888.github.io/freeCodeCamp/16-Bar-Chart/)**
+16. **[Visualize Data with a Bar Chart](https://nai888.github.io/freeCodeCamp/16-Bar-Chart/)** (July 9, 2017)
+17. **[Visualize Data with a Scatterplot Graph](https://nai888.github.io/freeCodeCamp/17-Scatterplot-Graph/)**
 
 ### License
 
