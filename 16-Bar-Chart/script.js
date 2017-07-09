@@ -20,7 +20,6 @@ var handleData = function handleData(data) {
   document.getElementById("footnotes").innerText = data.description;
 
   var dataset = data.data;
-  console.log(dataset);
 
   var w = 1200;
   var h = 450;
@@ -29,9 +28,6 @@ var handleData = function handleData(data) {
 
   var minDate = new Date(dataset[0][0]);
   var maxDate = new Date(dataset[274][0]);
-
-  console.log(minDate);
-  console.log(maxDate);
 
   var xScale = d3.scaleTime().domain([minDate, maxDate]).range([lPadding, w - sPadding]);
 
@@ -49,6 +45,8 @@ var handleData = function handleData(data) {
     return yScale(d[1]);
   }).attr("height", function (d) {
     return h - sPadding - yScale(d[1]);
+  }).append("title").html(function (d) {
+    return d3.format("$,")(d[1]) + ' B\n' + d3.timeFormat("%B %Y")(new Date(d[0]));
   });
 
   var xAxis = d3.axisBottom(xScale);

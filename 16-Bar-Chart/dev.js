@@ -13,7 +13,6 @@ const handleData = (data) => {
   document.getElementById("footnotes").innerText = data.description;
 
   const dataset = data.data;
-  console.log(dataset);
 
   const w = 1200;
   const h = 450;
@@ -22,9 +21,6 @@ const handleData = (data) => {
 
   const minDate = new Date(dataset[0][0]);
   const maxDate = new Date(dataset[274][0]);
-
-  console.log(minDate);
-  console.log(maxDate);
 
   const xScale = d3.scaleTime()
     .domain([minDate, maxDate])
@@ -45,7 +41,9 @@ const handleData = (data) => {
     .attr("x", (d) => xScale(new Date(d[0])))
     .attr("width", (d) => w / dataset.length)
     .attr("y", (d) => yScale(d[1]))
-    .attr("height", (d) => h - sPadding - yScale(d[1]));
+    .attr("height", (d) => h - sPadding - yScale(d[1]))
+    .append("title")
+    .html((d) => `${d3.format("$,")(d[1])} B\n${d3.timeFormat("%B %Y")(new Date(d[0]))}`);
 
   const xAxis = d3.axisBottom(xScale);
   svg.append("g")
@@ -56,5 +54,4 @@ const handleData = (data) => {
   svg.append("g")
     .attr("transform", "translate(" + (lPadding) + ", 0)")
     .call(yAxis);
-}
-
+};
