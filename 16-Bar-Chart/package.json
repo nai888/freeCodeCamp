@@ -1,0 +1,24 @@
+{
+  "name": "16-bar-chart",
+  "version": "1.0.0",
+  "description": "Visualize Data with a Bar Chart Using D3.js",
+  "main": "index.html",
+  "scripts": {
+    "build": "browserify dev.js -o script.js -t [ babelify ]",
+    "watch": "watchify dev.js -o script.js -t [ babelify ]",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-uglify": "^1.0.2",
+    "babel-preset-env": "^1.6.0",
+    "babelify": "^7.3.0"
+  },
+  "dependencies": {
+    "d3": "^4.9.1",
+    "whatwg-fetch": "^2.0.3"
+  }
+}
