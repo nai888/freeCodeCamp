@@ -1,5 +1,4 @@
 import 'whatwg-fetch';
-import * as d3 from 'd3';
 
 fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json')
   .then(function (response) {
