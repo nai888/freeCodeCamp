@@ -3,6 +3,60 @@
 
 require('whatwg-fetch');
 
+fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/cyclist-data.json').then(function (response) {
+  return response.json();
+}).then(function (json) {
+  handleData(json);
+});
+
+var handleData = function handleData(dataset) {
+
+  console.log(dataset);
+
+  var w = 1200;
+  var h = 450;
+  var lPadding = 60;
+  var sPadding = 20;
+
+  // here down needs to be updated
+
+  var mintime = d3.min(dataset, function (d) {
+    return d.Seconds;
+  });
+  var maxtime = d3.max(dataset, function (d) {
+    return d.Seconds;
+  });
+  var minplace = d3.min(dataset, function (d) {
+    return d.Place;
+  });
+  var maxplace = d3.max(dataset, function (d) {
+    return d.Place;
+  });
+
+  console.log(maxtime);
+  console.log(mintime);
+
+  var xScale = d3.scaleTime().domain([mintime - 10, maxtime + 10]).range([lPadding, w - lPadding]);
+
+  var yScale = d3.scaleLinear().domain([maxplace + 1, minplace - 1]).range([h - sPadding, sPadding]);
+
+  var svg = d3.select('svg').attr("width", w).attr("height", h);
+
+  svg.selectAll("circle").data(dataset).enter().append("circle").attr("cx", function (d) {
+    return xScale(d.Seconds);
+  }).attr("cy", function (d) {
+    return yScale(d.Place);
+  }).attr("r", 5).attr("class", function (d) {
+    return d.Doping === "" ? "nodope" : "dope";
+  });
+
+  var xAxis = d3.axisBottom(xScale);
+  svg.append("g").attr("transform", "translate(0," + (h - sPadding) + ")").call(xAxis);
+
+  var yAxis = d3.axisLeft(yScale);
+  svg.append("g").attr("transform", "translate(" + lPadding + ", 0)").call(yAxis);
+};
+
 },{"whatwg-fetch":2}],2:[function(require,module,exports){
 (function(self) {
   'use strict';
