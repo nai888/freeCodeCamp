@@ -28,7 +28,16 @@ const handleData = (dataset) => {
     const rs = s % 60;
     t.setMinutes(m, rs);
     return formatTime(t);
-  }
+  };
+
+  // D3-tip
+  const tip = d3.tip()
+    .attr("class", "d3-tip")
+    .html((d) => {
+      return `<p>${d.Name}</p>
+        <p>Ranking: ${d.Place}, Time: ${d.Time}</p>
+        ${d.Doping === "" ? "" : `<p>Doping: ${d.Doping}</p>`}`;
+    });
 
   const xScale = d3.scaleTime()
     .domain([mintime - 10, maxtime + 10])
@@ -42,6 +51,8 @@ const handleData = (dataset) => {
     .attr("width", w)
     .attr("height", h);
 
+  svg.call(tip);
+
   // Data points
   svg.selectAll("circle")
     .data(dataset)
@@ -50,9 +61,19 @@ const handleData = (dataset) => {
     .attr("cx", (d) => xScale(d.Seconds))
     .attr("cy", (d) => yScale(d.Place))
     .attr("r", 5)
-    .attr("class", (d) => d.Doping === "" ? "nodope" : "dope");
+    .attr("class", (d) => d.Doping === "" ? "nodope" : "dope")
+    .on("mouseover", tip.show)
+    .on("mouseout", tip.hide);
 
   // Data labels
+  svg.selectAll("text")
+    .data(dataset)
+    .enter()
+    .append("text")
+    .attr("x", (d) => xScale(d.Seconds + 2))
+    .attr("y", (d) => yScale(d.Place))
+    .attr("class", "data-label")
+    .text((d) => d.Name);
 
   // X axis
   svg.append("g")
@@ -76,4 +97,33 @@ const handleData = (dataset) => {
     .attr("transform", `translate(${sPadding}, ${(h - lPadding) / 2}) rotate(-90)`)
     .attr("class", "axis-label ylabel")
     .text("Ranking");
+
+  // Legend
+  // Doping circle
+  svg.append("circle")
+    .attr("class", "dope")
+    .attr("cx", xScale(mintime))
+    .attr("cy", h - lPadding - 60)
+    .attr("r", 5);
+
+  // Doping label
+  svg.append("text")
+    .attr("x", xScale(mintime + 2))
+    .attr("y", h - lPadding - 60)
+    .attr("class", "legend-label")
+    .text("Doping allegations");
+
+  // Non-doping circle
+  svg.append("circle")
+    .attr("class", "nodope")
+    .attr("cx", xScale(mintime))
+    .attr("cy", h - lPadding - 30)
+    .attr("r", 5);
+
+  // Non-doping label
+  svg.append("text")
+    .attr("x", xScale(mintime + 2))
+    .attr("y", h - lPadding - 30)
+    .attr("class", "legend-label")
+    .text("No doping allegations");
 };
