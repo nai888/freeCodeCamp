@@ -26,7 +26,8 @@ This repository represents my school, my sandbox, my playpen. I'll be adding my 
 15. **[Build a Roguelike Dungeon Crawler Game](https://nai888.github.io/freeCodeCamp/15-Dungeon-Crawler/build/)** (July 8, 2017)
 16. **[Visualize Data with a Bar Chart](https://nai888.github.io/freeCodeCamp/16-Bar-Chart/)** (July 9, 2017)
 17. **[Visualize Data with a Scatterplot Graph](https://nai888.github.io/freeCodeCamp/17-Scatter-Plot/)** (July 11, 2017)
-18. **[Visualize Data with a Heat Map](https://nai888.github.io/freeCodeCamp/18-Heat-Map/)**
+18. **[Visualize Data with a Heat Map](https://nai888.github.io/freeCodeCamp/18-Heat-Map/)** (July 11, 2017)
+19. **[Show National Contiguity with a Force Directed Graph](https://nai888.github.io/freeCodeCamp/19-Force-Directed-Graph/)**
 
 ### License
 
