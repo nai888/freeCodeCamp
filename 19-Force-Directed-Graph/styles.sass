@@ -1,0 +1,165 @@
+$font: 'Roboto Condensed', sans-serif
+
+// Don't use theses, use the mixed ones instead
+$blu-pmy: hsla(210, 100%, 50%, 1)
+
+$pmy1: hsla(1, 100%, 50%, 1)
+$pmy2: hsla(12, 100%, 50%, 1)
+$pmy3: hsla(25, 100%, 50%, 1)
+$pmy4: hsla(38, 100%, 50%, 1)
+$pmy5: hsla(51, 100%, 50%, 1)
+$pmy6: hsla(65, 100%, 50%, 1)
+$pmy7: hsla(93, 100%, 50%, 1)
+$pmy8: hsla(161, 100%, 50%, 1)
+$pmy9: hsla(211, 100%, 50%, 1)
+$pmy10: hsla(250, 100%, 50%, 1)
+
+// Colors based on https://tallys.github.io/color-theory/ //
+
+@function is-cool-color($color)
+  @return hue($color) < 300 and hue($color) > 120
+
+@function is-high-key-value($color)
+  @return hue($color) > 30 and hue($color) < 140
+
+@function is-high-key-value($color)
+  @return hue($color) > 50 and hue($color) < 105
+
+@function harmonious-mix($mix, $base)
+  @if is-cool-color($mix)
+    @if is-high-key-value($base)
+      @return mix($mix, $base, 11%)
+    @else
+      @return mix($mix, $base, 16%)
+  @else
+    @if is-high-key-value($base)
+      @return mix($mix, $base, 13%)
+    @else
+      @return mix($mix, $base, 23%)
+
+@function mix-neutral($color)
+  @if is-highest-key-value($color)
+    @if is-high-key-value(complement($color))
+      @return mix(complement($color), $color, 19%)
+    @else
+      @return mix(complement($color), $color, 13%)
+  @else if is-high-key-value($color)
+    @if is-high-key-value(complement($color))
+      @return mix(complement($color), $color, 31%)
+    @else
+      @return mix(complement($color), $color, 23%)
+  @else
+    @if is-highest-key-value(complement($color))
+      @return mix(complement($color), $color, 31%)
+    @if is-high-key-value(complement($color))
+      @return mix(complement($color), $color, 26%)
+    @else
+      @return mix(complement($color), $color, 23%)
+
+$blu: harmonious-mix($pmy1, $blu-pmy)
+$blu-ntl: mix-neutral($blu)
+
+$col1: darken(harmonious-mix($blu-pmy, $pmy1), 10%)
+$col2: darken(harmonious-mix($blu-pmy, $pmy2), 10%)
+$col3: darken(harmonious-mix($blu-pmy, $pmy3), 10%)
+$col4: darken(harmonious-mix($blu-pmy, $pmy4), 10%)
+$col5: darken(harmonious-mix($blu-pmy, $pmy5), 10%)
+$col6: darken(harmonious-mix($blu-pmy, $pmy6), 10%)
+$col7: darken(harmonious-mix($blu-pmy, $pmy7), 10%)
+$col8: darken(harmonious-mix($blu-pmy, $pmy8), 10%)
+$col9: darken(harmonious-mix($blu-pmy, $pmy9), 10%)
+$col10: darken(harmonious-mix($blu-pmy, $pmy10), 10%)
+
+body
+  font-family: $font
+  text-align: center
+  background-color: #fdfdfe
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23414288' fill-opacity='0.16'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
+
+#page
+  background-color: white
+  width: 1200px
+  margin: 0 auto
+  box-shadow: 2px 2px 20px darken($blu-ntl, 30%)
+
+header
+  margin-top: 20px
+  padding-top: 10px
+
+footer
+  padding-bottom: 10px
+
+h1
+  margin-top: 10px
+  color: darken($blu, 20%)
+
+h2
+  color: darken($blu, 8%)
+  margin: 0
+  padding: 0
+
+h3
+  color: lighten($blu, 5%)
+
+#footnotes
+  font-size: 14px
+  font-style: italic
+
+a, a:link, a:hover, a:active, a:visited
+  color: $blu
+
+svg
+  font-family: $font
+
+.axis-label
+  text-anchor: middle
+
+.month-label, .tick
+  font-size: 10px
+
+.month-label
+  text-anchor: end
+
+.l1
+  fill: $col1
+
+.l2
+  fill: $col2
+
+.l3
+  fill: $col3
+
+.l4
+  fill: $col4
+
+.l5
+  fill: $col5
+
+.l6
+  fill: $col6
+
+.l7
+  fill: $col7
+
+.l8
+  fill: $col8
+
+.l9
+  fill: $col9
+
+.l10
+  fill: $col10
+
+.legend-label
+  font-size: 14px
+  text-anchor: middle
+
+.d3-tip
+  padding: 12px
+  background: rgba(0, 0, 0, 0.8)
+  color: white
+  border-radius: 6px
+  text-align: left
+  p
+    margin: 0
+    padding: 0
