@@ -1,74 +1,7 @@
 $font: 'Roboto Condensed', sans-serif
 
 // Don't use theses, use the mixed ones instead
-$blu-pmy: hsla(210, 100%, 50%, 1)
-
-$pmy1: hsla(1, 100%, 50%, 1)
-$pmy2: hsla(12, 100%, 50%, 1)
-$pmy3: hsla(25, 100%, 50%, 1)
-$pmy4: hsla(38, 100%, 50%, 1)
-$pmy5: hsla(51, 100%, 50%, 1)
-$pmy6: hsla(65, 100%, 50%, 1)
-$pmy7: hsla(93, 100%, 50%, 1)
-$pmy8: hsla(161, 100%, 50%, 1)
-$pmy9: hsla(211, 100%, 50%, 1)
-$pmy10: hsla(250, 100%, 50%, 1)
-
-// Colors based on https://tallys.github.io/color-theory/ //
-
-@function is-cool-color($color)
-  @return hue($color) < 300 and hue($color) > 120
-
-@function is-high-key-value($color)
-  @return hue($color) > 30 and hue($color) < 140
-
-@function is-high-key-value($color)
-  @return hue($color) > 50 and hue($color) < 105
-
-@function harmonious-mix($mix, $base)
-  @if is-cool-color($mix)
-    @if is-high-key-value($base)
-      @return mix($mix, $base, 11%)
-    @else
-      @return mix($mix, $base, 16%)
-  @else
-    @if is-high-key-value($base)
-      @return mix($mix, $base, 13%)
-    @else
-      @return mix($mix, $base, 23%)
-
-@function mix-neutral($color)
-  @if is-highest-key-value($color)
-    @if is-high-key-value(complement($color))
-      @return mix(complement($color), $color, 19%)
-    @else
-      @return mix(complement($color), $color, 13%)
-  @else if is-high-key-value($color)
-    @if is-high-key-value(complement($color))
-      @return mix(complement($color), $color, 31%)
-    @else
-      @return mix(complement($color), $color, 23%)
-  @else
-    @if is-highest-key-value(complement($color))
-      @return mix(complement($color), $color, 31%)
-    @if is-high-key-value(complement($color))
-      @return mix(complement($color), $color, 26%)
-    @else
-      @return mix(complement($color), $color, 23%)
-
-$blu: harmonious-mix($pmy1, $blu-pmy)
-$blu-ntl: mix-neutral($blu)
-
-$col1: darken(harmonious-mix($blu-pmy, $pmy1), 10%)
-$col2: darken(harmonious-mix($blu-pmy, $pmy2), 10%)
-$col3: darken(harmonious-mix($blu-pmy, $pmy3), 10%)
-$col4: darken(harmonious-mix($blu-pmy, $pmy4), 10%)
-$col5: darken(harmonious-mix($blu-pmy, $pmy5), 10%)
-$col6: darken(harmonious-mix($blu-pmy, $pmy6), 10%)
-$col7: darken(harmonious-mix($blu-pmy, $pmy7), 10%)
-$col8: darken(harmonious-mix($blu-pmy, $pmy8), 10%)
-$col9: darken(harmonious-mix($blu-pmy, $pmy9), 10%)
-$col10: darken(harmonious-mix($blu-pmy, $pmy10), 10%)
+$blu: #2E86AB
 
 body
   font-family: $font
@@ -80,7 +13,7 @@ body
   background-color: white
   width: 1200px
   margin: 0 auto
-  box-shadow: 2px 2px 20px darken($blu-ntl, 30%)
+  box-shadow: 2px 2px 20px darken($blu, 30%)
 
 header
   margin-top: 20px
@@ -98,61 +31,11 @@ h2
   margin: 0
   padding: 0
 
-h3
-  color: lighten($blu, 5%)
-
-#footnotes
-  font-size: 14px
-  font-style: italic
-
 a, a:link, a:hover, a:active, a:visited
   color: $blu
 
 svg
   font-family: $font
-
-.axis-label
-  text-anchor: middle
-
-.month-label, .tick
-  font-size: 10px
-
-.month-label
-  text-anchor: end
-
-.l1
-  fill: $col1
-
-.l2
-  fill: $col2
-
-.l3
-  fill: $col3
-
-.l4
-  fill: $col4
-
-.l5
-  fill: $col5
-
-.l6
-  fill: $col6
-
-.l7
-  fill: $col7
-
-.l8
-  fill: $col8
-
-.l9
-  fill: $col9
-
-.l10
-  fill: $col10
-
-.legend-label
-  font-size: 14px
-  text-anchor: middle
 
 .d3-tip
   padding: 12px

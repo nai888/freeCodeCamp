@@ -1,7 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 
-d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/global-temperature.json", function (json) {
+d3.json("https://raw.githubusercontent.com/DealPete/forceDirected/master/countries.json", function (json) {
   return handleData(json);
 });
 
@@ -89,42 +89,6 @@ var handleData = function handleData(data) {
         return "data";
     }
   }).on("mouseover", tip.show).on("mouseout", tip.hide);
-
-  // X axis
-  svg.append("g").attr("transform", "translate(0, " + (h - 2 * lPadding + (h - lPadding - sPadding) / 12) + ")").call(d3.axisBottom(xScale).tickFormat(d3.format("")));
-
-  // Y axis
-  svg.selectAll(".month-label").data(months).enter().append("text").text(function (d) {
-    return d;
-  }).attr("x", xScale(minyear)).attr("y", function (d, i) {
-    return yScale(i + 1);
-  }).attr("alignment-baseline", "middle").attr("class", "month-label").attr("transform", "translate(-5, " + (h - lPadding - sPadding) / months.length / 2 + ")");
-
-  // X axis label
-  svg.append("text").attr("transform", "translate(" + w / 2 + ", " + (h - lPadding) + ")").attr("class", "axis-label xlabel").text("Years");
-
-  // Y axis label
-  svg.append("text").attr("transform", "translate(" + sPadding + ", " + (h - 2 * lPadding) / 2 + ") rotate(-90)").attr("class", "axis-label ylabel").text("Months");
-
-  // Legend
-  var legend = function legend() {
-    var arr = [];
-    for (var i = 1; i <= 10; i++) {
-      arr.push((i * gradation).toFixed(3));
-    }
-    return arr;
-  };
-  svg.selectAll(".legend").data(legend).enter().append("rect").attr("class", function (d, i) {
-    return "legend l" + (10 - i);
-  }).attr("x", function (d, i) {
-    return i * 50 + lPadding;
-  }).attr("y", h - 50).attr("height", 20).attr("width", 50);
-
-  svg.selectAll(".legend-label").data(legend).enter().append("text").attr("class", "legend-label").attr("x", function (d, i) {
-    return i * 50 + lPadding + 25;
-  }).attr("y", h - 15).text(function (d, i) {
-    return (baseTemp - Math.abs(mintemp) + i * gradation).toFixed(1) + '°';
-  });
 };
 
 },{}]},{},[1]);

@@ -1,4 +1,4 @@
-d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/global-temperature.json", (json) => handleData(json));
+d3.json("https://raw.githubusercontent.com/DealPete/forceDirected/master/countries.json", (json) => handleData(json));
 
 const handleData = (data) => {
   const dataset = data.monthlyVariance;
@@ -88,61 +88,4 @@ const handleData = (data) => {
     })
     .on("mouseover", tip.show)
     .on("mouseout", tip.hide);
-
-  // X axis
-  svg.append("g")
-    .attr("transform", `translate(0, ${h - (2 * lPadding) + ((h - lPadding - sPadding) / 12)})`)
-    .call(d3.axisBottom(xScale)
-      .tickFormat(d3.format("")));
-
-  // Y axis
-  svg.selectAll(".month-label")
-    .data(months)
-    .enter()
-    .append("text")
-    .text((d) => d)
-    .attr("x", xScale(minyear))
-    .attr("y", (d, i) => yScale(i + 1))
-    .attr("alignment-baseline", "middle")
-    .attr("class", "month-label")
-    .attr("transform", `translate(-5, ${((h - lPadding - sPadding) / months.length) / 2})`);
-
-  // X axis label
-  svg.append("text")
-    .attr("transform", `translate(${w / 2}, ${h - lPadding})`)
-    .attr("class", "axis-label xlabel")
-    .text("Years");
-
-  // Y axis label
-  svg.append("text")
-    .attr("transform", `translate(${sPadding}, ${(h - (2 * lPadding)) / 2}) rotate(-90)`)
-    .attr("class", "axis-label ylabel")
-    .text("Months");
-
-  // Legend
-  const legend = () => {
-    let arr = [];
-    for (let i = 1; i <= 10; i++) {
-      arr.push((i * gradation).toFixed(3));
-    }
-    return arr;
-  }
-  svg.selectAll(".legend")
-    .data(legend)
-    .enter()
-    .append("rect")
-    .attr("class", (d, i) => `legend l${10 - i}`)
-    .attr("x", (d, i) => (i * 50) + lPadding)
-    .attr("y", h - 50)
-    .attr("height", 20)
-    .attr("width", 50);
-  
-  svg.selectAll(".legend-label")
-    .data(legend)
-    .enter()
-    .append("text")
-    .attr("class", "legend-label")
-    .attr("x", (d, i) => (i * 50) + lPadding + 25)
-    .attr("y", h - 15)
-    .text((d, i) => (baseTemp - Math.abs(mintemp) + (i * gradation)).toFixed(1) + '°');
 };
