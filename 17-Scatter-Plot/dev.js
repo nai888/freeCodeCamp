@@ -16,15 +16,19 @@ const handleData = (dataset) => {
   const lPadding = 60;
   const sPadding = 20;
 
-  // here down needs to be updated
-
-  const mintime = d3.min(dataset, (d) => d.Seconds);
-  const maxtime = d3.max(dataset, (d) => d.Seconds);
   const minplace = d3.min(dataset, (d) => d.Place);
   const maxplace = d3.max(dataset, (d) => d.Place);
+  const mintime = d3.min(dataset, (d) => d.Seconds);
+  const maxtime = d3.max(dataset, (d) => d.Seconds);
 
-  console.log(maxtime);
-  console.log(mintime);
+  const formatTime = d3.timeFormat("%M:%S");
+  const formatMins = (s) => {
+    let t = new Date();
+    const m = s / 60;
+    const rs = s % 60;
+    t.setMinutes(m, rs);
+    return formatTime(t);
+  }
 
   const xScale = d3.scaleTime()
     .domain([mintime - 10, maxtime + 10])
@@ -32,12 +36,13 @@ const handleData = (dataset) => {
 
   const yScale = d3.scaleLinear()
     .domain([maxplace + 1, minplace - 1])
-    .range([h - sPadding, sPadding]);
+    .range([h - lPadding, sPadding]);
 
   const svg = d3.select('svg')
     .attr("width", w)
     .attr("height", h);
 
+  // Data points
   svg.selectAll("circle")
     .data(dataset)
     .enter()
@@ -47,13 +52,28 @@ const handleData = (dataset) => {
     .attr("r", 5)
     .attr("class", (d) => d.Doping === "" ? "nodope" : "dope");
 
-  const xAxis = d3.axisBottom(xScale);
-  svg.append("g")
-    .attr("transform", "translate(0," + (h - sPadding) + ")")
-    .call(xAxis);
+  // Data labels
 
-  const yAxis = d3.axisLeft(yScale);
+  // X axis
   svg.append("g")
-    .attr("transform", "translate(" + (lPadding) + ", 0)")
-    .call(yAxis);
+    .attr("transform", `translate(0, ${h - lPadding})`)
+    .call(d3.axisBottom(xScale)
+      .tickFormat(formatMins));
+
+  // Y axis
+  svg.append("g")
+    .attr("transform", `translate(${lPadding}, 0)`)
+    .call(d3.axisLeft(yScale));
+
+  // X axis label
+  svg.append("text")
+    .attr("transform", `translate(${w / 2}, ${h - 10})`)
+    .attr("class", "axis-label xlabel")
+    .text("Race Time (minutes, normalized)");
+
+  // Y axis label
+  svg.append("text")
+    .attr("transform", `translate(${sPadding}, ${(h - lPadding) / 2}) rotate(-90)`)
+    .attr("class", "axis-label ylabel")
+    .text("Ranking");
 };

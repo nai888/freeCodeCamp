@@ -18,30 +18,35 @@ var handleData = function handleData(dataset) {
   var lPadding = 60;
   var sPadding = 20;
 
-  // here down needs to be updated
-
-  var mintime = d3.min(dataset, function (d) {
-    return d.Seconds;
-  });
-  var maxtime = d3.max(dataset, function (d) {
-    return d.Seconds;
-  });
   var minplace = d3.min(dataset, function (d) {
     return d.Place;
   });
   var maxplace = d3.max(dataset, function (d) {
     return d.Place;
   });
+  var mintime = d3.min(dataset, function (d) {
+    return d.Seconds;
+  });
+  var maxtime = d3.max(dataset, function (d) {
+    return d.Seconds;
+  });
 
-  console.log(maxtime);
-  console.log(mintime);
+  var formatTime = d3.timeFormat("%M:%S");
+  var formatMins = function formatMins(s) {
+    var t = new Date();
+    var m = s / 60;
+    var rs = s % 60;
+    t.setMinutes(m, rs);
+    return formatTime(t);
+  };
 
   var xScale = d3.scaleTime().domain([mintime - 10, maxtime + 10]).range([lPadding, w - lPadding]);
 
-  var yScale = d3.scaleLinear().domain([maxplace + 1, minplace - 1]).range([h - sPadding, sPadding]);
+  var yScale = d3.scaleLinear().domain([maxplace + 1, minplace - 1]).range([h - lPadding, sPadding]);
 
   var svg = d3.select('svg').attr("width", w).attr("height", h);
 
+  // Data points
   svg.selectAll("circle").data(dataset).enter().append("circle").attr("cx", function (d) {
     return xScale(d.Seconds);
   }).attr("cy", function (d) {
@@ -50,11 +55,19 @@ var handleData = function handleData(dataset) {
     return d.Doping === "" ? "nodope" : "dope";
   });
 
-  var xAxis = d3.axisBottom(xScale);
-  svg.append("g").attr("transform", "translate(0," + (h - sPadding) + ")").call(xAxis);
+  // Data labels
 
-  var yAxis = d3.axisLeft(yScale);
-  svg.append("g").attr("transform", "translate(" + lPadding + ", 0)").call(yAxis);
+  // X axis
+  svg.append("g").attr("transform", 'translate(0, ' + (h - lPadding) + ')').call(d3.axisBottom(xScale).tickFormat(formatMins));
+
+  // Y axis
+  svg.append("g").attr("transform", 'translate(' + lPadding + ', 0)').call(d3.axisLeft(yScale));
+
+  // X axis label
+  svg.append("text").attr("transform", 'translate(' + w / 2 + ', ' + (h - 10) + ')').attr("class", "axis-label xlabel").text("Race Time (minutes, normalized)");
+
+  // Y axis label
+  svg.append("text").attr("transform", 'translate(' + sPadding + ', ' + (h - lPadding) / 2 + ') rotate(-90)').attr("class", "axis-label ylabel").text("Ranking");
 };
 
 },{"whatwg-fetch":2}],2:[function(require,module,exports){
