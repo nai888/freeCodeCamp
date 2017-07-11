@@ -12,7 +12,7 @@ const handleData = (dataset) => {
   console.log(dataset);
 
   const w = 1200;
-  const h = 450;
+  const h = 400;
   const lPadding = 60;
   const sPadding = 20;
 

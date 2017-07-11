@@ -14,7 +14,7 @@ var handleData = function handleData(dataset) {
   console.log(dataset);
 
   var w = 1200;
-  var h = 450;
+  var h = 400;
   var lPadding = 60;
   var sPadding = 20;
 
