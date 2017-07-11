@@ -1,7 +1,18 @@
 $font: 'Roboto Condensed', sans-serif
 
-$blu-pmy: hsla(210, 100%, 50%, 1) // Don't use this, use the mixed one instead
-$red-pmy: hsla(1, 100%, 50%, 1) // Don't use this, use the mixed one instead
+// Don't use theses, use the mixed ones instead
+$blu-pmy: hsla(210, 100%, 50%, 1)
+
+$pmy1: hsla(1, 100%, 50%, 1)
+$pmy2: hsla(12, 100%, 50%, 1)
+$pmy3: hsla(25, 100%, 50%, 1)
+$pmy4: hsla(38, 100%, 50%, 1)
+$pmy5: hsla(51, 100%, 50%, 1)
+$pmy6: hsla(65, 100%, 50%, 1)
+$pmy7: hsla(93, 100%, 50%, 1)
+$pmy8: hsla(161, 100%, 50%, 1)
+$pmy9: hsla(211, 100%, 50%, 1)
+$pmy10: hsla(250, 100%, 50%, 1)
 
 // Colors based on https://tallys.github.io/color-theory/ //
 
@@ -45,9 +56,19 @@ $red-pmy: hsla(1, 100%, 50%, 1) // Don't use this, use the mixed one instead
     @else
       @return mix(complement($color), $color, 23%)
 
-$blu: harmonious-mix($red-pmy, $blu-pmy)
-$red: harmonious-mix($blu-pmy, $red-pmy)
+$blu: harmonious-mix($pmy1, $blu-pmy)
 $blu-ntl: mix-neutral($blu)
+
+$col1: darken(harmonious-mix($blu-pmy, $pmy1), 10%)
+$col2: darken(harmonious-mix($blu-pmy, $pmy2), 10%)
+$col3: darken(harmonious-mix($blu-pmy, $pmy3), 10%)
+$col4: darken(harmonious-mix($blu-pmy, $pmy4), 10%)
+$col5: darken(harmonious-mix($blu-pmy, $pmy5), 10%)
+$col6: darken(harmonious-mix($blu-pmy, $pmy6), 10%)
+$col7: darken(harmonious-mix($blu-pmy, $pmy7), 10%)
+$col8: darken(harmonious-mix($blu-pmy, $pmy8), 10%)
+$col9: darken(harmonious-mix($blu-pmy, $pmy9), 10%)
+$col10: darken(harmonious-mix($blu-pmy, $pmy10), 10%)
 
 body
   font-family: $font
@@ -87,23 +108,51 @@ h3
 a, a:link, a:hover, a:active, a:visited
   color: $blu
 
-circle
-  &.nodope
-    fill: darken($blu, 10%)
-  &.dope
-    fill: darken($red, 10%)
+svg
+  font-family: $font
 
 .axis-label
   text-anchor: middle
 
-.data-label
+.month-label, .tick
   font-size: 10px
+
+.month-label
+  text-anchor: end
+
+.l1
+  fill: $col1
+
+.l2
+  fill: $col2
+
+.l3
+  fill: $col3
+
+.l4
+  fill: $col4
+
+.l5
+  fill: $col5
+
+.l6
+  fill: $col6
+
+.l7
+  fill: $col7
+
+.l8
+  fill: $col8
+
+.l9
+  fill: $col9
+
+.l10
+  fill: $col10
 
 .legend-label
   font-size: 14px
-
-.legend-label, .data-label
-  alignment-baseline: middle
+  text-anchor: middle
 
 .d3-tip
   padding: 12px

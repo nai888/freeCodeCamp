@@ -1,51 +1,56 @@
 import 'whatwg-fetch';
 
-fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/cyclist-data.json')
+fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/global-temperature.json')
   .then(function (response) {
     return response.json()
   }).then(function (json) {
     handleData(json);
   });
 
-const handleData = (dataset) => {
+const handleData = (data) => {
+  const dataset = data.monthlyVariance;
+  const baseTemp = data.baseTemperature;
 
-  console.log(dataset);
+  const minmonth = d3.min(dataset, (d) => d.month);
+  const maxmonth = d3.max(dataset, (d) => d.month);
+  const minyear = d3.min(dataset, (d) => d.year);
+  const maxyear = d3.max(dataset, (d) => d.year);
+  const mintemp = d3.min(dataset, (d) => d.variance);
+  const maxtemp = d3.max(dataset, (d) => d.variance);
+  const gradation = (maxtemp - mintemp) / 10;
+
+  // Update footnotes
+  const footnotes = `Temperatures are in Celsius and reported as anomalies relative to the January 1951&ndash;December 1980 average.<br />Estimated January 1951&ndash;December 1980 absolute temperature &deg;C: ${baseTemp} +/- 0.07`;
+  document.getElementById("footnotes").innerHTML = footnotes;
+  document.getElementById("daterange").innerHTML = `${minyear}&ndash;${maxyear}`;
 
   const w = 1200;
   const h = 400;
   const lPadding = 60;
   const sPadding = 20;
 
-  const minplace = d3.min(dataset, (d) => d.Place);
-  const maxplace = d3.max(dataset, (d) => d.Place);
-  const mintime = d3.min(dataset, (d) => d.Seconds);
-  const maxtime = d3.max(dataset, (d) => d.Seconds);
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-  const formatTime = d3.timeFormat("%M:%S");
-  const formatMins = (s) => {
-    let t = new Date();
-    const m = s / 60;
-    const rs = s % 60;
-    t.setMinutes(m, rs);
-    return formatTime(t);
+  const formatMonth = (m) => {
+    return months[m - 1];
   };
 
   // D3-tip
   const tip = d3.tip()
     .attr("class", "d3-tip")
     .html((d) => {
-      return `<p>${d.Name}</p>
-        <p>Ranking: ${d.Place}, Time: ${d.Time}</p>
-        ${d.Doping === "" ? "" : `<p>Doping: ${d.Doping}</p>`}`;
+      return `<p class="tt-date">${formatMonth(d.month)} ${d.year}</p>
+        <p class="tt-temp">${(baseTemp + d.variance).toFixed(3)} &deg;C</p>
+        <p class="tt-var">(${d.variance} &deg;C)</p>`;
     });
 
   const xScale = d3.scaleTime()
-    .domain([mintime - 10, maxtime + 10])
-    .range([lPadding, w - lPadding]);
+    .domain([minyear, maxyear])
+    .range([lPadding, w - sPadding]);
 
   const yScale = d3.scaleLinear()
-    .domain([maxplace + 1, minplace - 1])
-    .range([h - lPadding, sPadding]);
+    .domain([maxmonth, minmonth])
+    .range([h - (2 * lPadding), 0]);
 
   const svg = d3.select('svg')
     .attr("width", w)
@@ -54,76 +59,97 @@ const handleData = (dataset) => {
   svg.call(tip);
 
   // Data points
-  svg.selectAll("circle")
+  svg.selectAll("rect")
     .data(dataset)
     .enter()
-    .append("circle")
-    .attr("cx", (d) => xScale(d.Seconds))
-    .attr("cy", (d) => yScale(d.Place))
-    .attr("r", 5)
-    .attr("class", (d) => d.Doping === "" ? "nodope" : "dope")
+    .append("rect")
+    .attr("x", (d) => xScale(d.year))
+    .attr("y", (d) => yScale(d.month))
+    .attr("width", (w - (2 * lPadding)) / (maxyear - minyear))
+    .attr("height", (h - lPadding - sPadding) / months.length)
+    .attr("class", (d) => {
+      switch (true) {
+        case d.variance + Math.abs(mintemp) <= gradation:
+          return "data l10";
+        case d.variance + Math.abs(mintemp) <= 2 * gradation:
+          return "data l9";
+        case d.variance + Math.abs(mintemp) <= 3 * gradation:
+          return "data l8";
+        case d.variance + Math.abs(mintemp) <= 4 * gradation:
+          return "data l7";
+        case d.variance + Math.abs(mintemp) <= 5 * gradation:
+          return "data l6";
+        case d.variance + Math.abs(mintemp) <= 6 * gradation:
+          return "data l5";
+        case d.variance + Math.abs(mintemp) <= 7 * gradation:
+          return "data l4";
+        case d.variance + Math.abs(mintemp) <= 8 * gradation:
+          return "data l3";
+        case d.variance + Math.abs(mintemp) <= 9 * gradation:
+          return "data l2";
+        case d.variance + Math.abs(mintemp) <= 10 * gradation:
+          return "data l1";
+        default:
+          return "data";
+      }
+    })
     .on("mouseover", tip.show)
     .on("mouseout", tip.hide);
 
-  // Data labels
-  svg.selectAll("text")
-    .data(dataset)
-    .enter()
-    .append("text")
-    .attr("x", (d) => xScale(d.Seconds + 2))
-    .attr("y", (d) => yScale(d.Place))
-    .attr("class", "data-label")
-    .text((d) => d.Name);
-
   // X axis
   svg.append("g")
-    .attr("transform", `translate(0, ${h - lPadding})`)
+    .attr("transform", `translate(0, ${h - (2 * lPadding) + ((h - lPadding - sPadding) / 12)})`)
     .call(d3.axisBottom(xScale)
-      .tickFormat(formatMins));
+      .tickFormat(d3.format("")));
 
   // Y axis
-  svg.append("g")
-    .attr("transform", `translate(${lPadding}, 0)`)
-    .call(d3.axisLeft(yScale));
+  svg.selectAll(".month-label")
+    .data(months)
+    .enter()
+    .append("text")
+    .text((d) => d)
+    .attr("x", xScale(minyear))
+    .attr("y", (d, i) => yScale(i + 1))
+    .attr("alignment-baseline", "middle")
+    .attr("class", "month-label")
+    .attr("transform", `translate(-5, ${((h - lPadding - sPadding) / months.length) / 2})`);
 
   // X axis label
   svg.append("text")
-    .attr("transform", `translate(${w / 2}, ${h - 10})`)
+    .attr("transform", `translate(${w / 2}, ${h - lPadding})`)
     .attr("class", "axis-label xlabel")
-    .text("Race Time (minutes, normalized)");
+    .text("Years");
 
   // Y axis label
   svg.append("text")
-    .attr("transform", `translate(${sPadding}, ${(h - lPadding) / 2}) rotate(-90)`)
+    .attr("transform", `translate(${sPadding}, ${(h - (2 * lPadding)) / 2}) rotate(-90)`)
     .attr("class", "axis-label ylabel")
-    .text("Ranking");
+    .text("Months");
 
   // Legend
-  // Doping circle
-  svg.append("circle")
-    .attr("class", "dope")
-    .attr("cx", xScale(mintime))
-    .attr("cy", h - lPadding - 60)
-    .attr("r", 5);
-
-  // Doping label
-  svg.append("text")
-    .attr("x", xScale(mintime + 2))
-    .attr("y", h - lPadding - 60)
+  const legend = () => {
+    let arr = [];
+    for (let i = 1; i <= 10; i++) {
+      arr.push((i * gradation).toFixed(3));
+    }
+    return arr;
+  }
+  svg.selectAll(".legend")
+    .data(legend)
+    .enter()
+    .append("rect")
+    .attr("class", (d, i) => `legend l${10 - i}`)
+    .attr("x", (d, i) => (i * 50) + lPadding)
+    .attr("y", h - 50)
+    .attr("height", 20)
+    .attr("width", 50);
+  
+  svg.selectAll(".legend-label")
+    .data(legend)
+    .enter()
+    .append("text")
     .attr("class", "legend-label")
-    .text("Doping allegations");
-
-  // Non-doping circle
-  svg.append("circle")
-    .attr("class", "nodope")
-    .attr("cx", xScale(mintime))
-    .attr("cy", h - lPadding - 30)
-    .attr("r", 5);
-
-  // Non-doping label
-  svg.append("text")
-    .attr("x", xScale(mintime + 2))
-    .attr("y", h - lPadding - 30)
-    .attr("class", "legend-label")
-    .text("No doping allegations");
+    .attr("x", (d, i) => (i * 50) + lPadding + 25)
+    .attr("y", h - 15)
+    .text((d, i) => (baseTemp - Math.abs(mintemp) + (i * gradation)).toFixed(1) + '°');
 };
