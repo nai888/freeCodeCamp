@@ -51,14 +51,9 @@ var handleData = function handleData(data) {
   // Data points
   var link = svg.append("g").attr("class", "links").selectAll("line").data(links).enter().append("line");
 
-  var node = svg.append("g").attr("class", "nodes").selectAll("foreignObject").data(nodes).enter()
-  /* The flags
-  .append("foreignObject")
-  .attr("width", 16)
-  .attr("height", 16)
-  .attr("requiredExtensions", "http://www.w3.org/1999/xhtml")
-  .html((d) => `<img src="flags.png" class="flag flag-${d.code}" alt="${d.country}" />`) */
-  .append("circle").attr("r", 5).attr("fill", "black").on("mouseover", tip.show).on("mouseout", tip.hide).call(d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended));
+  var node = svg.append("g").attr("class", "nodes").selectAll("text").data(nodes).enter().append("text").attr("class", "node").text(function (d) {
+    return d.code.toUpperCase();
+  }).on("mouseover", tip.show).on("mouseout", tip.hide);
 
   // Finish simulation
 
@@ -73,9 +68,9 @@ var handleData = function handleData(data) {
       return d.target.y;
     });
 
-    node.attr("cx", function (d) {
+    node.attr("x", function (d) {
       return d.x;
-    }).attr("cy", function (d) {
+    }).attr("y", function (d) {
       return d.y;
     });
   };
