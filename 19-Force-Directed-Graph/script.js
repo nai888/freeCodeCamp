@@ -10,24 +10,77 @@ var handleData = function handleData(data) {
   var links = data.links;
 
   var w = 1200;
-  var h = 400;
+  var h = 500;
   var lPadding = 60;
   var sPadding = 20;
 
+  var svg = d3.select('svg').attr("width", w).attr("height", h);
+
   // D3-tip
   var tip = d3.tip().attr("class", "d3-tip").html(function (d) {
-    return "<p>" + d.country + " (" + d.code + ")</p>";
+    return "<p>" + d.country + " (" + d.code.toUpperCase() + ")</p>";
   });
-
-  var svg = d3.select('svg').attr("width", w).attr("height", h);
 
   svg.call(tip);
 
-  // Data points
+  // Simulation
 
-  // Add these to each data point for tooltips
-  // .on("mouseover", tip.show)
-  // .on("mouseout", tip.hide);
+  var simulation = d3.forceSimulation().force("link", d3.forceLink(links).id()).force("charge", d3.forceManyBody()).force("center", d3.forceCenter(w / 2, h / 2));
+
+  var dragstarted = function dragstarted(d) {
+    if (!d3.event.active) {
+      simulation.alphaTarget(0.3).restart();
+    }
+    d.fx = d.x;
+    d.fy = d.y;
+  };
+
+  var dragged = function dragged(d) {
+    d.fx = d3.event.x;
+    d.fy = d3.event.y;
+  };
+
+  var dragended = function dragended(d) {
+    if (!d3.event.active) {
+      simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+  };
+
+  // Data points
+  var link = svg.append("g").attr("class", "links").selectAll("line").data(links).enter().append("line");
+
+  var node = svg.append("g").attr("class", "nodes").selectAll("foreignObject").data(nodes).enter()
+  /* The flags
+  .append("foreignObject")
+  .attr("width", 16)
+  .attr("height", 16)
+  .attr("requiredExtensions", "http://www.w3.org/1999/xhtml")
+  .html((d) => `<img src="flags.png" class="flag flag-${d.code}" alt="${d.country}" />`) */
+  .append("circle").attr("r", 5).attr("fill", "black").on("mouseover", tip.show).on("mouseout", tip.hide).call(d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended));
+
+  // Finish simulation
+
+  var ticked = function ticked() {
+    link.attr("x1", function (d) {
+      return d.source.x;
+    }).attr("y1", function (d) {
+      return d.source.y;
+    }).attr("x2", function (d) {
+      return d.target.x;
+    }).attr("y2", function (d) {
+      return d.target.y;
+    });
+
+    node.attr("cx", function (d) {
+      return d.x;
+    }).attr("cy", function (d) {
+      return d.y;
+    });
+  };
+
+  simulation.nodes(nodes).on("tick", ticked);
 };
 
 },{}]},{},[1]);
