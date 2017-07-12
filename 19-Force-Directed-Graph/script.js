@@ -22,7 +22,7 @@ var handleData = function handleData(data) {
 
   svg.call(tip);
 
-  var simulation = d3.forceSimulation(nodes).force("charge", d3.forceManyBody()).force("link", d3.forceLink(links)).force("center", d3.forceCenter(w / 2, h / 2));
+  var simulation = d3.forceSimulation(nodes).force("charge", d3.forceManyBody().distanceMin(5).distanceMax(75)).force("link", d3.forceLink(links)).force("center", d3.forceCenter(w / 2, h / 2));
 
   var dragstarted = function dragstarted(d) {
     if (!d3.event.active) {
@@ -45,7 +45,7 @@ var handleData = function handleData(data) {
     }
   };
 
-  var link = svg.append("g").attr("class", "links").selectAll("line").data(links).enter().append("line").attr("class", "link");
+  var link = svg.append("g").attr("class", "links").selectAll("line").data(links).enter().append("line");
 
   var node = svg.append("g").attr("class", "nodes").selectAll("text").data(nodes).enter().append("text").attr("class", "node").text(function (d) {
     return d.code.toUpperCase();
@@ -63,9 +63,9 @@ var handleData = function handleData(data) {
     });
 
     node.attr("x", function (d) {
-      return d.x;
+      return d.x = Math.max(16, Math.min(w - 16, d.x));
     }).attr("y", function (d) {
-      return d.y;
+      return d.y = Math.max(16, Math.min(h - 16, d.y));
     });
   };
 

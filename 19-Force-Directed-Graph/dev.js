@@ -20,7 +20,9 @@ const handleData = (data) => {
   svg.call(tip);
 
   const simulation = d3.forceSimulation(nodes)
-    .force("charge", d3.forceManyBody())
+    .force("charge", d3.forceManyBody()
+                      .distanceMin(5)
+                      .distanceMax(75))
     .force("link", d3.forceLink(links))
     .force("center", d3.forceCenter(w / 2, h / 2));
 
@@ -50,8 +52,7 @@ const handleData = (data) => {
     .selectAll("line")
       .data(links)
       .enter()
-      .append("line")
-        .attr("class", "link");
+      .append("line");
 
   const node = svg.append("g")
     .attr("class", "nodes")
@@ -74,8 +75,8 @@ const handleData = (data) => {
       .attr("x2", (d) => d.target.x)
       .attr("y2", (d) => d.target.y);
 
-    node.attr("x", (d) => d.x)
-      .attr("y", (d) => d.y);
+    node.attr("x", (d) => d.x = Math.max(16, Math.min(w - 16, d.x)))
+      .attr("y", (d) => d.y = Math.max(16, Math.min(h - 16, d.y)));
   };
 
   simulation.nodes(nodes)
