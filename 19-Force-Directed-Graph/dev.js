@@ -13,18 +13,15 @@ const handleData = (data) => {
     .attr("width", w)
     .attr("height", h);
 
-  // D3-tip
   const tip = d3.tip()
     .attr("class", "d3-tip")
     .html((d) => `<p>${d.country} (${(d.code).toUpperCase()})</p>`);
 
   svg.call(tip);
 
-  // Simulation
-
-  const simulation = d3.forceSimulation()
-    .force("link", d3.forceLink(links).id())
+  const simulation = d3.forceSimulation(nodes)
     .force("charge", d3.forceManyBody())
+    .force("link", d3.forceLink(links))
     .force("center", d3.forceCenter(w / 2, h / 2));
 
   const dragstarted = (d) => {
@@ -48,13 +45,13 @@ const handleData = (data) => {
     }
   };
 
-  // Data points
   const link = svg.append("g")
     .attr("class", "links")
     .selectAll("line")
       .data(links)
       .enter()
-      .append("line");
+      .append("line")
+        .attr("class", "link");
 
   const node = svg.append("g")
     .attr("class", "nodes")
@@ -65,9 +62,11 @@ const handleData = (data) => {
         .attr("class", "node")
         .text((d) => d.code.toUpperCase())
         .on("mouseover", tip.show)
-        .on("mouseout", tip.hide);
-
-  // Finish simulation
+        .on("mouseout", tip.hide)
+        .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
 
   const ticked = () => {
     link.attr("x1", (d) => d.source.x)
@@ -81,4 +80,7 @@ const handleData = (data) => {
 
   simulation.nodes(nodes)
     .on("tick", ticked);
+
+  simulation.force("link")
+    .links(links);
 };

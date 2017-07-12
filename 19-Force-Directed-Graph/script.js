@@ -16,16 +16,13 @@ var handleData = function handleData(data) {
 
   var svg = d3.select('svg').attr("width", w).attr("height", h);
 
-  // D3-tip
   var tip = d3.tip().attr("class", "d3-tip").html(function (d) {
     return "<p>" + d.country + " (" + d.code.toUpperCase() + ")</p>";
   });
 
   svg.call(tip);
 
-  // Simulation
-
-  var simulation = d3.forceSimulation().force("link", d3.forceLink(links).id()).force("charge", d3.forceManyBody()).force("center", d3.forceCenter(w / 2, h / 2));
+  var simulation = d3.forceSimulation(nodes).force("charge", d3.forceManyBody()).force("link", d3.forceLink(links)).force("center", d3.forceCenter(w / 2, h / 2));
 
   var dragstarted = function dragstarted(d) {
     if (!d3.event.active) {
@@ -48,14 +45,11 @@ var handleData = function handleData(data) {
     }
   };
 
-  // Data points
-  var link = svg.append("g").attr("class", "links").selectAll("line").data(links).enter().append("line");
+  var link = svg.append("g").attr("class", "links").selectAll("line").data(links).enter().append("line").attr("class", "link");
 
   var node = svg.append("g").attr("class", "nodes").selectAll("text").data(nodes).enter().append("text").attr("class", "node").text(function (d) {
     return d.code.toUpperCase();
-  }).on("mouseover", tip.show).on("mouseout", tip.hide);
-
-  // Finish simulation
+  }).on("mouseover", tip.show).on("mouseout", tip.hide).call(d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended));
 
   var ticked = function ticked() {
     link.attr("x1", function (d) {
@@ -76,6 +70,8 @@ var handleData = function handleData(data) {
   };
 
   simulation.nodes(nodes).on("tick", ticked);
+
+  simulation.force("link").links(links);
 };
 
 },{}]},{},[1]);
