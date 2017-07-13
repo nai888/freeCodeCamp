@@ -22,60 +22,55 @@ var handleMapData = function handleMapData(data) {
 
   map.selectAll("path").data(topojson.feature(data, data.objects.countries).features).enter().append("path").attr("class", "map-path").attr("d", path);
 };
-/*
-const handleData = (data) => {
+
+d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json", function (json) {
+  return handleMeteorData(json);
+});
+
+var handleMeteorData = function handleMeteorData(data) {
+  /*
   const nodes = data.nodes;
   const links = data.links;
-
-  const lPadding = 60;
+    const lPadding = 60;
   const sPadding = 20;
-
-  const svg = d3.select('svg')
+    const svg = d3.select('svg')
     .attr("width", w)
     .attr("height", h);
-
-  const tip = d3.tip()
+    const tip = d3.tip()
     .attr("class", "d3-tip")
     .html((d) => `<p>${d.country} (${(d.code).toUpperCase()})</p>`);
-
-  svg.call(tip);
-
-  const simulation = d3.forceSimulation(nodes)
+    svg.call(tip);
+    const simulation = d3.forceSimulation(nodes)
     .force("charge", d3.forceManyBody()
                       .distanceMin(5)
                       .distanceMax(75))
     .force("link", d3.forceLink(links))
     .force("center", d3.forceCenter(w / 2, h / 2));
-
-  const dragstarted = (d) => {
+    const dragstarted = (d) => {
     if (!d3.event.active) {
       simulation.alphaTarget(0.3).restart();
     }
     d.fx = d.x;
     d.fy = d.y;
   };
-
-  const dragged = (d) => {
+    const dragged = (d) => {
     d.fx = d3.event.x;
     d.fy = d3.event.y;
   };
-
-  const dragended = (d) => {
+    const dragended = (d) => {
     if (!d3.event.active) {
       simulation.alphaTarget(0);
       d.fx = null;
       d.fy = null;
     }
   };
-
-  const link = svg.append("g")
+    const link = svg.append("g")
     .attr("class", "links")
     .selectAll("line")
       .data(links)
       .enter()
       .append("line");
-
-  const node = svg.append("g")
+    const node = svg.append("g")
     .attr("class", "nodes")
     .selectAll("text")
       .data(nodes)
@@ -89,23 +84,19 @@ const handleData = (data) => {
           .on("start", dragstarted)
           .on("drag", dragged)
           .on("end", dragended));
-
-  const ticked = () => {
+    const ticked = () => {
     link.attr("x1", (d) => d.source.x)
       .attr("y1", (d) => d.source.y)
       .attr("x2", (d) => d.target.x)
       .attr("y2", (d) => d.target.y);
-
-    node.attr("x", (d) => d.x = Math.max(16, Math.min(w - 16, d.x)))
+      node.attr("x", (d) => d.x = Math.max(16, Math.min(w - 16, d.x)))
       .attr("y", (d) => d.y = Math.max(16, Math.min(h - 16, d.y)));
   };
-
-  simulation.nodes(nodes)
+    simulation.nodes(nodes)
     .on("tick", ticked);
-
-  simulation.force("link")
+    simulation.force("link")
     .links(links);
+  */
 };
-*/
 
 },{}]},{},[1]);

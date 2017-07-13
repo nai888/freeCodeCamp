@@ -27,8 +27,11 @@ const handleMapData = (data) => {
     .attr("class", "map-path")
     .attr("d", path);
 }
-/*
-const handleData = (data) => {
+
+d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json", (json) => handleMeteorData(json));
+
+const handleMeteorData = (data) => {
+  /*
   const nodes = data.nodes;
   const links = data.links;
 
@@ -110,5 +113,5 @@ const handleData = (data) => {
 
   simulation.force("link")
     .links(links);
+  */
 };
-*/
