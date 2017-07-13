@@ -27,7 +27,8 @@ This repository represents my school, my sandbox, my playpen. I'll be adding my 
 16. **[Visualize Data with a Bar Chart](https://nai888.github.io/freeCodeCamp/16-Bar-Chart/)** (July 9, 2017)
 17. **[Visualize Data with a Scatterplot Graph](https://nai888.github.io/freeCodeCamp/17-Scatter-Plot/)** (July 11, 2017)
 18. **[Visualize Data with a Heat Map](https://nai888.github.io/freeCodeCamp/18-Heat-Map/)** (July 11, 2017)
-19. **[Show National Contiguity with a Force Directed Graph](https://nai888.github.io/freeCodeCamp/19-Force-Directed-Graph/)**
+19. **[Show National Contiguity with a Force Directed Graph](https://nai888.github.io/freeCodeCamp/19-Force-Directed-Graph/)** (July 12, 2017)
+20. **[Map Data Across the Globe](https://nai888.github.io/freeCodeCamp/20-Map-Visualization/)** (July 12, 2017)
 
 ### License
 
