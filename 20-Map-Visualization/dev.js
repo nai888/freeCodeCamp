@@ -1,7 +1,7 @@
 // Map
 d3.json("https://unpkg.com/world-atlas@1.1.4/world/50m.json", (json) => handleMapData(json));
 
-const w = 1150;
+const w = 960;
 const h = 500;
 
 const handleMapData = (data) => {
@@ -16,7 +16,9 @@ const handleMapData = (data) => {
 
   const map = svg.append("g");
 
-  const path = d3.geoPath();
+  const projection = d3.geoNaturalEarth2();
+
+  const path = d3.geoPath(projection);
 
   map.selectAll("path")
     .data(topojson.feature(data, data.objects.countries).features)

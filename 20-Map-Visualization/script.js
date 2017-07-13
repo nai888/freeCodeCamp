@@ -6,7 +6,7 @@ d3.json("https://unpkg.com/world-atlas@1.1.4/world/50m.json", function (json) {
   return handleMapData(json);
 });
 
-var w = 1150;
+var w = 960;
 var h = 500;
 
 var handleMapData = function handleMapData(data) {
@@ -16,7 +16,9 @@ var handleMapData = function handleMapData(data) {
 
   var map = svg.append("g");
 
-  var path = d3.geoPath();
+  var projection = d3.geoNaturalEarth2();
+
+  var path = d3.geoPath(projection);
 
   map.selectAll("path").data(topojson.feature(data, data.objects.countries).features).enter().append("path").attr("fill", "#0b510f").attr("stroke", "#063293").attr("d", path);
 };
