@@ -1,0 +1,86 @@
+$font: 'Roboto Condensed', sans-serif
+
+$blu-pmy: hsla(238, 100%, 50%, 1)
+$grn-pmy: hsla(112, 100%, 50%, 1)
+
+// Colors based on https://tallys.github.io/color-theory/ //
+
+@function is-cool-color($color)
+  @return hue($color) < 300 and hue($color) > 120
+
+@function is-high-key-value($color)
+  @return hue($color) > 30 and hue($color) < 140
+
+@function is-high-key-value($color)
+  @return hue($color) > 50 and hue($color) < 105
+
+@function harmonious-mix($mix, $base)
+  @if is-cool-color($mix)
+    @if is-high-key-value($base)
+      @return mix($mix, $base, 11%)
+    @else
+      @return mix($mix, $base, 16%)
+  @else
+    @if is-high-key-value($base)
+      @return mix($mix, $base, 13%)
+    @else
+      @return mix($mix, $base, 23%)
+
+@function mix-neutral($color)
+  @if is-highest-key-value($color)
+    @if is-high-key-value(complement($color))
+      @return mix(complement($color), $color, 19%)
+    @else
+      @return mix(complement($color), $color, 13%)
+  @else if is-high-key-value($color)
+    @if is-high-key-value(complement($color))
+      @return mix(complement($color), $color, 31%)
+    @else
+      @return mix(complement($color), $color, 23%)
+  @else
+    @if is-highest-key-value(complement($color))
+      @return mix(complement($color), $color, 31%)
+    @if is-high-key-value(complement($color))
+      @return mix(complement($color), $color, 26%)
+    @else
+      @return mix(complement($color), $color, 23%)
+
+$blu: harmonious-mix($grn-pmy, $blu-pmy)
+$grn: harmonious-mix($blu-pmy, $grn-pmy)
+
+body
+  font-family: $font
+  text-align: center
+
+#page
+  background-color: white
+  width: 1200px
+  margin: 0 auto
+  box-shadow: 2px 2px 20px darken($blu, 30%)
+
+header
+  margin-top: 20px
+  padding-top: 10px
+
+footer
+  padding-bottom: 10px
+
+h1
+  margin-top: 10px
+  color: darken($blu, 15%)
+
+a, a:link, a:hover, a:active, a:visited
+  color: $blu
+
+svg
+  font-family: $font
+
+.d3-tip
+  padding: 12px
+  background: rgba(0, 0, 0, 0.8)
+  color: white
+  border-radius: 6px
+  text-align: left
+  p
+    margin: 0
+    padding: 0

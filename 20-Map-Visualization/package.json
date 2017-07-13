@@ -1,0 +1,31 @@
+{
+  "name": "20-map-visualization",
+  "version": "1.0.0",
+  "description": "Map data across the globe",
+  "main": "index.html",
+  "scripts": {
+    "build": "browserify dev.js -o script.js -t [ babelify ]",
+    "watch": "watchify dev.js -o script.js -t [ babelify ]",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nai888/freeCodeCamp/tree/master/20-Map-Visualization"
+  },
+  "keywords": [
+    "map",
+    "visualization",
+    "data",
+    "d3"
+  ],
+  "author": "Ian A. Cook",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-preset-env": "^1.6.0",
+    "babelify": "^7.3.0",
+    "browserify": "^14.4.0",
+    "watchify": "^3.9.0"
+  }
+}
