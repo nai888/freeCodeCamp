@@ -1,10 +1,8 @@
-// Map
-d3.json("https://unpkg.com/world-atlas@1.1.4/world/50m.json", (json) => handleMapData(json));
+document.addEventListener("DOMContentLoaded", function (event) {
+  // Map constants
+  const w = 937.28;
+  const h = 500;
 
-const w = 960;
-const h = 500;
-
-const handleMapData = (data) => {
   const svg = d3.select("svg")
     .attr("width", w)
     .attr("height", h);
@@ -14,104 +12,32 @@ const handleMapData = (data) => {
     .attr("width", w)
     .attr("height", h);
 
-  const map = svg.append("g");
-
   const projection = d3.geoNaturalEarth2();
 
-  const path = d3.geoPath(projection);
+  // World map
+  d3.json("https://unpkg.com/world-atlas@1.1.4/world/50m.json", (json) => handleMapData(json));
 
-  map.selectAll("path")
-    .data(topojson.feature(data, data.objects.countries).features)
-    .enter()
-    .append("path")
-    .attr("class", "map-path")
-    .attr("d", path);
-}
+  const handleMapData = (data) => {
+    const map = svg.append("g")
+      .attr("class", "map");
 
-d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json", (json) => handleMeteorData(json));
+    const dataObject = topojson.feature(data, data.objects.countries);
 
-const handleMeteorData = (data) => {
-  /*
-  const nodes = data.nodes;
-  const links = data.links;
+    const path = d3.geoPath(projection.fitSize([w, h], dataObject));
 
-  const lPadding = 60;
-  const sPadding = 20;
-
-  const svg = d3.select('svg')
-    .attr("width", w)
-    .attr("height", h);
-
-  const tip = d3.tip()
-    .attr("class", "d3-tip")
-    .html((d) => `<p>${d.country} (${(d.code).toUpperCase()})</p>`);
-
-  svg.call(tip);
-
-  const simulation = d3.forceSimulation(nodes)
-    .force("charge", d3.forceManyBody()
-                      .distanceMin(5)
-                      .distanceMax(75))
-    .force("link", d3.forceLink(links))
-    .force("center", d3.forceCenter(w / 2, h / 2));
-
-  const dragstarted = (d) => {
-    if (!d3.event.active) {
-      simulation.alphaTarget(0.3).restart();
-    }
-    d.fx = d.x;
-    d.fy = d.y;
-  };
-
-  const dragged = (d) => {
-    d.fx = d3.event.x;
-    d.fy = d3.event.y;
-  };
-
-  const dragended = (d) => {
-    if (!d3.event.active) {
-      simulation.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
-    }
-  };
-
-  const link = svg.append("g")
-    .attr("class", "links")
-    .selectAll("line")
-      .data(links)
+    map.selectAll("path")
+      .data(dataObject.features)
       .enter()
-      .append("line");
-
-  const node = svg.append("g")
-    .attr("class", "nodes")
-    .selectAll("text")
-      .data(nodes)
-      .enter()
-      .append("text")
-        .attr("class", "node")
-        .text((d) => d.code.toUpperCase())
-        .on("mouseover", tip.show)
-        .on("mouseout", tip.hide)
-        .call(d3.drag()
-          .on("start", dragstarted)
-          .on("drag", dragged)
-          .on("end", dragended));
-
-  const ticked = () => {
-    link.attr("x1", (d) => d.source.x)
-      .attr("y1", (d) => d.source.y)
-      .attr("x2", (d) => d.target.x)
-      .attr("y2", (d) => d.target.y);
-
-    node.attr("x", (d) => d.x = Math.max(16, Math.min(w - 16, d.x)))
-      .attr("y", (d) => d.y = Math.max(16, Math.min(h - 16, d.y)));
+      .append("path")
+      .attr("class", "map-path")
+      .attr("d", path);
   };
 
-  simulation.nodes(nodes)
-    .on("tick", ticked);
+  // Meteorite data
+  d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json", (json) => handleMeteorData(json));
 
-  simulation.force("link")
-    .links(links);
-  */
-};
+  const handleMeteorData = (data) => {
+    const meteors = svg.append("g")
+      .attr("class", "meteors");
+  };
+});
