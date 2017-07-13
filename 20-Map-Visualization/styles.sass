@@ -46,6 +46,7 @@ $grn-pmy: hsla(112, 100%, 50%, 1)
       @return mix(complement($color), $color, 23%)
 
 $blu: harmonious-mix($grn-pmy, $blu-pmy)
+$blu-ntl: mix-neutral($blu)
 $grn: harmonious-mix($blu-pmy, $grn-pmy)
 
 body
@@ -74,6 +75,13 @@ a, a:link, a:hover, a:active, a:visited
 
 svg
   font-family: $font
+
+.map-bkg
+  fill: lighten($blu-ntl, 28%)
+
+.map-path
+  fill: darken($grn, 28%)
+  stroke: lighten($blu-ntl, 28%)
 
 .d3-tip
   padding: 12px

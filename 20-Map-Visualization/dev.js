@@ -10,9 +10,9 @@ const handleMapData = (data) => {
     .attr("height", h);
 
   svg.append("rect")
+    .attr("class", "map-bkg")
     .attr("width", w)
-    .attr("height", h)
-    .attr("fill", "#063293");
+    .attr("height", h);
 
   const map = svg.append("g");
 
@@ -24,8 +24,7 @@ const handleMapData = (data) => {
     .data(topojson.feature(data, data.objects.countries).features)
     .enter()
     .append("path")
-    .attr("fill", "#0b510f")
-    .attr("stroke", "#063293")
+    .attr("class", "map-path")
     .attr("d", path);
 }
 /*

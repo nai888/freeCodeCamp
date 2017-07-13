@@ -12,7 +12,7 @@ var h = 500;
 var handleMapData = function handleMapData(data) {
   var svg = d3.select("svg").attr("width", w).attr("height", h);
 
-  svg.append("rect").attr("width", w).attr("height", h).attr("fill", "#063293");
+  svg.append("rect").attr("class", "map-bkg").attr("width", w).attr("height", h);
 
   var map = svg.append("g");
 
@@ -20,7 +20,7 @@ var handleMapData = function handleMapData(data) {
 
   var path = d3.geoPath(projection);
 
-  map.selectAll("path").data(topojson.feature(data, data.objects.countries).features).enter().append("path").attr("fill", "#0b510f").attr("stroke", "#063293").attr("d", path);
+  map.selectAll("path").data(topojson.feature(data, data.objects.countries).features).enter().append("path").attr("class", "map-path").attr("d", path);
 };
 /*
 const handleData = (data) => {
