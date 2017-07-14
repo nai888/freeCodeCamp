@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   const tip = d3.tip()
     .attr("class", "d3-tip")
     .html((d) => `<p class="meteor-name"><strong>${d.properties.name}</strong></p>
-      <p>Mass: ${d.properties.mass}</p>
+      <p>Mass: ${d3.format(",")(d.properties.mass)}</p>
       <p>${d.properties.fall} on ${d3.timeFormat("%a, %b %e, %Y")(new Date(d.properties.year))}</p>`);
 
   svg.call(tip);
@@ -54,9 +54,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const maxMass = d3.max(dataset, (d) => +d.properties.mass);
 
     const massScale = d3.scalePow()
-      .exponent(0.3)  
+      .exponent(0.4)
       .domain([minMass, maxMass])
-      .range([2, 20]);
+      .range([2, 30]);
 
     meteorites.selectAll("circle")
       .data(dataset)

@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   var projection = d3.geoNaturalEarth2();
 
   var tip = d3.tip().attr("class", "d3-tip").html(function (d) {
-    return "<p class=\"meteor-name\"><strong>" + d.properties.name + "</strong></p>\n      <p>Mass: " + d.properties.mass + "</p>\n      <p>" + d.properties.fall + " on " + d3.timeFormat("%a, %b %e, %Y")(new Date(d.properties.year)) + "</p>";
+    return "<p class=\"meteor-name\"><strong>" + d.properties.name + "</strong></p>\n      <p>Mass: " + d3.format(",")(d.properties.mass) + "</p>\n      <p>" + d.properties.fall + " on " + d3.timeFormat("%a, %b %e, %Y")(new Date(d.properties.year)) + "</p>";
   });
 
   svg.call(tip);
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       return +d.properties.mass;
     });
 
-    var massScale = d3.scalePow().exponent(0.3).domain([minMass, maxMass]).range([2, 20]);
+    var massScale = d3.scalePow().exponent(0.4).domain([minMass, maxMass]).range([2, 30]);
 
     meteorites.selectAll("circle").data(dataset).enter().append("circle").attr("class", "meteorite").attr("cx", function (d) {
       return d.geometry !== null ? projection(d.geometry.coordinates)[0] : -50;
