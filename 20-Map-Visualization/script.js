@@ -12,6 +12,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   var projection = d3.geoNaturalEarth2();
 
+  var tip = d3.tip().attr("class", "d3-tip").html(function (d) {
+    return "<p class=\"meteor-name\"><strong>" + d.properties.name + "</strong></p>\n      <p>Mass: " + d.properties.mass + "</p>\n      <p>" + d.properties.fall + " on " + d3.timeFormat("%a, %b %e, %Y")(new Date(d.properties.year)) + "</p>";
+  });
+
+  svg.call(tip);
+
   // World map
   d3.json("https://unpkg.com/world-atlas@1.1.4/world/50m.json", function (json) {
     return handleMapData(json);
@@ -25,15 +31,34 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var path = d3.geoPath(projection.fitSize([w, h], dataObject));
 
     map.selectAll("path").data(dataObject.features).enter().append("path").attr("class", "map-path").attr("d", path);
+
+    // Meteorite data
+    d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json", function (json) {
+      return handleMeteoriteData(json);
+    });
   };
 
-  // Meteorite data
-  d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json", function (json) {
-    return handleMeteorData(json);
-  });
+  var handleMeteoriteData = function handleMeteoriteData(data) {
+    var dataset = data.features;
 
-  var handleMeteorData = function handleMeteorData(data) {
-    var meteors = svg.append("g").attr("class", "meteors");
+    var meteorites = svg.append("g").attr("class", "meteorites");
+
+    var minMass = d3.min(dataset, function (d) {
+      return +d.properties.mass;
+    });
+    var maxMass = d3.max(dataset, function (d) {
+      return +d.properties.mass;
+    });
+
+    var massScale = d3.scalePow().exponent(0.3).domain([minMass, maxMass]).range([2, 20]);
+
+    meteorites.selectAll("circle").data(dataset).enter().append("circle").attr("class", "meteorite").attr("cx", function (d) {
+      return d.geometry !== null ? projection(d.geometry.coordinates)[0] : -50;
+    }).attr("cy", function (d) {
+      return d.geometry !== null ? projection(d.geometry.coordinates)[1] : -50;
+    }).attr("r", function (d) {
+      return massScale(d.properties.mass);
+    }).on("mouseover", tip.show).on("mouseout", tip.hide);
   };
 });
 
