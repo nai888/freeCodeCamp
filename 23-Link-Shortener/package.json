@@ -1,0 +1,27 @@
+{
+  "name": "fcc-linkshortener",
+  "version": "1.0.0",
+  "description": "A URL Shortener Microservice",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nai888/fcc-linkshortener.git"
+  },
+  "author": "Ian A. Cook",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/nai888/fcc-linkshortener/issues"
+  },
+  "homepage": "https://github.com/nai888/fcc-linkshortener#readme",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "is.uri": "^1.0.0",
+    "mongodb": "^2.2.30",
+    "normalize-port": "^1.0.0"
+  }
+}

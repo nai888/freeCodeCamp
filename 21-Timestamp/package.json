@@ -1,0 +1,23 @@
+{
+	"name": "fcc-timestamp",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"start": "node server.js"
+	},
+	"dependencies": {
+		"express": "^4.15.3",
+		"moment": "^2.18.1",
+		"normalize-port": "^1.0.0"
+	},
+	"main": "server.js",
+	"engines": {
+		"node": "4.4.5"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nai888/fcc-timestamp"
+	},
+	"author": "Ian A. Cook",
+	"license": "AGPL-3.0"
+}

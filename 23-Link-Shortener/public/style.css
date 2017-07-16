@@ -1,0 +1,25 @@
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	color: #222;
+	background-color: #ECF0F1;
+	text-align: center;
+}
+
+a,
+a:link,
+a:hover,
+a:active,
+a:visited {
+	color: #2574A9;
+}
+
+.code,
+.code a,
+.code a:link,
+.code a:hover,
+.code a:active,
+.code a:visited {
+  color: #c7254e;
+  background-color: #f9f2f4;
+}
