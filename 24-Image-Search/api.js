@@ -1,28 +1,48 @@
 'use strict'
 
-var isUri = require('is.uri')
+var http = require('https')
+require('dotenv').config()
 
 module.exports = function (app, db, collection) {
   app.get('/search/:query', handleQuery)
   app.get('/latest', handleLatest)
 
   function handleQuery (req, res) {
-    var inputURL = req.params.url
-    if (inputURL === 'http:') {
-      res.json({
-        'error': 'please exclude http:// from your URL'
-      })
-    } else if (inputURL === 'https:') {
-      res.json({
-        'error': 'please exclude https:// from your URL'
-      })
-    } else if (!isUri('https://' + inputURL)) {
-      res.json({
-        'error': 'invalid URL provided'
-      })
-    } else {
-      newURL(inputURL, res)
+    var query = req.params.query
+    var offset = Number(req.query.offset) // Captures the # in ?offset=#
+    if (isNaN(offset)) {
+      offset = undefined
     }
+
+    var apiPath = offset
+      ? '/3/gallery/search/top/week/' + offset + '?q=' + query
+      : '/3/gallery/search/top/week?q=' + query
+
+    var apiOptions = {
+      'method': 'GET',
+      'hostname': 'api.imgur.com',
+      'port': null,
+      'path': apiPath,
+      'headers': {
+        'authorization': 'Client-ID ' + process.env.clientid
+      }
+    }
+
+    var request = http.request(apiOptions, function (resp) {
+      var chunks = []
+
+      resp.on('data', function (chunk) {
+        chunks.push(chunk)
+      })
+
+      resp.on('end', function () {
+        var body = Buffer.concat(chunks)
+        var data = body.data
+        res.json(data)
+      })
+    })
+
+    request.end()
   }
 
   function newURL (url, res) {
