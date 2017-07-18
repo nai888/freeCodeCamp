@@ -14,9 +14,7 @@ module.exports = function (app, db, collection) {
       offset = undefined
     }
 
-    var apiPath = offset
-      ? '/3/gallery/search/top/week/' + offset + '?q=' + query
-      : '/3/gallery/search/top/week?q=' + query
+    var apiPath = '/3/gallery/search/top/week?q=' + query
 
     var apiOptions = {
       'method': 'GET',
@@ -36,9 +34,13 @@ module.exports = function (app, db, collection) {
       })
 
       resp.on('end', function () {
-        var body = Buffer.concat(chunks)
-        var data = body.data
-        res.json(data)
+        var buf = JSON.parse(Buffer.concat(chunks).toString('utf8'))
+        var data = buf.data
+        if (offset) {
+          var start = offset > 0 ? (offset - 1) * 10 : 0
+        }
+        var page = data.slice(start, start + 10)
+        res.json(page)
       })
     })
 
