@@ -9,12 +9,13 @@ module.exports = function (app, db, collection) {
 
   function handleQuery (req, res) {
     var query = req.params.query
+    console.log(query)
     var offset = Number(req.query.offset) // Captures the # in ?offset=#
     if (isNaN(offset)) {
       offset = undefined
     }
 
-    var apiPath = '/3/gallery/search/top/week?q=' + query
+    var apiPath = '/3/gallery/search/top?q=' + encodeURIComponent(query)
 
     var apiOptions = {
       'method': 'GET',
@@ -35,11 +36,8 @@ module.exports = function (app, db, collection) {
 
       resp.on('end', function () {
         var buf = JSON.parse(Buffer.concat(chunks).toString('utf8'))
-        var data = buf.data
-        if (offset) {
-          var start = offset > 0 ? (offset - 1) * 10 : 0
-        }
-        var page = data.slice(start, start + 10)
+        var start = offset > 0 ? (offset - 1) * 5 : 0
+        var page = buf.data.slice(start, start + 5)
         res.json(page)
       })
     })
