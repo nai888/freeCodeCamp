@@ -4,12 +4,12 @@ var http = require('https')
 require('dotenv').config()
 
 module.exports = function (app, db, collection) {
+  var searches = db.collection(collection)
+
   app.get('/search/:query', handleQuery)
-  app.get('/latest', handleLatest)
 
   function handleQuery (req, res) {
     var query = req.params.query
-    console.log(query)
     var offset = Number(req.query.offset) // Captures the # in ?offset=#
     if (isNaN(offset)) {
       offset = undefined
@@ -42,67 +42,29 @@ module.exports = function (app, db, collection) {
       })
     })
 
+    var now = new Date()
+
+    var date = now.getMonth() + 1 + '/' + now.getDate() + '/' + now.getFullYear() + ' ' + now.getHours() + ':' + now.getMinutes()
+
+    var insert = {
+      'term': query,
+      'offset': offset,
+      'when': date
+    }
+
+    searches.insert(insert, function (err) {
+      if (err) console.log(err)
+    })
+
     request.end()
   }
 
-  function newURL (url, res) {
-    var links = db.collection(collection)
-    links.findOne({ 'fullUrl': url }, function (err, doc) {
-      if (err) {
-        res.json({
-          'error': err
-        })
-      } else {
-        if (doc) {
-          res.json({
-            'fullUrl': doc.fullUrl,
-            'id': doc.id
-          })
-        } else {
-          links.find().count().then(function (count) {
-            var insert = {
-              'fullUrl': url,
-              'id': (count)
-            }
-            links.insert(insert, function (err, result) {
-              if (err) {
-                res.json({
-                  'error': err
-                })
-              } else {
-                res.json({
-                  'fullUrl': insert.fullUrl,
-                  'id': insert.id
-                })
-              }
-            })
-          })
-        }
-      }
-    })
-  }
+  app.get('/latest', handleLatest)
 
   function handleLatest (req, res) {
-    var inputid = req.params.id
-    routeURL(+inputid, res)
-  }
-
-  function routeURL (id, res) {
-    var links = db.collection(collection)
-    links.findOne({
-      'id': id
-    }, function (err, doc) {
-      if (err) {
-        res.json({
-          'error': err
-        })
-      } else if (doc) {
-        res.redirect('https://' + doc.fullUrl)
-      } else {
-        res.json({
-          'error': 'shortened URL does not exist'
-        })
-      }
+    searches.find().sort({ '_id': -1 }, function (response) {
+      var resp = response.slice(0, 10)
+      res.json(resp)
     })
   }
 }
