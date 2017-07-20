@@ -1,15 +1,12 @@
 'use strict'
 
-require('dotenv').config()
 var express = require('express')
 var path = require('path')
 var http = require('http')
 var normalizePort = require('normalize-port')
-var MongoClient = require('mongodb').MongoClient
-
-var api = require('./api')
-
-var dbURI = 'mongodb://' + process.env.dbuser + ':' + process.env.dbpassword + '@' + process.env.dburl + ':' + process.env.dbport + '/' + process.env.dbname
+var multer = require('multer')
+var storage = multer.memoryStorage()
+var upload = multer({ storage: storage })
 
 // Create app
 var app = express()
@@ -35,15 +32,9 @@ function onListening () {
 }
 
 // Serve homepage
-app.use('/', express.static(path.join(__dirname, 'public')))
+app.use('/', express.static(path.join(__dirname)))
 
-// Handle api
-MongoClient.connect(dbURI, function (err, db) {
-  if (err) {
-    console.log(err)
-  } else {
-    var collection = (process.env.collection).toString()
-    db.createCollection(collection)
-    api(app, db, collection)
-  }
+// Handle upload
+app.post('/', upload.single('file'), function (req, res) {
+  res.send('File is ' + req.file.size + ' bytes')
 })
