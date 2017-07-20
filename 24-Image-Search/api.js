@@ -62,9 +62,12 @@ module.exports = function (app, db, collection) {
   app.get('/latest', handleLatest)
 
   function handleLatest (req, res) {
-    searches.find().sort({ '_id': -1 }, function (response) {
-      var resp = response.slice(0, 10)
-      res.json(resp)
+    searches.find({}, { '_id': 0 }).sort({ '_id': -1 }).limit(10).toArray(function (err, docs) {
+      if (err) {
+        console.log(err)
+      } else {
+        res.json(docs)
+      }
     })
   }
 }
