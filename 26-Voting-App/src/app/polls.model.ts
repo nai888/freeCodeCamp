@@ -1,6 +1,6 @@
 'use strict'
 
-export type Answer = {
+type Answer = {
   id: number,
   answer: string,
   votes: number
