@@ -2,23 +2,39 @@ import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 
-import { RoutesModule } from './routes.module'
 import { AppComponent } from './app.component'
-import { NavComponent } from './nav.component'
 import { DashboardComponent } from './dashboard.component'
+import { LogInComponent } from './log-in.component'
+import { NavComponent } from './nav.component'
+import { NewPollComponent } from './new-poll.component'
+import { ProfileComponent } from './profile.component'
+import { PollComponent } from './poll.component'
+import { AuthService } from './auth.service'
+import { LoggedInGuard, LoggedOutGuard } from './routes.guard'
+import { Polls } from './polls.mock'
+import { RoutesModule } from './routes.module'
 
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardComponent,
+    LogInComponent,
     NavComponent,
-    DashboardComponent
+    NewPollComponent,
+    ProfileComponent,
+    PollComponent
   ],
   imports: [
     BrowserModule,
     RoutesModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    LoggedInGuard,
+    LoggedOutGuard,
+    Polls
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
