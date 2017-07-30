@@ -31,3 +31,7 @@ li {
 
 .name {
   font-weight: bold; }
+
+.log-out {
+  color: #295a89;
+  cursor: pointer; }

@@ -1,5 +1,5 @@
 <nav class="menu">
-  <p class="menu-greeting" *ngIf="loggedIn">Welcome, <a class="name" routerLink="/profile" routerLinkActive="active">{{name}}</a>! <small><a routerLink="/logout" routerLinkActive="active">(log out)</a></small></p>
+  <p class="menu-greeting" *ngIf="loggedIn">Welcome, <a class="name" routerLink="/profile" routerLinkActive="active">{{displayName}}</a>! <small><span class="log-out" (click)="logOut()">(log out)</span></small></p>
   <p class="menu-greeting" *ngIf="!loggedIn">Welcome! Please <a routerLink="/login" routerLinkActive="active">log in</a>.</p>
   <ul class="menu-ul">
     <li class="menu-li"><a routerLink="/" routerLinkActive="active">Dashboard</a></li>
