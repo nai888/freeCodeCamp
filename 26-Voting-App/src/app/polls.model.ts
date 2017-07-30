@@ -1,5 +1,3 @@
-'use strict'
-
 type Answer = {
   id: number,
   answer: string,
@@ -10,5 +8,6 @@ export type Poll = {
   id: number,
   question: string,
   answers: Answer[],
+  editable: boolean,
   owner: string
 }

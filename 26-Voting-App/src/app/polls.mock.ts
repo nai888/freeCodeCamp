@@ -7,26 +7,19 @@ export class Polls {
   polls: Poll[] = [
     {
       id: 0,
-      question: 'How old are you?',
+      question: 'Are you a minor?',
       answers: [
         {
           id: 0,
-          answer: '<18',
+          answer: 'I am younger than 18 years old',
           votes: 0
         }, {
           id: 1,
-          answer: '18-24',
-          votes: 0
-        }, {
-          id: 2,
-          answer: '25-34',
-          votes: 0
-        }, {
-          id: 3,
-          answer: '>35',
+          answer: 'I am 18 years old or older',
           votes: 0
         }
       ],
+      editable: false,
       owner: 'nai888'
     }, {
       id: 1,
@@ -58,6 +51,7 @@ export class Polls {
           votes: 0
         }
       ],
+      editable: true,
       owner: 'nai888'
     }
   ]

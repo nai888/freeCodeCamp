@@ -1,40 +1,47 @@
-import { Component, OnDestroy } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router } from '@angular/router'
 import { Subscription } from 'rxjs/Subscription'
 
 import { AuthService } from './auth.service'
-import { Polls } from './polls.mock'
+import { Poll } from './polls.model'
 
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnDestroy {
-  private _loggedInSubsc: Subscription
+export class DashboardComponent implements OnInit, OnDestroy {
+  private loggedInSubsc: Subscription
   loggedIn: boolean
 
   constructor(
-    private _authService: AuthService,
-    private _router: Router,
-    private _pollsList: Polls
-  ) {
-    this._loggedInSubsc = this._authService.isLoggedIn().subscribe(loggedIn => this.loggedIn = loggedIn)
+    private authService: AuthService,
+    private router: Router
+  ) { }
+
+  polls: Poll[]
+  numberPolls: number
+
+  ngOnInit(): void {
+    this.loggedInSubsc = this.authService.isLoggedIn().subscribe(loggedIn => this.loggedIn = loggedIn)
+
+    this.authService.getPolls().subscribe(polls => {
+      this.polls = polls
+      this.numberPolls = polls.length
+    })
   }
 
-  polls = this._pollsList.polls
-  numberPolls = this.polls.length
-
   routeNewPoll: () => void = () => {
-    this._router.navigate(['/newpoll'])
+    this.router.navigate(['/newpoll'])
   }
 
   routeRandomPoll: () => void = () => {
     const rand = Math.floor(Math.random() * this.numberPolls)
-    this._router.navigate([`/polls/${rand}`])
+    this.router.navigate([`/polls/${rand}`])
   }
 
   ngOnDestroy() {
-    this._loggedInSubsc.unsubscribe()
+    this.loggedInSubsc.unsubscribe()
+    
   }
 }

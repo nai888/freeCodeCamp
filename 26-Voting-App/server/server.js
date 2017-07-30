@@ -6,7 +6,7 @@ var passport = require('passport')
 var path = require('path')
 var http = require('http')
 var normalizePort = require('normalize-port')
-require('dotenv').load()
+require('dotenv').config()
 
 var api = require('./api')
 
