@@ -3,8 +3,6 @@ import { Observable, BehaviorSubject } from 'rxjs'
 import { Passport } from 'passport'
 import { Strategy } from 'passport-github'
 
-import User from './users.model'
-
 @Injectable()
 export class AuthService {
   private _gitHubAuth = {
