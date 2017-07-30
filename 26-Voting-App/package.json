@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "license": "AGPL-3.0",
   "author": "Ian A. Cook",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nai888/freeCodeCamp/tree/master/26-Voting-App"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "server": "node server/server.js"
   },
   "private": true,
   "dependencies": {

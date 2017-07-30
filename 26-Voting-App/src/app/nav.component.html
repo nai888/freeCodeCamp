@@ -1,0 +1,9 @@
+<nav class="menu">
+  <p class="menu-greeting" *ngIf="loggedIn">Welcome, <span class="name">{{name}}</span>! <small><a routerLink="/logout">(log out)</a></small></p>
+  <p class="menu-greeting" *ngIf="!loggedIn">Welcome! Please log in.</p>
+  <ul class="menu-ul">
+    <li class="menu-li"><a routerLink="/" routerLinkActive="active">Dashboard</a></li>
+    <li class="menu-li" *ngIf="loggedIn"><a routerLink="/newpoll" routerLinkActive="active">New Poll</a></li>
+    <li class="menu-li" *ngIf="!loggedIn"><a routerLink="/login" routerLinkActive="active">Log In</a></li>
+  </ul>
+</nav>

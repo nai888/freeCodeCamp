@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+*,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: 'Cabin', sans-serif;
+}
+
+header,
+main,
+footer {
+  width: 900px;
+  margin: 0 auto;
+}

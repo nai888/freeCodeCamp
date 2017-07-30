@@ -1,0 +1,8 @@
+<div class="dashboard" *ngIf="loggedIn">
+  <h2>Dashboard</h2>
+  <p>You may create a new poll or vote on others&rsquo; polls.</p>
+</div>
+<div class="dashboard" *ngIf="!loggedIn">
+  <p>To create a new poll, you will need to log in.</p>
+  <p>You may vote on others&rsquo; polls without logging in.</p>
+</div>
