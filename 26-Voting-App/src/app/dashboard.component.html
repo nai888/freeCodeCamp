@@ -1,8 +1,14 @@
 <div class="dashboard" *ngIf="loggedIn">
   <h2>Dashboard</h2>
-  <p>You may create a new poll or vote on others&rsquo; polls.</p>
+  <button class="btn" (click)="routeNewPoll()">New Poll</button>
+  <button class="btn" (click)="routeRandomPoll()">Random Poll</button>
+  <h3>Your Polls</h3>
+  <ul *ngIf="numberPolls">
+    <li *ngFor="let poll of polls"><a [routerLink]="'polls/' + poll.id">{{poll.question}}</a></li>
+  </ul>
 </div>
 <div class="dashboard" *ngIf="!loggedIn">
   <p>To create a new poll, you will need to <a routerLink="/login">log in</a>.</p>
-  <p>You may vote on others&rsquo; polls without logging in, but you will need the direct link to access them.</p>
+  <p>You may vote on others&rsquo; polls without logging in.</p>
+  <button class="btn" (click)="routeRandomPoll()">Random Poll</button>
 </div>
