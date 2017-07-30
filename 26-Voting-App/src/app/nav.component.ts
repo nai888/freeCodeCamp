@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, ParamMap } from '@angular/router'
 import { Location } from '@angular/common'
 
+import { loggedIn } from './authentication.service'
+
 @Component({
   selector: 'nav-comp',
   templateUrl: './nav.component.html',
@@ -13,6 +15,6 @@ export class NavComponent {
     private route: ActivatedRoute,
     private location: Location
   ) { }
-  loggedIn = false
+  loggedIn = loggedIn
   name = "Ian A. Cook"
 }

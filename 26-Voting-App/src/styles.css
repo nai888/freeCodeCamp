@@ -7,12 +7,18 @@ h4,
 h5,
 h6,
 p {
-  font-family: 'Cabin', sans-serif;
-}
+  font-family: "Cabin", sans-serif; }
 
 header,
 main,
 footer {
   width: 900px;
-  margin: 0 auto;
-}
+  margin: 0 auto; }
+
+a,
+a:link,
+a:hover,
+a:active,
+a:visited {
+  color: #295a89;
+  text-decoration: none; }

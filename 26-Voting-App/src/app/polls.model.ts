@@ -2,12 +2,13 @@
 
 export type Answer = {
   id: number,
-  text: string,
+  answer: string,
   votes: number
 }
 
 export type Poll = {
-  name: string,
+  id: number,
   question: string,
-  answers: Array<Answer>
+  answers: Answer[],
+  owner: string
 }
