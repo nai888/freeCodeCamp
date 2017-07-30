@@ -147,7 +147,7 @@ var AppModule = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs__ = __webpack_require__("../../../../rxjs/Rx.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthService; });
@@ -161,6 +161,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var AuthService = (function () {
     function AuthService() {
+        this._gitHubAuth = {
+            clientID: process.env.gitHubID,
+            clientSecret: process.env.gitHubSecret,
+            callbackURL: process.env.appURL + "/auth/github/callback"
+        };
         this._loggedIn = new __WEBPACK_IMPORTED_MODULE_1_rxjs__["BehaviorSubject"](false);
         this._id = new __WEBPACK_IMPORTED_MODULE_1_rxjs__["BehaviorSubject"](null);
         this._username = new __WEBPACK_IMPORTED_MODULE_1_rxjs__["BehaviorSubject"](null);
@@ -198,6 +203,7 @@ var AuthService = (function () {
 }());
 
 //# sourceMappingURL=auth.service.js.map
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("../../../../process/browser.js")))
 
 /***/ }),
 
@@ -305,7 +311,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/log-in.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <p>This is where we&rsquo;ll log in.</p>\r\n</div>\r\n"
+module.exports = "<h2>Log In</h2>\r\n\r\n"
 
 /***/ }),
 
