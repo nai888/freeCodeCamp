@@ -1,7 +1,7 @@
 'use strict'
 
 var GitHubStrategy = require('passport-github').Strategy
-var User = require('../models/users')
+var User = require('../users.model')
 var configAuth = require('./auth')
 
 module.exports = function (passport) {
