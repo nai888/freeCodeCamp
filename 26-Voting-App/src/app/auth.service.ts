@@ -3,10 +3,15 @@ import { Observable, BehaviorSubject } from 'rxjs'
 
 @Injectable()
 export class AuthService {
-  _loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false)
-  _id: BehaviorSubject<string> = new BehaviorSubject(null)
-  _username: BehaviorSubject<string> = new BehaviorSubject(null)
-  _displayName: BehaviorSubject<string> = new BehaviorSubject(null)
+  private _gitHubAuth = {
+    clientID: process.env.gitHubID,
+    clientSecret: process.env.gitHubSecret,
+    callbackURL: `${process.env.appURL}/auth/github/callback`
+  }
+  private _loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false)
+  private _id: BehaviorSubject<string> = new BehaviorSubject(null)
+  private _username: BehaviorSubject<string> = new BehaviorSubject(null)
+  private _displayName: BehaviorSubject<string> = new BehaviorSubject(null)
 
   isLoggedIn(): BehaviorSubject<boolean> {
     return this._loggedIn
