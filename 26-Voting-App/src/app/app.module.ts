@@ -12,7 +12,6 @@ import { ProfileComponent } from './profile.component'
 import { PollComponent } from './poll.component'
 import { AuthService } from './auth.service'
 import { LoggedInGuard, LoggedOutGuard } from './routes.guard'
-import { Polls } from './polls.mock'
 import { RoutesModule } from './routes.module'
 
 @NgModule({
@@ -34,8 +33,7 @@ import { RoutesModule } from './routes.module'
   providers: [
     AuthService,
     LoggedInGuard,
-    LoggedOutGuard,
-    Polls
+    LoggedOutGuard
   ],
   bootstrap: [AppComponent]
 })

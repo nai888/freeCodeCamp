@@ -5,13 +5,11 @@ import { Passport } from 'passport'
 import { Strategy as GitHubStrategy } from 'passport-github'
 
 import { environment as env } from '../environments/environment'
-import { Polls } from './polls.mock'
 import { Poll } from './polls.model'
 
 @Injectable()
 export class AuthService {
   constructor(
-    private pollsList: Polls,
     private http: Http
   ) { }
 
