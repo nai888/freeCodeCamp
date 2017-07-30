@@ -13,9 +13,6 @@ export class AuthService {
     private http: Http
   ) { }
 
-  private apiUrl = `${env.serverApiUrl}api/getpolls`
-  private headers = new Headers({ 'Content-Type': 'application/json' })
-
   private gitHubAuth = {
     clientID: env.gitHubAuth.id,
     clientSecret: env.gitHubAuth.secret,
@@ -25,6 +22,10 @@ export class AuthService {
   private id: BehaviorSubject<string> = new BehaviorSubject(null)
   private username: BehaviorSubject<string> = new BehaviorSubject(null)
   private displayName: BehaviorSubject<string> = new BehaviorSubject(null)
+
+  private allPollsApi = `${env.serverApiUrl}api/getpolls`
+  private myPollsApi = `${env.serverApiUrl}api/getpolls?name=${this.username}`
+  private headers = new Headers({ 'Content-Type': 'application/json' })
 
   isLoggedIn(): BehaviorSubject<boolean> {
     return this.loggedIn
@@ -58,7 +59,12 @@ export class AuthService {
   }
 
   getPolls(): Observable<Poll[]> {
-    return this.http.get(this.apiUrl)
-      .map(response => response.json())
+    return this.http.get(this.allPollsApi)
+      .map(res => res.json())
+  }
+
+  getMyPolls(): Observable<Poll[]> {
+    return this.http.get(this.myPollsApi)
+      .map(res => res.json())
   }
 }
