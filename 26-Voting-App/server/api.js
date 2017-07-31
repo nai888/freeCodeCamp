@@ -8,7 +8,6 @@ module.exports = function (app, db, collection) {
   var clientID = process.env.gitHubID
   var clientSecret = process.env.gitHubSecret
   var callback = process.env.gitHubCallback
-  var appUrl = process.env.appUrl
 
   app.get('/auth/github', function (req, res) {
     var state = (Math.floor(Math.random() * 9000000) + 1000000).toString()
