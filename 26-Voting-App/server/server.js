@@ -7,11 +7,21 @@ var path = require('path')
 var http = require('http')
 var normalizePort = require('normalize-port')
 require('dotenv').config()
+var flash = require('connect-flash')
+var session = require('express-session')
+var GitHubStrategy = require('passport-github').Strategy
 
 var api = require('./api')
 
 // Create app
 var app = express()
+app.use(session({
+  secret: 'fcc-voting-app',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 30 * 60 * 1000 }
+}))
+app.use(flash())
 
 // Create server
 var server = http.createServer(app)
@@ -47,6 +57,3 @@ MongoClient.connect(dbURI, function (err, db) {
     api(app, db, collection)
   }
 })
-
-// Initialize passport
-app.use(passport.initialize())

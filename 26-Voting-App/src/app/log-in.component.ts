@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 
+import { environment as env } from '../environments/environment'
 import { AuthService } from './auth.service'
 
 @Component({
@@ -9,5 +10,8 @@ import { AuthService } from './auth.service'
 })
 export class LogInComponent {
   constructor(private authService: AuthService) { }
-  loggedIn = this.authService.isLoggedIn()
+  login(): void {
+    this.authService.login()
+  }
+  loginUrl = `${env.serverApiUrl}auth/github`
 }
