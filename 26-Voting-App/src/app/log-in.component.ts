@@ -13,5 +13,4 @@ export class LogInComponent {
   login(): void {
     this.authService.login()
   }
-  loginUrl = `${env.serverApiUrl}auth/github`
 }

@@ -15,11 +15,6 @@ export class AuthService {
     private router: Router
   ) { }
 
-  private gitHubAuth = {
-    clientID: env.gitHubAuth.id,
-    clientSecret: env.gitHubAuth.secret,
-    callbackURL: `${env.gitHubAuth.callbackUrl}/auth/github/callback`
-  }
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false)
   private id: BehaviorSubject<string> = new BehaviorSubject(null)
   private username: BehaviorSubject<string> = new BehaviorSubject(null)
@@ -47,7 +42,12 @@ export class AuthService {
   }
 
   login(): void {
-    this.http.get(`${env.serverApiUrl}auth/github`)
+    var api = 'https://github.com/login/oauth'
+    var clientID = env.gitHubAuth.id
+    var clientSecret = env.gitHubAuth.secret
+    var callback = env.serverApiUrl
+    var apiUrl = api + '/authorize?client_id=' + clientID + '&redirect_uri=' + callback + 'auth/github/callback'
+    window.location.href=apiUrl
   }
 
   logOut(): void {

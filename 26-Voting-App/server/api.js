@@ -1,34 +1,30 @@
 'use strict'
 
-var http = require('http')
+var https = require('https')
 
 module.exports = function (app, db, collection) {
-  var currentState
   var api = 'https://github.com/login/oauth'
   var clientID = process.env.gitHubID
   var clientSecret = process.env.gitHubSecret
-  var callback = process.env.gitHubCallback
-
-  app.get('/auth/github', function (req, res) {
-    var state = (Math.floor(Math.random() * 9000000) + 1000000).toString()
-    currentState = state
-    var apiUrl = api + '/authorize?client_id=' + clientID + '&redirect_uri=' + callback + '/auth/github/callback&state=' + state + '&allow_signup=true'
-
-    http.get(apiUrl)
-  })
+  var appUrl = process.env.appUrl
+  var token
 
   app.get('/auth/github/callback', function (req, res) {
     var code = req.params.code
-    var state = req.params.state
 
-    if (state !== currentState) {
-      console.error('States did not match!')
-    } else {
-      http.post(api + '/access_token?client_id=' + clientID + '&client_secret=' + clientSecret + '&code=' + code + '&state=' + currentState, function (res) {
-        var token = res.params.access_token
-        getUserData(token)
-      })
+    var options = {
+      hostname: api + '/access_token?client_id=' + clientID + '&client_secret=' + clientSecret + '&code=' + code,
+      headers: {
+        Accept: 'application/json'
+      }
     }
+    https.get(options, function (req, res) {
+      console.log(res)
+      token = res.access_token
+      console.log(token)
+      getUserData(token)
+    })
+    res.redirect(appUrl)
   })
 
   function getUserData (token) {
@@ -41,7 +37,8 @@ module.exports = function (app, db, collection) {
         Authorization: token
       }
     }
-    http.get(options, function (req, res) {
+    console.log('sending data')
+    https.post(options, function (req, res) {
       console.log(res)
     })
   }
