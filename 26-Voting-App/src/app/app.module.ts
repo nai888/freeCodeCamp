@@ -9,7 +9,6 @@ import { LoggedInComponent } from './logged-in.component'
 import { LogInComponent } from './log-in.component'
 import { NavComponent } from './nav.component'
 import { NewPollComponent } from './new-poll.component'
-import { ProfileComponent } from './profile.component'
 import { PollComponent } from './poll.component'
 import { AuthService } from './auth.service'
 import { LoggedInGuard, LoggedOutGuard } from './routes.guard'
@@ -23,7 +22,6 @@ import { RoutesModule } from './routes.module'
     LogInComponent,
     NavComponent,
     NewPollComponent,
-    ProfileComponent,
     PollComponent
   ],
   imports: [

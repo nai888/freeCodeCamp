@@ -5,7 +5,6 @@ import { DashboardComponent } from './dashboard.component'
 import { LoggedInComponent } from './logged-in.component'
 import { LogInComponent } from './log-in.component'
 import { NewPollComponent } from './new-poll.component'
-import { ProfileComponent } from './profile.component'
 import { PollComponent } from './poll.component'
 import { LoggedInGuard, LoggedOutGuard } from './routes.guard'
 
@@ -31,12 +30,6 @@ const routes: Routes = [
   }, {
     path: 'polls/:id',
     component: PollComponent
-  }, {
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [
-      LoggedInGuard
-    ]
   }
 ]
 
