@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { Subject } from 'rxjs/Subject'
 import { Subscription } from 'rxjs/Subscription'
 
-import { AuthService } from './auth.service'
+import { PollDataService } from './poll-data.service'
 import { Poll } from './polls.model'
 
 @Component({
@@ -13,7 +13,7 @@ import { Poll } from './polls.model'
 })
 export class PollComponent {
   constructor(
-    private authService: AuthService,
+    private pollDataService: PollDataService,
     private route: ActivatedRoute
   ) { }
 
@@ -25,7 +25,7 @@ export class PollComponent {
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']
-      this.authService.getPoll(this.id).subscribe(poll => {
+      this.pollDataService.getPoll(this.id).subscribe(poll => {
         if (poll === null) {
           this.none = true
         } else {

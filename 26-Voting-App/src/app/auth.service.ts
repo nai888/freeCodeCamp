@@ -2,11 +2,8 @@ import { Injectable } from '@angular/core'
 import { Http } from '@angular/http'
 import { Router } from '@angular/router'
 import { Observable, BehaviorSubject } from 'rxjs'
-import { Passport } from 'passport'
-import { Strategy as GitHubStrategy } from 'passport-github'
 
 import { environment as env } from '../environments/environment'
-import { Poll } from './polls.model'
 import { User } from './users.model'
 
 @Injectable()
@@ -22,8 +19,6 @@ export class AuthService {
 
   private loginApi = `${env.serverApiUrl}auth/github`
   private logoutApi = `${env.serverApiUrl}api/logout`
-  private pollsApi = `${env.serverApiUrl}api/getpolls`
-  private pollApi = `${env.serverApiUrl}api/getpoll`
 
   isLoggedIn(): BehaviorSubject<boolean> {
     return this.loggedIn
@@ -55,20 +50,5 @@ export class AuthService {
     this.displayName.next(null)
     this.http.get(this.logoutApi)
     this.router.navigate(['/'])
-  }
-
-  getPolls(): Observable<number> {
-    return this.http.get(this.pollsApi)
-      .map(res => res.json())
-  }
-
-  getMyPolls(): Observable<Poll[]> {
-    return this.http.get(`${this.pollsApi}?name=${this.username.getValue()}`)
-      .map(res => res.json())
-  }
-  
-  getPoll(id): Observable<Poll> {
-    return this.http.get(`${this.pollApi}?id=${id}`)
-      .map(res => res.json())
   }
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { Subscription } from 'rxjs/Subscription'
 
 import { AuthService } from './auth.service'
+import { PollDataService } from './poll-data.service'
 import { Poll } from './polls.model'
 
 @Component({
@@ -13,6 +14,7 @@ import { Poll } from './polls.model'
 export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
+    private pollDataService: PollDataService,
     private router: Router
   ) { }
 
@@ -27,9 +29,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loggedInSubsc = this.authService.isLoggedIn().subscribe(loggedIn => this.loggedIn = loggedIn)
 
-    this.numPollsSubsc = this.authService.getPolls().subscribe(num => this.numPolls = +num)
+    this.numPollsSubsc = this.pollDataService.getPolls().subscribe(num => this.numPolls = +num)
 
-    this.authService.getMyPolls().subscribe(polls => {
+    this.myPollsSubsc = this.pollDataService.getMyPolls().subscribe(polls => {
       this.myPolls = polls
       this.numMyPolls = polls.length
     })
@@ -47,5 +49,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.loggedInSubsc.unsubscribe()
     this.numPollsSubsc.unsubscribe()
+    this.myPollsSubsc.unsubscribe()
   }
 }

@@ -11,6 +11,7 @@ import { NavComponent } from './nav.component'
 import { NewPollComponent } from './new-poll.component'
 import { PollComponent } from './poll.component'
 import { AuthService } from './auth.service'
+import { PollDataService } from './poll-data.service'
 import { LoggedInGuard, LoggedOutGuard } from './routes.guard'
 import { RoutesModule } from './routes.module'
 
@@ -32,6 +33,7 @@ import { RoutesModule } from './routes.module'
   ],
   providers: [
     AuthService,
+    PollDataService,
     LoggedInGuard,
     LoggedOutGuard
   ],
