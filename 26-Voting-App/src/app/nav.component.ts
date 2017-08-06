@@ -32,7 +32,6 @@ export class NavComponent implements OnDestroy {
   logOut: () => void = () => {
     if (this.loggedIn) {
       this.authService.logOut()
-      this.router.navigate([''])
     }
   }
 

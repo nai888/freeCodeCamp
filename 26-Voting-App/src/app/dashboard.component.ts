@@ -31,16 +31,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     })
   }
 
-  routeNewPoll: () => void = () => {
+  routeNewPoll(): void {
     this.router.navigate(['/newpoll'])
   }
 
-  routeRandomPoll: () => void = () => {
+  routeRandomPoll(): void {
     const rand = Math.floor(Math.random() * this.numberPolls)
     this.router.navigate([`/polls/${rand}`])
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.loggedInSubsc.unsubscribe()
   }
 }
