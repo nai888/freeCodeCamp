@@ -1,6 +1,9 @@
 <div>
-  <div *ngIf="poll; else elseBlock">
-    <h2 class="poll-name">{{poll.question}}</h2>
-  </div>
-  <ng-template #elseBlock><p>Poll does not exist.</p></ng-template>
+  <p *ngIf="none; else exists">Poll does not exist.</p>
+  <ng-template #exists>
+    <div *ngIf="pollS | async as poll; else loading">
+      <h2 class="poll-name">{{poll.question}}</h2>
+    </div>
+    <ng-template #loading><p>Loading poll&hellip;</p></ng-template>
+  </ng-template>
 </div>

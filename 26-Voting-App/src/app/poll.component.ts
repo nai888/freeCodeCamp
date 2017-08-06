@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
+import { Subject } from 'rxjs/Subject'
 import { Subscription } from 'rxjs/Subscription'
 
 import { AuthService } from './auth.service'
@@ -18,12 +19,20 @@ export class PollComponent {
 
   id: number
   sub: Subscription
-  poll: Poll
+  pollS = new Subject<Poll>()
+  none: boolean = false
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']
-      this.authService.getPoll(this.id).subscribe(poll => this.poll = poll)
+      this.authService.getPoll(this.id).subscribe(poll => {
+        if (poll === null) {
+          this.none = true
+        } else {
+          this.none = false
+          this.pollS.next(poll)
+        }
+      })
     })
   }
 
