@@ -1,5 +1,6 @@
 'use strict'
 
+var cors = require('cors')
 var https = require('https')
 var GraphQLClient = require('graphql-request').GraphQLClient
 
@@ -13,6 +14,7 @@ module.exports = function (app, db, collection) {
   var token
   var clientID = process.env.gitHubID
   var clientSecret = process.env.gitHubSecret
+  var appUrl = process.env.appUrl
 
   app.get('/auth/github', function (req, res) {
     var code = req.query.code
@@ -63,7 +65,7 @@ module.exports = function (app, db, collection) {
           user.loggedin = true
         }
 
-        res.redirect(`${process.env.appUrl}/loggedin/${user.login}/${user.name}`)
+        res.redirect(`${appUrl}/loggedin/${user.login}/${user.name}`)
       })
     }
   })
@@ -83,11 +85,14 @@ module.exports = function (app, db, collection) {
     https.request(options)
   })
 
+  var corsOptions = {
+    origin: appUrl
+  }
+
   var polls = db.collection(collection)
 
-  app.get('/api/getpolls', function (req, res) {
+  app.get('/api/polls', cors(corsOptions), function (req, res) {
     var name = req.query.name
-    res.set({ 'Access-Control-Allow-Origin': process.env.appUrl })
 
     if (name) {
       polls.find({ 'owner': name }, { '_id': 0 }).sort({ '_id': 1 }).toArray(function (err, docs) {
@@ -104,12 +109,21 @@ module.exports = function (app, db, collection) {
     }
   })
 
-  app.get('/api/getpoll', function (req, res) {
+  app.options('/api/poll', cors(corsOptions))
+
+  app.get('/api/poll', cors(corsOptions), function (req, res) {
     var id = +req.query.id
 
     polls.findOne({ 'id': id }).then(function (poll) {
-      res.set({ 'Access-Control-Allow-Origin': process.env.appUrl })
       res.json(poll)
+    })
+  })
+
+  app.delete('/api/poll', cors(corsOptions), function (req, res) {
+    var id = +req.query.id
+
+    polls.deleteOne({ 'id': id }).then(function (result) {
+      res.send(result)
     })
   })
 }

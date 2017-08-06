@@ -1,13 +1,14 @@
 <div>
   <p *ngIf="none; else exists">Poll does not exist.</p>
   <ng-template #exists>
-    <div *ngIf="pollS | async as poll; else loading">
+    <div *ngIf="pollBS | async as poll; else loading">
       <h2 class="poll-name">{{poll.question}}</h2>
       <form #votingForm="ngForm">
         <ul>
           <li *ngFor="let answer of poll.answers">{{answer.answer}}: {{answer.votes}}</li>
         </ul>
         <button type="submit" [disabled]="!votingForm.form.valid">Submit</button>
+        <button *ngIf="owned" (click)="delete()">Delete Poll</button>
       </form>
     </div>
     <ng-template #loading><p>Loading poll&hellip;</p></ng-template>
