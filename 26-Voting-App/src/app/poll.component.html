@@ -1,6 +1,6 @@
 <div>
-  <p *ngIf="!poll">Poll does not exist.</p>
-  <div *ngIf="poll">
+  <div *ngIf="poll; else elseBlock">
     <h2 class="poll-name">{{poll.question}}</h2>
   </div>
+  <ng-template #elseBlock><p>Poll does not exist.</p></ng-template>
 </div>
