@@ -15,6 +15,9 @@ footer {
   width: 900px;
   margin: 0 auto; }
 
+footer {
+  border-top: 1px solid rgba(41, 90, 137, 0.2); }
+
 a,
 a:link,
 a:hover,
