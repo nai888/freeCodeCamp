@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Headers, Http } from '@angular/http'
+import { Http } from '@angular/http'
 import { Router } from '@angular/router'
 import { Observable, BehaviorSubject } from 'rxjs'
 import { Passport } from 'passport'
@@ -16,15 +16,14 @@ export class AuthService {
     private router: Router
   ) { }
 
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false)
-  private username: BehaviorSubject<string> = new BehaviorSubject(null)
-  private displayName: BehaviorSubject<string> = new BehaviorSubject(null)
+  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(true)
+  private username: BehaviorSubject<string> = new BehaviorSubject('nai888')
+  private displayName: BehaviorSubject<string> = new BehaviorSubject('Ian')
+
   private loginApi = `${env.serverApiUrl}auth/github`
   private logoutApi = `${env.serverApiUrl}api/logout`
-  private getUserDataApi = `${env.serverApiUrl}api/getuserdata`
-  private allPollsApi = `${env.serverApiUrl}api/getpolls`
-  private myPollsApi = `${env.serverApiUrl}api/getpolls?name=${this.username}`
-  private headers = new Headers({ 'Content-Type': 'application/json' })
+  private pollsApi = `${env.serverApiUrl}api/getpolls`
+  private pollApi = `${env.serverApiUrl}api/getpoll`
 
   isLoggedIn(): BehaviorSubject<boolean> {
     return this.loggedIn
@@ -59,12 +58,17 @@ export class AuthService {
   }
 
   getPolls(): Observable<Poll[]> {
-    return this.http.get(this.allPollsApi)
+    return this.http.get(this.pollsApi)
       .map(res => res.json())
   }
 
   getMyPolls(): Observable<Poll[]> {
-    return this.http.get(this.myPollsApi)
+    return this.http.get(`${this.pollsApi}?name=${this.username.getValue()}`)
+      .map(res => res.json())
+  }
+  
+  getPoll(id): Observable<Poll> {
+    return this.http.get(`${this.pollApi}?id=${id}`)
       .map(res => res.json())
   }
 }

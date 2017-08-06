@@ -11,23 +11,31 @@ import { Poll } from './polls.model'
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  private loggedInSubsc: Subscription
-  loggedIn: boolean
-
   constructor(
     private authService: AuthService,
     private router: Router
   ) { }
 
+  private loggedInSubsc: Subscription
+  private allPollsSubsc: Subscription
+  private myPollsSubsc: Subscription
+  loggedIn: boolean
   polls: Poll[]
-  numberPolls: number
+  numPolls: number
+  myPolls: Poll[]
+  numMyPolls: number
 
   ngOnInit(): void {
     this.loggedInSubsc = this.authService.isLoggedIn().subscribe(loggedIn => this.loggedIn = loggedIn)
 
-    this.authService.getPolls().subscribe(polls => {
+    this.allPollsSubsc = this.authService.getPolls().subscribe(polls => {
       this.polls = polls
-      this.numberPolls = polls.length
+      this.numPolls = polls.length
+    })
+
+    this.authService.getMyPolls().subscribe(polls => {
+      this.myPolls = polls
+      this.numMyPolls = polls.length
     })
   }
 
@@ -36,11 +44,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   routeRandomPoll(): void {
-    const rand = Math.floor(Math.random() * this.numberPolls)
+    const rand = Math.floor(Math.random() * this.numPolls)
     this.router.navigate([`/polls/${rand}`])
   }
 
   ngOnDestroy(): void {
     this.loggedInSubsc.unsubscribe()
+    this.allPollsSubsc.unsubscribe()
   }
 }

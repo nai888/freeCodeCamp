@@ -1,6 +1,5 @@
-import { Component, OnDestroy } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { ActivatedRoute, Router, ParamMap } from '@angular/router'
-import { Location } from '@angular/common'
 import { Subscription } from 'rxjs/Subscription'
 
 import { AuthService } from './auth.service'
@@ -10,7 +9,13 @@ import { AuthService } from './auth.service'
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
-export class NavComponent implements OnDestroy {
+export class NavComponent implements OnInit, OnDestroy {
+  constructor(
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
+
   private loggedInSubsc: Subscription
   loggedIn: boolean
   private usernameSubsc: Subscription
@@ -18,12 +23,7 @@ export class NavComponent implements OnDestroy {
   private displayNameSubsc: Subscription
   displayName: string
 
-  constructor(
-    private authService: AuthService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private location: Location
-  ) {
+  ngOnInit(): void {
     this.loggedInSubsc = this.authService.isLoggedIn().subscribe(loggedIn => this.loggedIn = loggedIn)
     this.usernameSubsc = this.authService.getUsername().subscribe(username => this.username = username)
     this.displayNameSubsc = this.authService.getDisplayName().subscribe(displayName => this.displayName = displayName)
@@ -35,7 +35,7 @@ export class NavComponent implements OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.loggedInSubsc.unsubscribe()
     this.usernameSubsc.unsubscribe()
     this.displayNameSubsc.unsubscribe()

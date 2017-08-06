@@ -3,8 +3,8 @@
   <button class="btn" (click)="routeNewPoll()">New Poll</button>
   <button class="btn" (click)="routeRandomPoll()">Random Poll</button>
   <h3>Your Polls</h3>
-  <ul *ngIf="numberPolls">
-    <li *ngFor="let poll of polls"><a [routerLink]="'polls/' + poll.id">{{poll.question}}</a></li>
+  <ul *ngIf="numMyPolls">
+    <li *ngFor="let poll of myPolls"><a [routerLink]="'polls/' + poll.id">{{poll.question}}</a></li>
   </ul>
 </div>
 <div class="dashboard" *ngIf="!loggedIn">

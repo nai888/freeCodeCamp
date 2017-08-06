@@ -86,13 +86,40 @@ module.exports = function (app, db, collection) {
   var polls = db.collection(collection)
 
   app.get('/api/getpolls', function (req, res) {
-    polls.find({}, { '_id': 0 }).sort({ '_id': 1 }).toArray(function (err, docs) {
-      if (err) {
-        console.error(err)
-      } else {
-        res.set({ 'Access-Control-Allow-Origin': 'http://localhost:4200' })
-        res.json(docs)
-      }
-    })
+    var name = req.query.name
+
+    if (name) {
+      polls.find({ 'owner': name }, { '_id': 0 })
+        .toArray(function (err, docs) {
+          if (err) {
+            console.error(err)
+          } else {
+            resp(docs)
+          }
+        })
+    } else {
+      polls.find({}, { '_id': 0 }).sort({ '_id': 1 }).toArray(function (err, docs) {
+        if (err) {
+          console.error(err)
+        } else {
+          resp(docs)
+        }
+      })
+    }
+
+    function resp (docs) {
+      res.set({ 'Access-Control-Allow-Origin': process.env.appUrl })
+      res.json(docs)
+    }
+  })
+
+  app.get('/api/getpoll', function (req, res) {
+    var id = +req.query.id
+
+    polls.findOne({ 'id': id })
+      .then(function (poll) {
+        res.set({ 'Access-Control-Allow-Origin': process.env.appUrl })
+        res.json(poll)
+      })
   })
 }

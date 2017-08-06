@@ -1,3 +1,6 @@
 <div>
-  <p>A poll will be here.</p>
+  <p *ngIf="!poll">Poll does not exist.</p>
+  <div *ngIf="poll">
+    <h2 class="poll-name">{{poll.question}}</h2>
+  </div>
 </div>
