@@ -17,10 +17,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) { }
 
   private loggedInSubsc: Subscription
-  private allPollsSubsc: Subscription
+  private numPollsSubsc: Subscription
   private myPollsSubsc: Subscription
   loggedIn: boolean
-  polls: Poll[]
   numPolls: number
   myPolls: Poll[]
   numMyPolls: number
@@ -28,10 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loggedInSubsc = this.authService.isLoggedIn().subscribe(loggedIn => this.loggedIn = loggedIn)
 
-    this.allPollsSubsc = this.authService.getPolls().subscribe(polls => {
-      this.polls = polls
-      this.numPolls = polls.length
-    })
+    this.numPollsSubsc = this.authService.getPolls().subscribe(num => this.numPolls = +num)
 
     this.authService.getMyPolls().subscribe(polls => {
       this.myPolls = polls
@@ -50,6 +46,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.loggedInSubsc.unsubscribe()
-    this.allPollsSubsc.unsubscribe()
+    this.numPollsSubsc.unsubscribe()
   }
 }

@@ -57,7 +57,7 @@ export class AuthService {
     this.router.navigate(['/'])
   }
 
-  getPolls(): Observable<Poll[]> {
+  getPolls(): Observable<number> {
     return this.http.get(this.pollsApi)
       .map(res => res.json())
   }

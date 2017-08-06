@@ -87,39 +87,29 @@ module.exports = function (app, db, collection) {
 
   app.get('/api/getpolls', function (req, res) {
     var name = req.query.name
+    res.set({ 'Access-Control-Allow-Origin': process.env.appUrl })
 
     if (name) {
-      polls.find({ 'owner': name }, { '_id': 0 })
-        .toArray(function (err, docs) {
-          if (err) {
-            console.error(err)
-          } else {
-            resp(docs)
-          }
-        })
-    } else {
-      polls.find({}, { '_id': 0 }).sort({ '_id': 1 }).toArray(function (err, docs) {
+      polls.find({ 'owner': name }, { '_id': 0 }).sort({ '_id': 1 }).toArray(function (err, docs) {
         if (err) {
           console.error(err)
         } else {
-          resp(docs)
+          res.json(docs)
         }
       })
-    }
-
-    function resp (docs) {
-      res.set({ 'Access-Control-Allow-Origin': process.env.appUrl })
-      res.json(docs)
+    } else {
+      polls.count().then(function (num) {
+        res.send(num.toString())
+      })
     }
   })
 
   app.get('/api/getpoll', function (req, res) {
     var id = +req.query.id
 
-    polls.findOne({ 'id': id })
-      .then(function (poll) {
-        res.set({ 'Access-Control-Allow-Origin': process.env.appUrl })
-        res.json(poll)
-      })
+    polls.findOne({ 'id': id }).then(function (poll) {
+      res.set({ 'Access-Control-Allow-Origin': process.env.appUrl })
+      res.json(poll)
+    })
   })
 }

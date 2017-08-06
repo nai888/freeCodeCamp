@@ -3,6 +3,9 @@
   <ng-template #exists>
     <div *ngIf="pollS | async as poll; else loading">
       <h2 class="poll-name">{{poll.question}}</h2>
+      <ul>
+        <li *ngFor="let answer of poll.answers">{{answer.answer}}: {{answer.votes}}</li>
+      </ul>
     </div>
     <ng-template #loading><p>Loading poll&hellip;</p></ng-template>
   </ng-template>
