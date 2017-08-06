@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
 import { DashboardComponent } from './dashboard.component'
+import { LoggedInComponent } from './logged-in.component'
 import { LogInComponent } from './log-in.component'
 import { NewPollComponent } from './new-poll.component'
 import { ProfileComponent } from './profile.component'
@@ -12,6 +13,9 @@ const routes: Routes = [
   {
     path: '',
     component: DashboardComponent
+  }, {
+    path: 'loggedin/:login/:name',
+    component: LoggedInComponent
   }, {
     path: 'login',
     component: LogInComponent,

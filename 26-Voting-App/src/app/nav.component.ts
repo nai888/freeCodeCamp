@@ -11,38 +11,34 @@ import { AuthService } from './auth.service'
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnDestroy {
-  private _loggedInSubsc: Subscription
+  private loggedInSubsc: Subscription
   loggedIn: boolean
-  private _idSubsc: Subscription
-  id: string
-  private _usernameSubsc: Subscription
+  private usernameSubsc: Subscription
   username: string
-  private _displayNameSubsc: Subscription
+  private displayNameSubsc: Subscription
   displayName: string
 
   constructor(
-    private _authService: AuthService,
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _location: Location
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location
   ) {
-    this._loggedInSubsc = this._authService.isLoggedIn().subscribe(loggedIn => this.loggedIn = loggedIn)
-    this._idSubsc = this._authService.getId().subscribe(id => this.id = id)
-    this._usernameSubsc = this._authService.getUsername().subscribe(username => this.username = username)
-    this._displayNameSubsc = this._authService.getDisplayName().subscribe(displayName => this.displayName = displayName)
+    this.loggedInSubsc = this.authService.isLoggedIn().subscribe(loggedIn => this.loggedIn = loggedIn)
+    this.usernameSubsc = this.authService.getUsername().subscribe(username => this.username = username)
+    this.displayNameSubsc = this.authService.getDisplayName().subscribe(displayName => this.displayName = displayName)
   }
 
   logOut: () => void = () => {
     if (this.loggedIn) {
-      this._authService.logOut()
-      this._router.navigate([''])
+      this.authService.logOut()
+      this.router.navigate([''])
     }
   }
 
   ngOnDestroy() {
-    this._loggedInSubsc.unsubscribe()
-    this._idSubsc.unsubscribe()
-    this._usernameSubsc.unsubscribe()
-    this._displayNameSubsc.unsubscribe()
+    this.loggedInSubsc.unsubscribe()
+    this.usernameSubsc.unsubscribe()
+    this.displayNameSubsc.unsubscribe()
   }
 }

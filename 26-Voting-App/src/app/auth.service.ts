@@ -7,6 +7,7 @@ import { Strategy as GitHubStrategy } from 'passport-github'
 
 import { environment as env } from '../environments/environment'
 import { Poll } from './polls.model'
+import { User } from './users.model'
 
 @Injectable()
 export class AuthService {
@@ -16,21 +17,17 @@ export class AuthService {
   ) { }
 
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false)
-  private id: BehaviorSubject<string> = new BehaviorSubject(null)
   private username: BehaviorSubject<string> = new BehaviorSubject(null)
   private displayName: BehaviorSubject<string> = new BehaviorSubject(null)
-
-  private loginApi = `${env.serverApiUrl}login`
+  private loginApi = `${env.serverApiUrl}auth/github`
+  private logoutApi = `${env.serverApiUrl}api/logout`
+  private getUserDataApi = `${env.serverApiUrl}api/getuserdata`
   private allPollsApi = `${env.serverApiUrl}api/getpolls`
   private myPollsApi = `${env.serverApiUrl}api/getpolls?name=${this.username}`
   private headers = new Headers({ 'Content-Type': 'application/json' })
 
   isLoggedIn(): BehaviorSubject<boolean> {
     return this.loggedIn
-  }
-
-  getId(): BehaviorSubject<string> {
-    return this.id
   }
 
   getUsername(): BehaviorSubject<string> {
@@ -42,19 +39,23 @@ export class AuthService {
   }
 
   login(): void {
-    var api = 'https://github.com/login/oauth'
-    var clientID = env.gitHubAuth.id
-    var clientSecret = env.gitHubAuth.secret
-    var callback = env.serverApiUrl
-    var apiUrl = api + '/authorize?client_id=' + clientID + '&redirect_uri=' + callback + 'auth/github/callback'
-    window.location.href=apiUrl
+    window.location.href = 'https://github.com/login/oauth/authorize?client_id=' + env.gitHubAuth.id
+  }
+  
+  setUserData(username: string, displayName: string): void {
+    if (username && displayName) {
+      this.loggedIn.next(true)
+      this.username.next(username)
+      this.displayName.next(displayName)
+    }
   }
 
   logOut(): void {
     this.loggedIn.next(false)
-    this.id.next(null)
     this.username.next(null)
     this.displayName.next(null)
+    this.http.get(this.logoutApi)
+    this.router.navigate(['/'])
   }
 
   getPolls(): Observable<Poll[]> {

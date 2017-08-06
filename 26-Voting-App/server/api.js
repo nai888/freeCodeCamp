@@ -1,47 +1,87 @@
 'use strict'
 
 var https = require('https')
+var GraphQLClient = require('graphql-request').GraphQLClient
 
 module.exports = function (app, db, collection) {
-  var api = 'https://github.com/login/oauth'
+  var blankUser = {
+    loggedin: false,
+    login: undefined,
+    name: undefined
+  }
+  var user = blankUser
+  var token
   var clientID = process.env.gitHubID
   var clientSecret = process.env.gitHubSecret
-  var appUrl = process.env.appUrl
-  var token
 
-  app.get('/auth/github/callback', function (req, res) {
-    var code = req.params.code
+  app.get('/auth/github', function (req, res) {
+    var code = req.query.code
 
     var options = {
-      hostname: api + '/access_token?client_id=' + clientID + '&client_secret=' + clientSecret + '&code=' + code,
+      protocol: 'https:',
+      hostname: 'github.com',
+      method: 'POST',
+      path: '/login/oauth/access_token?client_id=' + clientID + '&client_secret=' + clientSecret + '&code=' + code,
       headers: {
-        Accept: 'application/json'
+        'Accept': 'application/json'
       }
     }
-    https.get(options, function (req, res) {
-      console.log(res)
-      token = res.access_token
-      console.log(token)
-      getUserData(token)
+
+    var newReq = https.request(options, function (resp) {
+      var data
+
+      resp.on('data', function (chunk) {
+        data = JSON.parse(chunk.toString('utf8'))
+      })
+
+      resp.on('error', function (e) {
+        console.error(e.message || e.error || e)
+      })
+
+      resp.on('end', function () {
+        token = data.access_token
+        getUserData(token)
+      })
     })
-    res.redirect(appUrl)
+    newReq.end()
+
+    function getUserData (token) {
+      var client = new GraphQLClient('https://api.github.com/graphql', {
+        headers: {
+          'Authorization': 'token ' + token,
+          'User-Agent': 'nai888'
+        }
+      })
+
+      var query = '{\nviewer {\nlogin\nname\n}\n}'
+
+      client.request(query).then(function (data) {
+        user.login = data.viewer.login
+        user.name = data.viewer.name
+
+        if (user.login && user.name) {
+          user.loggedin = true
+        }
+
+        res.redirect(`${process.env.appUrl}/loggedin/${user.login}/${user.name}`)
+      })
+    }
   })
 
-  function getUserData (token) {
+  app.get('/api/logout', function (req, res) {
+    user = blankUser
     var options = {
-      protocol: 'https',
-      hostname: 'api.github.com',
-      path: '/user',
+      protocol: 'https:',
+      hostname: 'github.com',
+      method: 'DELETE',
+      path: '/applications/' + clientID + '/tokens/' + token,
       headers: {
-        Accept: 'application/vnd.github.v3+json',
-        Authorization: token
+        'Authorization': 'token ' + token,
+        'User-Agent': 'nai888'
       }
     }
-    console.log('sending data')
-    https.post(options, function (req, res) {
-      console.log(res)
-    })
-  }
+    https.request(options)
+  })
 
   var polls = db.collection(collection)
 

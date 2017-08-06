@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http'
 
 import { AppComponent } from './app.component'
 import { DashboardComponent } from './dashboard.component'
+import { LoggedInComponent } from './logged-in.component'
 import { LogInComponent } from './log-in.component'
 import { NavComponent } from './nav.component'
 import { NewPollComponent } from './new-poll.component'
@@ -18,6 +19,7 @@ import { RoutesModule } from './routes.module'
   declarations: [
     AppComponent,
     DashboardComponent,
+    LoggedInComponent,
     LogInComponent,
     NavComponent,
     NewPollComponent,
