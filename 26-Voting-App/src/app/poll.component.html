@@ -1,25 +1,23 @@
 <div>
   <p *ngIf="none; else exists">Poll does not exist.</p>
   <ng-template #exists>
-    <div *ngIf="pollBS | async as poll; else loading">
-      <h2 class="poll-name">{{poll.question}}</h2>
-      <form #votingForm="ngForm">
-        <ul>
-          <li *ngFor="let answer of poll.answers">{{answer.answer}}: {{answer.votes}}</li>
-        </ul>
-        <div class="buttons" *ngIf="!confirmDelete; else confirm">
-          <button type="submit" [disabled]="!votingForm.form.valid">Submit</button>
-          <button class="danger" *ngIf="owned" (click)="confirmDelete=true">Delete Poll</button>
+    <form [formGroup]="pollForm" *ngIf="pollBS | async as poll; else loading" novalidate>
+      <h2 class="poll-name">Poll Question: {{poll.question}}</h2>
+      <input *ngFor="let answer of poll.answers" type="radio" formControlName="answers">{{answer.answer}}: {{answer.votes}}
+      <p>Form value: {{ pollForm.value | json }}</p>
+      <p>Form status: {{ pollForm.status | json }}</p>
+      <div class="buttons" *ngIf="!confirmDelete; else confirm">
+        <button type="submit">Submit Vote</button>
+        <button class="danger" *ngIf="owned" (click)="confirmDelete=true">Delete Poll</button>
+      </div>
+      <ng-template #confirm>
+        <div class="buttons">
+          <p class="confirmation">Are you sure you want to delete this poll?</p>
+          <button class="danger" (click)="delete()">Delete Poll</button>
+          <button (click)="confirmDelete=false">Cancel</button>
         </div>
-        <ng-template #confirm>
-          <div class="buttons">
-            <p class="confirmation">Are you sure you want to delete this poll?</p>
-            <button class="danger" (click)="delete()">Delete Poll</button>
-            <button (click)="confirmDelete=false">Cancel</button>
-          </div>
-        </ng-template>
-      </form>
-    </div>
+      </ng-template>
+    </form>
     <ng-template #loading><p>Loading poll&hellip;</p></ng-template>
   </ng-template>
 </div>

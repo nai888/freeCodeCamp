@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { Subscription } from 'rxjs/Subscription'
@@ -26,10 +27,12 @@ export class PollComponent {
   private userSub: Subscription
   user: string
   owned: boolean
+  pollForm: FormGroup
 
   ngOnInit(): void {
     this.pollSub = this.route.params.subscribe(params => {
       this.id = +params['id']
+
       this.pollDataService.getPoll(this.id).subscribe(poll => {
         if (poll === null) {
           this.none = true
@@ -40,6 +43,12 @@ export class PollComponent {
           } else {
             this.pollBS = new BehaviorSubject<Poll>(poll)
           }
+
+          this.pollForm = new FormGroup({
+            'question': new FormControl(poll.question),
+            'answers': new FormControl(poll.answers, Validators.required)
+          })
+
           this.userSub = this.authService.getUsername().subscribe(user => {
             this.user = user
             this.owned = user === this.pollBS.getValue().owner
