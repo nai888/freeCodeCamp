@@ -7,8 +7,17 @@
         <ul>
           <li *ngFor="let answer of poll.answers">{{answer.answer}}: {{answer.votes}}</li>
         </ul>
-        <button type="submit" [disabled]="!votingForm.form.valid">Submit</button>
-        <button *ngIf="owned" (click)="delete()">Delete Poll</button>
+        <div class="buttons" *ngIf="!confirmDelete; else confirm">
+          <button type="submit" [disabled]="!votingForm.form.valid">Submit</button>
+          <button class="danger" *ngIf="owned" (click)="confirmDelete=true">Delete Poll</button>
+        </div>
+        <ng-template #confirm>
+          <div class="buttons">
+            <p class="confirmation">Are you sure you want to delete this poll?</p>
+            <button class="danger" (click)="delete()">Delete Poll</button>
+            <button (click)="confirmDelete=false">Cancel</button>
+          </div>
+        </ng-template>
       </form>
     </div>
     <ng-template #loading><p>Loading poll&hellip;</p></ng-template>

@@ -53,6 +53,8 @@ export class PollComponent {
 
   }
 
+  confirmDelete: boolean = false
+
   delete(): void {
     if (this.owned) {
       this.pollDataService.deletePoll(this.id)

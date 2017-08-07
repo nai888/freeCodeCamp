@@ -6,7 +6,8 @@ h3,
 h4,
 h5,
 h6,
-p {
+p,
+button {
   font-family: "Cabin", sans-serif; }
 
 header,
@@ -25,3 +26,16 @@ a:active,
 a:visited {
   color: #295a89;
   text-decoration: none; }
+
+button {
+  background-color: #3573b0;
+  color: #eee;
+  font-weight: bold;
+  padding: 12px 16px;
+  border: none; }
+  button:active {
+    background-color: #3d678f; }
+  button.danger {
+    background-color: #bf1625; }
+    button.danger:active {
+      background-color: #952731; }

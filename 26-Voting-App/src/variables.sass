@@ -1,5 +1,6 @@
 $blu-primary: hsla(214, 100%, 50%, 1) // Don't use this, use the mixed version instead
 $ylw-primary: hsla(43, 100%, 50%, 1) // Don't use this, use the mixed version instead
+$red-primary: hsla(2, 100%, 50%, 1) // Don't use this, use the mixed version instead
 
 // Colors based on https://tallys.github.io/color-theory/ //
 
@@ -45,7 +46,9 @@ $ylw-primary: hsla(43, 100%, 50%, 1) // Don't use this, use the mixed version in
 
 $blu: darken(harmonious-mix($ylw-primary, $blu-primary), 15%)
 $ylw: darken(harmonious-mix($blu-primary, $ylw-primary), 10%)
+$red: darken(harmonious-mix($blu-primary, $red-primary), 15%)
 $blu-ntl: mix-neutral($blu)
 $ylw-ntl: mix-neutral($ylw)
+$red-ntl: mix-neutral($red)
 
 $fonts: 'Cabin', sans-serif
