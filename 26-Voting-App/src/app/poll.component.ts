@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs/Subscription'
 
 import { AuthService } from './auth.service'
 import { PollDataService } from './poll-data.service'
-import { Poll } from './polls.model'
+import { AnswerType, Poll } from './polls.model'
 
 @Component({
   selector: 'poll',
@@ -43,11 +43,6 @@ export class PollComponent {
           } else {
             this.pollBS = new BehaviorSubject<Poll>(poll)
           }
-
-          this.pollForm = new FormGroup({
-            'question': new FormControl(poll.question),
-            'answers': new FormControl(poll.answers, Validators.required)
-          })
 
           this.userSub = this.authService.getUsername().subscribe(user => {
             this.user = user

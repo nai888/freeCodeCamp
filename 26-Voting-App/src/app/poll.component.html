@@ -1,9 +1,19 @@
 <div>
   <p *ngIf="none; else exists">Poll does not exist.</p>
   <ng-template #exists>
-    <form [formGroup]="pollForm" *ngIf="pollBS | async as poll; else loading" novalidate>
-      <h2 class="poll-name">Poll Question: {{poll.question}}</h2>
-      <input *ngFor="let answer of poll.answers" type="radio" formControlName="answers">{{answer.answer}}: {{answer.votes}}
+    <form #pollForm="ngForm" *ngIf="pollBS | async as poll; else loading" novalidate>
+      <h2 class="poll-name">{{poll.question}}</h2>
+      <div *ngIf="poll.type==='radio'; then radio; else checkbox"></div>
+      <ng-template #radio>
+        <div class="poll-answer" *ngFor="let answer of poll.answers">
+          <input type="radio" class="form-control" [id]="answer.id" name="answers" [value]="answer.answer" [(ngModel)]="model.answer"><label [for]="answer.id"> {{answer.answer}}: {{answer.votes}}</label>
+        </div>
+      </ng-template>
+      <ng-template #checkbox>
+        <div class="poll-answer" *ngFor="let answer of poll.answers">
+          <!-- <input type="checkbox" formControlName="answers" name="answers" [id]="answer.id" [value]="answer.answer"><label [for]="answer.id"> {{answer.answer}}: {{answer.votes}}</label> -->
+        </div>
+      </ng-template>
       <p>Form value: {{ pollForm.value | json }}</p>
       <p>Form status: {{ pollForm.status | json }}</p>
       <div class="buttons" *ngIf="!confirmDelete; else confirm">
