@@ -29,7 +29,11 @@ export class NavComponent implements OnInit, OnDestroy {
     this.displayNameSubsc = this.authService.getDisplayName().subscribe(displayName => this.displayName = displayName)
   }
 
-  logOut: () => void = () => {
+  setRedir(redir: string): void {
+    this.authService.setRedirect(redir)
+  }
+
+  logOut(): void {
     if (this.loggedIn) {
       this.authService.logOut()
     }

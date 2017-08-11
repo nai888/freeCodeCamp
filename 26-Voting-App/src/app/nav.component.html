@@ -1,6 +1,6 @@
 <nav class="menu">
   <p class="menu-greeting" *ngIf="loggedIn; else loggedout">Welcome, {{displayName}}! <small><span class="log-out" (click)="logOut()">(log out)</span></small></p>
-  <ng-template #loggedout><p class="menu-greeting">Welcome! Please <a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">log in</a>.</p></ng-template>
+  <ng-template #loggedout><p class="menu-greeting">Welcome! Please <a routerLink="/login" (click)="setRedir(router.url)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">log in</a>.</p></ng-template>
   <ul class="menu-ul">
     <li class="menu-li"><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dashboard</a></li>
     <li class="menu-li" *ngIf="loggedIn"><a routerLink="/newpoll" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">New Poll</a></li>

@@ -17,8 +17,10 @@ export class AuthService {
   private username: BehaviorSubject<string> = new BehaviorSubject('nai888')
   private displayName: BehaviorSubject<string> = new BehaviorSubject('Ian')
 
-  private loginApi = `${env.serverApiUrl}auth/github`
-  private logoutApi = `${env.serverApiUrl}api/logout`
+  private loginApi: string = `${env.serverApiUrl}auth/github`
+  private logoutApi: string = `${env.serverApiUrl}api/logout`
+
+  private redir: string
 
   isLoggedIn(): BehaviorSubject<boolean> {
     return this.loggedIn
@@ -32,8 +34,12 @@ export class AuthService {
     return this.displayName
   }
 
+  setRedirect(redir: string): void {
+    this.redir = redir
+  }
+
   login(): void {
-    window.location.href = 'https://github.com/login/oauth/authorize?client_id=' + env.gitHubAuth.id
+    window.location.href = `${this.loginApi}?url=${this.redir}`
   }
   
   setUserData(username: string, displayName: string): void {
@@ -49,6 +55,5 @@ export class AuthService {
     this.username.next(null)
     this.displayName.next(null)
     this.http.get(this.logoutApi)
-    this.router.navigate(['/'])
   }
 }

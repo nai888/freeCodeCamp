@@ -17,18 +17,23 @@ export class LoggedInComponent implements OnInit, OnDestroy {
 
   username: string
   displayName: string
-  sub: Subscription
+  psub: Subscription
+  qsub: Subscription
 
   ngOnInit(): void {
-    this.sub = this.route.params.subscribe(params => {
+    let redir: string
+    this.psub = this.route.params.subscribe(params => {
       this.username = params['login']
       this.displayName = params['name']
     })
+    this.qsub = this.route.queryParams.subscribe(queries => {
+      redir = queries['redir'] !== undefined ? queries['redir'] : '/'
+    })
     this.authService.setUserData(this.username, this.displayName)
-    this.router.navigate(['/'])
+    this.router.navigate([redir])
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe()
+    this.psub.unsubscribe()
   }
 }

@@ -15,8 +15,14 @@ module.exports = function (app, db, collection) {
   var clientID = process.env.gitHubID
   var clientSecret = process.env.gitHubSecret
   var appUrl = process.env.appUrl
+  var redir
 
   app.get('/auth/github', function (req, res) {
+    redir = req.query.url
+    res.redirect(`https://github.com/login/oauth/authorize?client_id=${clientID}`)
+  })
+
+  app.get('/auth/github/callback', function (req, res) {
     var code = req.query.code
 
     var options = {
@@ -65,7 +71,7 @@ module.exports = function (app, db, collection) {
           user.loggedin = true
         }
 
-        res.redirect(`${appUrl}/loggedin/${user.login}/${user.name}`)
+        res.redirect(`${appUrl}/loggedin/${user.login}/${user.name}?redir=${redir}`)
       })
     }
   })
