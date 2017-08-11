@@ -12,6 +12,7 @@ import { NewPollComponent } from './new-poll.component'
 import { PollComponent } from './poll.component'
 import { AuthService } from './auth.service'
 import { PollDataService } from './poll-data.service'
+import { TitleService } from './title.service'
 import { LoggedInGuard, LoggedOutGuard } from './routes.guard'
 import { RoutesModule } from './routes.module'
 
@@ -35,7 +36,8 @@ import { RoutesModule } from './routes.module'
     AuthService,
     PollDataService,
     LoggedInGuard,
-    LoggedOutGuard
+    LoggedOutGuard,
+    TitleService
   ],
   bootstrap: [AppComponent]
 })
