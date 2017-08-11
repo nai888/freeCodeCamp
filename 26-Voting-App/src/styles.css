@@ -39,3 +39,12 @@ button {
     background-color: #bf1625; }
     button.danger:active {
       background-color: #952731; }
+  button.neutral {
+    background-color: #d6ab29; }
+    button.neutral:active {
+      background-color: #ac9039; }
+  button.add-option {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-top: 8px;
+    margin-bottom: 8px; }
