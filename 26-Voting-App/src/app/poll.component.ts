@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs/Subscription'
 import { AuthService } from './auth.service'
 import { PollDataService } from './poll-data.service'
 import { AnswerType, Poll } from './polls.model'
+import { FormModel } from './form.model'
 
 @Component({
   selector: 'poll',
@@ -26,8 +27,10 @@ export class PollComponent {
   none: boolean = false
   private userSub: Subscription
   user: string
+  loggedin: boolean
   owned: boolean
-  pollForm: FormGroup
+  model: FormModel
+  confirmDelete: boolean = false
 
   ngOnInit(): void {
     this.pollSub = this.route.params.subscribe(params => {
@@ -38,6 +41,7 @@ export class PollComponent {
           this.none = true
         } else {
           this.none = false
+
           if (this.pollBS) {
             this.pollBS.next(poll)
           } else {
@@ -46,21 +50,33 @@ export class PollComponent {
 
           this.userSub = this.authService.getUsername().subscribe(user => {
             this.user = user
+            this.loggedin = user ? true : false
             this.owned = user === this.pollBS.getValue().owner
           })
+
+          this.model = new FormModel(this.pollBS.getValue().id, this.pollBS.getValue().type)
         }
       })
     })
+  }
+
+  // TODO: delete this when done testing
+  get diagnostic() { return JSON.stringify(this.model) }
+
+  addOption(): void {
+
+  }
+
+  deleteOption(): void {
+
   }
 
   vote(): void {
 
   }
 
-  confirmDelete: boolean = false
-
   delete(): void {
-    if (this.owned) {
+    if (this.owned && this.confirmDelete) {
       this.pollDataService.deletePoll(this.id)
     }
   }
