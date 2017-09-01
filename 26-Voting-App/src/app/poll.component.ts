@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
-import { BehaviorSubject } from 'rxjs/BehaviorSubject'
-import { Subscription } from 'rxjs/Subscription'
+import { BehaviorSubject, Subscription } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 
 import { AuthService } from './auth.service'
