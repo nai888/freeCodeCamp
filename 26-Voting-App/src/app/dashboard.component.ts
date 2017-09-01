@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router } from '@angular/router'
 import { Subscription } from 'rxjs/Subscription'
+import { Title } from '@angular/platform-browser'
 
 import { AuthService } from './auth.service'
 import { PollDataService } from './poll-data.service'
@@ -15,7 +16,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private pollDataService: PollDataService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) { }
 
   private loggedInSubsc: Subscription
@@ -27,6 +29,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   numMyPolls: number
 
   ngOnInit(): void {
+    this.titleService.setTitle('Voting App | Dashboard')
+
     this.loggedInSubsc = this.authService.isLoggedIn().subscribe(loggedIn => this.loggedIn = loggedIn)
 
     this.numPollsSubsc = this.pollDataService.getPolls().subscribe(num => this.numPolls = +num)

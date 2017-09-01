@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser'
+import { BrowserModule, Title } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { HttpModule } from '@angular/http'
@@ -12,7 +12,6 @@ import { NewPollComponent } from './new-poll.component'
 import { PollComponent } from './poll.component'
 import { AuthService } from './auth.service'
 import { PollDataService } from './poll-data.service'
-import { TitleService } from './title.service'
 import { LoggedInGuard, LoggedOutGuard } from './routes.guard'
 import { RoutesModule } from './routes.module'
 
@@ -37,7 +36,7 @@ import { RoutesModule } from './routes.module'
     PollDataService,
     LoggedInGuard,
     LoggedOutGuard,
-    TitleService
+    Title
   ],
   bootstrap: [AppComponent]
 })

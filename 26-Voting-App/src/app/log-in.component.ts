@@ -1,4 +1,5 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
 
 import { AuthService } from './auth.service'
 
@@ -7,8 +8,16 @@ import { AuthService } from './auth.service'
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css']
 })
-export class LogInComponent {
-  constructor(private authService: AuthService) { }
+export class LogInComponent implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private titleService: Title
+  ) { }
+
+  ngOnInit(): void {
+    this.titleService.setTitle('Voting App | Log In')
+  }
+
   login(): void {
     this.authService.login()
   }

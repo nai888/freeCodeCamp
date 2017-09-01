@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { Subscription } from 'rxjs/Subscription'
+import { Title } from '@angular/platform-browser'
 
 import { AuthService } from './auth.service'
 import { PollDataService } from './poll-data.service'
@@ -18,7 +19,8 @@ export class PollComponent {
   constructor(
     private authService: AuthService,
     private pollDataService: PollDataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private titleService: Title
   ) { }
 
   id: number
@@ -47,6 +49,8 @@ export class PollComponent {
           } else {
             this.pollBS = new BehaviorSubject<Poll>(poll)
           }
+
+          this.titleService.setTitle('Voting App | ' + this.pollBS.getValue().question)
 
           this.userSub = this.authService.getUsername().subscribe(user => {
             this.user = user
