@@ -3,7 +3,7 @@
   <ng-template #exists>
     <form #pollForm="ngForm" *ngIf="pollBS | async as poll; else loading" novalidate>
       <h2 class="poll-name">{{poll.question}}</h2>
-      <div *ngIf="poll.type==='radio'; then radio; else checkbox"></div>
+      <ng-container *ngIf="poll.type==='radio'; then radio; else checkbox"></ng-container>
       <ng-template #radio>
         <div class="poll-answer" *ngFor="let answer of poll.answers">
           <input type="radio" class="form-control" [id]="answer.id" name="selection" [value]="answer.id" [(ngModel)]="model.selection"><label [for]="answer.id"> {{answer.answer}}: {{answer.votes}}</label>
@@ -14,7 +14,7 @@
           <input type="checkbox" class="form-control" [id]="answer.id" [name]="answer.answer" [value]="answer.id" [(ngModel)]="model.selection[answer.id]"><label [for]="answer.id"> {{answer.answer}}: {{answer.votes}}</label>
         </div>
       </ng-template>
-      <button class="neutral add-option" *ngIf="loggedin" (click)="addOption()">Add Option</button>
+      <button class="neutral add-option" *ngIf="loggedin" (click)="editPoll()">Edit Poll</button>
       <p>Diagnostic: {{diagnostic}}</p>
       <div class="buttons" *ngIf="!confirmDelete; else confirm">
         <button type="submit">Submit Vote</button>

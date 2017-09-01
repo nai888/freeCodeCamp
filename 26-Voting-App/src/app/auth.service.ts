@@ -13,9 +13,9 @@ export class AuthService {
     private router: Router
   ) { }
 
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(true)
-  private username: BehaviorSubject<string> = new BehaviorSubject('nai888')
-  private displayName: BehaviorSubject<string> = new BehaviorSubject('Ian')
+  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(true) // Change this to false
+  private username: BehaviorSubject<string> = new BehaviorSubject('nai888') // Change this to null
+  private displayName: BehaviorSubject<string> = new BehaviorSubject('Ian') // Change this to null
 
   private loginApi: string = `${env.serverApiUrl}auth/github`
   private logoutApi: string = `${env.serverApiUrl}api/logout`
