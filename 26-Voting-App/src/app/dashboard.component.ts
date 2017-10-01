@@ -10,7 +10,7 @@ import { Poll } from './polls.model'
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.sass']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   constructor(

@@ -12,7 +12,7 @@ import { FormModel } from './form.model'
 @Component({
   selector: 'poll',
   templateUrl: './poll.component.html',
-  styleUrls: ['./poll.component.css']
+  styleUrls: ['./poll.component.sass']
 })
 export class PollComponent {
   constructor(

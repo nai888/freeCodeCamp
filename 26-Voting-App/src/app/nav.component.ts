@@ -7,7 +7,7 @@ import { AuthService } from './auth.service'
 @Component({
   selector: 'nav-comp',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  styleUrls: ['./nav.component.sass']
 })
 export class NavComponent implements OnInit, OnDestroy {
   constructor(

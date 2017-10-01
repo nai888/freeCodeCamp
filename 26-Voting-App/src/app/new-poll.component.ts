@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser'
 @Component({
   selector: 'new-poll',
   templateUrl: './new-poll.component.html',
-  styleUrls: ['./new-poll.component.css']
+  styleUrls: ['./new-poll.component.sass']
 })
 export class NewPollComponent implements OnInit {
   constructor(
