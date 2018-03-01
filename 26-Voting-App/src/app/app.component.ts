@@ -6,5 +6,14 @@ import { Component } from '@angular/core'
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'freeCodeCamp Voting App'
+  title: string = 'freeCodeCamp Voting App'
+  copyrightYear: number | string
+  currentYear: number
+  getCurrentYear: () => number = () => { return (new Date()).getFullYear() }
+
+  ngOnInit(): void {
+    this.currentYear = this.getCurrentYear()
+
+    this.currentYear === 2017 ? this.copyrightYear = this.currentYear : this.copyrightYear = '2017–' + this.currentYear
+  }
 }
