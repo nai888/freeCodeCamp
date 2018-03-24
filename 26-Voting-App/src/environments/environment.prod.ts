@@ -1,9 +1,8 @@
 export const environment = {
   production: true,
-  serverApiUrl: '',
+  appUrl: 'https://nai888-fcc-voting-app.glitch.me',
+  serverApiUrl: 'https://nai888-fcc-voting-app.glitch.me:3000',
   gitHubAuth: {
-    id: '7bd89ce4a19214be7f6a',
-    secret: '30a4a2e9a88ad778f4b1902081e72af4dfc90581',
-    callbackUrl: 'https://nai888-fcc-voting-app.glitch.me'
+    callbackUrl: 'https://nai888-fcc-voting-app.glitch.me:3000'
   }
-};
+}

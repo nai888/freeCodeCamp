@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { Http } from '@angular/http'
 import { Router } from '@angular/router'
 import { Observable, BehaviorSubject } from 'rxjs'
+import 'rxjs/add/operator/map'
 
 import { AuthService } from '../auth/auth.service'
 import { environment as env } from '../../environments/environment'
