@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { Subscription } from 'rxjs/Subscription'
 import { Title } from '@angular/platform-browser'
 
-import { AuthService } from './auth.service'
+import { AuthService } from '../auth/auth.service'
 
 @Component({
   selector: 'logged-in',

@@ -4,10 +4,10 @@ import { ActivatedRoute } from '@angular/router'
 import { BehaviorSubject, Subscription } from 'rxjs'
 import { Title } from '@angular/platform-browser'
 
-import { AuthService } from './auth.service'
-import { PollDataService } from './poll-data.service'
-import { AnswerType, Poll } from './polls.model'
-import { FormModel } from './form.model'
+import { AuthService } from '../auth/auth.service'
+import { PollDataService } from '../poll-data/poll-data.service'
+import { AnswerType, Poll } from '../models/polls.model'
+import { FormModel } from '../models/form.model'
 
 @Component({
   selector: 'poll',

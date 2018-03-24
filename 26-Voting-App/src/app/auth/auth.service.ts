@@ -3,8 +3,8 @@ import { Http } from '@angular/http'
 import { Router } from '@angular/router'
 import { Observable, BehaviorSubject } from 'rxjs'
 
-import { environment as env } from '../environments/environment'
-import { User } from './users.model'
+import { environment as env } from '../../environments/environment'
+import { User } from '../models/users.model'
 
 @Injectable()
 export class AuthService {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 
-import { AuthService } from './auth.service'
+import { AuthService } from '../auth/auth.service'
 
 @Component({
   selector: 'log-in',

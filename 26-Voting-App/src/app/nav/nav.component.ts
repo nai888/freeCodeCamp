@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core'
 import { ActivatedRoute, Router, ParamMap } from '@angular/router'
 import { Subscription } from 'rxjs/Subscription'
 
-import { AuthService } from './auth.service'
+import { AuthService } from '../auth/auth.service'
 
 @Component({
   selector: 'nav-comp',

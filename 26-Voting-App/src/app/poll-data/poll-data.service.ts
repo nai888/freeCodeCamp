@@ -3,9 +3,9 @@ import { Http } from '@angular/http'
 import { Router } from '@angular/router'
 import { Observable, BehaviorSubject } from 'rxjs'
 
-import { AuthService } from './auth.service'
-import { environment as env } from '../environments/environment'
-import { Poll } from './polls.model'
+import { AuthService } from '../auth/auth.service'
+import { environment as env } from '../../environments/environment'
+import { Poll } from '../models/polls.model'
 
 @Injectable()
 export class PollDataService {

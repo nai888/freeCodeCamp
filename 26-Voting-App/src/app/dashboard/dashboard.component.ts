@@ -3,9 +3,9 @@ import { Router } from '@angular/router'
 import { Subscription } from 'rxjs/Subscription'
 import { Title } from '@angular/platform-browser'
 
-import { AuthService } from './auth.service'
-import { PollDataService } from './poll-data.service'
-import { Poll } from './polls.model'
+import { AuthService } from '../auth/auth.service'
+import { PollDataService } from '../poll-data/poll-data.service'
+import { Poll } from '../models/polls.model'
 
 @Component({
   selector: 'dashboard',
