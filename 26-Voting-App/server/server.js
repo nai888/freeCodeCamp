@@ -46,11 +46,11 @@ app.use('', express.static(path.join(process.cwd(), 'dist')))
 
 // Connect database
 var dbURI = 'mongodb://' + process.env.dbuser + ':' + process.env.dbpassword + '@' + process.env.dburl + ':' + process.env.dbport + '/' + process.env.dbname
-MongoClient.connect(dbURI, function (err, dbobj) {
+MongoClient.connect(dbURI, function (err, client) {
   if (err) {
     console.error(err)
   } else {
-    var db = dbobj.db(process.env.dbname)
+    var db = client.db(process.env.dbname)
     var collection = process.env.collection
     db.createCollection(collection)
     api(app, db, collection)
