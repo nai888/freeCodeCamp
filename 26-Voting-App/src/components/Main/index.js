@@ -13,10 +13,10 @@ import styles from './styles'
 const Main = ({ classes }) => (
   <main className={classes.main}>
     <Switch>
-      <Route path='login' component={LogIn} />
-      <Route path='loggedin/:login/:name' component={LoggedIn} />
-      <Route path='newpoll' component={NewPoll} />
-      <Route path='polls/:id' component={Poll} />
+      <Route path='/login' component={LogIn} />
+      <Route path='/loggedin/:login/:name' component={LoggedIn} />
+      <Route path='/newpoll' component={NewPoll} />
+      <Route path='/polls/:id' component={Poll} />
       <Route path='/' component={Dashboard} />
     </Switch>
   </main>

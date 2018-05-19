@@ -73,17 +73,6 @@ const styles = {
       '&:active': {
         color: v.ylw.string()
       },
-      '&.active': {
-        '&:link, &:visited': {
-          color: v.ylw.string()
-        },
-        '&:hover': {
-          color: v.ylw.darken(0.15).string()
-        },
-        '&:active': {
-          color: v.ylw.darken(0.25).string()
-        }
-      },
       '&:focus': {
         outline: {
           width: 1,
