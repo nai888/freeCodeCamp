@@ -29,7 +29,8 @@ const styles = {
       padding: 0
     },
     'h1, h2': {
-      marginTop: 0
+      marginTop: 0,
+      marginBottom: 0
     },
     h1: {
       color: v.blu.darken(0.2).string(),

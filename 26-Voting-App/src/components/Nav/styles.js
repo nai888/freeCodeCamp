@@ -14,6 +14,10 @@ const styles = {
   greeting: {
     fontStyle: 'italic'
   },
+  logOut: {
+    color: v.blu.string(),
+    cursor: 'pointer'
+  },
   menuLink: {
     display: 'inline',
     listStyle: 'none',

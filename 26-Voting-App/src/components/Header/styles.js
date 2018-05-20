@@ -24,9 +24,6 @@ const styles = {
       color: v.blu.alpha(0.2).string()
     }
   },
-  title: {
-    margin: 0
-  },
   titleLink: {
     '&:link, &:visited, &:hover, &:active': {
       color: 'inherit',
