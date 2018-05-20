@@ -19,9 +19,9 @@ class App extends React.Component {
     this.logIn = this.logIn.bind(this)
     this.logOut = this.logOut.bind(this)
     this.state = {
-      loggedIn: false,
-      displayName: undefined,
-      userName: undefined
+      loggedIn: true,
+      displayName: 'Ian',
+      userName: 'nai888'
     }
   }
 
