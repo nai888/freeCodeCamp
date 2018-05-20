@@ -17,6 +17,7 @@ const styles = {
     display: 'flex',
     alignContent: 'baseline',
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
     borderBottom: {
       width: 1,
       style: 'solid',

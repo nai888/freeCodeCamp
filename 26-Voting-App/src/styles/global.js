@@ -32,22 +32,32 @@ const styles = {
       marginTop: 0
     },
     h1: {
-      color: v.blu.darken(0.2).string()
+      color: v.blu.darken(0.2).string(),
+      fontSize: '1.8rem',
+      lineHeight: `${1.8 * 1.4}rem`
     },
     h2: {
-      color: v.blu.darken(0.1).string()
+      color: v.blu.darken(0.1).string(),
+      fontSize: '1.6rem',
+      lineHeight: `${1.6 * 1.4}rem`
     },
     h3: {
-      color: v.blu.darken(0.08).string()
+      color: v.blu.darken(0.08).string(),
+      fontSize: '1.4rem',
+      lineHeight: `${1.4 * 1.4}rem`
     },
     h4: {
-      color: v.blu.darken(0.05).string()
+      color: v.blu.darken(0.05).string(),
+      fontSize: '1.2rem',
+      lineHeight: `${1.2 * 1.4}rem`
     },
     h5: {
-      color: v.blu.darken(0.02).string()
+      color: v.blu.darken(0.02).string(),
+      fontSize: '1rem'
     },
     h6: {
-      color: v.blu.string()
+      color: v.blu.string(),
+      fontSize: '0.9rem'
     },
     p: {
       fontSize: '1rem',

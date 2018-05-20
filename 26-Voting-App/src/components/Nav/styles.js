@@ -4,7 +4,8 @@ const styles = {
   nav: {
     display: 'flex',
     alignContent: 'baseline',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    flexWrap: 'wrap'
   },
   menu: {
     margin: 0,

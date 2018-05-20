@@ -3,8 +3,8 @@ import injectSheet from 'react-jss'
 
 import styles from './styles'
 
-const LogIn = ({ classes }) => (
-  <div className={classes.login}>
+const LogIn = (props) => (
+  <div className={props.classes.login}>
     <h2>Log In</h2>
   </div>
 )

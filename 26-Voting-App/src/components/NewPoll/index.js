@@ -3,8 +3,8 @@ import injectSheet from 'react-jss'
 
 import styles from './styles'
 
-const NewPoll = ({ classes }) => (
-  <div className={classes.newPoll}>
+const NewPoll = (props) => (
+  <div className={props.classes.newPoll}>
     <h2>New Poll</h2>
   </div>
 )

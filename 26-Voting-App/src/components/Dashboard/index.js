@@ -3,8 +3,8 @@ import injectSheet from 'react-jss'
 
 import styles from './styles'
 
-const Dashboard = ({ classes }) => (
-  <div className={classes.dashboard}>
+const Dashboard = (props) => (
+  <div className={props.classes.dashboard}>
     <h2>Dashboard</h2>
   </div>
 )

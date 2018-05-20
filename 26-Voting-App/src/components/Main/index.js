@@ -10,14 +10,14 @@ import Poll from '../Poll'
 
 import styles from './styles'
 
-const Main = ({ classes }) => (
-  <main className={classes.main}>
+const Main = (props) => (
+  <main className={props.classes.main}>
     <Switch>
-      <Route path='/login' component={LogIn} />
-      <Route path='/loggedin/:login/:name' component={LoggedIn} />
-      <Route path='/newpoll' component={NewPoll} />
-      <Route path='/polls/:id' component={Poll} />
-      <Route path='/' component={Dashboard} />
+      <Route path='/login' render={(props) => <LogIn {...props} />} />
+      <Route path='/loggedin/:login/:name' render={(props) => <LoggedIn {...props} />} />
+      <Route path='/newpoll' render={(props) => <NewPoll {...props} />} />
+      <Route path='/polls/:id' render={(props) => <Poll {...props} />} />
+      <Route path='/' render={(props) => <Dashboard {...props} />} />
     </Switch>
   </main>
 )
