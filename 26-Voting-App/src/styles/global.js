@@ -21,21 +21,21 @@ const styles = {
       fontFamily: v.font,
       textRendering: 'optimizeLegibility',
       margin: {
-        top: '4.2rem', // 3 * line height
+        top: '2.8rem', // 3 * line height
         right: '0',
-        bottom: '2.8rem', // 2 * line height
+        bottom: '1.4rem', // 2 * line height
         left: '0'
       },
       padding: 0
     },
     'h1, h2': {
-      marginTop: 0,
-      marginBottom: 0
+      marginTop: 0
     },
     h1: {
       color: v.blu.darken(0.2).string(),
       fontSize: '1.8rem',
-      lineHeight: `${1.8 * 1.4}rem`
+      lineHeight: `${1.8 * 1.4}rem`,
+      marginBottom: 0
     },
     h2: {
       color: v.blu.darken(0.1).string(),
@@ -113,14 +113,15 @@ const styles = {
       fontFamily: v.font,
       fontWeight: 'bold',
       fontSize: '1rem',
-      color: v.white.string(),
       border: {
         width: '1px',
         style: 'solid',
         color: v.blu.darken(0.15).alpha(0.3).string()
       },
+      borderRadius: '5px',
       background: 'none',
-      backgroundColor: v.blu.lighten(0.1).string(),
+      backgroundColor: v.white.string(),
+      color: v.black.string(),
       padding: {
         top: '0.75rem',
         right: '1rem',
@@ -128,17 +129,17 @@ const styles = {
         left: '1rem'
       },
       '&:hover': {
-        backgroundColor: v.blu.string()
+        backgroundColor: v.white.darken(0.1).string()
       },
       '&:active': {
-        backgroundColor: v.bluNtl.darken(0.1).string(),
+        backgroundColor: v.white.darken(0.2).string(),
         boxShadow: {
           inset: 'inset',
           x: 0,
           y: 0,
           blur: '0.7rem',
           spread: null,
-          color: v.bluNtl.darken(0.2).string()
+          color: v.white.darken(0.3).string()
         }
       },
       '&:focus': {
