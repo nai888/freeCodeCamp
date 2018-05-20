@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import injectSheet from 'react-jss'
 
 import Dashboard from '../Dashboard'
@@ -13,11 +13,17 @@ import styles from './styles'
 const Main = (props) => (
   <main className={props.classes.main}>
     <Switch>
-      <Route path='/login' render={(props) => <LogIn {...props} />} />
-      <Route path='/loggedin/:login/:name' render={(props) => <LoggedIn {...props} />} />
-      <Route path='/newpoll' render={(props) => <NewPoll {...props} />} />
-      <Route path='/polls/:id' render={(props) => <Poll {...props} />} />
-      <Route path='/' render={(props) => <Dashboard {...props} />} />
+      <Route path='/login' render={() => <LogIn {...props} />} />
+      <Route path='/loggedin/:login/:name' render={() => <LoggedIn {...props} />} />
+      <Route path='/newpoll' render={() => (
+        props.state.loggedIn ? ( // If the user is logged in,
+          <NewPoll {...props} /> // take them to /newpoll as requested.
+        ) : ( // Otherwise,
+          <Redirect to='/login' /> // redirect them to /login.
+        )
+      )} />
+      <Route path='/polls/:id' render={() => <Poll {...props} />} />
+      <Route path='/' render={() => <Dashboard {...props} />} />
     </Switch>
   </main>
 )
