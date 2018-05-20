@@ -13,7 +13,13 @@ import styles from './styles'
 const Main = (props) => (
   <main className={props.classes.main}>
     <Switch>
-      <Route path='/login' render={() => <LogIn {...props} />} />
+      <Route path='/login' render={() => (
+        !props.state.loggedIn ? ( // If the user is not logged in,
+          <LogIn {...props} /> // take them to /login as requested.
+        ) : ( // Otherwise,
+          <Redirect to='/' /> // redirect them to the dashboard.
+        )
+      )} />
       <Route path='/loggedin/:login/:name' render={() => <LoggedIn {...props} />} />
       <Route path='/newpoll' render={() => (
         props.state.loggedIn ? ( // If the user is logged in,
