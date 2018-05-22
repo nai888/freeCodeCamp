@@ -7,7 +7,12 @@ const Greeting = (props) => {
     return (
       <li className={classNames(props.classes.greeting, props.classes.menuLink)}>
         Welcome, {props.name}! <small>
-          <span className={props.classes.logOut} onClick={props.onLogOut}>
+          <span
+            className={props.classes.logOut}
+            onClick={props.onLogOut}
+            role='button'
+            tabindex='0'
+          >
             (log out)
           </span>
         </small>

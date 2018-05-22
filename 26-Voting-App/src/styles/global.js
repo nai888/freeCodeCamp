@@ -15,7 +15,14 @@ const styles = {
       color: v.black.string(),
       fontKerning: 'normal',
       fontVariantLigatures: 'common-ligatures contextual',
-      fontFeatureSettings: ['"kern" 1', '"liga" 1', '"clig" 1', '"calt" 1']
+      fontFeatureSettings: ['"kern" 1', '"liga" 1', '"clig" 1', '"calt" 1'],
+      '& :focus': {
+        outline: {
+          width: 1,
+          style: 'solid',
+          color: v.blu.darken(0.15).alpha(0.3).string()
+        }
+      }
     },
     'h1, h2, h3, h4, h5, h6': {
       fontFamily: v.font,
