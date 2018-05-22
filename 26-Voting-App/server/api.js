@@ -12,9 +12,9 @@ module.exports = function (app, db, pollsCollection, usersCollection) {
   }
   var user = blankUser
   var token
-  var clientID = process.env.gitHubID
-  var clientSecret = process.env.gitHubSecret
-  var appUrl = process.env.appUrl
+  var clientID = process.env.GITHUB_ID
+  var clientSecret = process.env.GITHUB_SECRET
+  var appUrl = process.env.APP_URL
   var redir
   var polls = db.collection(pollsCollection)
   var users = db.collection(usersCollection)
@@ -103,6 +103,7 @@ module.exports = function (app, db, pollsCollection, usersCollection) {
 
   app.get('/api/polls', cors(corsOptions), function (req, res) {
     var name = req.query.name
+    console.log(name)
 
     if (name) {
       polls.find({ 'owner': name }, { '_id': 0 }).sort({ '_id': 1 }).toArray(function (err, docs) {

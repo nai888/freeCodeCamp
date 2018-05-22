@@ -25,7 +25,7 @@ app.use(flash())
 var server = http.createServer(app)
 
 // Set port
-var port = normalizePort(process.env.svrPORT || '3000')
+var port = normalizePort(process.env.SERVER_PORT || '3000')
 app.set('port', port)
 
 // Log listener
@@ -45,14 +45,14 @@ server.on('listening', onListening)
 app.use('', express.static(path.join(process.cwd()))) // May need to be path.join(process.cwd(), 'public')
 
 // Connect database
-var dbURI = 'mongodb://' + process.env.dbuser + ':' + process.env.dbpassword + '@' + process.env.dburl + ':' + process.env.dbport + '/' + process.env.dbname
+var dbURI = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASSWORD + '@' + process.env.DB_URL + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME
 MongoClient.connect(dbURI, { useNewUrlParser: true }, function (err, client) {
   if (err) {
     console.error(err)
   } else {
-    var db = client.db(process.env.dbname)
-    var pollsCollection = process.env.pollsCollection
-    var usersCollection = process.env.usersCollection
+    var db = client.db(process.env.DB_NAME)
+    var pollsCollection = process.env.POLLS_COLLECTION
+    var usersCollection = process.env.USERS_COLLECTION
     db.createCollection(pollsCollection)
     db.createCollection(usersCollection)
     api(app, db, pollsCollection, usersCollection)
