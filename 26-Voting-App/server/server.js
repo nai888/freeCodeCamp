@@ -46,13 +46,15 @@ app.use('', express.static(path.join(process.cwd()))) // May need to be path.joi
 
 // Connect database
 var dbURI = 'mongodb://' + process.env.dbuser + ':' + process.env.dbpassword + '@' + process.env.dburl + ':' + process.env.dbport + '/' + process.env.dbname
-MongoClient.connect(dbURI, function (err, client) {
+MongoClient.connect(dbURI, { useNewUrlParser: true }, function (err, client) {
   if (err) {
     console.error(err)
   } else {
     var db = client.db(process.env.dbname)
-    var collection = process.env.collection
-    db.createCollection(collection)
-    api(app, db, collection)
+    var pollsCollection = process.env.pollsCollection
+    var usersCollection = process.env.usersCollection
+    db.createCollection(pollsCollection)
+    db.createCollection(usersCollection)
+    api(app, db, pollsCollection, usersCollection)
   }
 })

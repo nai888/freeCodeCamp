@@ -4,7 +4,7 @@ var cors = require('cors')
 var https = require('https')
 var GraphQLClient = require('graphql-request').GraphQLClient
 
-module.exports = function (app, db, collection) {
+module.exports = function (app, db, pollsCollection, usersCollection) {
   var blankUser = {
     loggedin: false,
     login: undefined,
@@ -16,6 +16,8 @@ module.exports = function (app, db, collection) {
   var clientSecret = process.env.gitHubSecret
   var appUrl = process.env.appUrl
   var redir
+  var polls = db.collection(pollsCollection)
+  var users = db.collection(usersCollection)
 
   app.get('/auth/github', function (req, res) {
     redir = req.query.url
@@ -76,6 +78,10 @@ module.exports = function (app, db, collection) {
     }
   })
 
+  users.findOne({ 'username': 'nai888' }).then((user) => {
+    console.log(user)
+  }) // temporary, logs nai888 user data to console upon server start
+
   app.get('/api/logout', function (req, res) {
     user = blankUser
     var options = {
@@ -94,8 +100,6 @@ module.exports = function (app, db, collection) {
   var corsOptions = {
     origin: appUrl
   }
-
-  var polls = db.collection(collection)
 
   app.get('/api/polls', cors(corsOptions), function (req, res) {
     var name = req.query.name
