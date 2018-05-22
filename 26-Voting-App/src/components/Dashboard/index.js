@@ -36,7 +36,7 @@ const Dashboard = (props) => {
             const questions = data.map((q) => (
               <li className={props.classes.questionTitle} key={q.id}>
                 <Link to={`/poll/${q.id}`}>
-                  {q.question}
+                  {q.question} &rarr;
                 </Link>
               </li>
             ))
