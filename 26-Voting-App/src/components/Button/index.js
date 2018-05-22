@@ -11,6 +11,7 @@ const Button = (props) => (
       props.classes[props.buttonType]
     )}
     onClick={props.onClick}
+    role={props.role || 'button'}
   >
     {props.children}
   </button>

@@ -10,7 +10,7 @@ const ButtonLink = (props) => {
   }
 
   return (
-    <Button buttonType={props.buttonType} onClick={onClick}>
+    <Button buttonType={props.buttonType} onClick={onClick} role='link'>
       {props.children}
     </Button>
   )
