@@ -12,9 +12,25 @@ import styles from './styles'
 
 const Dashboard = (props) => {
   const pollsApi = `${env.REACT_APP_SERVER_API_URL}api/polls`
-  const pollApi = `${env.REACT_APP_SERVER_API_URL}api/poll`
-  console.log(pollsApi)
-  console.log(pollApi)
+
+  const numPolls = () => {
+    return (
+      <Fetch url={pollsApi}>
+        {({ fetching, failed, response, data }) => {
+          if (data) {
+            return +data
+          }
+        }}
+      </Fetch>
+    )
+  }
+
+  const chooseRand = (num) => {
+    console.log(num)
+    const rand = Math.floor(Math.random() * num)
+    console.log(rand)
+    return rand
+  }
 
   const myPolls = () => {
     return (
@@ -65,10 +81,11 @@ const Dashboard = (props) => {
         <div className={props.classes.dashboardPage}>
           <ButtonLink buttonType='success' route='/newpoll'>
             New Poll
-          </ButtonLink> <ButtonLink buttonType='primary' route='/polls'>
+          </ButtonLink> <ButtonLink buttonType='primary' route={`/polls/${chooseRand(numPolls())}`}>
             Random Poll
           </ButtonLink>
           <h3>Your Polls</h3>
+          <p>{numPolls()}</p>
           {myPolls()}
         </div>
       )
