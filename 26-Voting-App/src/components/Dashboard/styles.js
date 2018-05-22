@@ -1,5 +1,5 @@
 const styles = {
-  noPolls: {
+  notice: {
     fontStyle: 'italic'
   }
 }

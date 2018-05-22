@@ -1,12 +1,64 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import injectSheet from 'react-jss'
+import { Fetch } from 'react-request'
+import classNames from 'classnames'
+
+import env from '../../env'
 
 import ButtonLink from '../Button/ButtonLink'
 
 import styles from './styles'
 
 const Dashboard = (props) => {
+  const pollsApi = `${env.REACT_APP_SERVER_API_URL}api/polls`
+  const pollApi = `${env.REACT_APP_SERVER_API_URL}api/poll`
+  console.log(pollsApi)
+  console.log(pollApi)
+
+  const myPolls = () => {
+    return (
+      <Fetch url={`${pollsApi}?name=${props.state.userName}`}>
+        {({ fetching, failed, data }) => {
+          if (fetching) {
+            return (
+              <div className={classNames(props.classes.polls, props.classes.fetching)}>
+                <p className={props.classes.notice}>Loading polls&hellip;</p>
+              </div>
+            )
+          } else if (failed) {
+            return (
+              <div className={classNames(props.classes.polls, props.classes.failed)}>
+                <p className={props.classes.notice}>Unable to fetch your polls.</p>
+              </div>
+            )
+          } else if (data) {
+            const questions = data.map((q) => (
+              <li className={props.classes.questionTitle} key={q.id}>
+                <Link to={`/poll/${q.id}`}>
+                  {q.question}
+                </Link>
+              </li>
+            ))
+            return (
+              <div className={classNames(props.classes.polls, props.classes.success)}>
+                <ul className={props.classes.questionList}>
+                  {questions}
+                </ul>
+              </div>
+            )
+          } else {
+            return (
+              <div className={classNames(props.classes.polls, props.classes.noData)}>
+                <p className={props.classes.notice}>You have no polls yet.</p>
+              </div>
+            )
+          }
+        }}
+      </Fetch>
+    )
+  }
+
   const dashboardPage = () => {
     if (props.state.loggedIn) {
       return (
@@ -17,7 +69,7 @@ const Dashboard = (props) => {
             Random Poll
           </ButtonLink>
           <h3>Your Polls</h3>
-          <p className={props.classes.noPolls}>You have no polls yet.</p>
+          {myPolls()}
         </div>
       )
     } else {
