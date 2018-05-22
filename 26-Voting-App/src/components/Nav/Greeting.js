@@ -11,7 +11,7 @@ const Greeting = (props) => {
             className={props.classes.logOut}
             onClick={props.onLogOut}
             role='button'
-            tabindex='0'
+            tabIndex='0'
           >
             (log out)
           </span>
