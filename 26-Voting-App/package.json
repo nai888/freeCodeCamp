@@ -24,14 +24,17 @@
     "react-dom": "^16.3.2",
     "react-helmet": "^5.2.0",
     "react-jss": "^8.4.0",
+    "react-request": "^3.0.1",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4"
   },
   "devDependencies": {
+    "concurrently": "^3.5.1",
     "nodemon": "^1.17.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"yarn app\" \"yarn server\"",
+    "app": "react-scripts start",
     "server": "nodemon server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
