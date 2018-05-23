@@ -1,79 +1,57 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 import injectSheet from 'react-jss'
-import { Fetch } from 'react-request'
 import classNames from 'classnames'
 
-import env from '../../env'
-import apiCaller from '../../apiCaller'
+import { siteTitle } from '../../App'
 
 import ButtonLink from '../Button/ButtonLink'
 
 import styles from './styles'
 
 const Dashboard = (props) => {
-  const pollsApi = `${env.REACT_APP_SERVER_API_URL}api/polls`
-
-  const numPolls = () => {
-    return (
-      <Fetch url={pollsApi}>
-        {({ fetching, failed, response, data }) => {
-          if (data) {
-            return +data
-          }
-        }}
-      </Fetch>
-    )
-  }
-
   const chooseRand = (num) => {
-    console.log(num)
-    const rand = Math.floor(Math.random() * num)
-    console.log(rand)
-    return rand
+    return Math.floor(Math.random() * num)
   }
 
   const myPolls = () => {
-    return (
-      <Fetch url={`${pollsApi}?name=${props.state.userName}`}>
-        {({ fetching, failed, data }) => {
-          if (fetching) {
-            return (
-              <div className={classNames(props.classes.polls, props.classes.fetching)}>
-                <p className={props.classes.notice}>Loading polls&hellip;</p>
-              </div>
-            )
-          } else if (failed) {
-            return (
-              <div className={classNames(props.classes.polls, props.classes.failed)}>
-                <p className={props.classes.notice}>Unable to fetch your polls.</p>
-              </div>
-            )
-          } else if (data) {
-            const questions = data.map((q) => (
-              <li className={props.classes.questionTitle} key={q.id}>
-                <Link to={`/poll/${q.id}`}>
-                  {q.question} &rarr;
-                </Link>
-              </li>
-            ))
-            return (
-              <div className={classNames(props.classes.polls, props.classes.success)}>
-                <ul className={props.classes.questionList}>
-                  {questions}
-                </ul>
-              </div>
-            )
-          } else {
-            return (
-              <div className={classNames(props.classes.polls, props.classes.noData)}>
-                <p className={props.classes.notice}>You have no polls yet.</p>
-              </div>
-            )
-          }
-        }}
-      </Fetch>
-    )
+    if (props.state.userPolls === 'loading') {
+      return (
+        <p className={classNames(props.classes.notice, props.classes.fetching)}>
+          Loading polls&hellip;
+        </p>
+      )
+    } else if (props.state.userPolls === 'error') {
+      return (
+        <p className={classNames(props.classes.notice, props.classes.failed)}>
+          Unable to fetch your polls.
+        </p>
+      )
+    } else if (props.state.userPolls) {
+      if (props.state.userPolls.length) {
+        const questions = props.state.userPolls.map((q) => (
+          <li className={props.classes.questionTitle} key={q.id}>
+            <Link to={`/poll/${q.id}`}>
+              {q.question} &rarr;
+            </Link>
+          </li>
+        ))
+        return (
+          <ul className={classNames(props.classes.questionList, props.classes.success)}>
+            {questions}
+          </ul>
+        )
+      } else {
+        return (
+          <p className={classNames(props.classes.notice, props.classes.noPolls)}>
+            You have no polls yet.
+          </p>
+        )
+      }
+    } else {
+      return null
+    }
   }
 
   const dashboardPage = () => {
@@ -82,12 +60,10 @@ const Dashboard = (props) => {
         <div className={props.classes.dashboardPage}>
           <ButtonLink buttonType='success' route='/newpoll'>
             New Poll
-          </ButtonLink> <ButtonLink buttonType='primary' route={`/polls/${chooseRand(numPolls())}`}>
+          </ButtonLink> <ButtonLink buttonType='primary' route={`/polls/${chooseRand(props.state.numPolls)}`}>
             Random Poll
           </ButtonLink>
           <h3>Your Polls</h3>
-          <p>{numPolls()}</p>
-          <p>{apiCaller.getNumQuestions()}</p>
           {myPolls()}
         </div>
       )
@@ -96,7 +72,9 @@ const Dashboard = (props) => {
         <div className={props.classes.dashboardPage}>
           <p>To create a new poll, you will need to <Link to='/login'>log in</Link>.</p>
           <p>You may vote on others&rsquo; polls without logging in.</p>
-          <ButtonLink buttonType='primary' route='/polls'>Random Poll</ButtonLink>
+          <ButtonLink buttonType='primary' route={`/polls/${chooseRand(props.state.numPolls)}`}>
+            Random Poll
+          </ButtonLink>
         </div>
       )
     }
@@ -104,6 +82,9 @@ const Dashboard = (props) => {
 
   return (
     <div className={props.classes.dashboard}>
+      <Helmet>
+        <title>{siteTitle} Dashboard</title>
+      </Helmet>
       <h2>Dashboard</h2>
       {dashboardPage()}
     </div>
