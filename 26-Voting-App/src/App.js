@@ -20,7 +20,7 @@ const fetch = window.fetch
 class App extends React.Component {
   constructor (props) {
     super(props)
-    this.pollsApi = `${env.REACT_APP_SERVER_API_URL}api/polls`
+    this.pollsApi = `${env.SERVER_API_URL}api/polls`
     this.logIn = this.logIn.bind(this)
     this.logOut = this.logOut.bind(this)
     this.getNumPolls = this.getNumPolls.bind(this)
@@ -73,14 +73,17 @@ class App extends React.Component {
       })
   }
 
-  logIn () {
+  logIn (dName, uName) {
     this.setState(prevState => ({
-      loggedIn: true
+      loggedIn: true,
+      displayName: dName,
+      userName: uName
     }))
     this.getUserPolls()
   }
 
-  logOut () {
+  logOut (e) {
+    e.preventDefault()
     this.setState(prevState => ({
       loggedIn: false
     }))
@@ -95,7 +98,7 @@ class App extends React.Component {
           <meta name='theme-color' content={v.blu.string()} />
         </Helmet>
         <Header state={this.state} onLogOut={this.logOut} />
-        <Main state={this.state} />
+        <Main state={this.state} onLogIn={this.logIn} />
         <Footer />
       </div>
     )
