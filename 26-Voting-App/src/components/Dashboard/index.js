@@ -5,6 +5,7 @@ import { Fetch } from 'react-request'
 import classNames from 'classnames'
 
 import env from '../../env'
+import apiCaller from '../../apiCaller'
 
 import ButtonLink from '../Button/ButtonLink'
 
@@ -86,6 +87,7 @@ const Dashboard = (props) => {
           </ButtonLink>
           <h3>Your Polls</h3>
           <p>{numPolls()}</p>
+          <p>{apiCaller.getNumQuestions()}</p>
           {myPolls()}
         </div>
       )
