@@ -12,7 +12,6 @@ class LoggedIn extends React.Component {
       qParams[key] = val || true
     }
     this.redir = qParams.redir
-    console.log(this.redir)
   }
 
   componentDidMount () {
