@@ -141,4 +141,4 @@ class Poll extends React.Component {
   }
 }
 
-export default injectSheet(styles)(withRouter(Poll))
+export default withRouter(injectSheet(styles)(Poll))
