@@ -25,11 +25,9 @@ class Poll extends React.Component {
   }
 
   renderSiteTitle () {
-    if (this.props.state.currentPoll) {
-      return `Poll: ${this.props.state.currentPoll.question}`
-    } else {
-      return 'Poll'
-    }
+    return this.props.state.currentPoll
+      ? `Poll: ${this.props.state.currentPoll.question}`
+      : 'Poll'
   }
 
   componentWillUnmount () {
