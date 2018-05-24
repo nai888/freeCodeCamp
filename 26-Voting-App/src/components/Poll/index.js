@@ -11,9 +11,6 @@ class Poll extends React.Component {
   constructor (props) {
     super(props)
     this.renderPoll = this.renderPoll.bind(this)
-  }
-
-  componentDidMount () {
     this.props.onLoadPoll(this.props.match.params.id)
   }
 
