@@ -7,27 +7,50 @@ import { siteTitle } from '../../App'
 
 import styles from './styles'
 
-const Poll = (props) => {
-  props.onLoadPoll(props.match.params.id)
+class Poll extends React.Component {
+  constructor (props) {
+    super(props)
+    this.renderPoll = this.renderPoll.bind(this)
+  }
 
-  const renderPoll = () => {
-    if (props.state.currentPoll) {
+  componentDidMount () {
+    this.props.onLoadPoll(this.props.match.params.id)
+  }
+
+  renderPoll () {
+    if (this.props.state.currentPoll) {
       return (
-        <h2>{props.state.currentPoll.question}</h2>
+        <h2>{this.props.state.currentPoll.question}</h2>
       )
     } else {
       return <h2>Loading&hellip;</h2>
     }
   }
 
-  return (
-    <div className={props.classes.poll}>
-      <Helmet>
-        <title>{siteTitle} Poll</title>
-      </Helmet>
-      {renderPoll()}
-    </div>
-  )
+  renderSiteTitle () {
+    if (this.props.state.currentPoll) {
+      return `Poll: ${this.props.state.currentPoll.question}`
+    } else {
+      return 'Poll'
+    }
+  }
+
+  componentWillUnmount () {
+    this.props.onClearPoll()
+  }
+
+  render () {
+    return (
+      <div className={this.props.classes.poll}>
+        <Helmet>
+          <title>
+            {siteTitle} {this.renderSiteTitle()}
+          </title>
+        </Helmet>
+        {this.renderPoll()}
+      </div>
+    )
+  }
 }
 
 export default injectSheet(styles)(withRouter(Poll))

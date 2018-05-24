@@ -28,6 +28,7 @@ class App extends React.Component {
     this.getNumPolls = this.getNumPolls.bind(this)
     this.getUserPolls = this.getUserPolls.bind(this)
     this.getCurrentPoll = this.getCurrentPoll.bind(this)
+    this.clearCurrentPoll = this.clearCurrentPoll.bind(this)
     this.state = {
       loggedIn: true,
       displayName: 'Ian',
@@ -91,6 +92,12 @@ class App extends React.Component {
       })
   }
 
+  clearCurrentPoll () {
+    this.setState(prevState => ({
+      currentPoll: undefined
+    }))
+  }
+
   logIn (dName, uName) {
     this.setState(prevState => ({
       loggedIn: true,
@@ -126,6 +133,7 @@ class App extends React.Component {
           state={this.state}
           onLogIn={this.logIn}
           onLoadPoll={this.getCurrentPoll}
+          onClearPoll={this.clearCurrentPoll}
         />
         <Footer />
       </div>
