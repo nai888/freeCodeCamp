@@ -27,6 +27,7 @@ class App extends React.Component {
     this.logOut = this.logOut.bind(this)
     this.getNumPolls = this.getNumPolls.bind(this)
     this.getUserPolls = this.getUserPolls.bind(this)
+    this.getCurrentPoll = this.getCurrentPoll.bind(this)
     this.state = {
       loggedIn: true,
       displayName: 'Ian',
@@ -75,6 +76,21 @@ class App extends React.Component {
       })
   }
 
+  getCurrentPoll (id) {
+    fetch(`${this.pollApi}?id=${id}`)
+      .then(res => {
+        return res.json()
+      })
+      .catch(error => {
+        console.error(error)
+      })
+      .then(data => {
+        this.setState(prevState => ({
+          currentPoll: data
+        }))
+      })
+  }
+
   logIn (dName, uName) {
     this.setState(prevState => ({
       loggedIn: true,
@@ -102,8 +118,15 @@ class App extends React.Component {
           <title>{siteTitle} Home</title>
           <meta name='theme-color' content={v.blu.string()} />
         </Helmet>
-        <Header state={this.state} onLogOut={this.logOut} />
-        <Main state={this.state} onLogIn={this.logIn} />
+        <Header
+          state={this.state}
+          onLogOut={this.logOut}
+        />
+        <Main
+          state={this.state}
+          onLogIn={this.logIn}
+          onLoadPoll={this.getCurrentPoll}
+        />
         <Footer />
       </div>
     )
