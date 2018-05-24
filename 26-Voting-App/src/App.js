@@ -21,6 +21,7 @@ class App extends React.Component {
   constructor (props) {
     super(props)
     this.pollsApi = `${env.SERVER_API_URL}api/polls`
+    this.pollApi = `${env.SERVER_API_URL}api/poll`
     this.logOutApi = `${env.SERVER_API_URL}api/logout`
     this.logIn = this.logIn.bind(this)
     this.logOut = this.logOut.bind(this)
