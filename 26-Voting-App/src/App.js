@@ -89,10 +89,10 @@ class App extends React.Component {
     this.setState(prevState => ({
       loggedIn: false,
       displayName: undefined,
-      userName: undefined
+      userName: undefined,
+      userPolls: undefined
     }))
     fetch(this.logOutApi)
-    this.getUserPolls()
   }
 
   render () {
