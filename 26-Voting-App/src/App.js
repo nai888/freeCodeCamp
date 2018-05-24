@@ -21,6 +21,7 @@ class App extends React.Component {
   constructor (props) {
     super(props)
     this.pollsApi = `${env.SERVER_API_URL}api/polls`
+    this.logOutApi = `${env.SERVER_API_URL}api/logout`
     this.logIn = this.logIn.bind(this)
     this.logOut = this.logOut.bind(this)
     this.getNumPolls = this.getNumPolls.bind(this)
@@ -34,7 +35,7 @@ class App extends React.Component {
       currentPoll: undefined
     }
     this.getNumPolls()
-    if (this.state.loggedIn) this.getUserPolls()
+    if (this.state.userName) this.getUserPolls(this.state.userName)
   }
 
   getNumPolls () {
@@ -52,8 +53,8 @@ class App extends React.Component {
       })
   }
 
-  getUserPolls () {
-    fetch(`${this.pollsApi}?name=${this.state.userName}`)
+  getUserPolls (username) {
+    fetch(`${this.pollsApi}?name=${username}`)
       .then(res => {
         this.setState(prevState => ({
           userPolls: 'loading'
@@ -79,14 +80,17 @@ class App extends React.Component {
       displayName: dName,
       userName: uName
     }))
-    this.getUserPolls()
+    this.getUserPolls(uName)
   }
 
   logOut (e) {
     e.preventDefault()
     this.setState(prevState => ({
-      loggedIn: false
+      loggedIn: false,
+      displayName: undefined,
+      userName: undefined
     }))
+    fetch(this.logOutApi)
     this.getUserPolls()
   }
 
