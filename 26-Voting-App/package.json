@@ -9,6 +9,7 @@
     "url": "https://github.com/nai888/freeCodeCamp/tree/master/26-Voting-App"
   },
   "dependencies": {
+    "chart.js": "^2.7.2",
     "classnames": "^2.2.5",
     "color": "^3.0.0",
     "connect-flash": "^0.1.1",
