@@ -7,6 +7,7 @@ import LoggedIn from '../LoggedIn'
 import LogIn from '../LogIn'
 import NewPoll from '../NewPoll'
 import Poll from '../Poll'
+import Results from '../Results'
 
 import styles from './styles'
 
@@ -29,6 +30,7 @@ const Main = (props) => (
         )
       )} />
       <Route path='/polls/:id' render={() => <Poll {...props} />} />
+      <Route path='/results/:id' render={() => <Results {...props} />} />
       <Route path='/' render={() => <Dashboard {...props} />} />
     </Switch>
   </main>
