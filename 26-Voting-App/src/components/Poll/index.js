@@ -15,6 +15,7 @@ class Poll extends React.Component {
     this.setLocalPoll = this.setLocalPoll.bind(this)
     this.renderSiteTitle = this.renderSiteTitle.bind(this)
     this.renderPoll = this.renderPoll.bind(this)
+    this.renderOwner = this.renderOwner.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.renderButtons = this.renderButtons.bind(this)
     this.onVote = this.onVote.bind(this)
@@ -98,12 +99,29 @@ class Poll extends React.Component {
       return (
         <form name='poll'>
           <h2>{this.state.poll.question}</h2>
+          {this.renderOwner()}
           {answers}
           {this.renderButtons()}
         </form>
       )
     } else {
       return <h2>Loading&hellip;</h2>
+    }
+  }
+
+  renderOwner () {
+    if (this.props.state.currentPoll) {
+      return (
+        <p className={this.props.classes.owner}>
+          Poll posted by <a
+            className={this.props.classes.ownerLink}
+            href={`https://github.com/${this.props.state.currentPoll.owner}`}
+          >
+            @{this.props.state.currentPoll.owner}
+          </a>.
+        </p>)
+    } else {
+      return null
     }
   }
 
