@@ -77,7 +77,7 @@ class App extends React.Component {
       })
   }
 
-  getCurrentPoll (id) {
+  getCurrentPoll (id, callback) {
     fetch(`${this.pollApi}?id=${id}`)
       .then(res => {
         return res.json()
@@ -88,7 +88,8 @@ class App extends React.Component {
       .then(data => {
         this.setState(prevState => ({
           currentPoll: data
-        }))
+        }),
+        callback)
       })
   }
 
