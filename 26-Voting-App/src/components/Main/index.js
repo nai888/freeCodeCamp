@@ -6,8 +6,7 @@ import Dashboard from '../Dashboard'
 import LoggedIn from '../LoggedIn'
 import LogIn from '../LogIn'
 import NewPoll from '../NewPoll'
-import Poll from '../Poll'
-import Results from '../Results'
+import Polls from '../Polls'
 
 import styles from './styles'
 
@@ -29,8 +28,8 @@ const Main = (props) => (
           <Redirect to='/login' /> // redirect them to /login.
         )
       )} />
-      <Route path='/polls/:id' render={() => <Poll {...props} />} />
-      <Route path='/results/:id' render={() => <Results {...props} />} />
+      <Route path='/polls/:id' render={() => <Polls page='poll' {...props} />} />
+      <Route path='/results/:id' render={() => <Polls page='results' {...props} />} />
       <Route path='/' render={() => <Dashboard {...props} />} />
     </Switch>
   </main>

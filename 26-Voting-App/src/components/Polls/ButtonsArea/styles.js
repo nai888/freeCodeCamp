@@ -1,8 +1,4 @@
 const styles = {
-  owner: {
-    fontStyle: 'italic',
-    opacity: 0.7
-  },
   buttons: {
     marginTop: '1rem',
     marginBottom: '1rem',
