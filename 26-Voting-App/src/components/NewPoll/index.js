@@ -27,10 +27,10 @@ class NewPoll extends React.Component {
     this.handleCancelDelete = this.handleCancelDelete.bind(this)
     this.state = {
       confirmDelete: false,
-      question: 'Are you single?',
+      question: '',
       type: 'radio',
       editable: false,
-      answers: ['Yes', 'No', "I'm not sure"]
+      answers: ['']
     }
   }
 
