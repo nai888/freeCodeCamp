@@ -9,11 +9,12 @@ import styles from './styles'
 const ButtonsArea = (props) => {
   const onVote = (e) => {
     e.preventDefault()
-    onResults(e)
+    props.voting()
+    onResults()
   }
 
   const onResults = (e) => {
-    e.preventDefault()
+    if (e) e.preventDefault()
     props.history.push(`/results/${props.match.params.id}`)
   }
 

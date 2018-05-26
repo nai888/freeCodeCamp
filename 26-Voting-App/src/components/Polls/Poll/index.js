@@ -50,6 +50,7 @@ const Poll = (props) => {
             confirmDelete={props.pollState.confirmDelete}
             owned={props.owned}
             page={props.page}
+            voting={props.voting}
             deleting={props.deleting}
             confirmingDelete={props.confirmingDelete}
             cancelingDelete={props.cancelingDelete}

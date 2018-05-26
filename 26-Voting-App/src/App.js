@@ -23,12 +23,17 @@ class App extends React.Component {
     this.pollsApi = `${env.SERVER_API_URL}api/polls`
     this.pollApi = `${env.SERVER_API_URL}api/poll`
     this.logOutApi = `${env.SERVER_API_URL}api/logout`
+
     this.logIn = this.logIn.bind(this)
     this.logOut = this.logOut.bind(this)
     this.getNumPolls = this.getNumPolls.bind(this)
     this.getUserPolls = this.getUserPolls.bind(this)
     this.getCurrentPoll = this.getCurrentPoll.bind(this)
     this.clearCurrentPoll = this.clearCurrentPoll.bind(this)
+    this.addPoll = this.addPoll.bind(this)
+    this.deletePoll = this.deletePoll.bind(this)
+    this.votePoll = this.votePoll.bind(this)
+
     this.state = {
       loggedIn: true,
       displayName: 'Ian',
@@ -37,7 +42,9 @@ class App extends React.Component {
       userPolls: undefined,
       currentPoll: undefined
     }
+
     this.getNumPolls()
+
     if (this.state.userName) this.getUserPolls(this.state.userName)
   }
 
@@ -99,6 +106,20 @@ class App extends React.Component {
     }))
   }
 
+  addPoll (poll) {
+    console.log('add poll')
+    console.log(poll)
+  }
+
+  deletePoll (poll) {
+    console.log('delete poll ' + poll)
+  }
+
+  votePoll (poll, newpoll) {
+    console.log('vote on poll ' + poll)
+    console.log(newpoll)
+  }
+
   logIn (dName, uName) {
     this.setState(prevState => ({
       loggedIn: true,
@@ -135,6 +156,9 @@ class App extends React.Component {
           onLogIn={this.logIn}
           onLoadPoll={this.getCurrentPoll}
           onClearPoll={this.clearCurrentPoll}
+          addPoll={this.addPoll}
+          deletePoll={this.deletePoll}
+          votePoll={this.votePoll}
         />
         <Footer />
       </div>

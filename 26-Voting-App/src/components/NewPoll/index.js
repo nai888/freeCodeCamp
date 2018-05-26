@@ -166,7 +166,7 @@ class NewPoll extends React.Component {
   }
 
   handleSubmit () {
-    console.log('yay')
+    this.props.addPoll('the poll will go here')
   }
 
   handleDelete () {

@@ -19,6 +19,7 @@ class Polls extends React.Component {
     this.renderOwner = this.renderOwner.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.renderWhichPage = this.renderWhichPage.bind(this)
+    this.voting = this.voting.bind(this)
     this.deleting = this.deleting.bind(this)
     this.confirmingDelete = this.confirmingDelete.bind(this)
     this.cancelingDelete = this.cancelingDelete.bind(this)
@@ -119,6 +120,7 @@ class Polls extends React.Component {
             pollState={this.state}
             owned={this.state.poll.owner === this.props.state.userName}
             onChange={this.handleChange}
+            voting={this.voting}
             deleting={this.deleting}
             confirmingDelete={this.confirmingDelete}
             cancelingDelete={this.cancelingDelete}
@@ -144,6 +146,10 @@ class Polls extends React.Component {
     }
   }
 
+  voting () {
+    this.props.votePoll(this.props.match.params.id, 'the poll will go here')
+  }
+
   deleting () {
     this.setState({
       confirmDelete: true
@@ -151,7 +157,9 @@ class Polls extends React.Component {
   }
 
   confirmingDelete () {
-    if (this.state.confirmDelete) { }
+    if (this.state.confirmDelete) {
+      this.props.deletePoll(this.props.match.params.id)
+    }
   }
 
   cancelingDelete () {
