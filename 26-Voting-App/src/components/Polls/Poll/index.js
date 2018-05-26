@@ -1,6 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import injectSheet from 'react-jss'
+import classNames from 'classnames'
 
 import { siteTitle } from '../../../App'
 import Button from '../../Button'
@@ -42,27 +43,64 @@ const Poll = (props) => {
     }
   }
 
-  const editButton = () => {
-    if (props.editable && !props.pollState.editing) {
-      return (
-        <div className={props.classes.addButton}>
-          <Button
-            small
-            buttonType='primary'
-            onClick={props.onAddOptions}
-          >
-            Add Options
-          </Button>
-        </div>
-      )
+  const editArea = () => {
+    if (props.editable) {
+      if (props.pollState.editing) {
+        return answerInputs()
+      } else {
+        return (
+          <div className={props.classes.addButton}>
+            <Button
+              small
+              buttonType='primary'
+              onClick={props.onAddOptions}
+            >
+              Add Options
+            </Button>
+          </div>
+        )
+      }
     } else {
       return null
     }
   }
 
-  const saveEdit = (e) => {
-    e.preventDefault()
-    props.onSaveEdit('this will be the poll')
+  const answerInputs = () => {
+    const answers = props.pollState.addingAnswers
+      ? props.pollState.addingAnswers.map((a, index) => (
+        <div key={index}>
+          <input
+            type='text'
+            id={`answer-${index}`}
+            className={classNames(props.classes.textInput, props.classes.answersInput)}
+            name='addingAnswers'
+            value={props.pollState.addingAnswers[index]}
+            onChange={props.onHandleOptionEdit}
+          />
+          <Button
+            id={`button-${index}`}
+            buttonType='danger'
+            small
+            onClick={props.deleteAnswer}
+          >
+            Del
+          </Button>
+        </div>
+      ))
+      : null
+
+    return (
+      <div>
+        {answers}
+        <Button
+          small
+          buttonType='primary'
+          onClick={props.addAnswer}
+        >
+          Add
+        </Button>
+      </div>
+    )
   }
 
   const renderForm = () => {
@@ -70,11 +108,11 @@ const Poll = (props) => {
       return (
         <form name='poll'>
           {renderAnswers()}
-          {editButton()}
+          {editArea()}
           {<ButtonsArea
             confirmDelete={props.pollState.confirmDelete}
             editing={props.pollState.editing}
-            onSaveEdit={saveEdit}
+            onSaveEdit={props.onSaveEdit}
             onCancelEdit={props.onCancelEdit}
             owned={props.owned}
             page={props.page}

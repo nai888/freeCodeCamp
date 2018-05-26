@@ -20,6 +20,9 @@ class Polls extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.renderWhichPage = this.renderWhichPage.bind(this)
     this.addOptions = this.addOptions.bind(this)
+    this.handleOptionEdit = this.handleOptionEdit.bind(this)
+    this.addAnswer = this.addAnswer.bind(this)
+    this.deleteAnswer = this.deleteAnswer.bind(this)
     this.saveEdit = this.saveEdit.bind(this)
     this.cancelEdit = this.cancelEdit.bind(this)
     this.voting = this.voting.bind(this)
@@ -27,15 +30,15 @@ class Polls extends React.Component {
     this.confirmingDelete = this.confirmingDelete.bind(this)
     this.cancelingDelete = this.cancelingDelete.bind(this)
 
-    this.props.onLoadPoll(this.props.match.params.id, this.setLocalPoll)
-
     this.state = {
       confirmDelete: false,
       poll: undefined,
       answers: undefined,
       editing: false,
-      addingAnswers: ['']
+      addingAnswers: []
     }
+
+    this.props.onLoadPoll(this.props.match.params.id, this.setLocalPoll)
   }
 
   setLocalPoll () {
@@ -126,6 +129,9 @@ class Polls extends React.Component {
             owned={this.state.poll.owner === this.props.state.userName}
             editable={this.props.state.currentPoll.editable}
             onAddOptions={this.addOptions}
+            onHandleOptionEdit={this.handleOptionEdit}
+            addAnswer={this.addAnswer}
+            deleteAnswer={this.deleteAnswer}
             onSaveEdit={this.saveEdit}
             onCancelEdit={this.cancelEdit}
             onChange={this.handleChange}
@@ -162,11 +168,55 @@ class Polls extends React.Component {
     })
   }
 
-  saveEdit (poll) {
-    console.log(poll)
+  handleOptionEdit (e) {
+    e.preventDefault()
+    let answers = this.state.addingAnswers.slice()
+    const i = e.target.id.slice(7)
+    answers[i] = e.target.value
+    this.setState({
+      addingAnswers: answers
+    })
+  }
+
+  addAnswer (e) {
+    e.preventDefault()
+    let answers = this.state.addingAnswers.slice()
+    answers.push('')
+    this.setState({
+      addingAnswers: answers
+    })
+  }
+
+  deleteAnswer (e) {
+    e.preventDefault()
+    let answers = this.state.addingAnswers.slice()
+    const i = e.target.id.slice(7)
+    answers.splice(i, 1)
+    this.setState({
+      addingAnswers: answers
+    })
+  }
+
+  saveEdit (e) {
+    e.preventDefault()
+    let addingAnswers = []
+
+    for (let i = 0; i < this.state.addingAnswers.length; i++) {
+      addingAnswers.push({
+        id: i,
+        answer: this.state.addingAnswers[i],
+        userVotes: [],
+        guestVotes: 0
+      })
+    }
+
+    const answers = this.state.poll.answers.concat(addingAnswers)
+
     this.setState({
       editing: false
     })
+
+    this.props.updatePoll(this.props.match.params.id, answers)
   }
 
   cancelEdit (e) {

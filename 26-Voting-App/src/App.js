@@ -32,6 +32,7 @@ class App extends React.Component {
     this.getCurrentPoll = this.getCurrentPoll.bind(this)
     this.clearCurrentPoll = this.clearCurrentPoll.bind(this)
     this.addPoll = this.addPoll.bind(this)
+    this.updatePoll = this.updatePoll.bind(this)
     this.deletePoll = this.deletePoll.bind(this)
     this.votePoll = this.votePoll.bind(this)
 
@@ -126,6 +127,11 @@ class App extends React.Component {
       })
   }
 
+  updatePoll (id, answers) {
+    console.log(id)
+    console.log(answers)
+  }
+
   deletePoll (pollId) {
     fetch(`${this.pollApi}?id=${pollId}`, {
       method: 'delete'
@@ -184,6 +190,7 @@ class App extends React.Component {
           onLoadPoll={this.getCurrentPoll}
           onClearPoll={this.clearCurrentPoll}
           addPoll={this.addPoll}
+          updatePoll={this.updatePoll}
           deletePoll={this.deletePoll}
           votePoll={this.votePoll}
         />
