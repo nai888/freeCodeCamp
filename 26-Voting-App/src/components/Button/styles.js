@@ -75,6 +75,9 @@ const styles = {
         color: v.redNtl.darken(0.15).string()
       }
     }
+  },
+  small: {
+    padding: '0.35rem'
   }
 }
 
