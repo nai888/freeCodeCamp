@@ -3,6 +3,7 @@
 var cors = require('cors')
 var https = require('https')
 var GraphQLClient = require('graphql-request').GraphQLClient
+var ObjectId = require('mongodb').ObjectID
 
 module.exports = function (app, db, pollsCollection) {
   var blankUser = {
@@ -18,6 +19,7 @@ module.exports = function (app, db, pollsCollection) {
   var redir
   var polls = db.collection(pollsCollection)
 
+  // Logging in
   app.get('/auth/github', function (req, res) {
     redir = req.query.url
     res.redirect(`https://github.com/login/oauth/authorize?client_id=${clientID}`)
@@ -77,6 +79,7 @@ module.exports = function (app, db, pollsCollection) {
     }
   })
 
+  // Logging out
   app.get('/api/logout', function (req, res) {
     user = blankUser
     /* var options = {
@@ -92,6 +95,7 @@ module.exports = function (app, db, pollsCollection) {
     https.request(options, (resp) => console.log(`logged out: ${resp}`)) */
   })
 
+  // Loading the polls
   var corsOptions = {
     origin: appUrl
   }
@@ -100,7 +104,7 @@ module.exports = function (app, db, pollsCollection) {
     var name = req.query.name
 
     if (name) { // If there's a name parameter, return all the polls owned by that user
-      polls.find({ 'owner': name }, { '_id': 0 }).sort({ '_id': 1 }).toArray(function (err, docs) {
+      polls.find({ 'owner': name }).sort({ '_id': 1 }).toArray(function (err, docs) {
         if (err) {
           console.error(err)
         } else {
@@ -114,20 +118,22 @@ module.exports = function (app, db, pollsCollection) {
     }
   })
 
+  // Load a single poll
   app.options('/api/poll', cors(corsOptions))
 
   app.get('/api/poll', cors(corsOptions), function (req, res) {
-    var id = +req.query.id
+    var id = req.query.id
 
-    polls.findOne({ 'id': id }).then(function (poll) {
+    polls.findOne({ '_id': ObjectId(id) }).then(function (poll) {
       res.json(poll)
     })
   })
 
+  // Delete a poll
   app.delete('/api/poll', cors(corsOptions), function (req, res) {
-    var id = +req.query.id
+    var id = req.query.id
 
-    polls.deleteOne({ 'id': id }).then(function (result) {
+    polls.deleteOne({ '_id': ObjectId(id) }).then(function (result) {
       res.send(result)
     })
   })

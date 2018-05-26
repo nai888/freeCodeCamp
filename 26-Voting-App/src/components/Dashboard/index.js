@@ -31,8 +31,8 @@ const Dashboard = (props) => {
     } else if (props.state.userPolls) {
       if (props.state.userPolls.length) {
         const questions = props.state.userPolls.map((q) => (
-          <li className={props.classes.questionTitle} key={q.id}>
-            <Link to={`/polls/${q.id}`}>
+          <li className={props.classes.questionTitle} key={q._id}>
+            <Link to={`/polls/${q._id}`}>
               {q.question} &rarr;
             </Link>
           </li>

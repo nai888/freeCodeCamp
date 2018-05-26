@@ -160,6 +160,7 @@ class Polls extends React.Component {
     if (this.state.confirmDelete) {
       this.props.deletePoll(this.props.match.params.id)
     }
+    this.props.history.push('/')
   }
 
   cancelingDelete () {

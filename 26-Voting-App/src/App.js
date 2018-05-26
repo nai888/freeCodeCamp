@@ -44,7 +44,6 @@ class App extends React.Component {
     }
 
     this.getNumPolls()
-
     if (this.state.userName) this.getUserPolls(this.state.userName)
   }
 
@@ -111,12 +110,24 @@ class App extends React.Component {
     console.log(poll)
   }
 
-  deletePoll (poll) {
-    console.log('delete poll ' + poll)
+  deletePoll (pollId) {
+    fetch(`${this.pollApi}?id=${pollId}`, {
+      method: 'delete'
+    })
+      .then(res => {
+        return res.json()
+      })
+      .catch(error => {
+        console.error(error)
+      })
+      .then(() => {
+        this.getNumPolls()
+        if (this.state.userName) this.getUserPolls(this.state.userName)
+      })
   }
 
-  votePoll (poll, newpoll) {
-    console.log('vote on poll ' + poll)
+  votePoll (pollId, newpoll) {
+    console.log('vote on poll ' + pollId)
     console.log(newpoll)
   }
 
