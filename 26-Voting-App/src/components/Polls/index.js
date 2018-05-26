@@ -163,6 +163,7 @@ class Polls extends React.Component {
   componentWillUnmount () {
     this.props.onClearPoll()
     this.setState({
+      confirmDelete: false,
       poll: undefined,
       answers: undefined
     })
