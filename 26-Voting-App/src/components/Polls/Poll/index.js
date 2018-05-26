@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet'
 import injectSheet from 'react-jss'
 
 import { siteTitle } from '../../../App'
+import Button from '../../Button'
 import ButtonsArea from '../../ButtonsArea/pollPage'
 
 import styles from './styles'
@@ -41,11 +42,29 @@ const Poll = (props) => {
     }
   }
 
+  const editButton = () => {
+    if (props.editable) {
+      return (
+        <div className={props.classes.addButton}>
+          <Button
+            small
+            buttonType='primary'
+          >
+            Add Options
+          </Button>
+        </div>
+      )
+    } else {
+      return null
+    }
+  }
+
   const renderForm = () => {
     if (props.pollState.poll && props.pollState.answers !== undefined) {
       return (
         <form name='poll'>
           {renderAnswers()}
+          {editButton()}
           {<ButtonsArea
             confirmDelete={props.pollState.confirmDelete}
             owned={props.owned}

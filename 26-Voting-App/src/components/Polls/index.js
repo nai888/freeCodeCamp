@@ -119,6 +119,7 @@ class Polls extends React.Component {
           <Poll
             pollState={this.state}
             owned={this.state.poll.owner === this.props.state.userName}
+            editable={this.props.state.currentPoll.editable}
             onChange={this.handleChange}
             voting={this.voting}
             deleting={this.deleting}
