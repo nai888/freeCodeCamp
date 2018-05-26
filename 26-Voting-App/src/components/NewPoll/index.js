@@ -203,7 +203,7 @@ class NewPoll extends React.Component {
       })
     }
 
-    let poll = {
+    const poll = {
       question: this.state.question,
       type: this.state.type,
       answers: answers,
