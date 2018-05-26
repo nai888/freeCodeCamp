@@ -19,6 +19,9 @@ class Polls extends React.Component {
     this.renderOwner = this.renderOwner.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.renderWhichPage = this.renderWhichPage.bind(this)
+    this.addOptions = this.addOptions.bind(this)
+    this.saveEdit = this.saveEdit.bind(this)
+    this.cancelEdit = this.cancelEdit.bind(this)
     this.voting = this.voting.bind(this)
     this.deleting = this.deleting.bind(this)
     this.confirmingDelete = this.confirmingDelete.bind(this)
@@ -29,7 +32,9 @@ class Polls extends React.Component {
     this.state = {
       confirmDelete: false,
       poll: undefined,
-      answers: undefined
+      answers: undefined,
+      editing: false,
+      addingAnswers: ['']
     }
   }
 
@@ -120,6 +125,9 @@ class Polls extends React.Component {
             pollState={this.state}
             owned={this.state.poll.owner === this.props.state.userName}
             editable={this.props.state.currentPoll.editable}
+            onAddOptions={this.addOptions}
+            onSaveEdit={this.saveEdit}
+            onCancelEdit={this.cancelEdit}
             onChange={this.handleChange}
             voting={this.voting}
             deleting={this.deleting}
@@ -145,6 +153,27 @@ class Polls extends React.Component {
     } else {
       return null
     }
+  }
+
+  addOptions (e) {
+    e.preventDefault()
+    this.setState({
+      editing: true
+    })
+  }
+
+  saveEdit (poll) {
+    console.log(poll)
+    this.setState({
+      editing: false
+    })
+  }
+
+  cancelEdit (e) {
+    e.preventDefault()
+    this.setState({
+      editing: false
+    })
   }
 
   voting () {

@@ -43,12 +43,13 @@ const Poll = (props) => {
   }
 
   const editButton = () => {
-    if (props.editable) {
+    if (props.editable && !props.pollState.editing) {
       return (
         <div className={props.classes.addButton}>
           <Button
             small
             buttonType='primary'
+            onClick={props.onAddOptions}
           >
             Add Options
           </Button>
@@ -59,6 +60,11 @@ const Poll = (props) => {
     }
   }
 
+  const saveEdit = (e) => {
+    e.preventDefault()
+    props.onSaveEdit('this will be the poll')
+  }
+
   const renderForm = () => {
     if (props.pollState.poll && props.pollState.answers !== undefined) {
       return (
@@ -67,6 +73,9 @@ const Poll = (props) => {
           {editButton()}
           {<ButtonsArea
             confirmDelete={props.pollState.confirmDelete}
+            editing={props.pollState.editing}
+            onSaveEdit={saveEdit}
+            onCancelEdit={props.onCancelEdit}
             owned={props.owned}
             page={props.page}
             voting={props.voting}

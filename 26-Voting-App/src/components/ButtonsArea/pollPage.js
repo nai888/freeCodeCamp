@@ -39,7 +39,18 @@ const ButtonsArea = (props) => {
   }
 
   const renderButtons = () => {
-    if (props.owned) {
+    if (props.editing) {
+      return (
+        <div className={props.classes.buttons}>
+          <Button buttonType='success' onClick={props.onSaveEdit}>
+            Save
+          </Button>
+          <Button buttonType='danger' onClick={props.onCancelEdit}>
+            Cancel
+          </Button>
+        </div>
+      )
+    } else if (props.owned) {
       if (props.confirmDelete) {
         return (
           <div className={props.classes.buttons}>
