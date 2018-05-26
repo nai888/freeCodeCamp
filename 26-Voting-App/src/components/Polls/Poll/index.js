@@ -3,8 +3,7 @@ import { Helmet } from 'react-helmet'
 import injectSheet from 'react-jss'
 
 import { siteTitle } from '../../../App'
-
-import ButtonsArea from '../ButtonsArea'
+import ButtonsArea from '../../ButtonsArea/pollPage'
 
 import styles from './styles'
 

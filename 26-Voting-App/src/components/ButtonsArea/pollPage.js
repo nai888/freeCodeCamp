@@ -2,7 +2,7 @@ import React from 'react'
 import injectSheet from 'react-jss'
 import { withRouter } from 'react-router'
 
-import Button from '../../Button'
+import Button from '../Button'
 
 import styles from './styles'
 

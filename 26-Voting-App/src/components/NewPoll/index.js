@@ -1,11 +1,13 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import injectSheet from 'react-jss'
+import { withRouter } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { siteTitle } from '../../App'
 
 import Button from '../Button'
+import ButtonsArea from '../ButtonsArea/newPollPage'
 
 import styles from './styles'
 
@@ -18,7 +20,12 @@ class NewPoll extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.deleteAnswer = this.deleteAnswer.bind(this)
     this.addAnswer = this.addAnswer.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    this.handleConfirmDelete = this.handleConfirmDelete.bind(this)
+    this.handleCancelDelete = this.handleCancelDelete.bind(this)
     this.state = {
+      confirmDelete: false,
       question: 'Are you single?',
       type: undefined,
       answers: ['Yes', 'No', "I'm not sure"]
@@ -158,6 +165,28 @@ class NewPoll extends React.Component {
     })
   }
 
+  handleSubmit () {
+    console.log('yay')
+  }
+
+  handleDelete () {
+    this.setState({
+      confirmDelete: true
+    })
+  }
+
+  handleConfirmDelete () {
+    if (this.state.confirmDelete) {
+      this.props.history.push('/')
+    }
+  }
+
+  handleCancelDelete () {
+    this.setState({
+      confirmDelete: false
+    })
+  }
+
   componentWillUnmount () {
     this.setState({
       question: undefined,
@@ -184,10 +213,17 @@ class NewPoll extends React.Component {
           >
             Add
           </Button>
+          <ButtonsArea
+            confirmDelete={this.state.confirmDelete}
+            submitting={this.handleSubmit}
+            deleting={this.handleDelete}
+            confirmingDelete={this.handleConfirmDelete}
+            cancelingDelete={this.handleCancelDelete}
+          />
         </form>
       </div>
     )
   }
 }
 
-export default injectSheet(styles)(NewPoll)
+export default withRouter(injectSheet(styles)(NewPoll))
