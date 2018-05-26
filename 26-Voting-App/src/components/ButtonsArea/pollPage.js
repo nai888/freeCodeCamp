@@ -108,11 +108,7 @@ const ButtonsArea = (props) => {
     }
   }
 
-  return (
-    <div className={props.classes.buttonsArea}>
-      {renderButtons()}
-    </div>
-  )
+  return renderButtons()
 }
 
 export default withRouter(injectSheet(styles)(ButtonsArea))
