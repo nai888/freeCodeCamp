@@ -121,13 +121,13 @@ class Polls extends React.Component {
   }
 
   renderWhichPage () {
-    if (this.state.poll) {
+    if (this.state.poll && this.props.state.currentPoll) {
       if (this.props.page === 'poll') {
         return (
           <Poll
             pollState={this.state}
             owned={this.state.poll.owner === this.props.state.userName}
-            editable={this.props.state.currentPoll.editable}
+            editable={this.props.state.currentPoll.editable || false}
             onAddOptions={this.addOptions}
             onHandleOptionEdit={this.handleOptionEdit}
             addAnswer={this.addAnswer}
@@ -203,20 +203,21 @@ class Polls extends React.Component {
 
     for (let i = 0; i < this.state.addingAnswers.length; i++) {
       addingAnswers.push({
-        id: i,
+        id: i + this.state.poll.answers.length,
         answer: this.state.addingAnswers[i],
         userVotes: [],
         guestVotes: 0
       })
     }
 
-    const answers = this.state.poll.answers.concat(addingAnswers)
+    const answers = {
+      answers: this.state.poll.answers.concat(addingAnswers)
+    }
 
     this.setState({
-      editing: false
-    })
-
-    this.props.updatePoll(this.props.match.params.id, answers)
+      editing: false,
+      addingAnswers: []
+    }, this.props.updatePoll(this.props.match.params.id, answers, this.setLocalPoll))
   }
 
   cancelEdit (e) {

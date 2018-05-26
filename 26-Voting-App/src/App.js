@@ -108,9 +108,6 @@ class App extends React.Component {
   }
 
   addPoll (poll) {
-    console.log('add poll')
-    console.log(poll)
-    console.log(JSON.stringify(poll))
     fetch(`${this.pollApi}?poll=${JSON.stringify(poll)}`, {
       method: 'post'
     })
@@ -127,9 +124,23 @@ class App extends React.Component {
       })
   }
 
-  updatePoll (id, answers) {
-    console.log(id)
-    console.log(answers)
+  updatePoll (pollId, answers, callback) {
+    fetch(`${this.pollApi}?id=${pollId}&answers=${JSON.stringify(answers)}`, {
+      method: 'put'
+    })
+      .then(res => {
+        return res.json()
+      })
+      .catch(error => {
+        console.error(error)
+      })
+      .then(poll => {
+        this.setState({
+          currentPoll: poll
+        }, callback)
+        this.getNumPolls()
+        if (this.state.userName) this.getUserPolls(this.state.userName)
+      })
   }
 
   deletePoll (pollId) {

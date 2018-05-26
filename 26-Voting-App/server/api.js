@@ -118,9 +118,9 @@ module.exports = function (app, db, pollsCollection) {
     }
   })
 
-  // Load a single poll
   app.options('/api/poll', cors(corsOptions))
 
+  // Load a single poll
   app.get('/api/poll', cors(corsOptions), function (req, res) {
     var id = req.query.id
 
@@ -131,15 +131,35 @@ module.exports = function (app, db, pollsCollection) {
 
   // Add a poll
   app.post('/api/poll', cors(corsOptions), function (req, res) {
-    var poll = req.query.poll
+    var poll = JSON.parse(req.query.poll)
 
-    polls.insert(JSON.parse(poll), function (err, doc) {
+    polls.insert(poll, function (err, doc) {
       if (err) {
         console.error(err)
       } else {
         res.json(doc.ops[0]._id)
       }
     })
+  })
+
+  // Update a poll with new answers
+  app.put('/api/poll', cors(corsOptions), function (req, res) {
+    var id = req.query.id
+    var answers = JSON.parse(req.query.answers)
+
+    polls.findAndModify(
+      { '_id': ObjectId(id) },
+      { '_id': 1 },
+      { $set: { 'answers': answers.answers } },
+      { new: true },
+      function (err, data) {
+        if (err) {
+          console.error(err)
+        } else {
+          res.json(data.value)
+        }
+      }
+    )
   })
 
   // Delete a poll
