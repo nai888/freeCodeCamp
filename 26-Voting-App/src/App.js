@@ -1,6 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import injectSheet from 'react-jss'
+import { withRouter } from 'react-router-dom'
 import 'normalize.css/normalize.css'
 
 import * as v from './styles/variables'
@@ -108,6 +109,21 @@ class App extends React.Component {
   addPoll (poll) {
     console.log('add poll')
     console.log(poll)
+    console.log(JSON.stringify(poll))
+    fetch(`${this.pollApi}?poll=${JSON.stringify(poll)}`, {
+      method: 'post'
+    })
+      .then(res => {
+        return res.json()
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      .then(data => {
+        this.getNumPolls()
+        if (this.state.userName) this.getUserPolls(this.state.userName)
+        this.props.history.push(`/newpoll/${data}`)
+      })
   }
 
   deletePoll (pollId) {
@@ -120,7 +136,7 @@ class App extends React.Component {
       .catch(error => {
         console.error(error)
       })
-      .then(() => {
+      .then((id) => {
         this.getNumPolls()
         if (this.state.userName) this.getUserPolls(this.state.userName)
       })
@@ -177,4 +193,4 @@ class App extends React.Component {
   }
 }
 
-export default injectSheet(styles)(App)
+export default withRouter(injectSheet(styles)(App))

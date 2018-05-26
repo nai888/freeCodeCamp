@@ -28,7 +28,7 @@ class NewPoll extends React.Component {
     this.state = {
       confirmDelete: false,
       question: 'Are you single?',
-      type: undefined,
+      type: 'radio',
       editable: false,
       answers: ['Yes', 'No', "I'm not sure"]
     }
@@ -192,7 +192,26 @@ class NewPoll extends React.Component {
   }
 
   handleSubmit () {
-    this.props.addPoll('the poll will go here')
+    let answers = []
+
+    for (let i = 0; i < this.state.answers.length; i++) {
+      answers.push({
+        id: i,
+        answer: this.state.answers[i],
+        userVotes: [],
+        guestVotes: 0
+      })
+    }
+
+    let poll = {
+      question: this.state.question,
+      type: this.state.type,
+      answers: answers,
+      editable: this.state.editable,
+      owner: this.props.state.userName
+    }
+
+    this.props.addPoll(poll)
   }
 
   handleDelete () {

@@ -6,6 +6,7 @@ import Dashboard from '../Dashboard'
 import LoggedIn from '../LoggedIn'
 import LogIn from '../LogIn'
 import NewPoll from '../NewPoll'
+import PollAdded from '../PollAdded'
 import Polls from '../Polls'
 
 import styles from './styles'
@@ -21,6 +22,7 @@ const Main = (props) => (
         )
       )} />
       <Route path='/loggedin/:login/:name' render={() => <LoggedIn {...props} />} />
+      <Route path='/newpoll/:id' render={() => <PollAdded {...props} />} />
       <Route path='/newpoll' render={() => (
         props.state.loggedIn ? ( // If the user is logged in,
           <NewPoll {...props} /> // take them to /newpoll as requested.

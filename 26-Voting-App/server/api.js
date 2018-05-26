@@ -129,6 +129,19 @@ module.exports = function (app, db, pollsCollection) {
     })
   })
 
+  // Add a poll
+  app.post('/api/poll', cors(corsOptions), function (req, res) {
+    var poll = req.query.poll
+
+    polls.insert(JSON.parse(poll), function (err, doc) {
+      if (err) {
+        console.error(err)
+      } else {
+        res.json(doc.ops[0]._id)
+      }
+    })
+  })
+
   // Delete a poll
   app.delete('/api/poll', cors(corsOptions), function (req, res) {
     var id = req.query.id
