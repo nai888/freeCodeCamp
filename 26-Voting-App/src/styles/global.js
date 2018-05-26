@@ -104,6 +104,8 @@ const styles = {
       fontSize: '1rem',
       boxSizing: 'border-box',
       height: '2.1rem',
+      paddingLeft: '0.35rem',
+      paddingRight: '0.35rem',
       '&:focus': {
         outline: {
           width: 1,
