@@ -158,17 +158,17 @@ class NewPoll extends React.Component {
       let answers = this.state.answers.slice()
       const i = e.target.id.slice(7)
       answers[i] = e.target.value
-      this.setState({
+      this.setState(prevState => ({
         [e.target.name]: answers
-      })
+      }))
     } else if (e.target.name === 'editable') {
-      this.setState({
+      this.setState(prevState => ({
         [e.target.name]: e.target.checked
-      })
+      }))
     } else {
-      this.setState({
+      this.setState(prevState => ({
         [e.target.name]: e.target.value
-      })
+      }))
     }
   }
 
@@ -177,18 +177,18 @@ class NewPoll extends React.Component {
     let answers = this.state.answers.slice()
     const i = e.target.id.slice(7)
     answers.splice(i, 1)
-    this.setState({
+    this.setState(prevState => ({
       answers: answers
-    })
+    }))
   }
 
   addAnswer (e) {
     e.preventDefault()
     let answers = this.state.answers.slice()
     answers.push('')
-    this.setState({
+    this.setState(prevState => ({
       answers: answers
-    })
+    }))
   }
 
   handleSubmit () {
@@ -215,9 +215,9 @@ class NewPoll extends React.Component {
   }
 
   handleDelete () {
-    this.setState({
+    this.setState(prevState => ({
       confirmDelete: true
-    })
+    }))
   }
 
   handleConfirmDelete () {
@@ -227,19 +227,19 @@ class NewPoll extends React.Component {
   }
 
   handleCancelDelete () {
-    this.setState({
+    this.setState(prevState => ({
       confirmDelete: false
-    })
+    }))
   }
 
   componentWillUnmount () {
-    this.setState({
+    this.setState(prevState => ({
       confirmDelete: false,
       question: undefined,
       type: undefined,
       editable: false,
       answers: undefined
-    })
+    }))
   }
 
   render () {

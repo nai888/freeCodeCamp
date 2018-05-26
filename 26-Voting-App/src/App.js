@@ -135,9 +135,9 @@ class App extends React.Component {
         console.error(error)
       })
       .then(poll => {
-        this.setState({
+        this.setState(prevState => ({
           currentPoll: poll
-        }, callback)
+        }), callback)
         this.getNumPolls()
         if (this.state.userName) this.getUserPolls(this.state.userName)
       })

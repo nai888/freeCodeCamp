@@ -43,9 +43,9 @@ class Polls extends React.Component {
 
   setLocalPoll () {
     if (this.props.state.currentPoll) {
-      this.setState({
+      this.setState(prevState => ({
         poll: JSON.parse(JSON.stringify(this.props.state.currentPoll))
-      }, () => {
+      }), () => {
         let answersArr = JSON.parse(JSON.stringify(this.state.poll.answers))
         let answers = {}
         let choice
@@ -66,13 +66,13 @@ class Polls extends React.Component {
             choice = false
           }
 
-          this.setState({
+          this.setState(prevState => ({
             answers: choice
-          })
+          }))
         } else if (this.state.poll.type === 'checkbox') {
-          this.setState({
+          this.setState(prevState => ({
             answers: answers
-          })
+          }))
         }
       })
     }
@@ -115,9 +115,9 @@ class Polls extends React.Component {
     } else if (this.state.poll.type === 'radio') {
       answers = e.target.value
     }
-    this.setState({
+    this.setState(prevState => ({
       answers: answers
-    })
+    }))
   }
 
   renderWhichPage () {
@@ -163,9 +163,9 @@ class Polls extends React.Component {
 
   addOptions (e) {
     e.preventDefault()
-    this.setState({
+    this.setState(prevState => ({
       editing: true
-    })
+    }))
   }
 
   handleOptionEdit (e) {
@@ -173,18 +173,18 @@ class Polls extends React.Component {
     let answers = this.state.addingAnswers.slice()
     const i = e.target.id.slice(7)
     answers[i] = e.target.value
-    this.setState({
+    this.setState(prevState => ({
       addingAnswers: answers
-    })
+    }))
   }
 
   addAnswer (e) {
     e.preventDefault()
     let answers = this.state.addingAnswers.slice()
     answers.push('')
-    this.setState({
+    this.setState(prevState => ({
       addingAnswers: answers
-    })
+    }))
   }
 
   deleteAnswer (e) {
@@ -192,9 +192,9 @@ class Polls extends React.Component {
     let answers = this.state.addingAnswers.slice()
     const i = e.target.id.slice(7)
     answers.splice(i, 1)
-    this.setState({
+    this.setState(prevState => ({
       addingAnswers: answers
-    })
+    }))
   }
 
   saveEdit (e) {
@@ -214,17 +214,17 @@ class Polls extends React.Component {
       answers: this.state.poll.answers.concat(addingAnswers)
     }
 
-    this.setState({
+    this.setState(prevState => ({
       editing: false,
       addingAnswers: []
-    }, this.props.updatePoll(this.props.match.params.id, answers, this.setLocalPoll))
+    }), this.props.updatePoll(this.props.match.params.id, answers, this.setLocalPoll))
   }
 
   cancelEdit (e) {
     e.preventDefault()
-    this.setState({
+    this.setState(prevState => ({
       editing: false
-    })
+    }))
   }
 
   voting () {
@@ -232,9 +232,9 @@ class Polls extends React.Component {
   }
 
   deleting () {
-    this.setState({
+    this.setState(prevState => ({
       confirmDelete: true
-    })
+    }))
   }
 
   confirmingDelete () {
@@ -245,18 +245,18 @@ class Polls extends React.Component {
   }
 
   cancelingDelete () {
-    this.setState({
+    this.setState(prevState => ({
       confirmDelete: false
-    })
+    }))
   }
 
   componentWillUnmount () {
     this.props.onClearPoll()
-    this.setState({
+    this.setState(prevState => ({
       confirmDelete: false,
       poll: undefined,
       answers: undefined
-    })
+    }))
   }
 
   render () {
