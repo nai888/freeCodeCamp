@@ -78,25 +78,33 @@ class NewPoll extends React.Component {
   }
 
   answerInputs () {
+    const solitary = this.state.answers.length === 1
+
     const answers = this.state.answers
       ? this.state.answers.map((a, index) => {
+        const delButton = !solitary
+          ? (
+            <Button
+              id={`button-${index}`}
+              buttonType='danger'
+              small
+              onClick={this.deleteAnswer}
+            >
+              Del
+            </Button>
+          ) : null
+
         return (
           <div key={index}>
             <input
               type='text'
-              id={`answer${index}`}
+              id={`answer-${index}`}
               className={classNames(this.props.classes.textInput, this.props.classes.answersInput)}
               name='answers'
               value={this.state.answers[index]}
               onChange={this.handleChange}
             />
-            <Button
-              small
-              buttonType='danger'
-              onClick={this.deleteAnswer}
-            >
-              Del
-            </Button>
+            {delButton}
           </div>
         )
       })
@@ -119,7 +127,7 @@ class NewPoll extends React.Component {
 
     if (e.target.name === 'answers') {
       let answers = this.state.answers.slice()
-      const i = e.target.id.slice(6)
+      const i = e.target.id.slice(7)
       answers[i] = e.target.value
       this.setState({
         [e.target.name]: answers
@@ -133,10 +141,21 @@ class NewPoll extends React.Component {
 
   deleteAnswer (e) {
     e.preventDefault()
+    let answers = this.state.answers.slice()
+    const i = e.target.id.slice(7)
+    answers.splice(i, 1)
+    this.setState({
+      answers: answers
+    })
   }
 
   addAnswer (e) {
     e.preventDefault()
+    let answers = this.state.answers.slice()
+    answers.push('')
+    this.setState({
+      answers: answers
+    })
   }
 
   componentWillUnmount () {

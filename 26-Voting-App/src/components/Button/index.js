@@ -6,6 +6,7 @@ import styles from './styles'
 
 const Button = (props) => (
   <button
+    id={props.id}
     className={props.small
       ? classNames(props.classes.button, props.classes[props.buttonType], props.classes.small)
       : classNames(props.classes.button, props.classes[props.buttonType])}
