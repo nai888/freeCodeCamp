@@ -16,6 +16,7 @@ class NewPoll extends React.Component {
     super(props)
     this.titleInput = this.titleInput.bind(this)
     this.typeInput = this.typeInput.bind(this)
+    this.editableInput = this.editableInput.bind(this)
     this.answerInputs = this.answerInputs.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.deleteAnswer = this.deleteAnswer.bind(this)
@@ -28,6 +29,7 @@ class NewPoll extends React.Component {
       confirmDelete: false,
       question: 'Are you single?',
       type: undefined,
+      editable: false,
       answers: ['Yes', 'No', "I'm not sure"]
     }
   }
@@ -84,6 +86,26 @@ class NewPoll extends React.Component {
     )
   }
 
+  editableInput () {
+    return (
+      <div className={this.props.classes.pollEditable}>
+        <p className={classNames(this.props.classes.pollEditableLabel, this.props.classes.labelP)}>
+          Can users who are logged in add options to this poll?
+        </p>
+        <div>
+          <input
+            type='checkbox'
+            id='editable'
+            name='editable'
+            checked={this.state.editable}
+            onChange={this.handleChange}
+          />
+          <label htmlFor='editable'> Poll can be edited</label>
+        </div>
+      </div>
+    )
+  }
+
   answerInputs () {
     const solitary = this.state.answers.length === 1
 
@@ -128,7 +150,7 @@ class NewPoll extends React.Component {
   }
 
   handleChange (e) {
-    if (e.target.name !== 'type') {
+    if (e.target.name !== 'type' && e.target.name !== 'editable') {
       e.preventDefault()
     }
 
@@ -138,6 +160,10 @@ class NewPoll extends React.Component {
       answers[i] = e.target.value
       this.setState({
         [e.target.name]: answers
+      })
+    } else if (e.target.name === 'editable') {
+      this.setState({
+        [e.target.name]: e.target.checked
       })
     } else {
       this.setState({
@@ -189,8 +215,10 @@ class NewPoll extends React.Component {
 
   componentWillUnmount () {
     this.setState({
+      confirmDelete: false,
       question: undefined,
       type: undefined,
+      editable: false,
       answers: undefined
     })
   }
@@ -205,6 +233,7 @@ class NewPoll extends React.Component {
         <form className={this.props.classes.newPollForm}>
           {this.titleInput()}
           {this.typeInput()}
+          {this.editableInput()}
           {this.answerInputs()}
           <Button
             small
