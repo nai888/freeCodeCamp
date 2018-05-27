@@ -9,7 +9,7 @@
     "url": "https://github.com/nai888/freeCodeCamp/tree/master/26-Voting-App"
   },
   "dependencies": {
-    "chart.js": "^2.7.2",
+    "chart.js": "^1.1.1",
     "classnames": "^2.2.5",
     "color": "^3.0.0",
     "connect-flash": "^0.1.1",
@@ -22,6 +22,7 @@
     "normalize-port": "^1.0.0",
     "normalize.css": "^8.0.0",
     "react": "^16.3.2",
+    "react-chartjs": "^1.2.0",
     "react-dom": "^16.3.2",
     "react-helmet": "^5.2.0",
     "react-jss": "^8.4.0",
