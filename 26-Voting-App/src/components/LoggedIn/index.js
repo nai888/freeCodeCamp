@@ -1,5 +1,8 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import { withRouter } from 'react-router'
+
+import { siteTitle } from '../../App'
 
 class LoggedIn extends React.Component {
   constructor (props) {
@@ -27,6 +30,9 @@ class LoggedIn extends React.Component {
   render () {
     return (
       <div className={this.props.classes.loggedIn}>
+        <Helmet>
+          <title>{siteTitle} Logged In</title>
+        </Helmet>
         <h2>Logged In</h2>
         <p>Redirecting&hellip;</p>
       </div>
