@@ -138,7 +138,7 @@ module.exports = function (app, db, pollsCollection) {
     })
   })
 
-  // Update a poll with new answers
+  // Update a poll with new answers or votes
   app.put('/api/poll', cors(corsOptions), function (req, res) {
     var id = req.query.id
     var answers = JSON.parse(req.query.answers)

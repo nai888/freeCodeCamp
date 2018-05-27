@@ -34,12 +34,11 @@ class App extends React.Component {
     this.addPoll = this.addPoll.bind(this)
     this.updatePoll = this.updatePoll.bind(this)
     this.deletePoll = this.deletePoll.bind(this)
-    this.votePoll = this.votePoll.bind(this)
 
     this.state = {
-      loggedIn: true,
-      displayName: 'Ian',
-      userName: 'nai888',
+      loggedIn: false,
+      displayName: undefined,
+      userName: undefined,
       allPolls: undefined,
       userPolls: undefined,
       currentPoll: undefined
@@ -157,11 +156,6 @@ class App extends React.Component {
         this.getAllPolls()
         if (this.state.userName) this.getUserPolls(this.state.userName)
       })
-  }
-
-  votePoll (pollId, newpoll) {
-    console.log('vote on poll ' + pollId)
-    console.log(newpoll)
   }
 
   logIn (dName, uName) {

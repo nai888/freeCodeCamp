@@ -228,33 +228,71 @@ class Polls extends React.Component {
   }
 
   voting () {
-    let poll = JSON.parse(JSON.stringify(this.state.poll))
+    const poll = JSON.parse(JSON.stringify(this.state.poll))
     const user = this.props.state.loggedIn ? this.props.state.userName : null
-    let answers = this.state.poll.answers.slice()
+    let answers = poll.answers.slice()
 
     if (user) {
+      // If logged in
       if (typeof this.state.answers === 'string') {
+        // If answer selection is radio/single-select
         for (let i = 0; i < answers.length; i++) {
           if (answers[i].answer === this.state.answers && !answers[i].userVotes.includes(user)) {
+            // If they voted for this option but the db doesn't show that, add their vote to the db
             answers[i].userVotes.push(user)
           } else if (answers[i].answer !== this.state.answers && answers[i].userVotes.includes(user)) {
+            // If they voted against this option but the db says they voted for it, remove their vote from the db
             let j = answers[i].userVotes.indexOf(user)
             answers[i].userVotes.splice(j, 1)
           }
         }
       } else if (typeof this.state.answers === 'object') {
-        for (let i in this.state.answers) {
-          console.log(i)
-          console.log('update userVotes for the correct answers')
+        // If answer selection is checkbox/multi-select
+        for (let ans in this.state.answers) {
+          for (let i = 0; i < answers.length; i++) {
+            if (answers[i].id === +ans) {
+              if (this.state.answers[+ans] && !answers[i].userVotes.includes(user)) {
+                // If they voted for this option but the db doesn't show that, add their vote to the db
+                answers[i].userVotes.push(user)
+              } else if (!this.state.answers[+ans] && answers[i].userVotes.includes(user)) {
+                // If they voted against this option but the db says they voted for it, remove their vote from the db
+                let j = answers[i].userVotes.indexOf(user)
+                answers[i].userVotes.splice(j, 1)
+              }
+            }
+          }
         }
       }
     } else {
-      console.log('handle guestVotes')
+      // If not logged in
+      if (typeof this.state.answers === 'string') {
+        // If answer selection is radio/single-select
+        for (let i = 0; i < answers.length; i++) {
+          if (answers[i].answer === this.state.answers) {
+            // If they voted for this option
+            answers[i].guestVotes += 1
+          }
+        }
+      } else if (typeof this.state.answers === 'object') {
+        // If answer selection is checkbox/multi-select
+        for (let ans in this.state.answers) {
+          for (let i = 0; i < answers.length; i++) {
+            if (answers[i].id === +ans) {
+              if (this.state.answers[+ans]) {
+                // If they voted for this option
+                answers[i].guestVotes += 1
+              }
+            }
+          }
+        }
+      }
     }
 
-    poll.answers = answers
+    const ans = {
+      answers: answers
+    }
 
-    this.props.votePoll(this.props.match.params.id, 'the poll will go here')
+    this.props.updatePoll(this.props.match.params.id, ans, this.setLocalPoll)
   }
 
   deleting () {
