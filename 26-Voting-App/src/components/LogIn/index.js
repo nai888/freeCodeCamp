@@ -1,6 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import injectSheet from 'react-jss'
+import { withRouter } from 'react-router-dom'
 
 import { siteTitle } from '../../App'
 import env from '../../env'
@@ -10,7 +11,7 @@ import Button from '../Button'
 import styles from './styles'
 
 const LogIn = (props) => {
-  let redir = '/'
+  let redir = props.location.state.referrer || '/'
   const loginApi = `${env.SERVER_API_URL}auth/github`
 
   const onLogIn = (e) => {
@@ -32,4 +33,4 @@ const LogIn = (props) => {
   )
 }
 
-export default injectSheet(styles)(LogIn)
+export default withRouter(injectSheet(styles)(LogIn))

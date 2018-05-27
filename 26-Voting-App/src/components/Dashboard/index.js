@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import injectSheet from 'react-jss'
 import classNames from 'classnames'
@@ -75,7 +75,14 @@ const Dashboard = (props) => {
     } else {
       return (
         <div className={props.classes.dashboardPage}>
-          <p>To create a new poll, you will need to <Link to='/login'>log in</Link>.</p>
+          <p>To create a new poll, you will need to <Link
+            to={{
+              pathname: '/login',
+              state: { referrer: props.location.pathname }
+            }}
+          >
+            log in
+          </Link>.</p>
           <p>You may vote on others&rsquo; polls without logging in.</p>
           <ButtonLink buttonType='primary' route={`/polls/${chooseRand(props.state.allPolls)}`}>
             Random Poll
@@ -96,4 +103,4 @@ const Dashboard = (props) => {
   )
 }
 
-export default injectSheet(styles)(Dashboard)
+export default withRouter(injectSheet(styles)(Dashboard))

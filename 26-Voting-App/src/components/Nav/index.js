@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 import injectSheet from 'react-jss'
 
 import Greeting from './Greeting'
@@ -29,4 +29,4 @@ const Nav = (props) => {
   )
 }
 
-export default injectSheet(styles)(Nav)
+export default withRouter(injectSheet(styles)(Nav))

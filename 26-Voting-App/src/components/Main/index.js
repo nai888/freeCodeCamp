@@ -27,7 +27,10 @@ const Main = (props) => (
         props.state.loggedIn ? ( // If the user is logged in,
           <NewPoll {...props} /> // take them to /newpoll as requested.
         ) : ( // Otherwise,
-          <Redirect to='/login' /> // redirect them to /login.
+          <Redirect to={{
+            pathname: '/login',
+            state: { referrer: '/newpoll' }
+          }} /> // redirect them to /login.
         )
       )} />
       <Route path='/polls/:id' render={() => <Polls page='poll' {...props} />} />

@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 import classNames from 'classnames'
 
 const Greeting = (props) => {
@@ -22,7 +22,12 @@ const Greeting = (props) => {
     return (
       <li className={classNames(props.classes.greeting, props.classes.menuLink)}>
         Welcome! Please <NavLink
-          to='/login' activeClassName={props.classes.active}>
+          to={{
+            pathname: '/login',
+            state: { referrer: props.location.pathname }
+          }}
+          activeClassName={props.classes.active}
+        >
           log in
         </NavLink>.
       </li>
@@ -30,4 +35,4 @@ const Greeting = (props) => {
   }
 }
 
-export default Greeting
+export default withRouter(Greeting)
