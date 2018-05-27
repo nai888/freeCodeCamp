@@ -2,6 +2,7 @@ import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import injectSheet from 'react-jss'
 
+import Callback from '../LogIn/Callback'
 import Dashboard from '../Dashboard'
 import LoggedIn from '../LoggedIn'
 import LogIn from '../LogIn'
@@ -21,6 +22,7 @@ const Main = (props) => (
           <Redirect to='/' /> // redirect them to the dashboard.
         )
       )} />
+      <Route path='/auth/github/callback' render={() => <Callback {...props} />} />
       <Route path='/loggedin/:login/:name' render={() => <LoggedIn {...props} />} />
       <Route path='/newpoll/:id' render={() => <PollAdded {...props} />} />
       <Route path='/newpoll' render={() => (

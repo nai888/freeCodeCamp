@@ -18,14 +18,17 @@ module.exports = function (app, db, pollsCollection) {
   var appUrl = process.env.APP_URL
   var redir
   var polls = db.collection(pollsCollection)
+  var corsOptions = {
+    origin: appUrl
+  }
 
   // Logging in
-  app.get('/auth/github', function (req, res) {
+  app.get('/api/auth/github', cors(corsOptions), function (req, res) {
     redir = req.query.url
-    res.redirect(`https://github.com/login/oauth/authorize?client_id=${clientID}`)
+    res.json(`https://github.com/login/oauth/authorize?client_id=${clientID}`)
   })
 
-  app.get('/auth/github/callback', function (req, res) {
+  app.get('/api/auth/github/callback', cors(corsOptions), function (req, res) {
     var code = req.query.code
 
     var options = {
@@ -74,13 +77,13 @@ module.exports = function (app, db, pollsCollection) {
           user.loggedin = true
         }
 
-        res.redirect(`${appUrl}/loggedin/${user.login}/${user.name}?redir=${redir}`)
+        res.json(`/loggedin/${user.login}/${user.name}?redir=${redir}`)
       })
     }
   })
 
   // Logging out
-  app.get('/api/logout', function (req, res) {
+  app.get('/api/logout', cors(corsOptions), function (req, res) {
     user = blankUser
     /* var options = {
       protocol: 'https:',
@@ -96,10 +99,6 @@ module.exports = function (app, db, pollsCollection) {
   })
 
   // Loading the polls
-  var corsOptions = {
-    origin: appUrl
-  }
-
   app.get('/api/polls', cors(corsOptions), function (req, res) {
     var name = req.query.name
     var options = name ? { 'owner': name } : null
@@ -113,8 +112,6 @@ module.exports = function (app, db, pollsCollection) {
       }
     })
   })
-
-  app.options('/api/poll', cors(corsOptions))
 
   // Load a single poll
   app.get('/api/poll', cors(corsOptions), function (req, res) {

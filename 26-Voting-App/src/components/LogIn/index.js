@@ -10,13 +10,24 @@ import Button from '../Button'
 
 import styles from './styles'
 
+const fetch = window.fetch
+
 const LogIn = (props) => {
   let redir = props.location.state.referrer || '/'
-  const loginApi = `${env.SERVER_API_URL}auth/github`
+  const loginApi = `${env.SERVER_API_URL}api/auth/github`
 
   const onLogIn = (e) => {
     e.preventDefault()
-    window.location = `${loginApi}?url=${redir}`
+    fetch(`${loginApi}?url=${redir}`)
+      .then(res => {
+        return res.json()
+      })
+      .catch(error => {
+        console.error(error)
+      })
+      .then(url => {
+        window.location = url
+      })
   }
 
   return (
