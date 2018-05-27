@@ -102,20 +102,16 @@ module.exports = function (app, db, pollsCollection) {
 
   app.get('/api/polls', cors(corsOptions), function (req, res) {
     var name = req.query.name
+    var options = name ? { 'owner': name } : null
 
-    if (name) { // If there's a name parameter, return all the polls owned by that user
-      polls.find({ 'owner': name }).sort({ '_id': 1 }).toArray(function (err, docs) {
-        if (err) {
-          console.error(err)
-        } else {
-          res.json(docs)
-        }
-      })
-    } else { // If there isn't a name parameter, count the total number of polls in the database
-      polls.count().then(function (num) {
-        res.send(num.toString())
-      })
-    }
+    // If there's a name parameter, return all the polls owned by that user, otherwise return all polls
+    polls.find(options).sort({ '_id': 1 }).toArray(function (err, docs) {
+      if (err) {
+        console.error(err)
+      } else {
+        res.json(docs)
+      }
+    })
   })
 
   app.options('/api/poll', cors(corsOptions))

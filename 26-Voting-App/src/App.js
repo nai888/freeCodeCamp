@@ -27,7 +27,7 @@ class App extends React.Component {
 
     this.logIn = this.logIn.bind(this)
     this.logOut = this.logOut.bind(this)
-    this.getNumPolls = this.getNumPolls.bind(this)
+    this.getAllPolls = this.getAllPolls.bind(this)
     this.getUserPolls = this.getUserPolls.bind(this)
     this.getCurrentPoll = this.getCurrentPoll.bind(this)
     this.clearCurrentPoll = this.clearCurrentPoll.bind(this)
@@ -40,16 +40,16 @@ class App extends React.Component {
       loggedIn: true,
       displayName: 'Ian',
       userName: 'nai888',
-      numPolls: undefined,
+      allPolls: undefined,
       userPolls: undefined,
       currentPoll: undefined
     }
 
-    this.getNumPolls()
+    this.getAllPolls()
     if (this.state.userName) this.getUserPolls(this.state.userName)
   }
 
-  getNumPolls () {
+  getAllPolls () {
     fetch(this.pollsApi)
       .then(res => {
         return res.json()
@@ -59,7 +59,7 @@ class App extends React.Component {
       })
       .then(data => {
         this.setState(prevState => ({
-          numPolls: data
+          allPolls: data
         }))
       })
   }
@@ -118,7 +118,7 @@ class App extends React.Component {
         console.log(error)
       })
       .then(data => {
-        this.getNumPolls()
+        this.getAllPolls()
         if (this.state.userName) this.getUserPolls(this.state.userName)
         this.props.history.push(`/newpoll/${data}`)
       })
@@ -138,7 +138,7 @@ class App extends React.Component {
         this.setState(prevState => ({
           currentPoll: poll
         }), callback)
-        this.getNumPolls()
+        this.getAllPolls()
         if (this.state.userName) this.getUserPolls(this.state.userName)
       })
   }
@@ -154,7 +154,7 @@ class App extends React.Component {
         console.error(error)
       })
       .then((id) => {
-        this.getNumPolls()
+        this.getAllPolls()
         if (this.state.userName) this.getUserPolls(this.state.userName)
       })
   }

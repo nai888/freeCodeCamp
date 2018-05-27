@@ -11,8 +11,13 @@ import ButtonLink from '../Button/ButtonLink'
 import styles from './styles'
 
 const Dashboard = (props) => {
-  const chooseRand = (num) => {
-    return Math.floor(Math.random() * num)
+  const chooseRand = (allPolls) => {
+    if (allPolls) {
+      const chosen = Math.floor(Math.random() * allPolls.length)
+      return allPolls[chosen]._id
+    } else {
+      return null
+    }
   }
 
   const myPolls = () => {
@@ -60,7 +65,7 @@ const Dashboard = (props) => {
         <div className={props.classes.dashboardPage}>
           <ButtonLink buttonType='success' route='/newpoll'>
             New Poll
-          </ButtonLink> <ButtonLink buttonType='primary' route={`/polls/${chooseRand(props.state.numPolls)}`}>
+          </ButtonLink> <ButtonLink buttonType='primary' route={`/polls/${chooseRand(props.state.allPolls)}`}>
             Random Poll
           </ButtonLink>
           <h3>Your Polls</h3>
@@ -72,7 +77,7 @@ const Dashboard = (props) => {
         <div className={props.classes.dashboardPage}>
           <p>To create a new poll, you will need to <Link to='/login'>log in</Link>.</p>
           <p>You may vote on others&rsquo; polls without logging in.</p>
-          <ButtonLink buttonType='primary' route={`/polls/${chooseRand(props.state.numPolls)}`}>
+          <ButtonLink buttonType='primary' route={`/polls/${chooseRand(props.state.allPolls)}`}>
             Random Poll
           </ButtonLink>
         </div>
