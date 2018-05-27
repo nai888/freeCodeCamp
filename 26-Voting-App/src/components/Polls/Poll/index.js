@@ -44,21 +44,25 @@ const Poll = (props) => {
   }
 
   const editArea = () => {
-    if (props.editable) {
-      if (props.pollState.editing) {
-        return answerInputs()
+    if (props.state.loggedIn) {
+      if (props.editable) {
+        if (props.pollState.editing) {
+          return answerInputs()
+        } else {
+          return (
+            <div className={props.classes.addButton}>
+              <Button
+                small
+                buttonType='primary'
+                onClick={props.onAddOptions}
+              >
+                Add Options
+              </Button>
+            </div>
+          )
+        }
       } else {
-        return (
-          <div className={props.classes.addButton}>
-            <Button
-              small
-              buttonType='primary'
-              onClick={props.onAddOptions}
-            >
-              Add Options
-            </Button>
-          </div>
-        )
+        return null
       }
     } else {
       return null
