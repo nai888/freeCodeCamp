@@ -228,6 +228,32 @@ class Polls extends React.Component {
   }
 
   voting () {
+    let poll = JSON.parse(JSON.stringify(this.state.poll))
+    const user = this.props.state.loggedIn ? this.props.state.userName : null
+    let answers = this.state.poll.answers.slice()
+
+    if (user) {
+      if (typeof this.state.answers === 'string') {
+        for (let i = 0; i < answers.length; i++) {
+          if (answers[i].answer === this.state.answers && !answers[i].userVotes.includes(user)) {
+            answers[i].userVotes.push(user)
+          } else if (answers[i].answer !== this.state.answers && answers[i].userVotes.includes(user)) {
+            let j = answers[i].userVotes.indexOf(user)
+            answers[i].userVotes.splice(j, 1)
+          }
+        }
+      } else if (typeof this.state.answers === 'object') {
+        for (let i in this.state.answers) {
+          console.log(i)
+          console.log('update userVotes for the correct answers')
+        }
+      }
+    } else {
+      console.log('handle guestVotes')
+    }
+
+    poll.answers = answers
+
     this.props.votePoll(this.props.match.params.id, 'the poll will go here')
   }
 
