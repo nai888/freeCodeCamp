@@ -37,7 +37,8 @@ This repository represents my school, my sandbox, my playpen. I'll be adding my 
 23. **[URL Shortener Microservice](https://nai888-fcc-ls.glitch.me/)** (July 16, 2017)
 24. **[Image Search Abstraction Layer](https://nai888-fcc-imagesearch.glitch.me/)** (July 19, 2017)
 25. **[File Metadata Microservice](https://nai888-fcc-filemetadata.glitch.me/)** (July 19, 2017)
-26. **Voting App** *(in progress)*
+26. **[Voting App](https://nai888-fcc-voting-app.glitch.me/)** (May 27, 2018)
+27. **[Nightlife Coordination App]** *(in progress)*
 
 ### License
 
