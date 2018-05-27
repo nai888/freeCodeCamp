@@ -150,25 +150,26 @@ class NewPoll extends React.Component {
   }
 
   handleChange (e) {
-    if (e.target.name !== 'type' && e.target.name !== 'editable') {
+    if (e.target.name === 'question') {
       e.preventDefault()
-    }
-
-    if (e.target.name === 'answers') {
+      this.setState({
+        question: e.target.value
+      })
+    } else if (e.target.name === 'type') {
+      this.setState({
+        type: e.target.value
+      })
+    } else if (e.target.name === 'editable') {
+      this.setState({
+        editable: e.target.checked
+      })
+    } else if (e.target.name === 'answers') {
       let answers = this.state.answers.slice()
       const i = e.target.id.slice(7)
       answers[i] = e.target.value
-      this.setState(prevState => ({
-        [e.target.name]: answers
-      }))
-    } else if (e.target.name === 'editable') {
-      this.setState(prevState => ({
-        [e.target.name]: e.target.checked
-      }))
-    } else {
-      this.setState(prevState => ({
-        [e.target.name]: e.target.value
-      }))
+      this.setState({
+        answers: answers
+      })
     }
   }
 
@@ -177,18 +178,18 @@ class NewPoll extends React.Component {
     let answers = this.state.answers.slice()
     const i = e.target.id.slice(7)
     answers.splice(i, 1)
-    this.setState(prevState => ({
+    this.setState({
       answers: answers
-    }))
+    })
   }
 
   addAnswer (e) {
     e.preventDefault()
     let answers = this.state.answers.slice()
     answers.push('')
-    this.setState(prevState => ({
+    this.setState({
       answers: answers
-    }))
+    })
   }
 
   handleSubmit () {
@@ -215,9 +216,9 @@ class NewPoll extends React.Component {
   }
 
   handleDelete () {
-    this.setState(prevState => ({
+    this.setState({
       confirmDelete: true
-    }))
+    })
   }
 
   handleConfirmDelete () {
@@ -227,19 +228,19 @@ class NewPoll extends React.Component {
   }
 
   handleCancelDelete () {
-    this.setState(prevState => ({
+    this.setState({
       confirmDelete: false
-    }))
+    })
   }
 
   componentWillUnmount () {
-    this.setState(prevState => ({
+    this.setState({
       confirmDelete: false,
       question: undefined,
       type: undefined,
       editable: false,
       answers: undefined
-    }))
+    })
   }
 
   render () {
