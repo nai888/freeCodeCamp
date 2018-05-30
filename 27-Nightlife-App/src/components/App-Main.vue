@@ -2,12 +2,21 @@
   <main class="main">
     <h2 class="title">What plans do you have tonight?</h2>
     <p class="subtitle">Today is {{ formattedDate }}.</p>
+    <SearchArea />
+    <ResultsArea />
   </main>
 </template>
 
 <script>
+import SearchArea from './Search-Area'
+import ResultsArea from './Results-Area'
+
 export default {
   name: 'AppMain',
+  components: {
+    SearchArea,
+    ResultsArea
+  },
   data () {
     return {
       date: new Date()
