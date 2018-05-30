@@ -1,59 +1,85 @@
 <template>
   <div id="app">
-    <header>
-      <span>Vue.js PWA</span>
-    </header>
-    <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
-      <hello></hello>
-    </main>
+    <Header />
+    <Main />
+    <Footer />
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import Header from './components/App-Header'
+import Main from './components/App-Main'
+import Footer from './components/App-Footer'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    Header,
+    Main,
+    Footer
   }
 }
 </script>
 
 <style>
-body {
-  margin: 0;
+:root {
+  --dark-green: #243010;
+  --med-green: #87A330;
+  --lgt-green: #A1C349;
+  --pale-green: #CAD593;
+  --dark-purple: #4A314D;
+  --white: #FCFCFC;
+  --black: #0A0A0A;
 }
 
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-
-main {
-  text-align: center;
-  margin-top: 40px;
-}
-
-header {
-  margin: 0;
-  height: 56px;
-  padding: 0 16px 0 24px;
-  background-color: #35495E;
-  color: #ffffff;
-}
-
-header span {
-  display: block;
-  position: relative;
-  font-size: 20px;
-  line-height: 1;
-  letter-spacing: .02em;
-  font-weight: 400;
+* {
   box-sizing: border-box;
-  padding-top: 16px;
+}
+
+body {
+  background-color: var(--white);
+  color: var(--black);
+  font-size: 16px;
+  font-size: 100%;
+  font-size: 1rem;
+}
+
+header, main, footer {
+  width: 900px;
+  max-width: 98%;
+  padding: 0;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2.4rem;
+}
+
+h2 {
+  font-size: 2.0rem;
+}
+
+h3 {
+  font-size: 1.6rem;
+}
+
+h4 {
+  font-size: 1.3rem;
+}
+
+h5, p {
+  font-size: 1rem;
+}
+
+h6 {
+  font-size: 0.85rem;
+}
+
+a, a:link, a:visited {
+  color: var(--med-green)
+}
+
+a:hover, a:active {
+  color: var(--lgt-green)
 }
 </style>
