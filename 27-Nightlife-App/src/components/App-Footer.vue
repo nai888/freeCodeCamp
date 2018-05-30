@@ -1,7 +1,7 @@
 <template>
-  <footer id="footer">
+  <footer class="footer">
     <p class="copyright">
-      Built by <a :href="authorLink" target="_blank" ref="noopener noreferrer">{{ author }}</a>, copyright &copy; {{ copyrightRange }} under the <a :href="licenseLink" target="_blank" ref="noopener noreferrer">{{ license }} license</a>. <a :href="githubLink" target="_blank" ref="noopener noreferrer">View this project on GitHub</a>.
+      Built by <a :href="authorLink" target="_blank" ref="noopener noreferrer">{{ author }}</a>, copyright &copy; {{ copyrightRange }} under the <a :href="licenseLink" target="_blank" ref="noopener noreferrer">{{ license }} license</a>. Built with the <a :href="YelpAPILink" target="_blank" ref="noopener noreferrer">Yelp API</a>. <a :href="githubLink" target="_blank" ref="noopener noreferrer">View this project on GitHub</a>.
     </p>
   </footer>
 </template>
@@ -16,7 +16,8 @@ export default {
       builtYear: 2018,
       license: 'AGPL-3.0',
       licenseLink: 'https://choosealicense.com/licenses/agpl-3.0/',
-      githubLink: 'https://github.com/nai888/freeCodeCamp/tree/master/27-Nightlife-App'
+      githubLink: 'https://github.com/nai888/freeCodeCamp/tree/master/27-Nightlife-App',
+      YelpAPILink: 'https://www.yelp.com/fusion'
     }
   },
   computed: {
@@ -28,7 +29,12 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
+.footer {
+  margin-top: 2rem;
+}
 
+.copyright {
+  text-align: center;
+}
 </style>

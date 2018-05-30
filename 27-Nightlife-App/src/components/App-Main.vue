@@ -1,10 +1,7 @@
 <template>
-  <main id="main">
-    <h1>{{ msg }}</h1>
-    <div>
-      <p>Try this?</p>
-      <a href="https://google.com">What's this? All puffy!</a>
-    </div>
+  <main class="main">
+    <h2 class="title">What plans do you have tonight?</h2>
+    <p class="subtitle">Today is {{ formattedDate }}.</p>
   </main>
 </template>
 
@@ -13,13 +10,31 @@ export default {
   name: 'AppMain',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js PWA'
+      date: new Date()
+    }
+  },
+  computed: {
+    formattedDate: function () {
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+      return `${days[this.date.getDay()]}, ${months[this.date.getMonth()]} ${this.date.getDate()}, ${this.date.getFullYear()}`
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
+.main {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  min-height: 400px;
+}
 
+.title, .subtitle {
+  text-align: center;
+}
+
+.subtitle {
+  font-style: italic;
+}
 </style>
