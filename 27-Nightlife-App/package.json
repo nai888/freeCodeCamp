@@ -11,12 +11,14 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
-    "start": "node build/dev-server.js",
+    "client": "node build/dev-server.js",
+    "server": "nodemon server",
+    "start": "nodemon server",
+    "both": "concurrently \"node build/dev-server.js\" \"nodemon server\"",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "nodemon": "^1.17.5",
     "normalize.css": "^8.0.0",
     "vue": "^2.5.2"
   },
@@ -30,6 +32,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
     "chalk": "^2.1.0",
+    "concurrently": "^3.5.1",
     "connect-history-api-fallback": "^1.4.0",
     "copy-webpack-plugin": "^4.1.1",
     "css-loader": "^0.28.7",
@@ -50,6 +53,7 @@
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
     "http-proxy-middleware": "^0.17.4",
+    "nodemon": "^1.17.5",
     "opn": "^5.1.0",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.3.0",
