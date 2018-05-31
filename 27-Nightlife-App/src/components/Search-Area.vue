@@ -3,7 +3,7 @@
     <label class="search-label" for="location">Where are you?</label>
     <div class="row">
       <input type="text" id="location" name="location" placeholder="e.g., “Chicago, IL”" v-model="location" class="search-bar" />
-      <button type="submit" form="search" value="Search" @click.prevent="submit" class="submit-button">Search</button>
+      <button type="submit" form="search" value="Search" @click.prevent="onSubmit" class="submit-button">Search</button>
     </div>
   </form>
 </template>
@@ -17,8 +17,8 @@ export default {
     }
   },
   methods: {
-    submit: function () {
-      console.log(this.location)
+    onSubmit: function () {
+      this.$emit('on-submit', this.location)
     }
   }
 }
@@ -42,12 +42,26 @@ export default {
 
 .search-bar {
   flex-grow: 1;
-  padding: 0.5rem;
+  height: 2.5rem;
+  padding: 0 0.5rem;
   margin-right: 0.25rem;
+  background-color: var(--white);
+  border: 1px solid var(--dark-green);
+  border-radius: 0.5rem;
 }
 
 .submit-button {
-  padding: 0.5rem;
+  height: 2.5rem;
+  padding: 0 0.5rem;
   margin-left: 0.25rem;
+  font-weight: bold;
+  color: var(--white);
+  background-color: var(--med-green);
+  border: 1px solid var(--dark-green);
+  border-radius: 0.5rem;
+}
+
+.submit-button:active {
+  background-color: var(--purple)
 }
 </style>
