@@ -110,4 +110,9 @@ a:hover {
 a:active {
   color: var(--pale-green)
 }
+
+*:focus {
+  outline: none;
+  box-shadow: 0 0 5px 1.5px var(--pale-green);
+}
 </style>
