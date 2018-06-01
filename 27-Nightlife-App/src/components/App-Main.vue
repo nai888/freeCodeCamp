@@ -50,14 +50,15 @@ export default {
             'address3': '',
             'state': 'CA',
             'address1': '375 Valencia St',
-            'zip_code': '94103'
+            'zip_code': '94103',
+            'display_address': ['375 Valencia St', 'San Francisco, CA 94103']
           },
           'distance': 1604.23,
           'transactions': ['pickup', 'delivery']
         },
         {
-          'rating': 4,
-          'price': '$',
+          'rating': 3.5,
+          'price': '$$',
           'phone': '+14152520800',
           'id': 'E8RJkjfdcwgtyoPMjQ_Olg',
           'alias': 'four-barrel-coffee-san-francisco',
@@ -83,7 +84,8 @@ export default {
             'address3': '',
             'state': 'CA',
             'address1': '375 Valencia St',
-            'zip_code': '94103'
+            'zip_code': '94103',
+            'display_address': ['375 Valencia St', 'San Francisco, CA 94103']
           },
           'distance': 1604.23,
           'transactions': ['pickup', 'delivery']
