@@ -34,7 +34,7 @@ export default {
   methods: {
     submit: function (location) {
       this.location = 'searching'
-      fetch(`/api?loc=${encodeURIComponent(location)}`)
+      fetch(`/api/bars?loc=${encodeURIComponent(location)}`)
         .then(res => {
           this.location = 'loading'
           return res.json()

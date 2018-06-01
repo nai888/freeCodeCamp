@@ -7,7 +7,7 @@ module.exports = function (app, db, collection) {
   var user
   var bars = db.collection(collection)
 
-  app.get('/api', function (req, res) {
+  app.get('/api/bars', function (req, res) {
     var loc = req.query.loc
 
     var options = {
