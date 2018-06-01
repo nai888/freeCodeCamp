@@ -1,20 +1,18 @@
 <template>
   <div class="result-panel">
-    <img :src="bar.image_url" class="bar-image">
+    <div class="image">
+      <img :src="image" class="bar-image">
+    </div>
     <div class="result-info">
       <a :href="bar.url" target="_blank" ref="noopener noreferrer" class="bar-link">
         <h3 class="bar-name">{{ bar.name }}</h3>
       </a>
       <p class="meta">
-        <span class="rating">
-          <template v-for="(star, index) in stars">
-            <i :key="index" :class="star === 1 ? 'star full' : star === 0.5 ? 'star half' : 'star'"></i>
-          </template>
-        </span>
+        <img class="rating" :src="require(`../assets/regular_${stars}.png`)">
         <span class="separator"> :: </span>
         <span class="price">{{ bar.price }}</span>
       </p>
-      <address>
+      <address class="address">
         <template v-for="(line, index) in bar.location.display_address">
           <span class="address-line" v-if="line.length > 0" :key="index">{{ line }}</span>
         </template>
@@ -40,23 +38,49 @@ export default {
   },
   computed: {
     stars: function () {
-      let stars = []
+      let stars
 
-      let rating = this.bar.rating
-
-      for (let i = 0; i < 5; i++) {
-        if (rating > 0.5) {
-          stars.push(1)
-          rating -= 1
-        } else if (rating > 0) {
-          stars.push(0.5)
-          rating -= 0.5
-        } else {
-          stars.push(0)
-        }
+      switch (this.bar.rating) {
+        case 5:
+          stars = '5'
+          break
+        case 4.5:
+          stars = '4_half'
+          break
+        case 4:
+          stars = '4'
+          break
+        case 3.5:
+          stars = '3_half'
+          break
+        case 3:
+          stars = '3'
+          break
+        case 2.5:
+          stars = '2_half'
+          break
+        case 2:
+          stars = '2'
+          break
+        case 1.5:
+          stars = '1_half'
+          break
+        case 1:
+          stars = '1'
+          break
+        default:
+          stars = '0'
       }
 
       return stars
+    },
+    image: function () {
+      let url = this.bar.image_url
+      const i = url.lastIndexOf('.') - 1
+      if (i > 0) {
+        url = `${url.slice(0, i)}ms${url.slice(i + 1)}`
+      }
+      return url
     }
   }
 }
@@ -80,9 +104,14 @@ export default {
   border: 1px solid var(--pale-green);
 }
 
-.bar-image {
+.image {
   width: 100px;
   height: 100px;
+}
+
+.bar-image {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .result-info {
@@ -104,36 +133,15 @@ export default {
 }
 
 .rating {
-  color: var(--purple);
-}
-
-.star {
-  font-style: normal;
-  display: inline-block;
-  position: relative;
-}
-
-.star:before {
-  content: '\2605';
-}
-
-.star.full {
-  color: var(--pale-green);
-}
-
-.star.half:after {
-  content: '\2605';
-  color: var(--pale-green);
-  position: absolute;
-  left: 0;
-  right: 50%;
-  top: 0;
-  bottom: 0;
-  overflow: hidden;
+  max-height: 18px;
 }
 
 .price {
   color: var(--pale-green);
+}
+
+.address {
+  font-style: normal;
 }
 
 .address-line {
