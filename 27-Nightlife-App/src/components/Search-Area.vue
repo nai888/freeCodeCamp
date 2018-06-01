@@ -25,6 +25,11 @@ export default {
 </script>
 
 <style scoped>
+
+.search-area {
+  margin-bottom: 1rem;
+}
+
 .search-label {
   display: inline-block;
   margin-bottom: 0.5rem;

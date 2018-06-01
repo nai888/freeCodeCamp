@@ -30,11 +30,13 @@ export default {
   flex-wrap: nowrap;
   justify-content: space-between;
   align-content: flex-start;
+  padding: 1rem 0;
 }
 
 .bar-image {
   width: 100px;
   height: 100px;
+  margin-right: 1rem;
 }
 
 .result-info {

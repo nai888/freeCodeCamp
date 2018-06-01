@@ -24,5 +24,7 @@ export default {
 </script>
 
 <style scoped>
-
+.results-area {
+  margin-top: 1rem;
+}
 </style>
