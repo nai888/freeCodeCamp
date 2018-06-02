@@ -1,6 +1,6 @@
 <template>
   <div class="results-area">
-    <ResultPanel v-for="(bar, index) in bars" :key="index"  :bar="bar" />
+    <ResultPanel v-for="(bar, index) in bars" :key="index"  :bar="bar" @on-going="onGoing" />
   </div>
 </template>
 
@@ -18,6 +18,11 @@ export default {
   data () {
     return {
       msg: 'Results Area'
+    }
+  },
+  methods: {
+    onGoing: function (barId) {
+      this.$emit('on-going', barId)
     }
   }
 }

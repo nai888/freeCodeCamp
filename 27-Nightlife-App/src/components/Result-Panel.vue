@@ -18,7 +18,7 @@
         </template>
       </address>
     </div>
-    <ButtonArea :barId="bar.id" :going="0" />
+    <ButtonArea :barId="bar.id" :going="0" @on-going="onGoing" />
   </div>
 </template>
 
@@ -81,6 +81,11 @@ export default {
         url = `${url.slice(0, i)}ms${url.slice(i + 1)}`
       }
       return url
+    }
+  },
+  methods: {
+    onGoing: function (barId) {
+      this.$emit('on-going', barId)
     }
   }
 }
