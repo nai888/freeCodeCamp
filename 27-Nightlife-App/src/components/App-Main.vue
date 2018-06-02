@@ -53,6 +53,7 @@ export default {
       if (this.user.length > 0) {
         console.log(`Going to ${barId}!`)
       } else {
+        // document.location = `${document.location}api/auth?id=${barId}`
         fetch(`/api/auth?id=${barId}`)
           .then(res => {
             return res.json()
