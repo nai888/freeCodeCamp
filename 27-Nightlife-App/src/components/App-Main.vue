@@ -20,7 +20,10 @@ export default {
   data () {
     return {
       date: new Date(),
-      user: '',
+      user: {
+        id: '213767501', // me = '213767501'
+        sn: 'ianacook' // me = 'ianacook'
+      },
       location: '',
       bars: []
     }
@@ -54,8 +57,9 @@ export default {
         console.log(`Going to ${barId}!`)
       } else {
         // document.location = `${document.location}api/auth?id=${barId}`
-        fetch(`/api/auth?id=${barId}`)
+        fetch('/api/auth')
           .then(res => {
+            console.log(res)
             return res.json()
           })
           .catch(err => {

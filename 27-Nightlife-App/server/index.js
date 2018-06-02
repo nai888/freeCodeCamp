@@ -51,8 +51,10 @@ MongoClient.connect(dbURI, { useNewUrlParser: true }, function (err, client) {
     console.error(err)
   } else {
     var db = client.db(process.env.DB_NAME)
-    var dbCollection = process.env.DB_COLLECTION
-    db.createCollection(dbCollection)
-    api(app, db, dbCollection)
+    var dbBars = process.env.DB_BARS_COLLECTION
+    db.createCollection(dbBars)
+    var dbUsers = process.env.DB_USERS_COLLECTION
+    db.createCollection(dbUsers)
+    api(app, db, dbBars, dbUsers)
   }
 })

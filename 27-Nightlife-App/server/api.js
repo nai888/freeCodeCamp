@@ -1,35 +1,21 @@
 'use strict'
 
 var https = require('https')
-var crypto = require('crypto')
+var passport = require('passport')
+var TwitterStrategy = require('passport-twitter').Strategy
 var appUrl = process.env.APP_URL
 var yelpApiKey = process.env.YELP_API_KEY
 var twitterConsumerKey = process.env.TWITTER_CONSUMER_KEY
 var twitterConsumerSecret = process.env.TWITTER_CONSUMER_SECRET
-var twitterTokenSecret = process.env.TWITTER_TOKEN_SECRET
 
-if (!Date.now) {
-  Date.now = function now () {
-    return new Date().getTime()
+module.exports = function (app, db, dbBars, dbUsers) {
+  var user = {
+    id: undefined,
+    sn: undefined
   }
-}
-
-module.exports = function (app, db, collection) {
-  var user
-  var bars = db.collection(collection)
+  var bars = db.collection(dbBars)
+  var users = db.collection(dbUsers)
   var loc
-  var id
-
-  var newNonce = function () {
-    var now = Date.now().toString()
-    var str = ''
-
-    for (let i = 0; i < 3; i++) {
-      str += Math.random().toString(36).substring(2)
-    }
-
-    return now + str
-  }
 
   app.get('/api/bars', function (req, res) {
     loc = req.query.loc
@@ -65,6 +51,43 @@ module.exports = function (app, db, collection) {
     newReq.end()
   })
 
+  passport.use(new TwitterStrategy(
+    {
+      consumerKey: twitterConsumerKey,
+      consumerSecret: twitterConsumerSecret,
+      callbackURL: `${appUrl}/api/auth/callback`
+    },
+    function (token, tokenSecret, profile, cb) {
+      user.id = profile.id_str
+      user.sn = profile.screen_name
+      users.findOneAndUpdate(
+        { 'id': user.id },
+        {
+          'id': user.id,
+          'sn': user.sn
+        },
+        {
+          upsert: true,
+          returnNewDocument: true
+        },
+        function (err, user) {
+          cb(err, user)
+        }
+      )
+    }
+  ))
+
+  app.get('/api/auth', function (req, res) {
+    passport.authenticate('twitter')
+  })
+
+  app.get('/api/auth/callback',
+    passport.authenticate('twitter', {
+      successRedirect: '/',
+      failureRedirect: '/failed'
+    }))
+
+  /*
   app.get('/api/auth', function (req, res) {
     id = req.query.id
 
@@ -72,7 +95,7 @@ module.exports = function (app, db, collection) {
     var protocol = 'https:'
     var baseUrl = 'api.twitter.com'
     var urlPath = '/oauth/request_token'
-    var oauthCallback = encodeURIComponent(`${appUrl}/api/callback`)
+    var oauthCallback = encodeURIComponent(`${appUrl}/api/auth/callback`)
     var oauthConsumerKey = encodeURIComponent(twitterConsumerKey)
     var oauthNonce = encodeURIComponent(newNonce())
     var oauthSignature
@@ -93,7 +116,7 @@ module.exports = function (app, db, collection) {
     var options = {
       protocol: protocol,
       hostname: baseUrl,
-      path: `${urlPath}?callback=${oauthCallback}`,
+      path: `${urlPath}`,
       method: method,
       headers: {
         'Accept': 'application/json',
@@ -102,8 +125,12 @@ module.exports = function (app, db, collection) {
     }
 
     var newReq = https.request(options, function (resp) {
+      console.log('headers')
       console.log(resp.headers)
+      console.log('status code')
       console.log(resp.statusCode)
+      console.log('status message')
+      console.log(resp.statusMessage)
       var chunks = []
       var data
 
@@ -112,15 +139,18 @@ module.exports = function (app, db, collection) {
       })
 
       resp.on('error', function (e) {
+        console.log('err')
         console.error(e.message || e.error || e)
       })
 
       resp.on('end', function () {
         data = Buffer.concat(chunks).toString('utf8')
+        console.log('data')
         console.log(data)
         res.json(data)
       })
     })
     newReq.end()
   })
+  */
 }
