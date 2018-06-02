@@ -18,7 +18,7 @@
         </template>
       </address>
     </div>
-    <ButtonArea />
+    <ButtonArea :barId="bar.id" :going="0" />
   </div>
 </template>
 

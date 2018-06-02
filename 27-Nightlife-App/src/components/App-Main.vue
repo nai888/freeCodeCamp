@@ -3,7 +3,7 @@
     <h2 class="title">What plans do you have tonight?</h2>
     <p class="subtitle">Today is {{ formattedDate }}.</p>
     <SearchArea @on-submit="submit" />
-    <ResultsArea :bars="bars" />
+    <ResultsArea :bars="bars" @on-going="going" />
   </main>
 </template>
 
@@ -20,6 +20,7 @@ export default {
   data () {
     return {
       date: new Date(),
+      user: '',
       location: '',
       bars: []
     }
@@ -47,6 +48,24 @@ export default {
           this.location = location
           this.bars = bars
         })
+    },
+    going: function (id) {
+      console.log('going')
+      if (this.user.length > 0) {
+        console.log(`Going to ${id}!`)
+      } else {
+        fetch(`/api/auth?id=${id}`)
+          .then(res => {
+            return res.json()
+          })
+          .catch(err => {
+            console.error(err)
+          })
+          .then(user => {
+            this.user = user
+            console.log(this.user)
+          })
+      }
     }
   }
 }

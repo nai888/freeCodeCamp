@@ -1,6 +1,6 @@
 <template>
-  <button class="panel-button">
-    0 going
+  <button class="panel-button" type="submit" value="going" @click.prevent="onGoing">
+    {{ going }} going
   </button>
 </template>
 
@@ -8,11 +8,16 @@
 export default {
   name: 'ButtonArea',
   props: {
-    id: String,
+    barId: String,
     going: Number
   },
   data () {
     return {}
+  },
+  methods: {
+    onGoing: function () {
+      this.$emit('on-going', this.barId)
+    }
   }
 }
 </script>
