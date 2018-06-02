@@ -53,7 +53,7 @@ export default {
         })
     },
     onGoing: function (barId) {
-      if (this.user.length > 0) {
+      if (this.user.id.length) {
         console.log(`Going to ${barId}!`)
       } else {
         // document.location = `${document.location}api/auth?id=${barId}`

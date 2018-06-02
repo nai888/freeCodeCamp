@@ -77,15 +77,20 @@ module.exports = function (app, db, dbBars, dbUsers) {
     }
   ))
 
+  var authRes
+
   app.get('/api/auth', function (req, res) {
+    authRes = res
     passport.authenticate('twitter')
   })
 
   app.get('/api/auth/callback',
-    passport.authenticate('twitter', {
-      successRedirect: '/',
-      failureRedirect: '/failed'
-    }))
+    passport.authenticate('twitter', { failureRedirect: '/failed' }),
+    function (req, res) {
+      res.redirect('/')
+      authRes.json(user)
+    }
+  )
 
   /*
   app.get('/api/auth', function (req, res) {
